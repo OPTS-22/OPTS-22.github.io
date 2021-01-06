@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>欢迎来到OT-22的主页~</title>
+  
+  <subtitle>OT的博客哦</subtitle>
+  <link href="https://opts-22.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://opts-22.github.io/"/>
+  <updated>2020-11-21T12:19:57.000Z</updated>
+  <id>https://opts-22.github.io/</id>
+  
+  <author>
+    <name>OT-22</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Docker-Desktop中压缩虚拟磁盘(VHDX)的大小</title>
+    <link href="https://opts-22.github.io/2020/11/20/windockecompressr/"/>
+    <id>https://opts-22.github.io/2020/11/20/windockecompressr/</id>
+    <published>2020-11-20T14:42:13.000Z</published>
+    <updated>2020-11-21T12:19:57.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/D3StZd&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2020/11/21/D3StZd.png&quot; alt=&quot;D3StZd.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;相关问题&quot;&gt;&lt;a href=&quot;#相关问题&quot; class=&quot;headerlink&quot; title=&quot;相关问题&quot;&gt;&lt;/a&gt;相关问题&lt;/h1&gt;&lt;p&gt;在Win10上使用Docker-Desktop时，当我删除了差不多5G的镜像文件中，发现Docker对于磁盘的占用依旧没有什么变化，仍然有8G的空间占用&lt;/p&gt;
+&lt;p&gt;在Win10上运行Docker，除了早期的VirtualBox方式之外，往往有两种方式，一种是Hyper-V，一种是WSL，无论是两种中的哪一种，都使用VHDX虚拟磁盘文件来存放Docker的镜像和容器数据，然而虚拟磁盘是弹性的方式扩展空间的，你使用多少虚拟磁盘的空间自动扩展到多少，但是当你删除文件缩小虚拟磁盘空间的使用时，虚拟磁盘并未缩小&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="计算机" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+    <category term="服务器&amp;网络" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E6%9C%8D%E5%8A%A1%E5%99%A8-%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="计算机" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+    <category term="运营维护" scheme="https://opts-22.github.io/tags/%E8%BF%90%E8%90%A5%E7%BB%B4%E6%8A%A4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RetroArch-scummvm核心的配置和操作指南</title>
+    <link href="https://opts-22.github.io/2020/10/24/retrocore-scummvm/"/>
+    <id>https://opts-22.github.io/2020/10/24/retrocore-scummvm/</id>
+    <published>2020-10-24T14:43:42.000Z</published>
+    <updated>2020-10-31T09:27:49.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/BGD7tA&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BGD7tA.png&quot; alt=&quot;BGD7tA.png&quot;&gt;&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://imgchr.com/i/BGsV2t&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BGsV2t.png&quot; alt=&quot;BGsV2t.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot;&gt;&lt;a href=&quot;#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot; class=&quot;headerlink&quot; title=&quot;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot;&gt;&lt;/a&gt;&lt;em&gt;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&lt;/em&gt;&lt;/h4&gt;</summary>
+    
+    
+    
+    <category term="计算机" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+    <category term="模拟器" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E6%A8%A1%E6%8B%9F%E5%99%A8/"/>
+    
+    
+    <category term="仿真器" scheme="https://opts-22.github.io/tags/%E4%BB%BF%E7%9C%9F%E5%99%A8/"/>
+    
+    <category term="计算机史" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%B2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RetroArch-tic80核心的配置和操作指南</title>
+    <link href="https://opts-22.github.io/2020/10/24/retrocore-tic80/"/>
+    <id>https://opts-22.github.io/2020/10/24/retrocore-tic80/</id>
+    <published>2020-10-24T14:43:42.000Z</published>
+    <updated>2020-10-31T09:28:07.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/BJZEHH&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BJZEHH.jpg&quot; alt=&quot;BJZEHH.jpg&quot;&gt;&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://imgchr.com/i/BJZJEj&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BJZJEj.jpg&quot; alt=&quot;BJZJEj.jpg&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot;&gt;&lt;a href=&quot;#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot; class=&quot;headerlink&quot; title=&quot;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot;&gt;&lt;/a&gt;&lt;em&gt;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&lt;/em&gt;&lt;/h4&gt;</summary>
+    
+    
+    
+    <category term="计算机" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+    <category term="模拟器" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E6%A8%A1%E6%8B%9F%E5%99%A8/"/>
+    
+    
+    <category term="仿真器" scheme="https://opts-22.github.io/tags/%E4%BB%BF%E7%9C%9F%E5%99%A8/"/>
+    
+    <category term="计算机史" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%B2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RetroArch-MSX(BlueMSX)核心的配置和操作指南</title>
+    <link href="https://opts-22.github.io/2020/10/24/retrocore-bluemsx/"/>
+    <id>https://opts-22.github.io/2020/10/24/retrocore-bluemsx/</id>
+    <published>2020-10-24T14:43:42.000Z</published>
+    <updated>2020-10-31T13:01:15.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/BG0F1K&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BG0F1K.gif&quot; alt=&quot;BG0F1K.gif&quot;&gt;&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://imgchr.com/i/BGBgsS&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BGBgsS.jpg&quot; alt=&quot;BGBgsS.jpg&quot;&gt;&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://imgchr.com/i/BGBIGq&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BGBIGq.jpg&quot; alt=&quot;BGBIGq.jpg&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot;&gt;&lt;a href=&quot;#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot; class=&quot;headerlink&quot; title=&quot;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot;&gt;&lt;/a&gt;&lt;em&gt;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&lt;/em&gt;&lt;/h4&gt;</summary>
+    
+    
+    
+    <category term="计算机" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+    <category term="模拟器" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E6%A8%A1%E6%8B%9F%E5%99%A8/"/>
+    
+    
+    <category term="仿真器" scheme="https://opts-22.github.io/tags/%E4%BB%BF%E7%9C%9F%E5%99%A8/"/>
+    
+    <category term="计算机史" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%B2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RetroArch-cpc(caprice32)核心的配置和操作指南</title>
+    <link href="https://opts-22.github.io/2020/10/24/retrocore-cpc/"/>
+    <id>https://opts-22.github.io/2020/10/24/retrocore-cpc/</id>
+    <published>2020-10-24T14:43:42.000Z</published>
+    <updated>2020-10-31T09:27:01.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/BGsrGR&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BGsrGR.png&quot; alt=&quot;BGsrGR.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="计算机" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+    <category term="模拟器" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E6%A8%A1%E6%8B%9F%E5%99%A8/"/>
+    
+    
+    <category term="仿真器" scheme="https://opts-22.github.io/tags/%E4%BB%BF%E7%9C%9F%E5%99%A8/"/>
+    
+    <category term="计算机史" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%B2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RetroArch-DC(Flycast)核心的配置和操作指南</title>
+    <link href="https://opts-22.github.io/2020/10/24/retrocore-flycast/"/>
+    <id>https://opts-22.github.io/2020/10/24/retrocore-flycast/</id>
+    <published>2020-10-24T14:43:42.000Z</published>
+    <updated>2020-10-31T09:49:37.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/BJe6OS&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BJe6OS.jpg&quot; alt=&quot;BJe6OS.jpg&quot;&gt;&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://imgchr.com/i/BJeTyT&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BJeTyT.png&quot; alt=&quot;BJeTyT.png&quot;&gt;&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://imgchr.com/i/BJmPmD&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BJmPmD.jpg&quot; alt=&quot;BJmPmD.jpg&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot;&gt;&lt;a href=&quot;#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot; class=&quot;headerlink&quot; title=&quot;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot;&gt;&lt;/a&gt;&lt;em&gt;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&lt;/em&gt;&lt;/h4&gt;</summary>
+    
+    
+    
+    <category term="计算机" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+    <category term="模拟器" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E6%A8%A1%E6%8B%9F%E5%99%A8/"/>
+    
+    
+    <category term="仿真器" scheme="https://opts-22.github.io/tags/%E4%BB%BF%E7%9C%9F%E5%99%A8/"/>
+    
+    <category term="计算机史" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%B2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RetroArch-GBA系列核心的配置和操作指南</title>
+    <link href="https://opts-22.github.io/2020/10/24/retrocore-gba/"/>
+    <id>https://opts-22.github.io/2020/10/24/retrocore-gba/</id>
+    <published>2020-10-24T14:43:42.000Z</published>
+    <updated>2020-10-31T09:27:34.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/Beu1vq&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/25/Beu1vq.png&quot; alt=&quot;Beu1vq.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot;&gt;&lt;a href=&quot;#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot; class=&quot;headerlink&quot; title=&quot;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot;&gt;&lt;/a&gt;&lt;em&gt;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&lt;/em&gt;&lt;/h4&gt;</summary>
+    
+    
+    
+    <category term="计算机" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+    <category term="模拟器" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E6%A8%A1%E6%8B%9F%E5%99%A8/"/>
+    
+    
+    <category term="仿真器" scheme="https://opts-22.github.io/tags/%E4%BB%BF%E7%9C%9F%E5%99%A8/"/>
+    
+    <category term="计算机史" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%B2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>每天一个Retroarch小技巧</title>
+    <link href="https://opts-22.github.io/2020/10/24/retroemu/"/>
+    <id>https://opts-22.github.io/2020/10/24/retroemu/</id>
+    <published>2020-10-24T14:42:13.000Z</published>
+    <updated>2020-10-31T09:30:52.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/BanMmq&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/31/BanMmq.jpg&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="计算机" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+    <category term="模拟器" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E6%A8%A1%E6%8B%9F%E5%99%A8/"/>
+    
+    
+    <category term="仿真器" scheme="https://opts-22.github.io/tags/%E4%BB%BF%E7%9C%9F%E5%99%A8/"/>
+    
+    <category term="计算机史" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%B2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>拥有一台服务器可以用来做什么？</title>
+    <link href="https://opts-22.github.io/2020/10/24/whatifserver/"/>
+    <id>https://opts-22.github.io/2020/10/24/whatifserver/</id>
+    <published>2020-10-24T10:52:07.000Z</published>
+    <updated>2020-10-31T00:39:29.000Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;服务器&quot;&gt;&lt;a href=&quot;#服务器&quot; class=&quot;headerlink&quot; title=&quot;服务器&quot;&gt;&lt;/a&gt;服务器&lt;/h1&gt;&lt;p&gt;服务器作为一种用途特殊的计算机，成为了现代网络技术发展中必不可少的东西，而服务器一般是互联网公司的核心载体，其项目的正常运行依靠的是服务器的计算支持；对于企业支撑业务来说其是必不可少的，但是对于家庭或者个人来说，一般只需求一样个人计算机来处理娱乐或者办公，一台难以操作，硬件架构并不是设计于娱乐办公的服务器，又可以用来做什么？&lt;br&gt;一般需要选择适合的服务器主机给我们使用，可以是物理机，也可以是虚拟机&lt;br&gt;一般虚拟机可以选择VPS，CVM，比如阿里云和腾讯云，如果你的服务器要部署在公网进行使用，我建议购买VPS，因为VPS提供公网ip而且有一定的网络安全保障，有管理客户端易于管理，但是硬件不能由你随意扩展，有一定的限制&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2020/10/24/gifHNBR6G5781yo.jpg&quot; alt=&quot;timg&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="计算机" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+    <category term="服务器&amp;网络" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E6%9C%8D%E5%8A%A1%E5%99%A8-%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="计算机" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+    <category term="Linux" scheme="https://opts-22.github.io/tags/Linux/"/>
+    
+    <category term="运营维护" scheme="https://opts-22.github.io/tags/%E8%BF%90%E8%90%A5%E7%BB%B4%E6%8A%A4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Game Record</title>
+    <link href="https://opts-22.github.io/2020/10/23/Game%20Record/"/>
+    <id>https://opts-22.github.io/2020/10/23/Game%20Record/</id>
+    <published>2020-10-23T10:52:07.000Z</published>
+    <updated>2020-10-31T02:04:01.000Z</updated>
+    
+    
+    <summary type="html">&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;记录—游戏—日常&lt;/strong&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="日常生活" scheme="https://opts-22.github.io/tags/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB/"/>
+    
+    <category term="游戏文化" scheme="https://opts-22.github.io/tags/%E6%B8%B8%E6%88%8F%E6%96%87%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>自制渣翻字幕-虚渊玄主笔军事动漫OBSOLTE</title>
+    <link href="https://opts-22.github.io/2020/10/22/obsolete/"/>
+    <id>https://opts-22.github.io/2020/10/22/obsolete/</id>
+    <published>2020-10-22T10:52:07.000Z</published>
+    <updated>2020-10-24T12:00:25.000Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;OBSOLETE&quot;&gt;&lt;a href=&quot;#OBSOLETE&quot; class=&quot;headerlink&quot; title=&quot;OBSOLETE&quot;&gt;&lt;/a&gt;OBSOLETE&lt;/h1&gt;&lt;p&gt;想必很多看动漫的小年轻都知道虚渊玄，咱们的&lt;strong&gt;爱的战士&lt;/strong&gt;，作为日本动漫作品创作鬼才，其在日漫这种浪漫主义作品中喜欢给你插入猝不及防的现实主义元素，善于运用把浪漫世界中美好之物一个个毁灭给你看的希腊式悲剧笔法:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;它一定有令人悲痛的结局，往往是生离死别；他一定讲的是一个无辜的人，一个道德完善的英雄，遭受了不幸。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2020/10/24/U3ud2VCiQ5sabz1.jpg&quot; alt=&quot;u=188288523,2253095310&amp;amp;fm=26&amp;amp;gp=0&quot;&gt;&lt;/p&gt;
+&lt;p&gt;老虚笔下的一个个作品都让你感受到了一次次心灵的洗礼。&lt;/p&gt;
+&lt;p&gt;爱的战士老虚先后作有 《沙耶之歌》 《Fate》 《魔法少女小圆》，《心理测量者》 等作品，在其锋韧如刀的笔下突显了各个深刻的主题&lt;/p&gt;
+&lt;p&gt;而日本动漫常常以魔幻世界或现实生活为背景，且又偏向讲述一个个高中生突然觉醒拯救世界之类的故事，但这次却是一个部军事动漫。日本的军事类动漫较多的只是其中包含军事的元素，但军事元素细节和对军事的讲述却很显不足，硬军事元素在日漫中常常缺少，但此类动漫也受国内军迷的爱戴，但很多主要是馋作品中一些人物的身子，却不是军事元素。&lt;br&gt;这次老虚以军事，机甲等主题的融合又会诞生出什么样的作品，很受期待。&lt;/p&gt;
+&lt;p&gt;在2019年12月的时候OBSOLETE在Youtube由南梦宫代理播出，第一时间&lt;br&gt;便找资源并查找相关的翻译字幕，但发现缺少资源，于是自己开始对动漫的字幕工作。&lt;br&gt;在2019年12月中旬，完成了对OBSOLETE发布的6集的字幕工作，由于水平有限，难免有许多细节上的错误，但大致的意思应该是不会错，哈哈…………&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/BVdZMF&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/24/BVdZMF.png&quot; alt=&quot;BVdZMF.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="文化" scheme="https://opts-22.github.io/categories/%E6%96%87%E5%8C%96/"/>
+    
+    
+    <category term="日本ACG文化" scheme="https://opts-22.github.io/tags/%E6%97%A5%E6%9C%ACACG%E6%96%87%E5%8C%96/"/>
+    
+    <category term="字幕翻译" scheme="https://opts-22.github.io/tags/%E5%AD%97%E5%B9%95%E7%BF%BB%E8%AF%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>解决VirtualBox虚拟机软件E_FALL(0x80004005)Machinewrap错误</title>
+    <link href="https://opts-22.github.io/2020/10/21/Vvboxdrverror/"/>
+    <id>https://opts-22.github.io/2020/10/21/Vvboxdrverror/</id>
+    <published>2020-10-21T12:18:29.000Z</published>
+    <updated>2020-10-23T15:33:31.000Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; title=&quot;问题描述&quot;&gt;&lt;/a&gt;问题描述&lt;/h1&gt;&lt;p&gt;一般的，当你的VirtualBox虚拟机进行升级/降级安装时，创建一个虚拟机再打开你会发现他会报错误代码为E_FALL(0x80004005)Machinewrap的错误，如下图所示：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2020/10/21/375lsh9NMJDHwuR.png&quot; alt=&quot;073110qnbkel88kjevvmlz&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2020/10/21/KryJRWoZOet4djH.jpg&quot; alt=&quot;001On4Dlzy6Y5ZAgZ0B79&amp;amp;690&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2020/10/21/HT7eCAYyaUWpq6L.jpg&quot; alt=&quot;001On4Dlzy6Y5ZA6l0z27&amp;amp;690&quot;&gt;&lt;/p&gt;
+&lt;p&gt;于是这种情况你会去查百度搜狗，但是你会发现并没有什么好的解决方法，有的说删光VirtualBox的注册表再安装，或者以兼容模式打开，或者安装最新版本………….&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="计算机" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+    
+    <category term="计算机" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>文件服务器中的老猫，Weezo</title>
+    <link href="https://opts-22.github.io/2020/10/20/weezo/"/>
+    <id>https://opts-22.github.io/2020/10/20/weezo/</id>
+    <published>2020-10-20T10:52:07.000Z</published>
+    <updated>2020-10-24T23:35:09.000Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;文件共享服务器&quot;&gt;&lt;a href=&quot;#文件共享服务器&quot; class=&quot;headerlink&quot; title=&quot;文件共享服务器&quot;&gt;&lt;/a&gt;文件共享服务器&lt;/h1&gt;&lt;p&gt;如果你想搭建一个文件共享服务器来作私人云盘，你会选择什么，现在有很多服务软件可选，像可道云，易有云，NextCloud，Seafile，Cloudreve，Z-File，各有特色，功能强大，开源或者不开源，有些搭建简单有些搭建复杂。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;但今天要介绍一下Weezo&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2020/10/24/uw1HLA75X3sFPWN.jpg&quot; alt=&quot;u=2074893334,862763281&amp;amp;fm=15&amp;amp;gp=0&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="计算机" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>NAS系统备份与恢复以OMV为案例的几种方法,附我家云NAS备份方法</title>
+    <link href="https://opts-22.github.io/2020/10/17/omvbackup/"/>
+    <id>https://opts-22.github.io/2020/10/17/omvbackup/</id>
+    <published>2020-10-17T05:26:50.000Z</published>
+    <updated>2020-11-10T05:44:58.000Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;如果想把自己的NAS玩出各种花样的话要进行很多复杂的操作，NAS使用基于Linux内核的系统，对于还没有了解Linux使用及其发行版的的用户来说操作未免复杂，也经常手贱因为操作命令行，装软件包等操作错误导致系统一塌糊涂，崩溃，此时来恢复也需要查找教程未免复杂，此时我们需要建立一个备份来防止这些事情的发生。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;这个教程以OMV为例，适用于其他Linux的NAS系统，本教程也提供了几个基于流行的不同硬件架构的NAS系统备份教程&lt;/strong&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="计算机" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+    <category term="服务器&amp;网络" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E6%9C%8D%E5%8A%A1%E5%99%A8-%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="计算机" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+    <category term="Linux" scheme="https://opts-22.github.io/tags/Linux/"/>
+    
+    <category term="运营维护" scheme="https://opts-22.github.io/tags/%E8%BF%90%E8%90%A5%E7%BB%B4%E6%8A%A4/"/>
+    
+    <category term="NAS" scheme="https://opts-22.github.io/tags/NAS/"/>
+    
+    <category term="家庭网络" scheme="https://opts-22.github.io/tags/%E5%AE%B6%E5%BA%AD%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>B站爆火的换脸唱歌视频,不用GoogleColab在自家电脑制作！</title>
+    <link href="https://opts-22.github.io/2020/10/15/deepfakeunreval/"/>
+    <id>https://opts-22.github.io/2020/10/15/deepfakeunreval/</id>
+    <published>2020-10-15T14:52:03.000Z</published>
+    <updated>2020-12-04T05:16:00.000Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;在8月份的时候，B站就多了很多换脸视频，大多都是换了两个外国小哥小姐姐唱歌时候的动态脸照，分别在唱Unravel，Damedayo这两首很魔性的歌，由于视频动作夸张搞笑，而视频被“P”的很真实，收到了很多网友的喜爱&lt;img src=&quot;https://i.loli.net/2020/10/15/IFKWxGhU1VM5ZwR.gif&quot; alt=&quot;0&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="计算机" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+    
+    <category term="计算机" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+    <category term="机器学习" scheme="https://opts-22.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="Python" scheme="https://opts-22.github.io/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>哈？</title>
+    <link href="https://opts-22.github.io/2020/10/15/%E5%93%88%EF%BC%9F/"/>
+    <id>https://opts-22.github.io/2020/10/15/%E5%93%88%EF%BC%9F/</id>
+    <published>2020-10-15T10:52:07.000Z</published>
+    <updated>2020-10-31T07:17:59.000Z</updated>
+    
+    
+    <summary type="html">&lt;hr&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;---&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;title: &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;date: 2020-10-15 18:52:07&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;tags:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;---&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>学习笔记系列</title>
+    <link href="https://opts-22.github.io/2020/10/01/learnote/"/>
+    <id>https://opts-22.github.io/2020/10/01/learnote/</id>
+    <published>2020-10-01T10:52:07.000Z</published>
+    <updated>2020-10-24T14:28:53.000Z</updated>
+    
+    
+    <summary type="html">有东西被加密了, 请输入密码查看.</summary>
+    
+    
+    
+    
+    <category term="学习笔记" scheme="https://opts-22.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+</feed>

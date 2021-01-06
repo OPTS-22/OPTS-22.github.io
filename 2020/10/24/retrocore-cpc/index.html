@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="OT的博客哦" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    RetroArch-cpc(caprice32)核心的配置和操作指南 |  OT的博客哦
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="欢迎来到OT-22的主页~" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-retrocore-cpc"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  RetroArch-cpc(caprice32)核心的配置和操作指南
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/10/24/retrocore-cpc/" class="article-date">
+  <time datetime="2020-10-24T14:43:42.000Z" itemprop="datePublished">2020-10-24</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a> / <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E6%A8%A1%E6%8B%9F%E5%99%A8/">模拟器</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">2.1k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">10 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://imgchr.com/i/BGsrGR"><img src="https://s1.ax1x.com/2020/10/29/BGsrGR.png" alt="BGsrGR.png"></a></p>
+<a id="more"></a>
+
+<h4 id="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"><a href="#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变" class="headerlink" title="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"></a><em>注意这是一个动态更新型文章，文章内容可能会随时更新或者改变</em></h4><h1 id="Libretro-CPC系列核心"><a href="#Libretro-CPC系列核心" class="headerlink" title="Libretro-CPC系列核心"></a>Libretro-CPC系列核心</h1><h2 id="机型"><a href="#机型" class="headerlink" title="机型:"></a>机型:</h2><h2 id="相关ROM"><a href="#相关ROM" class="headerlink" title="相关ROM:"></a>相关ROM:</h2><h2 id="相关模拟器"><a href="#相关模拟器" class="headerlink" title="相关模拟器:"></a>相关模拟器:</h2><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>caprice32是在Linux和Windows上运行的AmstradCPC8bit家用计算机系列的软件模拟器。 仿真器忠实地模仿CPC464、CPC664、CPC6128、CPC6128和GX4000等机型。 通过在较低的水平上重新创建所有硬件组件的操作，仿真器实现了与原始CPC软件的高度兼容性。 这些程序或游戏可以实时或更高的速度运行，这取决于模拟器主机环境。</p>
+<h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><blockquote>
+<p>Amstrad - CPC (Caprice32)</p>
+<p>Background</p>
+<p>Caprice32 is a software emulator of the Amstrad CPC 8bit home computer series running on Linux and Windows. The emulator faithfully imitates the CPC464, CPC664, CPC6128, CPC6128+ and GX4000 models. By recreating the operations of all hardware components at a low level, the emulator achieves a high degree of compatibility with original CPC software. These programs or games can be run unmodified at real-time or higher speeds, depending on the emulator host environment.</p>
+<p>Author/License</p>
+<p>The Caprice32 core has been authored by</p>
+<p>Ulrich Doewich<br>David Colmenero (D_Skywalk)<br>Colin Pitrat</p>
+<p>The Caprice32 core is licensed under</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ColinPitrat/caprice32/blob/master/COPYING.txt">GPLv2</a></p>
+<p>A summary of the licenses behind RetroArch and its cores can be found <a href="../development/licenses.md">here</a>.</p>
+<p>Extensions</p>
+<p>Content that can be loaded by the Caprice32 core have the following file extensions:</p>
+<p>.dsk<br>.sna<br>.tap<br>.cdt<br>.voc<br>.m3u<br>.cpr<br>.zip</p>
+<p>Databases</p>
+<p>RetroArch database(s) that are associated with the Caprice32 core:</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/libretro/libretro-database/blob/master/rdb/Amstrad%20-%20CPC.rdb">Amstrad - CPC</a> (TOSEC)</p>
+<p>Features</p>
+<p>Frontend-level settings or features that the Caprice32 core respects.</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th align="center">Supported</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Restart</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Screenshots</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Saves</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>States</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Rewind</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Netplay</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Core Options</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>RetroAchievements</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>RetroArch Cheats</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Native Cheats</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Controls</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Remapping</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Multi-Mouse</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Rumble</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Sensors</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Camera</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Location</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Subsystem</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td><a href="../guides/softpatching.md">Softpatching</a></td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Disk Control</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Username</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Language</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Crop Overscan</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>LEDs</td>
+<td align="center">✕</td>
+</tr>
+</tbody></table>
+<p>Directories</p>
+<p>The Caprice32 core’s internal core name is ‘cap32’.</p>
+<p>The Caprice32 core saves/loads to/from these directories.</p>
+<p><strong>Loaded content’s directory</strong></p>
+<p>‘content-name’#.SNA (SNA)</p>
+<p>M3U and Disk control</p>
+<p>When you have a multi disk game, you can use a m3u file to specify each disk of the game and change them from the RetroArch Disk control interface.</p>
+<p>A M3U file is a simple text file with one disk per line (see <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/M3U">https://en.wikipedia.org/wiki/M3U</a>).</p>
+<p>Example: <strong>Alive (F).m3u</strong></p>
+<pre><code>Alive (F) - Disk 1A.dsk
+Alive (F) - Disk 1B.dsk</code></pre>
+<p>Path can be absolute or relative to the location of the M3U file.</p>
+<p>When a game ask for it, you can change the current disk in the RetroArch ‘Disk Control’ menu:</p>
+<p>Eject the current disk with ‘Disk Cycle Tray Status’<br>Select the right disk index<br>Insert the new disk with ‘Disk Cycle Tray Status’</p>
+<p>Geometry and timing</p>
+<p>The Caprice32 core’s core provided FPS is 50<br>The Caprice32 core’s core provided sample rate is 44.100<br>The Caprice32 core’s core provided aspect ratio is 3/4</p>
+<p>Usage</p>
+<p>The Caprice32 core has a virtual keyboard GUI that can be accessed through User 1’s RetroPad Y input.</p>
+<p>The mouse cursor can be controlled by RetroPad D-Pad inputs when the RetroPad Select input is pressed.</p>
+<p><img src="../image/core/caprice32/vkbd.png"></p>
+<p>Here are some actions you can do in page 2 of the virtual keyboard GUI.</p>
+<p>“EXT” EXIT EMU<br>“SNA” SAVE SNA<br>“DSK” SWITCH DSK DRIVE A/B<br>“Col” SWITCH FGCOL ON/OFF</p>
+<p>Core options</p>
+<p>The Caprice32 core has the following option(s) that can be tweaked from the core options menu.</p>
+<p>!!! tip<br>    Settings with (Restart) means that core has to be closed for the new setting to be applied on next launch.</p>
+<table>
+<thead>
+<tr>
+<th>Core option</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Autorun</td>
+<td>If enabled, the core will run the first bas/bin found in the DSK. `cap32_autorun = “enabled</td>
+<td>disabled”`</td>
+</tr>
+<tr>
+<td>Combo Key</td>
+<td>See <a href="#combo-list">Combo list</a> below. `cap32_combokey = “select</td>
+<td>y</td>
+</tr>
+<tr>
+<td>Internal resolution</td>
+<td>Self-explanatory. `cap32_resolution = “384x272</td>
+<td>400x300”`</td>
+</tr>
+<tr>
+<td>Model (Restart)</td>
+<td>Choose which Amstrad CPC model to emulate. `cap32_model = “6128</td>
+<td>464</td>
+</tr>
+<tr>
+<td>Ram size (Restart)</td>
+<td>CPC physical RAM size in kB. `cap32_ram = “128</td>
+<td>64</td>
+</tr>
+<tr>
+<td>Status Bar</td>
+<td>Not yet implemented, future option. `cap32_statusbar = “disabled</td>
+<td>enabled”`</td>
+</tr>
+<tr>
+<td>Monitor Type</td>
+<td>Choose between a color display or a monochrome display. `cap32_scr_tube = “color</td>
+<td>green</td>
+</tr>
+<tr>
+<td>Monitor Intensity</td>
+<td>Screen cathodic tube intensity. `cap32_scr_intensity = “5</td>
+<td>6</td>
+</tr>
+<tr>
+<td>CPC Language (Restart)</td>
+<td>Choose between english, french or spanish keyboard layout. `cap32_lang_layout = “english</td>
+<td>french</td>
+</tr>
+<tr>
+<td>User 1 Joystick Configuration</td>
+<td>Select Joy/Overlay configuration for player 1. `cap32_retrojoy0 = “joystick</td>
+<td>qaop</td>
+</tr>
+<tr>
+<td>User 2 Joystick Configuration</td>
+<td>Select Joy/Overlay configuration for player 2. `cap32_retrojoy1 = “joystick</td>
+<td>qaop</td>
+</tr>
+</tbody></table>
+<p>!!! note “cap32_scr_tube = color”<br>    <img src="../image/core/caprice32/tube_off.png"></p>
+<p>!!! note “cap32_scr_tube = green”<br>    <img src="../image/core/caprice32/tube_on.png"></p>
+<p>!!! attention<br>    These ‘scr_intensity’ core option screenshots have been taken with the ‘cap32_scr_tube’ core option set to ‘color’.</p>
+<p>!!! note “scr_intensity = 5”<br>    <img src="../image/core/caprice32/5.png"></p>
+<p>!!! note “scr_intensity = 15”<br>    <img src="../image/core/caprice32/15.png"></p>
+<p>Controllers</p>
+<p>The Caprice32 core supports the following device type(s) in the controls menu, bolded device types are the default for the specified user(s):</p>
+<p>User 1 - 2 device types</p>
+<p>None - Doesn’t disable input. There’s no reason to switch to this.<br><strong>RetroPad</strong> - Joypad - Don’t use this. Switch to Amstrad Joystick for joypad input.<br>Amstrad Joystick - Joypad - Use this for joypad input.<br>Amstrad Keyboard - Keyboard - Keyboard input are always active. Has keymapper support.</p>
+<p>Other controllers</p>
+<p>Mouse - The mouse cursor in the Virtual Keyboard GUI can be controlled with mouse inputs.</p>
+<p>Controller tables</p>
+<p>JOY CONFIG DEFAULT (JOYSTICK)</p>
+<table>
+<thead>
+<tr>
+<th>User 1 Remap descriptors</th>
+<th>RetroPad Inputs</th>
+<th>Amstrad Joystick</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>B</td>
+<td><img src="../image/retropad/retro_b.png"></td>
+<td>FIRE1</td>
+</tr>
+<tr>
+<td>Y</td>
+<td><img src="../image/retropad/retro_y.png"></td>
+<td>SPACE</td>
+</tr>
+<tr>
+<td>Start</td>
+<td><img src="../image/retropad/retro_start.png"></td>
+<td>J <em>(to select Joy in games)</em></td>
+</tr>
+<tr>
+<td>Up</td>
+<td><img src="../image/retropad/retro_dpad_up.png"></td>
+<td>JOY UP</td>
+</tr>
+<tr>
+<td>Down</td>
+<td><img src="../image/retropad/retro_dpad_down.png"></td>
+<td>JOY DOWN</td>
+</tr>
+<tr>
+<td>Left</td>
+<td><img src="../image/retropad/retro_dpad_left.png"></td>
+<td>JOY LEFT</td>
+</tr>
+<tr>
+<td>Right</td>
+<td><img src="../image/retropad/retro_dpad_right.png"></td>
+<td>JOY RIGHT</td>
+</tr>
+<tr>
+<td>A</td>
+<td><img src="../image/retropad/retro_a.png"></td>
+<td>FIRE2</td>
+</tr>
+<tr>
+<td>X</td>
+<td><img src="../image/retropad/retro_x.png"></td>
+<td>S</td>
+</tr>
+<tr>
+<td>L</td>
+<td><img src="../image/retropad/retro_l1.png"></td>
+<td>INTRO</td>
+</tr>
+<tr>
+<td>R</td>
+<td><img src="../image/retropad/retro_r1.png"></td>
+<td>SHIFT</td>
+</tr>
+<tr>
+<td>L2</td>
+<td><img src="../image/retropad/retro_l2.png"></td>
+<td>CTRL</td>
+</tr>
+<tr>
+<td>R2</td>
+<td><img src="../image/retropad/retro_r2.png"></td>
+<td>COPY</td>
+</tr>
+<tr>
+<td>Select</td>
+<td><img src="../image/retropad/retro_select.png"></td>
+<td>COMBO (see bellow)</td>
+</tr>
+<tr>
+<td>L3</td>
+<td><img src="../image/retropad/retro_l3.png"></td>
+<td></td>
+</tr>
+<tr>
+<td>R3</td>
+<td><img src="../image/retropad/retro_r3.png"></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>JOY CONFIG QAOP (GENERAL KEYB)</p>
+<table>
+<thead>
+<tr>
+<th>User 1 Remap descriptors</th>
+<th>RetroPad Inputs</th>
+<th>Amstrad Joystick</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>B</td>
+<td><img src="../image/retropad/retro_b.png"></td>
+<td>F1</td>
+</tr>
+<tr>
+<td>Y</td>
+<td><img src="../image/retropad/retro_y.png"></td>
+<td>F2</td>
+</tr>
+<tr>
+<td>Start</td>
+<td><img src="../image/retropad/retro_start.png"></td>
+<td>K <em>(to select Keyb in games)</em></td>
+</tr>
+<tr>
+<td>Up</td>
+<td><img src="../image/retropad/retro_dpad_up.png"></td>
+<td>Q</td>
+</tr>
+<tr>
+<td>Down</td>
+<td><img src="../image/retropad/retro_dpad_down.png"></td>
+<td>A</td>
+</tr>
+<tr>
+<td>Left</td>
+<td><img src="../image/retropad/retro_dpad_left.png"></td>
+<td>O</td>
+</tr>
+<tr>
+<td>Right</td>
+<td><img src="../image/retropad/retro_dpad_right.png"></td>
+<td>P</td>
+</tr>
+<tr>
+<td>A</td>
+<td><img src="../image/retropad/retro_a.png"></td>
+<td>SPACE</td>
+</tr>
+<tr>
+<td>X</td>
+<td><img src="../image/retropad/retro_x.png"></td>
+<td>H</td>
+</tr>
+<tr>
+<td>L</td>
+<td><img src="../image/retropad/retro_l1.png"></td>
+<td>INTRO</td>
+</tr>
+<tr>
+<td>R</td>
+<td><img src="../image/retropad/retro_r1.png"></td>
+<td>SHIFT</td>
+</tr>
+<tr>
+<td>L2</td>
+<td><img src="../image/retropad/retro_l2.png"></td>
+<td>CTRL</td>
+</tr>
+<tr>
+<td>R2</td>
+<td><img src="../image/retropad/retro_r2.png"></td>
+<td>COPY</td>
+</tr>
+<tr>
+<td>Select</td>
+<td><img src="../image/retropad/retro_select.png"></td>
+<td>COMBO (see bellow)</td>
+</tr>
+<tr>
+<td>L3</td>
+<td><img src="../image/retropad/retro_l3.png"></td>
+<td></td>
+</tr>
+<tr>
+<td>R3</td>
+<td><img src="../image/retropad/retro_r3.png"></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>JOY INCENTIVE (<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Incentive_Software">INCENTIVE GAMES</a>)</p>
+<table>
+<thead>
+<tr>
+<th>User 1 Remap descriptors</th>
+<th>RetroPad Inputs</th>
+<th>Amstrad Joystick</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>B</td>
+<td><img src="../image/retropad/retro_b.png"></td>
+<td>SPACE</td>
+</tr>
+<tr>
+<td>Y</td>
+<td><img src="../image/retropad/retro_y.png"></td>
+<td>W</td>
+</tr>
+<tr>
+<td>Start</td>
+<td><img src="../image/retropad/retro_start.png"></td>
+<td>F</td>
+</tr>
+<tr>
+<td>Up</td>
+<td><img src="../image/retropad/retro_dpad_up.png"></td>
+<td>CURSOR UP</td>
+</tr>
+<tr>
+<td>Down</td>
+<td><img src="../image/retropad/retro_dpad_down.png"></td>
+<td>CURSOR DOWN</td>
+</tr>
+<tr>
+<td>Left</td>
+<td><img src="../image/retropad/retro_dpad_left.png"></td>
+<td>CURSOR LEFT</td>
+</tr>
+<tr>
+<td>Right</td>
+<td><img src="../image/retropad/retro_dpad_right.png"></td>
+<td>CURSOR RIGHT</td>
+</tr>
+<tr>
+<td>A</td>
+<td><img src="../image/retropad/retro_a.png"></td>
+<td>A</td>
+</tr>
+<tr>
+<td>X</td>
+<td><img src="../image/retropad/retro_x.png"></td>
+<td>C</td>
+</tr>
+<tr>
+<td>L</td>
+<td><img src="../image/retropad/retro_l1.png"></td>
+<td>P</td>
+</tr>
+<tr>
+<td>R</td>
+<td><img src="../image/retropad/retro_r1.png"></td>
+<td>L</td>
+</tr>
+<tr>
+<td>L2</td>
+<td><img src="../image/retropad/retro_l2.png"></td>
+<td>R</td>
+</tr>
+<tr>
+<td>R2</td>
+<td><img src="../image/retropad/retro_r2.png"></td>
+<td>U</td>
+</tr>
+<tr>
+<td>Select</td>
+<td><img src="../image/retropad/retro_select.png"></td>
+<td>COMBO (see bellow)</td>
+</tr>
+<tr>
+<td>L3</td>
+<td><img src="../image/retropad/retro_l3.png"></td>
+<td></td>
+</tr>
+<tr>
+<td>R3</td>
+<td><img src="../image/retropad/retro_r3.png"></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>COMBO LIST</p>
+<p>If you press <strong>SELECT</strong> you could make a combo with other buttons:</p>
+<table>
+<thead>
+<tr>
+<th>Combo</th>
+<th>RetroPad Inputs</th>
+<th>Amstrad Writes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Select + B</td>
+<td><img src="../image/retropad/retro_select.png"> + <img src="../image/retropad/retro_b.png"></td>
+<td>CAT</td>
+</tr>
+<tr>
+<td>Select + Y</td>
+<td><img src="../image/retropad/retro_select.png"> + <img src="../image/retropad/retro_y.png"></td>
+<td>|CPM</td>
+</tr>
+<tr>
+<td>Select + Start</td>
+<td><img src="../image/retropad/retro_select.png"> + <img src="../image/retropad/retro_start.png"></td>
+<td>RUN”DISK RUN”DISC</td>
+</tr>
+<tr>
+<td>Select + Up</td>
+<td><img src="../image/retropad/retro_select.png"> + <img src="../image/retropad/retro_dpad_up.png"></td>
+<td>|TAPE RUN”</td>
+</tr>
+<tr>
+<td>Select + Down</td>
+<td><img src="../image/retropad/retro_select.png"> + <img src="../image/retropad/retro_dpad_down.png"></td>
+<td>SHOW V-KEYBOARD</td>
+</tr>
+<tr>
+<td>Select + Left</td>
+<td><img src="../image/retropad/retro_select.png"> + <img src="../image/retropad/retro_dpad_left.png"></td>
+<td>[1], [Y]</td>
+</tr>
+<tr>
+<td>Select + Right</td>
+<td><img src="../image/retropad/retro_select.png"> + <img src="../image/retropad/retro_dpad_right.png"></td>
+<td>[2], [N]</td>
+</tr>
+<tr>
+<td>Select + A</td>
+<td><img src="../image/retropad/retro_select.png"> + <img src="../image/retropad/retro_a.png"></td>
+<td>[3], [R]</td>
+</tr>
+<tr>
+<td>Select + X</td>
+<td><img src="../image/retropad/retro_select.png"> + <img src="../image/retropad/retro_x.png"></td>
+<td>[4], [S]</td>
+</tr>
+</tbody></table>
+<p><em>This combos are useful to load games and select options in game-menus.</em></p>
+<p>Keyboard</p>
+<p>English layout</p>
+<p><img src="https://user-images.githubusercontent.com/560310/52812237-4c4fbd80-3097-11e9-8537-88f62e8ba5e8.png"></p>
+<table>
+<thead>
+<tr>
+<th>RetroKeyboard Special Inputs</th>
+<th>Amstrad</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Keyboard Keypad 0</td>
+<td>CPC_KEY_F0</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 1</td>
+<td>CPC_KEY_F1</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 2</td>
+<td>CPC_KEY_F2</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 3</td>
+<td>CPC_KEY_F3</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 4</td>
+<td>CPC_KEY_F4</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 5</td>
+<td>CPC_KEY_F5</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 6</td>
+<td>CPC_KEY_F6</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 7</td>
+<td>CPC_KEY_F7</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 8</td>
+<td>CPC_KEY_F8</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 9</td>
+<td>CPC_KEY_F9</td>
+</tr>
+<tr>
+<td>Keyboard Keypad Period .</td>
+<td>CPC_KEY_FDOT</td>
+</tr>
+<tr>
+<td>Keyboard Keypad Enter</td>
+<td>CPC_KEY_SMALL_ENTER</td>
+</tr>
+<tr>
+<td>Keyboard Delete</td>
+<td>CPC_KEY_CLR</td>
+</tr>
+<tr>
+<td>Keyboard Insert</td>
+<td>CHANGE CURSOR/JOY EMULATION</td>
+</tr>
+<tr>
+<td>Keyboard Home</td>
+<td>PLAY TAPE</td>
+</tr>
+<tr>
+<td>Keyboard End</td>
+<td>STOP TAPE</td>
+</tr>
+<tr>
+<td>Keyboard Page Up</td>
+<td>TAPE REWIND</td>
+</tr>
+<tr>
+<td>Keyboard Page Down</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Keyboard F9</td>
+<td>SHOW V-KEYBOARD</td>
+</tr>
+<tr>
+<td>Keyboard F10</td>
+<td>MAIN GUI</td>
+</tr>
+<tr>
+<td>Keyboard Right Alt</td>
+<td>CPC_KEY_COPY</td>
+</tr>
+<tr>
+<td>Keyboard Left Alt</td>
+<td>CPC_KEY_COPY</td>
+</tr>
+</tbody></table>
+<p>Keyboard Custom Binds</p>
+<p>Choose AMSTRAD KEYBOARD in Quick Menu &gt; Controls to customize your retropad keys per game.</p>
+<p>Mouse</p>
+<table>
+<thead>
+<tr>
+<th>RetroMouse Inputs</th>
+<th>Virtual Keyboard GUI Inputs</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="../image/retromouse/retro_mouse.png"> Mouse Cursor</td>
+<td>Mouse Cursor</td>
+</tr>
+<tr>
+<td><img src="../image/retromouse/retro_left.png"> Mouse 1</td>
+<td>Mouse Left Button</td>
+</tr>
+</tbody></table>
+<p>External Links</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ColinPitrat/caprice32">Official Caprice32 Github Repository</a><br><a target="_blank" rel="noopener" href="https://github.com/libretro/libretro-super/blob/master/dist/info/cap32_libretro.info">Libretro Caprice32 Core info file</a><br><a target="_blank" rel="noopener" href="https://github.com/libretro/libretro-cap32">Libretro Caprice32 Github Repository</a><br><a target="_blank" rel="noopener" href="https://github.com/libretro/libretro-cap32/issues">Report Libretro Caprice32 Core Issues Here</a></p>
+<p>See also</p>
+<p>Amstrad - CPC</p>
+<p><a href="crocods.md">Amstrad - CPC (CrocoDS)</a></p>
+</blockquote>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><h3 id="支持的ROM格式"><a href="#支持的ROM格式" class="headerlink" title="支持的ROM格式:"></a>支持的ROM格式:</h3><p>.dsk<br>.sna<br>.tap<br>.cdt<br>.voc<br>.m3u<br>.cpr<br>.zip</p>
+<h3 id="固件"><a href="#固件" class="headerlink" title="固件:"></a>固件:</h3><p>无</p>
+<h3 id="功能"><a href="#功能" class="headerlink" title="功能:"></a>功能:</h3><p>支持 重启，截图，倒带，原生存档，即时存档，<br>联机模式，核心设置，手柄控制，按键映射，硬盘控制<br>不支持 原生金手指，RA金手指，成就</p>
+<p>如果一个ROM有多个文件，你可以使用RA的磁盘控制器功能来指定游戏的ROM文件使系统可以判定并读取它，当ROM要求换盘时，打开磁盘控制器界面，并切换ROM的光盘2文件<br>步奏:<br>弹出当前磁盘的“磁盘循环托盘状态‘<br>选择正确的磁盘索引<br>插入具有“磁盘循环托盘状态”的新磁盘‘</p>
+<h3 id="核心选项"><a href="#核心选项" class="headerlink" title="核心选项:"></a>核心选项:</h3><p><em>格式:<br>设置名称<br>作用<br>配置代码<br>默认</em></p>
+<p>Autorun<br>自动加载<br>If enabled, the core will run the first bas/bin found in the DSK. <br>请开启，否则无法加载ROM<br>cap32_autorun = “enabled|disabled”<br>enabled</p>
+<p>Combo Key<br>设定组合键<br>See Combo list below<br>. cap32_combokey = “select|y|b|disabled”<br>select</p>
+<p>Internal resolution<br>调整内部分辨率<br>Self-explanatory. <br>cap32_resolution = “384x272|400x300”<br>384x272</p>
+<p>Model (Restart)<br>选择要模拟的CPC机型<br>Choose which Amstrad CPC model to emulate. <br>cap32_model = “6128|464|6128+”<br>6128</p>
+<p>Ram size (Restart)<br>设定内存大小<br>CPC physical RAM size in kB. <br>越大越好？？<br>cap32_ram = “128|64|192|512|576”<br>128</p>
+<p>Status Bar<br>状态栏(还没弄好，打开没用)<br>Not yet implemented, futureoption.<br>cap32_statusbar = “disabled|enabled”<br>disabled</p>
+<p>Monitor Type<br>要模拟显示器类型<br>Choose between a color display or a monochrome display. <br>设定模拟器模拟出的显像管屏幕显示不同风格的颜色，相当于调整着色器，模拟出不同风格的显像管显示器，很有内味<br>cap32_scr_tube = “color|green|white”<br>color</p>
+<p><img src="https://docs.libretro.com/image/core/caprice32/tube_off.png" alt="img"></p>
+<p><img src="https://docs.libretro.com/image/core/caprice32/tube_on.png" alt="img"></p>
+<p><img src="https://docs.libretro.com/image/core/caprice32/5.png" alt="img"></p>
+<p><img src="https://docs.libretro.com/image/core/caprice32/15.png" alt="img"></p>
+<p>Monitor Intensity<br>Screen cathodic tube intensity.<br>调整模拟显示器的显像管亮度<br>cap32_scr_intensity = “5|6|7|8|9|10|11|12|13|14|15”<br>5</p>
+<p>CPC Language (Restart)<br>调整语言，基本英语就没问题<br>Choose between english, french or spanish keyboard layout. <br>cap32_lang_layout = “english|french|spanish”<br>english</p>
+<p>User 1 Joystick Configuration<br>调整用户1的控制器类型<br>Select Joy/Overlay configuration for player 1.<br>cap32_retrojoy0 = “joystick|qaop|incentive”<br>joystick</p>
+<p>User 2 Joystick Configuration<br>调整用户2的控制器布局<br>Select Joy/Overlay configuration for player 2. <br>cap32_retrojoy1 = “joystick|qaop|incentive|joystick_port2”<br>joystick</p>
+<p>控制器有三种布局 ，往下会提到</p>
+<h3 id="相关文件路径"><a href="#相关文件路径" class="headerlink" title="相关文件路径:"></a>相关文件路径:</h3><h3 id="控制"><a href="#控制" class="headerlink" title="控制:"></a>控制:</h3><p>注意按键相同，同一种手柄，但按键映射的键位三者有区别<br>1.默认(joystick)</p>
+<p><img src="https://i.loli.net/2020/10/31/iUs4DrQb3cjlZqm.png" alt="image-20201031082813624"></p>
+<p><img src="https://i.loli.net/2020/10/31/9QhElW2HUkwRC5r.png" alt="image-20201031082832464"></p>
+<p>2.qaop</p>
+<p><img src="https://i.loli.net/2020/10/31/ikDcVJ6yRWf4nL7.png" alt="image-20201031082859192"></p>
+<p><img src="https://i.loli.net/2020/10/31/qfihWseRnPJvAdE.png" alt="image-20201031082919703"></p>
+<p>3.incentive</p>
+<p><img src="https://i.loli.net/2020/10/31/SIrhcs9pdEWmwfz.png" alt="image-20201031083003825"></p>
+<p><img src="https://i.loli.net/2020/10/31/nY17NCVDoZ8jXe3.png" alt="image-20201031083031400"></p>
+<p>CPC电脑的键盘布局</p>
+<p><img src="https://user-images.githubusercontent.com/560310/52812237-4c4fbd80-3097-11e9-8537-88f62e8ba5e8.png"></p>
+<p>组合键</p>
+<p><img src="https://i.loli.net/2020/10/31/WjtmMyFaQYq2BAu.png" alt="image-20201031083110343"></p>
+<p>核心提供的CPC虚拟GUI键盘<br>caprice32核心有一个虚拟键盘gui，可以通过用户1的retropad的y键输入访问。</p>
+<p><img src="https://docs.libretro.com/image/core/caprice32/vkbd.png" alt="img"></p>
+<p> 当按下retropad选择输入时，鼠标光标可以由retropad的d-pad键输入控制。</p>
+<p> 下面是可以在虚拟键盘GUI的第2页中执行的一些操作<br> “EXT” EXIT EMU 退出模拟器<br> ”SNA” SAVE SNA 储存SNA文件<br> “DSK” SWITCH DSK DRIVE A/B” 从硬盘A或B切换<br> Col” SWITCH FGCOL ON/OFF 切换FGCOL的开或关</p>
+<h3 id="评测"><a href="#评测" class="headerlink" title="评测:"></a>评测:</h3><p>高性能组:<br>1.安卓<br>环境:Android10-armV8a，骁龙835，OpenGL，默认选项<br>结果:5个ROM 平均60帧数 无破音画面撕裂<br>低性能组:<br>环境:环境:Android6-armV8a，骁龙625，OpenGL，默认选项<br>结果:5个ROM 平均60帧数 无破音画面撕裂</p>
+<p>基本上运行游戏和软件没有问题，画面和各方各面的模拟的很真实，而且还提供模拟器内键盘鼠标界面来操控，自动运行功能很方便，就不用敲命令行来运行游戏了</p>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏咱一下
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本网站一切创作内容遵循 署名-非商业性使用-相同方式共享协议文本(CC-BY-SA-3.0)，文章也仅代表个人(OT-22)的观点与看法
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://opts-22.github.io/2020/10/24/retrocore-cpc/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BB%BF%E7%9C%9F%E5%99%A8/" rel="tag">仿真器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%B2/" rel="tag">计算机史</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2020/10/24/retrocore-bluemsx/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            RetroArch-MSX(BlueMSX)核心的配置和操作指南
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/10/24/retrocore-flycast/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">RetroArch-DC(Flycast)核心的配置和操作指南</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "RtLDMH9NIkLvLDWMubyRzXe9-gzGzoHsz",
+    app_key: "8o4Q21FxATEdCXWCk5vCA7PX",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2021
+        <i class="ri-heart-fill heart_icon"></i> OT-22
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="欢迎来到OT-22的主页~"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/photos">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/other/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechatm.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechatm.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+<script src="/js/dz.js"></script>
+
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=1436614177&auto=1&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+</body>
+
+</html>

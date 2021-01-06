@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="OT的博客哦" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    RetroArch-GBA系列核心的配置和操作指南 |  OT的博客哦
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="欢迎来到OT-22的主页~" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-retrocore-gba"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  RetroArch-GBA系列核心的配置和操作指南
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/10/24/retrocore-gba/" class="article-date">
+  <time datetime="2020-10-24T14:43:42.000Z" itemprop="datePublished">2020-10-24</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a> / <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E6%A8%A1%E6%8B%9F%E5%99%A8/">模拟器</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">3.3k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">17 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://imgchr.com/i/Beu1vq"><img src="https://s1.ax1x.com/2020/10/25/Beu1vq.png" alt="Beu1vq.png"></a></p>
+<h4 id="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"><a href="#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变" class="headerlink" title="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"></a><em>注意这是一个动态更新型文章，文章内容可能会随时更新或者改变</em></h4><a id="more"></a>
+
+<h1 id="Libretro-GBA系列核心"><a href="#Libretro-GBA系列核心" class="headerlink" title="Libretro-GBA系列核心"></a>Libretro-GBA系列核心</h1><h2 id="历史"><a href="#历史" class="headerlink" title="历史:"></a>历史:</h2><h2 id="著名的ROM"><a href="#著名的ROM" class="headerlink" title="著名的ROM:"></a>著名的ROM:</h2><h2 id="相关模拟器"><a href="#相关模拟器" class="headerlink" title="相关模拟器:"></a>相关模拟器:</h2><h1 id="VBA-NEXT"><a href="#VBA-NEXT" class="headerlink" title="VBA-NEXT"></a>VBA-NEXT</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>VBA-NEXT是开源的GBA模拟器，是2011年VBA-M的增强兼容性和速度的版本，被libretro团队编译为核心后在Retroarch使用，个人认为在Retroarch是一个比较强大的GBA核心</p>
+<h2 id="原模拟器"><a href="#原模拟器" class="headerlink" title="原模拟器"></a>原模拟器</h2><p>未发现</p>
+<h2 id="官方文献"><a href="#官方文献" class="headerlink" title="官方文献"></a>官方文献</h2><blockquote>
+<p> Nintendo - Game Boy Advance (VBA Next)</p>
+<p>Background</p>
+<p>VBA Next is a Game Boy Advance emulator based on VBA-M 2011 with backported patches for performance and compatibility improvements.</p>
+<p>Author/License</p>
+<p>The VBA Next core has been authored by</p>
+<p>Forgotten<br>VBA-M Team<br>Squarepusher</p>
+<p>The VBA Next core is licensed under</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/libretro/vba-next/blob/master/LICENSE">GPLv2</a></p>
+<p>A summary of the licenses behind RetroArch and its cores can be found <a href="../development/licenses.md">here</a>.</p>
+<p>Extensions</p>
+<p>Content that can be loaded by the VBA Next core have the following file extensions:</p>
+<p>.gba</p>
+<p>Databases</p>
+<p>RetroArch database(s) that are associated with the VBA Next core:</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/libretro/libretro-database/blob/master/rdb/Nintendo%20-%20Game%20Boy%20Advance.rdb">Nintendo - Game Boy Advance</a></p>
+<p>BIOS</p>
+<p>Required or optional firmware files go in the frontend’s system directory.</p>
+<p>!!! warning<br>    In order for the Game Boy Advance BIOS to be used, the ‘Use bios if available’ core option must be set to On.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Filename</th>
+<th align="center">Description</th>
+<th align="center">md5sum</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">gba_bios.bin</td>
+<td align="center">Game Boy Advance Image - Optional</td>
+<td align="center">a860e8c0b6d573d191e4ec7db1b1e4f6</td>
+</tr>
+</tbody></table>
+<p>Features</p>
+<p>Frontend-level settings or features that the VBA Next core respects.</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th align="center">Supported</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Restart</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Screenshots</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Saves</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>States</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Rewind</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Netplay</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Core Options</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>RetroAchievements</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>RetroArch Cheats</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Native Cheats</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Controls</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Remapping</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Multi-Mouse</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Rumble</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Sensors</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Camera</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Location</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Subsystem</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td><a href="../guides/softpatching.md">Softpatching</a></td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Disk Control</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Username</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Language</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Crop Overscan</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>LEDs</td>
+<td align="center">✕</td>
+</tr>
+</tbody></table>
+<p>Directories</p>
+<p>The VBA Next core’s directory name is ‘VBA Next’</p>
+<p>The VBA Next core saves/loads to/from these directories.</p>
+<p><strong>Frontend’s Save directory</strong></p>
+<p>‘content-name’.srm (Cartridge battery save)</p>
+<p><strong>Frontend’s State directory</strong></p>
+<p>‘content-name’.state# (State)</p>
+<p>Geometry and timing</p>
+<p>The VBA Next core’s core provided FPS is 59.727<br>The VBA Next core’s core provided sample rate is 32000 Hz<br>The VBA Next core’s core provided aspect ratio is 3/2</p>
+<p>Core options</p>
+<p>The VBA Next core has the following option(s) that can be tweaked from the core options menu. The default setting is bolded.</p>
+<p>Settings with (Restart) means that core has to be closed for the new setting to be applied on next launch.</p>
+<p><strong>Use bios if available (Restart)</strong> [vbanext_bios] (Off/<strong>On</strong>)</p>
+<pre><code>Uses BIOS present in RetroArch&#39;s system directory. Look at the [BIOS section](#bios) for more information.</code></pre>
+<p>??? note “Use bios if available - On”<br>    <img src="../image/core/vba_next/bios.png"></p>
+<p>Controllers</p>
+<p>The VBA Next core supports the following device type(s) in the controls menu, bolded device types are the default for the specified user(s):</p>
+<p>User 1 device types</p>
+<p>None - Doesn’t disable input<br><strong>RetroPad</strong> - Joypad<br>RetroPad w/Analog - Joypad - There’s no reason to switch to this.</p>
+<p>Controller tables</p>
+<p>Joypad</p>
+<p><img src="../image/controller/gba.png"></p>
+<table>
+<thead>
+<tr>
+<th>User 1 Remap descriptors</th>
+<th>RetroPad Inputs</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>B</td>
+<td><img src="../image/retropad/retro_b.png"></td>
+</tr>
+<tr>
+<td>Select</td>
+<td><img src="../image/retropad/retro_select.png"></td>
+</tr>
+<tr>
+<td>Start</td>
+<td><img src="../image/retropad/retro_start.png"></td>
+</tr>
+<tr>
+<td>D-Pad Up</td>
+<td><img src="../image/retropad/retro_dpad_up.png"></td>
+</tr>
+<tr>
+<td>D-Pad Down</td>
+<td><img src="../image/retropad/retro_dpad_down.png"></td>
+</tr>
+<tr>
+<td>D-Pad Left</td>
+<td><img src="../image/retropad/retro_dpad_left.png"></td>
+</tr>
+<tr>
+<td>D-Pad Right</td>
+<td><img src="../image/retropad/retro_dpad_right.png"></td>
+</tr>
+<tr>
+<td>A</td>
+<td><img src="../image/retropad/retro_a.png"></td>
+</tr>
+<tr>
+<td>L</td>
+<td><img src="../image/retropad/retro_l1.png"></td>
+</tr>
+<tr>
+<td>R</td>
+<td><img src="../image/retropad/retro_r1.png"></td>
+</tr>
+</tbody></table>
+<p>Compatibility</p>
+<table>
+<thead>
+<tr>
+<th>Game</th>
+<th>Issue</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Boktai Trilogy</td>
+<td>The solar sensor is not emulated.</td>
+</tr>
+<tr>
+<td>Croket! 2 – Yami no Bank to Banqueen</td>
+<td>Heavy slowdown when approaching the snowman in the beginning.</td>
+</tr>
+<tr>
+<td>Koro Koro Puzzle Happy Panechu!</td>
+<td>The tilt sensor is not emulated.</td>
+</tr>
+<tr>
+<td>Super Mario Advance 2: Super Mario World (Europe)</td>
+<td>The program crashes during the final fight, when Bowser approaches (zoom mode 7)</td>
+</tr>
+<tr>
+<td>WarioWare: Twisted!</td>
+<td>The tilt sensor is not emulated.</td>
+</tr>
+<tr>
+<td>Yoshi’s Universal Gravitation</td>
+<td>The tilt sensor is not emulated.</td>
+</tr>
+</tbody></table>
+<p>??? note “1”<br>    <img src="../image/core/vba_next/ssx.png"></p>
+<p>External Links</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/libretro/libretro-super/blob/master/dist/info/vba_next_libretro.info">Libretro VBA Next Core info file</a><br><a target="_blank" rel="noopener" href="https://github.com/libretro/vba-next">Libretro VBA Next Github Repository</a><br><a target="_blank" rel="noopener" href="https://github.com/libretro/vba-next/issues">Report Libretro VBA Next Core Issues Here</a></p>
+<p>See also</p>
+<p>Nintendo - Game Boy Advance</p>
+<p><a href="beetle_gba.md">Nintendo - Game Boy Advance (Beetle GBA)</a><br><a href="gpsp.md">Nintendo - Game Boy Advance (gpSP)</a><br><a href="meteor.md">Nintendo - Game Boy Advance (Meteor)</a><br><a href="mgba.md">Nintendo - Game Boy Advance (mGBA)</a><br><a href="tempgba.md">Nintendo - Game Boy Advance (TempGBA)</a><br><a href="vba_m.md">Nintendo - Game Boy Advance (VBA-M)</a></p>
+</blockquote>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><p>支持的ROM格式 :<br>.gba</p>
+<h3 id="固件"><a href="#固件" class="headerlink" title="固件:"></a>固件:</h3><p>（可选）gba_bios.bin 可以不需要这个固件就运行ROM<br><em>注释:如果你要使用固件，请打开核心选项内的 <strong>Use bios if available (Restart)</strong></em><br>固件路径 /system</p>
+<h3 id="功能"><a href="#功能" class="headerlink" title="功能:"></a>功能:</h3><p>支持重启，截图，原生存档，即时存档，倒带，控制，按键映射 。不支持传感器，联机模式，原生作弊与R作弊</p>
+<h3 id="核心选项"><a href="#核心选项" class="headerlink" title="核心选项:"></a>核心选项:</h3><p>1.Use bios if available (Restart)</p>
+<p><img src="https://docs.libretro.com/image/core/vba_next/bios.png" alt="img"></p>
+<h3 id="控制布局"><a href="#控制布局" class="headerlink" title="控制布局:"></a>控制布局:</h3><p><img src="https://docs.libretro.com/image/controller/gba.png" alt="img"></p>
+<p>B<br>Select<br>Start<br>D-Pad Up<br>D-Pad Down<br>D-Pad Left<br>D-Pad Right<br>A<br>L<br>R</p>
+<h3 id="相关路径与文件"><a href="#相关路径与文件" class="headerlink" title="相关路径与文件:"></a>相关路径与文件:</h3><h3 id="支持的平台"><a href="#支持的平台" class="headerlink" title="支持的平台:"></a>支持的平台:</h3><p>Windows，Android，ios，Linux，Switch，Pi</p>
+<h3 id="评测"><a href="#评测" class="headerlink" title="评测:"></a>评测:</h3><p>高性能组<br>1.安卓<br>环境:Android10-armV8a，骁龙835，OpenGL，默认选项<br>结果:5个ROM平均60FPS<br>低性能组<br>1.安卓<br>环境:环境:Android6-armV8a，骁龙625，OpenGL，默认选项<br>结果:5个ROM平均60FPS</p>
+<p>模拟GBA是比较容易的，在RA中不需要设置即可运行，模拟GBA也是模拟器界的一个标准功能，其兼容性和速度在各个GBA核心来说是极佳的，对比其他核心来说有几个致命缺点，不支持作弊与模拟传感器，这也导致了很多需要传感器的游戏不能运行</p>
+<h3 id="兼容性问题"><a href="#兼容性问题" class="headerlink" title="兼容性问题:"></a>兼容性问题:</h3><p>见官方文档Compatibility栏</p>
+<h1 id="VBA-M"><a href="#VBA-M" class="headerlink" title="VBA-M"></a>VBA-M</h1><h2 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h2><p>VBA-M是一个以模拟准确性为目标的模拟器，且对于任天堂GB系列有着全面的模拟，具有很高的兼容性，但是速度来说对比起VBA-NEXT稍微欠缺，其最大的特点是尽达到了真实的模拟，支持传感器，原生作弊等功能，而且支持对GBA/GB/GBC的全方位模拟</p>
+<h2 id="原模拟器-1"><a href="#原模拟器-1" class="headerlink" title="原模拟器"></a>原模拟器</h2><p>未发现</p>
+<h3 id="官方文献-1"><a href="#官方文献-1" class="headerlink" title="官方文献"></a>官方文献</h3><blockquote>
+<p>Nintendo - Game Boy Advance (VBA-M)</p>
+<p>Background</p>
+<p>VBA-M is a Game Boy Advance emulator with the goal to improve upon VisualBoyAdvance by integrating the best features from the various builds floating around. It also supports Game Boy, Game Boy Color and Super Game Boy (borders, palette).</p>
+<p>Author/License</p>
+<p>The VBA-M core has been authored by</p>
+<p>Forgotten<br>VBA-M Team</p>
+<p>The VBA-M core is licensed under</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/libretro/vbam-libretro/blob/master/doc/gpl.txt">GPLv2</a></p>
+<p>A summary of the licenses behind RetroArch and its cores can be found <a href="../development/licenses.md">here</a>.</p>
+<p>BIOS</p>
+<p>Required or optional firmware files go in the frontend’s system directory.</p>
+<p>!!! warning<br>    In order for the BIOS to be used, the ‘Use BIOS file if found’ core option must be set to On.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Filename</th>
+<th align="center">Description</th>
+<th align="center">md5sum</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">gba_bios.bin</td>
+<td align="center">Game Boy Advance BIOS - Optional</td>
+<td align="center">a860e8c0b6d573d191e4ec7db1b1e4f6</td>
+</tr>
+<tr>
+<td align="center">gb_bios.bin</td>
+<td align="center">Game Boy BIOS - Optional</td>
+<td align="center">32fbbd84168d3482956eb3c5051637f5</td>
+</tr>
+<tr>
+<td align="center">gbc_bios.bin</td>
+<td align="center">Game Boy Color BIOS - Optional</td>
+<td align="center">dbfce9db9deaa2567f6a84fde55f9680</td>
+</tr>
+</tbody></table>
+<p>Extensions</p>
+<p>Content that can be loaded by the VBA-M core have the following file extensions:</p>
+<p>.gb<br>.gbc<br>.gba</p>
+<p>Databases</p>
+<p>RetroArch database(s) that are associated with the VBA-M core:</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/libretro/libretro-database/blob/master/rdb/Nintendo%20-%20Game%20Boy.rdb">Nintendo - Game Boy</a><br><a target="_blank" rel="noopener" href="https://github.com/libretro/libretro-database/blob/master/rdb/Nintendo%20-%20Game%20Boy%20Color.rdb">Nintendo - Game Boy Color</a><br><a target="_blank" rel="noopener" href="https://github.com/libretro/libretro-database/blob/master/rdb/Nintendo%20-%20Game%20Boy%20Advance.rdb">Nintendo - Game Boy Advance</a></p>
+<p>Features</p>
+<p>Frontend-level settings or features that the VBA-M core respects.</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th align="center">Supported</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Restart</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Screenshots</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Saves</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>States</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Rewind</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Netplay</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Core Options</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>RetroAchievements</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>RetroArch Cheats</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Native Cheats</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Controls</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Remapping</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Multi-Mouse</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Rumble</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Sensors</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Camera</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Location</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Subsystem</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td><a href="../guides/softpatching.md">Softpatching</a></td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Disk Control</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Username</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Language</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Crop Overscan</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>LEDs</td>
+<td align="center">✕</td>
+</tr>
+</tbody></table>
+<p>Directories</p>
+<p>The VBA-M core’s directory name is ‘VBA-M’</p>
+<p>The VBA-M core saves/loads to/from these directories.</p>
+<p><strong>Frontend’s Save directory</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">File</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">*.srm</td>
+<td align="center">Cartridge battery save</td>
+</tr>
+</tbody></table>
+<p><strong>Frontend’s State directory</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">File</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">*.state#</td>
+<td align="center">State</td>
+</tr>
+</tbody></table>
+<p>Geometry and timing</p>
+<p>The VBA-M core’s core provided FPS is 59.72<br>The VBA-M core’s core provided sample rate is 32768 Hz<br>The VBA-M core’s base width is GBA: 240, GB: 160 (256 with border/SGB mode)<br>The VBA-M core’s base height is GBA: 160, GB: 144 (224 with border/SGB mode)<br>The VBA-M core’s max width is 256<br>The VBA-M core’s max height is 224<br>The VBA-M core’s core provided aspect ratio is GBA: 3:2, GB: 10:9 (8:7 with border/SGB)</p>
+<p>Core options</p>
+<p>The VBA-M core has the following option(s) that can be tweaked from the core options menu. The default setting is bolded.</p>
+<p>Settings with (Restart) means that core has to be closed for the new setting to be applied on next launch.</p>
+<p><strong>Solar sensor level</strong> [vbam_solarsensor] (<strong>0</strong>|1|2|3|4|5|6|7|8|9|10)</p>
+<pre><code>For use with Boktai games (solar cartridge games). Manually adjust ingame&#39;s solar sensor meter.</code></pre>
+<p><strong>Use BIOS file if found</strong> [vbam_usebios] (Off/<strong>On</strong>)</p>
+<pre><code>Uses BIOS present in RetroArch&#39;s system directory.</code></pre>
+<p><strong>Force enable RTC</strong> [vbam_forceRTCenable] (<strong>Off</strong>/On)</p>
+<pre><code>Forces the internal real-time clock to be enabled regardless of rom. Usuable for rom patches that requires clock to be enabled (aka Pokemon).</code></pre>
+<p><strong>Sound Interpolation</strong> [vbam_soundinterpolation] (Off/<strong>On</strong>)</p>
+<pre><code>Enable or disable sound filtering.</code></pre>
+<p><strong>Sound Filtering</strong> [vbam_soundfiltering] (0|1|2|3|4|<strong>5</strong>|6|7|8|9|10)</p>
+<pre><code>Sets the cutoff-frequency for the interpolation filter. Higher value reduces more high frequencies.</code></pre>
+<p><strong>(GB) Color Palette</strong> [vbam_palettes] (<strong>black and white</strong>|blue sea|dark knight|green forest|hot desert|pink dreams|weird colors|original gameboy|gba sp)</p>
+<pre><code>Set Game Boy palettes to use.</code></pre>
+<p>??? note “(GB) Color Palette - black and white”<br>    <img src="../image/core/vba_m/pal_1bw.png"></p>
+<p>??? note “(GB) Color Palette - blue sea”<br>    <img src="../image/core/vba_m/pal_2bluesea.png"></p>
+<p>??? note “(GB) Color Palette - dark knight”<br>    <img src="../image/core/vba_m/pal_3darkknight.png"></p>
+<p>??? note “(GB) Color Palette - green forest”<br>    <img src="../image/core/vba_m/pal_4greenforest.png"></p>
+<p>??? note “(GB) Color Palette - hot desert”<br>    <img src="../image/core/vba_m/pal_5hotdesert.png"></p>
+<p>??? note “(GB) Color Palette - pink dreams”<br>    <img src="../image/core/vba_m/pal_6pinkdreams.png"></p>
+<p>??? note “(GB) Color Palette - weird colors”<br>    <img src="../image/core/vba_m/pal_7weirdcolors.png"></p>
+<p>??? note “(GB) Color Palette - original gameboy”<br>    <img src="../image/core/vba_m/pal_8originalgb.png"></p>
+<p>??? note “(GB) Color Palette - gba sp”<br>    <img src="../image/core/vba_m/pal_9gbsp.png"></p>
+<p><strong>(GB) Emulated Hardware (Requires Restart)</strong> [vbam_gbHardware] (Automatic|<strong>Game Boy Color</strong>|Super Game Boy|Game Boy|Game Boy Advance|Super Game Boy)</p>
+<pre><code>Selects the type of game boy handheld to emulate. Automatic will select the most appropriate model for the current game.</code></pre>
+<p><strong>(GB) Enable Colorizer Hack (Needs Restart)</strong> [vbam_allowcolorizerhack] (<strong>Off</strong>/On)</p>
+<pre><code>Allows some Colorizer/DX patched gb roms to run correctly. NOT RECOMMENDED for non-colorized patched games since this hack relies on inaccurate vram and palette access.
+
+See: https://github.com/libretro/vbam-libretro/issues/58</code></pre>
+<p><strong>(GB) Show Borders</strong> [vbam_showborders] (auto|<strong>Off</strong>|On)</p>
+<pre><code>Shows a solid-colored border around the normal window. If current game is SGB capable, an appropriate border from the cartridge will be loaded and shown instead.</code></pre>
+<p>??? note “Show Borders - Off”<br>    <img src="../image/core/vba_m/border_off.png"></p>
+<p>??? note “Show Borders - On”<br>    <img src="../image/core/vba_m/border_on.png"></p>
+<p><strong>(GB) Color Correction</strong> [vbam_gbcoloroption] (<strong>Off</strong>/On)</p>
+<pre><code>Applies color correction to palette.</code></pre>
+<p>??? note “(GB) Color Correction - Off”<br>    <img src="../image/core/vba_m/cc_Off.png"></p>
+<p>??? note “(GB) Color Correction - On”<br>    <img src="../image/core/vba_m/cc_On.png"></p>
+<p><strong>Enable Turbo Buttons</strong> [vbam_turboenable] (<strong>Off</strong>/On)</p>
+<pre><code>Enable or disable gamepad turbo buttons.</code></pre>
+<p><strong>Turbo Delay (in frames)</strong> [vbam_turbodelay] (1|2|<strong>3</strong>|4|5|6|7…|15)</p>
+<pre><code>Repeat rate of turbo triggers in frames. Lower value triggers more buttons per second.</code></pre>
+<p><strong>Analog Deadzone (%)</strong> [vbam_astick_deadzone] (5|10|<strong>15</strong>|20|25|30)</p>
+<pre><code>The minimum absolute value of the analog joystick axis to move the gyro/tilt controller axis value.</code></pre>
+<p><strong>Sensor Sensitivity (Gyroscope) (%)</strong> [vbam_gyro_sensitivity] (10|15|20|25|30|35|40|45|50|55|60|65|70|75|80|85|90|95|<strong>100</strong>|105|110|115|120)</p>
+<pre><code>Used to adjust sensitivity level for gyro-enabled games. Default bind is left analog.</code></pre>
+<p><strong>Sensor Sensitivity (Tilt) (%)</strong> [vbam_tilt_sensitivity] (10|15|20|25|30|35|40|45|50|55|60|65|70|75|80|85|90|95|<strong>100</strong>|105|110|115|120)</p>
+<pre><code>Used to adjust sensitivity level for gyro-enabled games. Default bind is right analog.</code></pre>
+<p><strong>Swap Left/Right Analog</strong> [vbam_swap_astick] (<strong>Off</strong>/On)</p>
+<pre><code>Swaps left and right analog stick function for gyro and tilt</code></pre>
+<p><strong>Sound channel 1</strong> [vbam_sound_1] (Off/<strong>On</strong>)</p>
+<pre><code>Self-explanatory.</code></pre>
+<p><strong>Sound channel 2</strong> [vbam_sound_2] (Off/<strong>On</strong>)</p>
+<pre><code>Self-explanatory.</code></pre>
+<p><strong>Sound channel 3</strong> [vbam_sound_3] (Off/<strong>On</strong>)</p>
+<pre><code>Self-explanatory.</code></pre>
+<p><strong>Sound channel 4</strong> [vbam_sound_4] (Off/<strong>On</strong>)</p>
+<pre><code>Self-explanatory.</code></pre>
+<p><strong>Sound DMA channel A</strong> [vbam_sound_5] (Off/<strong>On</strong>)</p>
+<pre><code>Self-explanatory.</code></pre>
+<p><strong>Sound DMA channel B</strong> [vbam_sound_6] (Off/<strong>On</strong>)</p>
+<pre><code>Self-explanatory.</code></pre>
+<p><strong>Show layer 1</strong> [vbam_layer_1] (Off/<strong>On</strong>)</p>
+<pre><code>Self-explanatory.</code></pre>
+<p><strong>Show layer 2</strong> [vbam_layer_2] (Off/<strong>On</strong>)</p>
+<pre><code>Self-explanatory.</code></pre>
+<p><strong>Show layer 3</strong> [vbam_layer_3] (Off/<strong>On</strong>)</p>
+<pre><code>Self-explanatory.</code></pre>
+<p><strong>Show layer 4</strong> [vbam_layer_4] (Off/<strong>On</strong>)</p>
+<pre><code>Self-explanatory.</code></pre>
+<p><strong>Show sprite layer</strong> [vbam_layer_5] (Off/<strong>On</strong>)</p>
+<pre><code>Self-explanatory.</code></pre>
+<p><strong>Show window layer 1</strong> [vbam_layer_6] (Off/<strong>On</strong>)</p>
+<pre><code>Self-explanatory.</code></pre>
+<p><strong>Show window layer 2</strong> [vbam_layer_7] (Off/<strong>On</strong>)</p>
+<pre><code>Self-explanatory.</code></pre>
+<p><strong>Show sprite window layer</strong> [vbam_layer_8] (Off/<strong>On</strong>)</p>
+<pre><code>Self-explanatory.</code></pre>
+<p>Controllers</p>
+<p>The VBA-M core supports the following device type(s) in the controls menu, bolded device types are the default for the specified user(s):</p>
+<p>User 1 device types</p>
+<p>None - Input disabled.<br><strong>GBA Joypad</strong> - Joypad</p>
+<p>Controller tables</p>
+<p>Joypad</p>
+<p><img src="../image/controller/gba.png"></p>
+<table>
+<thead>
+<tr>
+<th>User 1 Remap descriptors</th>
+<th>RetroPad Inputs</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>B</td>
+<td><img src="../image/retropad/retro_b.png"></td>
+</tr>
+<tr>
+<td>Turbo B</td>
+<td><img src="../image/retropad/retro_y.png"></td>
+</tr>
+<tr>
+<td>Select</td>
+<td><img src="../image/retropad/retro_select.png"></td>
+</tr>
+<tr>
+<td>Start</td>
+<td><img src="../image/retropad/retro_start.png"></td>
+</tr>
+<tr>
+<td>D-Pad Up</td>
+<td><img src="../image/retropad/retro_dpad_up.png"></td>
+</tr>
+<tr>
+<td>D-Pad Down</td>
+<td><img src="../image/retropad/retro_dpad_down.png"></td>
+</tr>
+<tr>
+<td>D-Pad Left</td>
+<td><img src="../image/retropad/retro_dpad_left.png"></td>
+</tr>
+<tr>
+<td>D-Pad Right</td>
+<td><img src="../image/retropad/retro_dpad_right.png"></td>
+</tr>
+<tr>
+<td>A</td>
+<td><img src="../image/retropad/retro_a.png"></td>
+</tr>
+<tr>
+<td>Turbo A</td>
+<td><img src="../image/retropad/retro_x.png"></td>
+</tr>
+<tr>
+<td>L</td>
+<td><img src="../image/retropad/retro_l1.png"></td>
+</tr>
+<tr>
+<td>R</td>
+<td><img src="../image/retropad/retro_r1.png"></td>
+</tr>
+<tr>
+<td>Solar Sensor (Darker)</td>
+<td><img src="../image/retropad/retro_l2.png"></td>
+</tr>
+<tr>
+<td>Solar Sensor (Lighter)</td>
+<td><img src="../image/retropad/retro_r2.png"></td>
+</tr>
+<tr>
+<td>Tilt X-Axis</td>
+<td><img src="../image/retropad/retro_left_stick.png"></td>
+</tr>
+<tr>
+<td>Tilt X-Yxis</td>
+<td><img src="../image/retropad/retro_left_stick.png"></td>
+</tr>
+<tr>
+<td>Gyro</td>
+<td><img src="../image/retropad/retro_right_stick.png"></td>
+</tr>
+</tbody></table>
+<p>Compatibility</p>
+<table>
+<thead>
+<tr>
+<th>Game</th>
+<th>Issue</th>
+</tr>
+</thead>
+</table>
+<p>External Links</p>
+<p><a target="_blank" rel="noopener" href="http://vba-m.com/">Official VBA-M Website</a><br><a target="_blank" rel="noopener" href="https://github.com/visualboyadvance-m/visualboyadvance-m">Official VBA-M Github Repository</a><br><a target="_blank" rel="noopener" href="https://github.com/libretro/libretro-super/blob/master/dist/info/vbam_libretro.info">Libretro VBA-M Core info file</a><br><a target="_blank" rel="noopener" href="https://github.com/libretro/vbam-libretro">Libretro VBA-M Github Repository</a><br><a target="_blank" rel="noopener" href="https://github.com/libretro/vbam-libretro/issues">Report Libretro VBA-M Core Issues Here</a></p>
+<p>See also</p>
+<p>Nintendo - Game Boy Advance</p>
+<p><a href="beetle_gba.md">Nintendo - Game Boy Advance (Beetle GBA)</a><br><a href="gpsp.md">Nintendo - Game Boy Advance (gpSP)</a><br><a href="meteor.md">Nintendo - Game Boy Advance (Meteor)</a><br><a href="mgba.md">Nintendo - Game Boy Advance (mGBA)</a><br><a href="tempgba.md">Nintendo - Game Boy Advance (TempGBA)</a><br><a href="vba_next.md">Nintendo - Game Boy Advance (VBA Next)</a></p>
+<p>Nintendo - Game Boy (+ Color)</p>
+<p><a href="emux_gb.md">Nintendo - Game Boy / Color (Emux GB)</a><br><a href="gambatte.md">Nintendo - Game Boy / Color (Gambatte)</a><br><a href="gearboy.md">Nintendo - Game Boy / Color (Gearboy)</a><br><a href="sameboy.md">Nintendo - Game Boy / Color (SameBoy)</a><br><a href="tgb_dual.md">Nintendo - Game Boy / Color (TGB Dual)</a><br><a href="higan_accuracy.md">Nintendo - SNES / Famicom (higan Accuracy)</a><br><a href="nside_balanced.md">Nintendo - SNES / Famicom (nSide Balanced)</a><br><a href="mesen-s.md">Nintendo - SNES / Famicom (Mesen-S)</a></p>
+</blockquote>
+<h2 id="特性-1"><a href="#特性-1" class="headerlink" title="特性"></a>特性</h2><p>支持的ROM格式:<br>.gba<br>.gbc<br>.gb</p>
+<h2 id="固件-1"><a href="#固件-1" class="headerlink" title="固件:"></a>固件:</h2><p>(可选)gba_bios.bin<br>(可选)gb_bios.bin<br>(可选)gbc_bios.bin<br>可以不使用此固件来运行ROM</p>
+<h2 id="功能-1"><a href="#功能-1" class="headerlink" title="功能:"></a>功能:</h2><p>支持 重启，截图，原生存档，即时存档，倒带，成就，传感器，震动，手柄控制，按键映射，原生作弊，RA作弊，补丁<br>不支持 联机模式</p>
+<h2 id="核心选项-1"><a href="#核心选项-1" class="headerlink" title="核心选项:"></a>核心选项:</h2><p>1.Solar sensor level [vbam_solarsensor] (0|1|2|3|4|5|6|7|8|9|10)<br>调整太阳能传感器的太阳能强度<br>2.Use BIOS file if found [vbam_usebios] (Off/<strong>On</strong>)<br>启用Bios固件</p>
+<p>3.Force enable RTC<br> [vbam_forceRTCenable] (<strong>Off</strong>/On)<br>强制启用内部实时时钟，常用于宝可梦<br>4.Sound Interpolation [vbam_soundinterpolation] (Off/<strong>On</strong>)<br>启用声音过滤<br>5.Sound Filtering [vbam_soundfiltering] (0|1|2|3|4|<strong>5</strong>|6|7|8|9|10)<br>默认5</p>
+<p>6.(GB) Color Palette [vbam_palettes] (<strong>black and white</strong>|blue sea|dark knight|green forest|hot desert|pink dreams|weird colors|original gameboy|gba sp)<br>设置GB的调色板(滤镜)，有黑白，海蓝，黑骑士，热沙漠，粉红色的梦，绿色丛林，奇怪的颜色，原生，SP等风格的调色<br>(呵呵，名字取的蛮好)</p>
+<p><img src="https://docs.libretro.com/image/core/vba_m/pal_1bw.png" alt="img"></p>
+<p><img src="https://docs.libretro.com/image/core/vba_m/pal_2bluesea.png" alt="img"></p>
+<p><img src="https://docs.libretro.com/image/core/vba_m/pal_3darkknight.png" alt="img"></p>
+<p>7.(GB) Emulated Hardware (Requires Restart) [vbam_gbHardware] (Automatic|Game Boy Color|Super Game Boy|Game Boy|Game Boy Advance|Super Game Boy)<br>硬件模拟<br>选择一个GBA的机型来对其进行模拟，核心会自动选择合适的型号对其进行模拟</p>
+<p>8.(GB) Enable Colorizer Hack (Needs Restart) [vbam_allowcolorizerhack] (Off/On)<br>开启着色器修改<br>允许一些着色器/DX修补GBroms正确运行。 不推荐用于非彩色修补游戏，用于修正一些ROM的色差<br>See: <a target="_blank" rel="noopener" href="https://github.com/libretro/vbam-libretro/issues/58">https://github.com/libretro/vbam-libretro/issues/58</a></p>
+<p>9.(GB) Show Borders [vbam_showborders] (auto|Off|On)<br>显示游戏内显示框<br>一些游戏支持游戏内嵌的显示框，就像电脑界面的窗口一样，而在显示框内部才是真正的游戏画面，外部显示了一些游戏的信息，就像墨盒一样</p>
+<p><img src="https://docs.libretro.com/image/core/vba_m/border_on.png" alt="img"></p>
+<p>(GB) Color Correction [vbam_gbcoloroption] (Off/On)<br>色彩矫正器<br>可以矫正色彩使其色差更加真实，开了可能会使游戏色差鲜艳度降低</p>
+<p>没开</p>
+<p><img src="https://docs.libretro.com/image/core/vba_m/cc_Off.png" alt="img"></p>
+<p>开了</p>
+<p><img src="https://docs.libretro.com/image/core/vba_m/cc_On.png" alt="img"></p>
+<p>10.Enable Turbo Buttons [vbam_turboenable] (Off/On)<br>开启连击键</p>
+<p>11.Turbo Delay (in frames) [vbam_turbodelay] (1|2|3|4|5|6|7…|15)<br>设定连击延迟 单位秒</p>
+<p>Analog Deadzone (%) [vbam_astick_deadzone] (5|10|15|20|25|30)</p>
+<p>模拟操纵杆轴移动陀螺仪/倾斜控制器轴值的操控范围</p>
+<p>12.Sensor Sensitivity (Gyroscope) (%) [vbam_gyro_sensitivity] (10|15|20|25|30|35|40|45|50|55|60|65|70|75|80|85|90|95|100|105|110|115|120)<br>陀螺仪传感器灵敏度，默认陀螺仪左轴</p>
+<p>Used to adjust sensitivity level for gyro-enabled games. Default bind is left analog.</p>
+<p>13.Sensor Sensitivity (Tilt) (%) [vbam_tilt_sensitivity] (10|15|20|25|30|35|40|45|50|55|60|65|70|75|80|85|90|95|100|105|110|115|120)<br>传感器倾斜灵敏度，默认右轴</p>
+<p>14.Swap Left/Right Analog [vbam_swap_astick] (Off/On)<br>互换陀螺仪与倾斜传感器左右轴的，互换左右轴的功能<br>Swaps left and right analog stick function for gyro and tilt</p>
+<p>下面是GBA的音轨的开启与关闭选项<br>15.Sound channel 1 [vbam_sound_1] (Off/On)</p>
+<p>Self-explanatory.</p>
+<p>16.Sound channel 2 [vbam_sound_2] (Off/On)</p>
+<p>Self-explanatory.</p>
+<p>17.Sound channel 3 [vbam_sound_3] (Off/On)</p>
+<p>Self-explanatory.</p>
+<p>18.Sound channel 4 [vbam_sound_4] (Off/On)</p>
+<p>Self-explanatory.</p>
+<p>19.Sound DMA channel A [vbam_sound_5] (Off/On)</p>
+<p>Self-explanatory.</p>
+<p>20.Sound DMA channel B [vbam_sound_6] (Off/On)</p>
+<p>Self-explanatory.</p>
+<p>21.Show layer 1 [vbam_layer_1] (Off/On)</p>
+<p>Self-explanatory.</p>
+<p>22.Show layer 2 [vbam_layer_2] (Off/On)</p>
+<p>Self-explanatory.</p>
+<p>23.Show layer 3 [vbam_layer_3] (Off/On)</p>
+<p>Self-explanatory.</p>
+<p>24.Show layer 4 [vbam_layer_4] (Off/On)</p>
+<p>Self-explanatory.</p>
+<p>25.Show sprite layer [vbam_layer_5] (Off/On)</p>
+<p>Self-explanatory.</p>
+<p>26.Show window layer 1 [vbam_layer_6] (Off/On)</p>
+<p>Self-explanatory.</p>
+<p>27.Show window layer 2 [vbam_layer_7] (Off/On)</p>
+<p>Self-explanatory.</p>
+<p>28.Show sprite window layer [vbam_layer_8] (Off/On)</p>
+<p>Self-explanatory.</p>
+<h2 id="相关路径与文件-1"><a href="#相关路径与文件-1" class="headerlink" title="相关路径与文件:"></a>相关路径与文件:</h2><h2 id="控制"><a href="#控制" class="headerlink" title="控制:"></a>控制:</h2><p>B<br>Turbo B Y<br>Select<br>Start<br>D-Pad Up<br>D-Pad Down<br>D-Pad Left<br>D-Pad Right<br>A<br>Turbo A X<br>L L1<br>R R1<br>Solar Sensor (Darker) L2<br>Solar Sensor (Lighter) R2<br>Tilt X-Axis L<br>Tilt X-Yxis L<br>Gyro 圆形R</p>
+<h2 id="测评"><a href="#测评" class="headerlink" title="测评:"></a>测评:</h2><p>高性能组:<br>1.安卓<br>环境:Android10-armV8a，骁龙835，OpenGL，默认选项<br>结果:<br>低性能组:<br>环境:环境:Android6-armV8a，骁龙625，OpenGL，默认选项<br>结果:</p>
+<p>功能奇多无比，让你体验真实的GBA，内味太浓</p>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏咱一下
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本网站一切创作内容遵循 署名-非商业性使用-相同方式共享协议文本(CC-BY-SA-3.0)，文章也仅代表个人(OT-22)的观点与看法
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://opts-22.github.io/2020/10/24/retrocore-gba/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BB%BF%E7%9C%9F%E5%99%A8/" rel="tag">仿真器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%B2/" rel="tag">计算机史</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2020/10/24/retrocore-flycast/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            RetroArch-DC(Flycast)核心的配置和操作指南
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/10/24/retroemu/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">每天一个Retroarch小技巧</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "RtLDMH9NIkLvLDWMubyRzXe9-gzGzoHsz",
+    app_key: "8o4Q21FxATEdCXWCk5vCA7PX",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2021
+        <i class="ri-heart-fill heart_icon"></i> OT-22
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="欢迎来到OT-22的主页~"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/photos">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/other/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechatm.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechatm.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+<script src="/js/dz.js"></script>
+
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=1436614177&auto=1&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+</body>
+
+</html>

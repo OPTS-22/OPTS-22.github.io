@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="OT的博客哦" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    文件服务器中的老猫，Weezo |  OT的博客哦
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="欢迎来到OT-22的主页~" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-weezo"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  文件服务器中的老猫，Weezo
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/10/20/weezo/" class="article-date">
+  <time datetime="2020-10-20T10:52:07.000Z" itemprop="datePublished">2020-10-20</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">2.1k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">7 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="文件共享服务器"><a href="#文件共享服务器" class="headerlink" title="文件共享服务器"></a>文件共享服务器</h1><p>如果你想搭建一个文件共享服务器来作私人云盘，你会选择什么，现在有很多服务软件可选，像可道云，易有云，NextCloud，Seafile，Cloudreve，Z-File，各有特色，功能强大，开源或者不开源，有些搭建简单有些搭建复杂。</p>
+<p><strong>但今天要介绍一下Weezo</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/uw1HLA75X3sFPWN.jpg" alt="u=2074893334,862763281&amp;fm=15&amp;gp=0"></p>
+<a id="more"></a>
+
+<p>比如我最喜欢用的可道云，界面华丽，内置微型桌面，有各种插件和支持，功能多样，再找一个好的VPS放到公网就可以作一个由自己支配的云盘了，再也不用怕百度云各种流氓操作了~</p>
+<p><strong>一个小巧华丽的文件浏览器，非常流畅</strong></p>
+<p><strong>在浏览器就能使用的桌面</strong></p>
+<p><strong>内置office，远程办公，甚至是NES模拟器</strong></p>
+<p><strong>还有可客户端支持，方便管理</strong></p>
+<p><strong>在线编辑代码</strong></p>
+<h1 id="Weezo"><a href="#Weezo" class="headerlink" title="Weezo"></a>Weezo</h1><p>但我今天并不是吹可道云怎么怎么好的，前段时间在找各种文件服务器的时候，找到一个已于2014年停止更新的文件共享解决方案，看截图似乎很像模像样，原来10年就有这么完备的私人云盘服务了吗？</p>
+<p>来自于21世纪10年代初期的网页设计，当时还是偏向于立体化的，在色彩方面也不是很讲究</p>
+<p>感觉回到了那时流行半夜贴吧故事会，B站也还是专门一群大学生在此创作二次元与鬼畜，手上还拿着塞班S60系统的诺基亚的时候………..</p>
+<p>所以，在深入了解Weezo后，我发现它不止是像模像样的程度了，他有:<br><strong>文件服务功能</strong><br><strong>博客空间功能</strong><br><strong>管理面板功能</strong><br><strong>影音中心功能</strong><br><strong>照片管理功能</strong><br>甚至有:<br><strong>远程桌面功能</strong><br><strong>RSS功能</strong><br><strong>公网映射，邮箱，社交账号功能</strong>(不可用)<br><strong>网络摄像头功能</strong><br>配置难度呢？一键安装，自动配置Apache，PHP，Mysql，仅支持Windows，图形化配置<br>是不是很惊艳，有些功能现在的文件共享解决方案也没有，而且可以集成这么多功能的也屈指可数，最重要的是，它还是10年左右的软件。</p>
+<p>接下咱们深入一下这个软件</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>很简单，安装包也就50M，现在还是可以在搜索引擎搜到资源，安装除了路径全部默认设置，Weezo也会给我们配置好所需的Web环境</p>
+<p>打开服务器，一个启动窗口下就在刷啦啦的打开各种服务，于是我们就可以看到软件面板了，在Win10下界面显示会有点问题，但并不影响使用</p>
+<p>我们设定好了管理员密码后，在浏览器输入你的设备的ip，然后就是可以让人怀念的登陆界面，就像那时典型的社交软件的界面一样</p>
+<p><img src="https://i.loli.net/2020/10/24/93ROkcErxD8JTiu.png" alt="image-20201024205408858"></p>
+<h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><p>登陆后界面还是较为空白，但我们可以看到这个界面很像是Windows Vista的窗口设计，然而这仅仅只是一个网页而已，在那时就可以实现类似视窗的界面了，我们可以对打开的窗口最大化，最小化，简直就像在网页中使用windows</p>
+<p>进入软件面板，我们先对账户和各种权限设置一下，之后我们便可以添加各种服务</p>
+<p><img src="https://i.loli.net/2020/10/23/MksiUKx34IaL7lz.png" alt="image-20201023140717644"></p>
+<p><img src="https://i.loli.net/2020/10/23/ImVhgcU3z49DtAJ.png" alt="image-20201023140659549"></p>
+<p>当然作为文件共享服务，我们先试试文件共享服务。文件共享支持你对电脑多个目录进行共享，对此分别设置各用户的权限等，我们现在添加两个文件目录</p>
+<p><img src="https://i.loli.net/2020/10/25/tLvlWay6sBAphNi.png" alt="image-20201023140815747"></p>
+<p>在页面端他的文件目录已经很贴近windows的资源管理器了，我们可以进行删除，拷贝，剪切，下载等功能，支持图标缩放</p>
+<p><img src="https://i.loli.net/2020/10/23/GdEN1BeqHiscI2R.png" alt="image-20201023140937080"></p>
+<p>支持读取文本，音乐，视频，照片，音乐会根据图标缩放的大小显示专辑图片</p>
+<p><img src="https://i.loli.net/2020/10/24/bAxmM3Pk6YiHCyf.png" alt="image-20201024210449043"></p>
+<p><img src="https://i.loli.net/2020/10/24/gPV6qc27m8LaYfC.png" alt="image-20201024210556089"></p>
+<p>下载功能还支持种子下载，批量下载与上传，当然，现在不可用了</p>
+<p><img src="https://i.loli.net/2020/10/24/1EJ5WikdDYbgRU8.png" alt="image-20201024211723034"></p>
+<p>之后的功能中，还有很多我很感兴趣，比如这个还算漂亮的博客<br>我可以写写文章，也会在日历中标记日期</p>
+<p>管理面板功能，依旧很惊艳，把访问人数和资源都画成图表便于查看</p>
+<p><img src="https://i.loli.net/2020/10/24/BXA67pRkPDEKy8C.png" alt="image-20201024210034004"></p>
+<p>还可以查看日志</p>
+<p><img src="https://i.loli.net/2020/10/24/8vGNWuagnzIeklB.png" alt="image-20201024210108852"></p>
+<p>我们可以在RSS功能中订阅源，但好像有点问题，Weezo一直都不能连接外网</p>
+<p><strong>然后是远程桌面，这也太牛了</strong>，没想到一个文件服务器居然还集成了这种功能，如图，我们可以在网页中操控我的设备，但对于现在来说操控有些卡顿了</p>
+<p><img src="https://i.loli.net/2020/10/24/vBVxncOA2EFQg7u.png" alt="image-20201024212119155"></p>
+<p>相册功能，我们可以添加相片进去，成为便于储存与展示照片的相册</p>
+<p><img src="https://i.loli.net/2020/10/24/ik1jPN7FIG4TKQ9.png" alt="QQ截图20201024212846"></p>
+<p>视频功能，我们可以添加视频进行，之后可以在网页上播放，Weezo可以使用Flash，QuickTime，M2U播放但Weezo的播放相对现在来说有点复杂和低效了，现在直接用html了</p>
+<p>预览这里还可以像电脑端B站网页把鼠标放在视频框该视频框机会动起来，小窗预览，厉害！</p>
+<p><img src="https://i.loli.net/2020/10/24/CqvWpmIS9Bkrsdj.png" alt="image-20201024214002275"></p>
+<p>音乐库，感觉很厉害的样子，新东西放在老容器里面的感觉</p>
+<p><img src="https://i.loli.net/2020/10/24/hDxCPlogz8ULSIQ.png" alt="image-20201024215107330"></p>
+<p>聊天功能，梦 回 10 年 网 络 聊 天 室</p>
+<p><img src="https://i.loli.net/2020/10/24/krbh45xmeMtP3Aq.png" alt="image-20201024215723630"></p>
+<p>网络摄像头功能，好吧，我也不知道具体有什么用</p>
+<p><img src="https://i.loli.net/2020/10/24/o5LzGJa9lND6fpx.png" alt="image-20201024215842851"></p>
+<p>博客功能</p>
+<p><img src="https://i.loli.net/2020/10/24/3ESKialBzYoPUWc.png" alt="image-20201024220108137"></p>
+<p>RSS源功能，这东西这么老了，我还记得我6年前在诺基亚手机桌面添加了好多源，啥科学松鼠会，微软学术之类的，现在的源都停止更新了，还保留着上世代互联网的味道</p>
+<p>如图下的时间你也能想到以前的什么东西………….</p>
+<p><img src="https://i.loli.net/2020/10/24/ywOPg53BnoNhqL8.png" alt="image-20201024220859056"></p>
+<p>网络电视，我8年前都不知道有这东西，这里连中国的电视源都有，牛，可惜全部失效了，世代遗产…….</p>
+<p><img src="https://i.loli.net/2020/10/24/Y8DXEg2OyTRWjw5.png" alt="image-20201024221140997"></p>
+<p>这些功能如果你感兴趣的话可以下载Weezo来体验一下，功能还是很丰富的，也不止我现在介绍的这些</p>
+<h2 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h2><p>Weezo使用的是老版本的apache和php，php的版本也只有5.2，对于现在的web环境来说容易会有一些问题，比如在中文名称下会导致名称显示不全，无法设置中文路径等，这时候可以尝试升级php来解决。</p>
+<p>用户设置里面我们可以添加用户，设置用户密码，设置用户功能面板，设置其权限等</p>
+<p><img src="https://i.loli.net/2020/10/23/X8NRjKtH7dTF3ef.png" alt="image-20201023140511116"></p>
+<p>在添加文件功能的时候要特别注意中文文件的问题，如果不能显示和添加中文路径可以多试几次或者直接使用添加文件而不是路径的方式，Weezo在启动一段时间后莫名其妙可以显示中文路径了，在此你也可以设置用户对文件的操作权限</p>
+<p>一开始这些文件是乱码的，不能进入，但若你静心等候的话，奇迹还是会出现的</p>
+<p><img src="https://i.loli.net/2020/10/24/1Bh8FCxGR2Hgb6K.png" alt="image-20201024221344194"></p>
+<p>Weezo有上传文件大小限制，可以在设置里设置限制大小，但设置里面最多也只能设置1G，这时候可以去配置文件里面设置超过1G的大小 C:\Users\Administrator\AppData\Roaming\Weezo\data</p>
+<p><img src="https://i.loli.net/2020/10/24/9akIdlWibofP5Gm.png" alt="image-20201024222144483"></p>
+<p><img src="https://i.loli.net/2020/10/25/LcJKqFfnCumGs4l.png" alt="image-20201024221531530"></p>
+<p>基本设置下可以设置服务模式，文件路径等，在下面显示了程序的主路径，环境路径，www文件路径，防火墙等，设置开机自启模式记得调Service因为运行这个程序要管理员权限</p>
+<p><img src="https://i.loli.net/2020/10/23/idKrWaPmeMYVfkx.png" alt="image-20201023140404379"></p>
+<p>服务器设置可以设置服务器地址，端口号，SSL，upnp，还有网络环境，签名证书，日志等</p>
+<p><img src="https://i.loli.net/2020/10/24/RIsaPD6e5K2MHxc.png" alt="image-20201024221800355"></p>
+<p>外观设置，壁纸，主题等，这点很像可道云</p>
+<p><img src="https://i.loli.net/2020/10/24/9LF38cnDTJzlGpU.png" alt="image-20201024221846699"></p>
+<p>有很多主题，都是当时流行的一些操作系统的UI，当然，也可以登陆到web里面设置主题和网页标题</p>
+<p><img src="https://i.loli.net/2020/10/24/Iwxu2YCLbXDRsPU.png" alt="image-20201024205758602"></p>
+<p><img src="https://i.loli.net/2020/10/24/BfM1up3QlORj9ZE.png" alt="image-20201024205843284"></p>
+<p>管理功能可以在网页中设置Weezo桌面服务端的设置</p>
+<p><img src="https://i.loli.net/2020/10/24/VpYRyOsEv9dwzPb.png" alt="image-20201024210010997"></p>
+<p>竟然还包含终端界面来对计算机进行管理</p>
+<p><img src="https://i.loli.net/2020/10/24/BwtVrGm6nWu87SY.png" alt="image-20201024210233443"></p>
+<p>杂项，设置文件加密，密钥，文件权限，还有文件评分功能？？？</p>
+<p><img src="https://i.loli.net/2020/10/24/PsxS3MJftzvZu5a.png" alt="image-20201024221957299"></p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1> 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏咱一下
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本网站一切创作内容遵循 署名-非商业性使用-相同方式共享协议文本(CC-BY-SA-3.0)，文章也仅代表个人(OT-22)的观点与看法
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://opts-22.github.io/2020/10/20/weezo/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/" rel="tag">计算机</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2020/10/21/Vvboxdrverror/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            解决VirtualBox虚拟机软件E_FALL(0x80004005)Machinewrap错误
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/10/17/omvbackup/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">NAS系统备份与恢复以OMV为案例的几种方法,附我家云NAS备份方法</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "RtLDMH9NIkLvLDWMubyRzXe9-gzGzoHsz",
+    app_key: "8o4Q21FxATEdCXWCk5vCA7PX",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2021
+        <i class="ri-heart-fill heart_icon"></i> OT-22
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="欢迎来到OT-22的主页~"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/photos">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/other/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechatm.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechatm.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+<script src="/js/dz.js"></script>
+
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=1436614177&auto=1&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+</body>
+
+</html>

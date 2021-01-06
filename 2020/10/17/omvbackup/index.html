@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="OT的博客哦" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    NAS系统备份与恢复以OMV为案例的几种方法,附我家云NAS备份方法 |  OT的博客哦
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="欢迎来到OT-22的主页~" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-omvbackup"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  NAS系统备份与恢复以OMV为案例的几种方法,附我家云NAS备份方法
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/10/17/omvbackup/" class="article-date">
+  <time datetime="2020-10-17T05:26:50.000Z" itemprop="datePublished">2020-10-17</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a> / <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E6%9C%8D%E5%8A%A1%E5%99%A8-%E7%BD%91%E7%BB%9C/">服务器&网络</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">3.4k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">13 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>如果想把自己的NAS玩出各种花样的话要进行很多复杂的操作，NAS使用基于Linux内核的系统，对于还没有了解Linux使用及其发行版的的用户来说操作未免复杂，也经常手贱因为操作命令行，装软件包等操作错误导致系统一塌糊涂，崩溃，此时来恢复也需要查找教程未免复杂，此时我们需要建立一个备份来防止这些事情的发生。</p>
+<p><strong>这个教程以OMV为例，适用于其他Linux的NAS系统，本教程也提供了几个基于流行的不同硬件架构的NAS系统备份教程</strong></p>
+<a id="more"></a>
+
+<h1 id="运用dd，fsarchiver，rsync等方式的备份"><a href="#运用dd，fsarchiver，rsync等方式的备份" class="headerlink" title="运用dd，fsarchiver，rsync等方式的备份"></a>运用dd，fsarchiver，rsync等方式的备份</h1><p>这几个命令是Linux系统上常用的可以使用来备份系统的工具，其特点和功能各不相同，如果感觉命令行太麻烦或者担心由于命令行输入错误而导致硬盘损毁，你也可以使用一些工具来进行，在熟悉这几个命令后可以使用图形界面工具，本教程以OMV系统为例，所以介绍一下OMV系统上的backup插件，同样的，如果你使用群晖，威联通，甚至是Ubuntu，unraid等系统，其原理大致相同，都是使用这些命令来进行备份</p>
+<p>在下面要介绍的备份工具Clonzilla同样的多次运用到了dd命令</p>
+<p>Linux里面还有其他命令来备份系统或者文件，比如dump，tar，gzip等</p>
+<p><a target="_blank" rel="noopener" href="http://zuyunfei.com/2015/06/04/linux-dd/">dd教程</a><br><a target="_blank" rel="noopener" href="http://zuyunfei.com/2015/06/04/linux-dd/">fsarchiver教程</a></p>
+<h4 id="OMV-BACKUP"><a href="#OMV-BACKUP" class="headerlink" title="OMV-BACKUP"></a>OMV-BACKUP</h4><p>在OMV-Webui里边插件里一打开就能找到一个叫omv-Backup的插件，用这个插件来备份系统设置很简单，只要在插件页面设置一下就可以备份了，插件提供了三种模式:dd，fsarchiver，rsync，选择你的共享文件夹即可备份，之后会在窗口里开始运行备份，备份完成后，在你的共享文件夹根目录即可看到备份，里面包括了几个文件，有Grub，Fdisk，Dz等格式的文件，如果你使用dd模式，主要备份在格式是dd.gz的文件里面，如果为fsarchiver，主要备份在格式是fsa的文件里面。</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>这个插件运用了Linux系统下几个可以用来备份系统的工具，dd，fsarchiver，rsync，具体原理参照这几个工具的教程。</p>
+<h3 id="需要在systemrescued模式下进行恢复"><a href="#需要在systemrescued模式下进行恢复" class="headerlink" title="需要在systemrescued模式下进行恢复"></a>需要在systemrescued模式下进行恢复</h3><p>预先在omv-extra里面下载systemrescuecd的镜像，在启动时在grub菜单即可打开，之后就可在终端里进行操作。</p>
+<blockquote>
+<p>1 - Plugin emergency OS (USB), reboot<br>2 - Start OMV <strong>Web-GUI</strong><br>3 - I had to install SystemRescueCD to the OMV. Normally, this should already be part you your backup OMV. To install it go to <strong>OMV-Extras/Kernel</strong>.<br>4 - Tell OMV on this page to boot from <strong>SystemRescueCD</strong> once.<br>5 - Reboot.<br>Login via <strong>SSH</strong> (Putty) to the command line of SystemRescueCD. Username: root, Password: openmediavault.<br><a target="_blank" rel="noopener" href="https://imgchr.com/i/0qryOH"><img src="https://s1.ax1x.com/2020/10/17/0qryOH.md.jpg" alt="0qryOH.md.jpg"></a></p>
+</blockquote>
+<h3 id="使用fsarchiver模式的恢复"><a href="#使用fsarchiver模式的恢复" class="headerlink" title="使用fsarchiver模式的恢复"></a>使用fsarchiver模式的恢复</h3><p>1.挂载存放备份数据的设备<br>如果你的备份文件夹挂载在sde1，在终端输入:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount &#x2F;dev&#x2F;sde1 &#x2F;mnt&#x2F;backup</span><br></pre></td></tr></table></figure>
+
+<p>2.找准你的fsd备份文件和你需要备份到的系统盘，比如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">备份文件:</span><br><span class="line">&#x2F;mnt&#x2F;backup&#x2F;omvbackup&#x2F;backup-omv-07-May-2018_10-36-31.fsa</span><br><span class="line">系统盘:</span><br><span class="line">&#x2F;dev&#x2F;sda1</span><br></pre></td></tr></table></figure>
+
+<p>3.卸载要恢复的设备的挂载状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">umount -v &#x2F;dev&#x2F;sda1</span><br></pre></td></tr></table></figure>
+
+<p>4.恢复备份文件到目标系统盘<br>在终端输入命令 fsarchiver restfs 备份文件路径 dest=目标系统盘路径，比如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fsarchiver restfs &#x2F;mnt&#x2F;backup&#x2F;omvbackup&#x2F;backup-omv-07-May-2018_10-36-31.fsa id&#x3D;0,dest&#x3D;&#x2F;dev&#x2F;sda1</span><br></pre></td></tr></table></figure>
+
+<p>4.重启<br>reboot</p>
+<h3 id="使用dd模式备份的恢复"><a href="#使用dd模式备份的恢复" class="headerlink" title="使用dd模式备份的恢复"></a>使用dd模式备份的恢复</h3><p>1.挂载存放备份数据的设备<br>如果你的备份文件夹挂载在sde1，在终端输入:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount &#x2F;dev&#x2F;sde1 &#x2F;mnt&#x2F;backup</span><br></pre></td></tr></table></figure>
+
+<p>2.找准你的fsd备份文件和你需要备份到的系统盘，比如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">备份文件:</span><br><span class="line">&#x2F;mnt&#x2F;backup&#x2F;omvbackup&#x2F;backup-omv-07-May-2018_10-36-31.dd.gz</span><br><span class="line">系统盘:</span><br><span class="line">&#x2F;dev&#x2F;sda1</span><br></pre></td></tr></table></figure>
+
+<p>3.恢复备份文件到目标系统盘<br>在终端输入命令 gunzip -c 备份文件路径 | dd of=目标系统盘路径 bs=1M status=progress</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gunzip -c &#x2F;mnt&#x2F;backup&#x2F;omvbackup&#x2F;backup-omv-07-May-2018_10-36-31.dd.gz | dd of&#x3D;&#x2F;dev&#x2F;sda1 bs&#x3D;1M status&#x3D;progress</span><br></pre></td></tr></table></figure>
+
+<p>4.重启<br>reboot</p>
+<h3 id="关于三种模式的机制"><a href="#关于三种模式的机制" class="headerlink" title="关于三种模式的机制"></a>关于三种模式的机制</h3><p>dd不克隆整个驱动器。它克隆整个OS分区（以及可能是引导分区），包括没有相关信息的扇区。而且如果你的分区有1G文件100G储存那么他的备份文件就有100G，而在如上命令中对备份文件进行gzip压缩才可以恢复到文件占有的大小，这需要更长的时间。它也无法还原到比从中克隆的分区储存更小的分区。<br>fsarchiver克隆的过程与dd相同，但它只克隆占有的文件大小，并允许（在某种程度上）恢复到一个比原分区更小的分区。<br>rsync只将操作系统文件rsync发送到数据驱动器上的另一个目录。<br>哪一个最好？没人能告诉你。对你有好处的。rsync只允许一次备份。另外两个允许多个备份。我个人使用fsarchiver。</p>
+<h3 id="如何从Raid阵列恢复备份文件到系统盘"><a href="#如何从Raid阵列恢复备份文件到系统盘" class="headerlink" title="如何从Raid阵列恢复备份文件到系统盘"></a>如何从Raid阵列恢复备份文件到系统盘</h3><p>1.检查阵列 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mdadm-D&#x2F;dev&#x2F;阵列</span><br></pre></td></tr></table></figure>
+
+<p>2.创建挂载点在mnt</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir &#x2F;mnt&#x2F;xxx</span><br></pre></td></tr></table></figure>
+
+<p>3.挂载阵列到挂载点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount &#x2F;dev&#x2F;阵列 &#x2F;mnt&#x2F;xxx</span><br></pre></td></tr></table></figure>
+
+<p>4.把备份文件移动到阵列里<br>5.检查你的备份文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fsarchiver archinfo backup.fsa（备份文件路径）</span><br></pre></td></tr></table></figure>
+
+<p>6.建议你做一下这个步骤：如果要还原到新磁盘，请在fsarchiver restfs步骤之前将grub和分区表（.grubparts文件）的备份写入磁盘，方法是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dd if&#x3D;&#x2F;mnt&#x2F;阵列&#x2F;backup.grubparts of&#x3D;&#x2F;dev&#x2F;sda1（系统盘）</span><br></pre></td></tr></table></figure>
+
+<p>7.释放备份文件到系统盘的分区中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fsarchiver restfs backup.fsa （备份文件路径）id&#x3D;0,dest&#x3D;&#x2F;dev&#x2F;sda1（系统盘）</span><br></pre></td></tr></table></figure>
+
+<p>id=0表示只恢复备份中的第一个文件系统。我假设你只是用一个备份备份了一个文件系统<br>8.重启<br>输入reboot</p>
+<h3 id="对于插件备份文件的解释"><a href="#对于插件备份文件的解释" class="headerlink" title="对于插件备份文件的解释"></a>对于插件备份文件的解释</h3><p>有关插件正在保存的文件的详细信息：<br>backup-omv-18-Jan-2019_14-12-01.blkid：：这是blkid的输出，放在一个文件中以供参考。<br>backup-omv-18-Jan-2019_14-12-01.fdisk：：这是fdisk-l的输出，放在文件中以供参考。<br>backup-omv-18-Jan-2019_14-12-01.fsa：：这是fsarchiver文件。<br>backup-omv-18-Jan-2019_14-12-01.grub：：这是安装grub的磁盘的前446个字节<br>backup-omv-18-Jan-2019_14-12-01.grubparts：：这是安装grub的磁盘和分区表的前512个字节。<br>backup-omv-18-Jan-2019_14-12-01.packages：：这是dpkg-l | grep openmediavault的输出，放在一个文件中以供参考。<br>以供参考的都没啥用，作为备份的信息文件而已。</p>
+<h3 id="最后感谢omv社区大佬ryecoaaron编写这个插件"><a href="#最后感谢omv社区大佬ryecoaaron编写这个插件" class="headerlink" title="最后感谢omv社区大佬ryecoaaron编写这个插件"></a>最后感谢omv社区大佬<strong>ryecoaaron</strong>编写这个插件</h3><h1 id="Clonezilla备份"><a href="#Clonezilla备份" class="headerlink" title="Clonezilla备份"></a>Clonezilla备份</h1><p>再生龙是台湾省国网中心开发的一款多平台备份工具，作为Linux第三方一个强大的备份工具，OMV中的webui页面也装载了这个软件，提供了引导启动支持，只需要在omv-extras的内核里面安装镜像，而且操作简单方便，不用担心如上的命令行和繁琐难懂的操作，之后在引导启动之后，按照提示登陆ssh进入到clonezilla界面进行操作。</p>
+<h3 id="从OMV引导启动"><a href="#从OMV引导启动" class="headerlink" title="从OMV引导启动"></a>从OMV引导启动</h3><p>点击OMV-WebUI菜单中的omv-extra选择，如果没有请在插件中安装omv-extra，在内核选项中可看到自带的本地再生龙引导<br><img src="https://s1.ax1x.com/2020/10/18/0XFmHx.png" alt="0XFmHx.png"><br>这意味着我们不用做Clonzilla Live就能直接把Clonzilla的iso文件在放本地储存中直接grub引导<br>而OMV提供的Clonezilla有以下注意的事项:<br><strong>1.必须使用OMV提供的官方镜像才能直接从本地引导启动，新版本再生龙无法本地引导<br>2.该镜像为老版本再生龙，不支持新的硬件的UEFI启动，而且只有英文<br>3.从OMV-WebUI里面下载再生龙是从国外服务器上下载的，所以国内网络无法下载，可以从网络上直接下载镜像并装载到/boot路径中<br>4.请确保你的备份到目标的储存设备已经挂载在系统中，请谨慎操作，任何一个错误的操作都可能导致您系统或者数据的不可逆转的损毁</strong><br>在下载或者装载完镜像之后，在选项中选择“从clonezilla再生龙”，之后弹窗会提示你即将重启<br>5.在重启后启动putty输入你的ssh地址登陆到ssh中，输入用户名user，密码live，输入sudo clonzilla进入再生龙界面</p>
+<h3 id="备份操作"><a href="#备份操作" class="headerlink" title="备份操作"></a>备份操作</h3><p>1.在界面中，有<strong>设备到设备</strong>，<strong>设备到镜像</strong>的选项，第一项可以把整个系统包括引导复制到另一个与原设备大小相同的储存设备</p>
+<p>进入选项后选择第一个<strong>“初学者”</strong>模式</p>
+<p>之后可选项第一项复制整个硬盘，第二项复制单个分区</p>
+<p>在选项中先设定描述中有<strong>“source”</strong>原硬盘/分区，再设定描述中有<strong>“target”</strong>的目标硬盘分区</p>
+<p>选择-sfsck，再选择-reboot</p>
+<p>2.第二项就是可以备份/恢复镜像的<strong>设备到镜像</strong>选项，是我们备份的主要操作</p>
+<p>接下来，必须选择在其中写入或从其中恢复备份映像的映像目录，有<em>ssh-server_、_samba-server</em> 和 <em>nfs-server</em> 选项适合有网络连接但本地磁盘空闲空间或备份映像不可用的情况。我们需要克隆系统分区并将其保存到另一个储存设备中。如果选择 _local_dev_，你可以选择 USB 设备作为 Clonezilla 映像库。</p>
+<p>之后选择你需要备份到目标储存设备的硬盘</p>
+<p>之后选择是备份硬盘/分区为镜像还是从镜像恢复到/硬盘/分区，我们选择备份分区为镜像，选择第三项</p>
+<p>之后输入镜像名称和源系统盘，再生龙集成了ntfsclone、partclone、partimage 和 dd 等分区克隆工具，之后根据选项选择yes/no，等待备份完成</p>
+<p>重启 -reboot</p>
+<h3 id="恢复备份"><a href="#恢复备份" class="headerlink" title="恢复备份"></a>恢复备份</h3><p>操作一样，不同的是选择设备到镜像后选择恢复分区，之后选择目标分区后即可恢复</p>
+<p>注意事项:<br><strong>Clonezilla 不支持从大硬盘和分区中将映像恢复到较小的磁盘和分区</strong></p>
+<h2 id="特殊情况"><a href="#特殊情况" class="headerlink" title="特殊情况"></a>特殊情况</h2><h3 id="新硬件与UEFI启动"><a href="#新硬件与UEFI启动" class="headerlink" title="新硬件与UEFI启动"></a>新硬件与UEFI启动</h3><p>如果你是新硬件与UEFI启动，你需要制作Clonezilla Live在Bios中启动来进行备份操作，而且你无法在WebUI和SSH中完成操作，你需要外接显示器来操作</p>
+<h3 id="特殊架构的NAS"><a href="#特殊架构的NAS" class="headerlink" title="特殊架构的NAS"></a>特殊架构的NAS</h3><p>比如机顶盒，一部分NAS采用ARM芯片的特殊主板，比如瑞芯微RK芯片，一开始安装系统的办法也与普通计算机不同，比如我的<strong>我家云</strong>可能无法使用OMV-Backup和再生龙，由于设备无法引导进入救援状态以及Live系统，导致无法进行常规的备份恢复</p>
+<p>但是对于<strong>我家云</strong>，我们可以这样，先从OMV中制作出系统镜像，再从把镜像从瑞芯微刷机工具AndroidTool直接写入到设备，这样就完成了一次的备份与恢复</p>
+<p><strong>具体制作备份镜像如下：</strong></p>
+<p>假设你的硬盘设备是/dev/sda，执行如下命令会将镜像备份到/sharedfolders/hdd/p.img，同时缩小镜像尺寸到3.5G</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;sharedfolders&#x2F;ud&#x2F;</span><br><span class="line">sync</span><br><span class="line">dd if&#x3D;&#x2F;dev&#x2F;mmcblk1p1 of&#x3D;&#x2F;sharedfolders&#x2F;ud&#x2F;p0.ext bs&#x3D;1M</span><br><span class="line">#把整个分区拷贝成ext</span><br><span class="line">e2fsck -fy &#x2F;sharedfolders&#x2F;ud&#x2F;p0.ext</span><br><span class="line">#强制检查ext文件的正确性</span><br><span class="line">resize2fs -M &#x2F;sharedfolders&#x2F;ud&#x2F;p0.ext</span><br><span class="line">#减小文件系统到最小的大小</span><br><span class="line">resize2fs &#x2F;sharedfolders&#x2F;ud&#x2F;p0.ext 3500M</span><br><span class="line">#调整文件为3500M</span><br><span class="line">dd if&#x3D;&#x2F;dev&#x2F;mmcblk1 of&#x3D;&#x2F;sharedfolders&#x2F;ud&#x2F;p.img bs&#x3D;1M count&#x3D;16</span><br><span class="line">#拷贝硬盘的前16个块，每个块1M，并转换成img</span><br><span class="line">dd if&#x3D;&#x2F;sharedfolders&#x2F;ud&#x2F;p0.ext of&#x3D;&#x2F;sharedfolders&#x2F;ud&#x2F;p.img bs&#x3D;1M seek&#x3D;16</span><br><span class="line">#把ext文件(分区备份)的块和img(硬盘头扇区引导数据)文件的块合并，并覆盖ext文件的前16个块</span><br><span class="line">mv p.img omv-p2.img</span><br><span class="line">#改名</span><br><span class="line">tar zcvf omv-p2.tar.gz omv-p2.img</span><br><span class="line">#打包成tar</span><br><span class="line"></span><br><span class="line">#本备份使用DD命令，DD命令可以方便的备份整个硬盘的数据，包括引导分区等，此命令可以备份整个硬盘的数据并缩小备份包，由于DD命令可以完整的备份整个硬盘数据，所以其大小与硬盘大小一样，所以需要压缩，resize2fs需要先检查文件系统正确性，但直接备份整个硬盘的话备份并不是文件系统，所以无法缩小，此命令先备份分区数据再缩小分区数据的备份包，再把硬盘的引导分区合并到备份中，间接备份了整个硬盘。</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>没错，原理还是使用dd来备份再压缩成镜像，由于dd可以把整个硬盘包括分区表什么的拷贝下来，所以我们就可以用这个方式来备份并恢复了，之后直接在RK的专用刷机工具中烧入数据即可</p>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏咱一下
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本网站一切创作内容遵循 署名-非商业性使用-相同方式共享协议文本(CC-BY-SA-3.0)，文章也仅代表个人(OT-22)的观点与看法
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://opts-22.github.io/2020/10/17/omvbackup/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NAS/" rel="tag">NAS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%B6%E5%BA%AD%E7%BD%91%E7%BB%9C/" rel="tag">家庭网络</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/" rel="tag">计算机</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%90%E8%90%A5%E7%BB%B4%E6%8A%A4/" rel="tag">运营维护</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2020/10/20/weezo/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            文件服务器中的老猫，Weezo
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/10/15/deepfakeunreval/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">B站爆火的换脸唱歌视频,不用GoogleColab在自家电脑制作！</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "RtLDMH9NIkLvLDWMubyRzXe9-gzGzoHsz",
+    app_key: "8o4Q21FxATEdCXWCk5vCA7PX",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2021
+        <i class="ri-heart-fill heart_icon"></i> OT-22
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="欢迎来到OT-22的主页~"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/photos">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/other/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechatm.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechatm.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+<script src="/js/dz.js"></script>
+
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=1436614177&auto=1&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+</body>
+
+</html>

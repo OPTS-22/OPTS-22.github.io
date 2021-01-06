@@ -1,0 +1,14 @@
+@font-face {
+  font-family: "arce";
+  src: url("../fonts/ar-ciela_compartment.woff2") format("woff2"),
+       url("../fonts/ar-ciela_compartment.woff") format("woff"),
+       url("../fonts/ar-ciela_compartment.ttf") format("truetype"),
+       url("../fonts/ar-ciela_compartment.eot") format("embedded-opentype"),
+       url("../fonts/ar-ciela_compartment.svg") format("svg");
+       font-style: normal;
+       font-weight: normal;
+}
+h1{font-family: arce}
+h2{font-family: arce}
+h3{font-family: arce}
+p{font-family: arce}
