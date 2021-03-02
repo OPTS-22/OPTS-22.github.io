@@ -6,7 +6,7 @@
   <link href="https://opts-22.github.io/atom.xml" rel="self"/>
   
   <link href="https://opts-22.github.io/"/>
-  <updated>2020-11-21T12:19:57.000Z</updated>
+  <updated>2021-03-02T02:48:02.978Z</updated>
   <id>https://opts-22.github.io/</id>
   
   <author>
@@ -21,10 +21,10 @@
     <link href="https://opts-22.github.io/2020/11/20/windockecompressr/"/>
     <id>https://opts-22.github.io/2020/11/20/windockecompressr/</id>
     <published>2020-11-20T14:42:13.000Z</published>
-    <updated>2020-11-21T12:19:57.000Z</updated>
+    <updated>2021-03-02T02:48:02.978Z</updated>
     
     
-    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/D3StZd&quot;&gt;&lt;img src=&quot;https://s3.ax1x.com/2020/11/21/D3StZd.png&quot; alt=&quot;D3StZd.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://ftp.bmp.ovh/imgs/2021/01/58446f843eb879e4.jpg&quot;&gt;&lt;/p&gt;
 &lt;h1 id=&quot;相关问题&quot;&gt;&lt;a href=&quot;#相关问题&quot; class=&quot;headerlink&quot; title=&quot;相关问题&quot;&gt;&lt;/a&gt;相关问题&lt;/h1&gt;&lt;p&gt;在Win10上使用Docker-Desktop时，当我删除了差不多5G的镜像文件中，发现Docker对于磁盘的占用依旧没有什么变化，仍然有8G的空间占用&lt;/p&gt;
 &lt;p&gt;在Win10上运行Docker，除了早期的VirtualBox方式之外，往往有两种方式，一种是Hyper-V，一种是WSL，无论是两种中的哪一种，都使用VHDX虚拟磁盘文件来存放Docker的镜像和容器数据，然而虚拟磁盘是弹性的方式扩展空间的，你使用多少虚拟磁盘的空间自动扩展到多少，但是当你删除文件缩小虚拟磁盘空间的使用时，虚拟磁盘并未缩小&lt;/p&gt;</summary>
     
