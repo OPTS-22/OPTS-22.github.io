@@ -6,7 +6,7 @@
   <link href="https://opts-22.github.io/atom.xml" rel="self"/>
   
   <link href="https://opts-22.github.io/"/>
-  <updated>2021-03-02T02:48:02.978Z</updated>
+  <updated>2021-03-12T09:22:47.896Z</updated>
   <id>https://opts-22.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>解决VirtualBox虚拟机软件E_FALL(0x80004005)Machinewrap错误</title>
+    <link href="https://opts-22.github.io/2020/12/21/Vvboxdrverror/"/>
+    <id>https://opts-22.github.io/2020/12/21/Vvboxdrverror/</id>
+    <published>2020-12-21T12:18:29.000Z</published>
+    <updated>2021-03-12T09:22:47.896Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; title=&quot;问题描述&quot;&gt;&lt;/a&gt;问题描述&lt;/h1&gt;&lt;p&gt;原因：一般的，当你的VirtualBox虚拟机进行升级/降级安装时，创建一个虚拟机再打开你会发现他会报错误代码为E_FALL(0x80004005)Machinewrap的错误，如下图所示：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://ftp.bmp.ovh/imgs/2021/03/362851c911dae680.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://ftp.bmp.ovh/imgs/2021/03/7f4232cbc12dd03f.jpg&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://ftp.bmp.ovh/imgs/2021/03/5869638da6c13e87.jpg&quot;&gt;&lt;/p&gt;
+&lt;p&gt;于是这种情况会去查百度搜狗，但是你会发现并没有什么好的解决方法，有的说删光VirtualBox的注册表再安装，或者以兼容模式打开，或者安装最新版本………….&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="计算机" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+    
+    <category term="计算机" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+  </entry>
   
   <entry>
     <title>Docker-Desktop中压缩虚拟磁盘(VHDX)的大小</title>
@@ -283,29 +306,6 @@
     <category term="日本ACG文化" scheme="https://opts-22.github.io/tags/%E6%97%A5%E6%9C%ACACG%E6%96%87%E5%8C%96/"/>
     
     <category term="字幕翻译" scheme="https://opts-22.github.io/tags/%E5%AD%97%E5%B9%95%E7%BF%BB%E8%AF%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>解决VirtualBox虚拟机软件E_FALL(0x80004005)Machinewrap错误</title>
-    <link href="https://opts-22.github.io/2020/10/21/Vvboxdrverror/"/>
-    <id>https://opts-22.github.io/2020/10/21/Vvboxdrverror/</id>
-    <published>2020-10-21T12:18:29.000Z</published>
-    <updated>2020-10-23T15:33:31.000Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; title=&quot;问题描述&quot;&gt;&lt;/a&gt;问题描述&lt;/h1&gt;&lt;p&gt;一般的，当你的VirtualBox虚拟机进行升级/降级安装时，创建一个虚拟机再打开你会发现他会报错误代码为E_FALL(0x80004005)Machinewrap的错误，如下图所示：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2020/10/21/375lsh9NMJDHwuR.png&quot; alt=&quot;073110qnbkel88kjevvmlz&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2020/10/21/KryJRWoZOet4djH.jpg&quot; alt=&quot;001On4Dlzy6Y5ZAgZ0B79&amp;amp;690&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2020/10/21/HT7eCAYyaUWpq6L.jpg&quot; alt=&quot;001On4Dlzy6Y5ZA6l0z27&amp;amp;690&quot;&gt;&lt;/p&gt;
-&lt;p&gt;于是这种情况你会去查百度搜狗，但是你会发现并没有什么好的解决方法，有的说删光VirtualBox的注册表再安装，或者以兼容模式打开，或者安装最新版本………….&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="计算机" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
-    
-    
-    <category term="计算机" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
     
   </entry>
   

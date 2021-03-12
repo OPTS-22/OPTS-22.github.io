@@ -65,8 +65,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2020/10/21/Vvboxdrverror/" class="article-date">
-  <time datetime="2020-10-21T12:18:29.000Z" itemprop="datePublished">2020-10-21</time>
+      <a href="/2020/12/21/Vvboxdrverror/" class="article-date">
+  <time datetime="2020-12-21T12:18:29.000Z" itemprop="datePublished">2020-12-21</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
@@ -77,7 +77,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">366</span>
+            <span class="post-count">367</span>
         </span>
     </span>
 
@@ -101,26 +101,27 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>一般的，当你的VirtualBox虚拟机进行升级/降级安装时，创建一个虚拟机再打开你会发现他会报错误代码为E_FALL(0x80004005)Machinewrap的错误，如下图所示：</p>
-<p><img src="https://i.loli.net/2020/10/21/375lsh9NMJDHwuR.png" alt="073110qnbkel88kjevvmlz"></p>
-<p><img src="https://i.loli.net/2020/10/21/KryJRWoZOet4djH.jpg" alt="001On4Dlzy6Y5ZAgZ0B79&amp;690"></p>
-<p><img src="https://i.loli.net/2020/10/21/HT7eCAYyaUWpq6L.jpg" alt="001On4Dlzy6Y5ZA6l0z27&amp;690"></p>
-<p>于是这种情况你会去查百度搜狗，但是你会发现并没有什么好的解决方法，有的说删光VirtualBox的注册表再安装，或者以兼容模式打开，或者安装最新版本………….</p>
+  <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>原因：一般的，当你的VirtualBox虚拟机进行升级/降级安装时，创建一个虚拟机再打开你会发现他会报错误代码为E_FALL(0x80004005)Machinewrap的错误，如下图所示：</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/362851c911dae680.png"></p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/7f4232cbc12dd03f.jpg"></p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/5869638da6c13e87.jpg"></p>
+<p>于是这种情况会去查百度搜狗，但是你会发现并没有什么好的解决方法，有的说删光VirtualBox的注册表再安装，或者以兼容模式打开，或者安装最新版本………….</p>
 <a id="more"></a>
 
 <p>根据提示的信息，我们基本可以确定是<strong>vboxdrv</strong>组件的错误，因为你总是在各个版本跳来跳去，而vboxdrv是支持不同的版本的，有些人安装最新版本的软件后可以解决这个问题，因为他的vboxdrv是适合最新版本的组件</p>
 <p>此时我们可以根据这个原理，我们来手动安装不同版本的<strong>vboxdrv</strong>组件</p>
 <h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1><p>首先我们用windows搜索来查找位于C盘的vboxdrv组件文件</p>
-<p><img src="https://i.loli.net/2020/10/21/p2SVix3Lq5BEMbf.png" alt="草图2"></p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/71c6ec884c1bebb7.png"></p>
 <p>我们可以看到有三个文件夹有vboxdrv的文件</p>
 <p>我们找到Virtualbox程序目录下的vboxdrv文件，这里的组件才是适合你这个版本的文件</p>
-<p><img src="https://i.loli.net/2020/10/21/zstUvBPIyiFYeuV.png" alt="image-20201021203332122"></p>
+<img src = 'https://ftp.bmp.ovh/imgs/2021/03/42ea4f27d0bff41d.png' />
+
 <p>之后我们需要分别复制替换这些文件到你在C盘搜索出来所有拥有vboxdrv文件的，比如上面三个</p>
 <p>之后分别安装这三个文件的Vboxdrv.inf</p>
-<p><img src="https://i.loli.net/2020/10/21/IEKjrCkfiO64HoL.png" alt="image-20201021203649498"></p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/ef5f470dee53577c.png"></p>
 <p>重启电脑</p>
 <p>之后输入sc.exe query vboxdrv</p>
-<p><img src="https://i.loli.net/2020/10/21/mMISpzD1wgRbsYi.png" alt="image-20201021203819985"></p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/004cde1170e61eb3.png"></p>
 <p>看到RUNNING就完事了</p>
  
       <!-- reward -->
@@ -192,7 +193,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://opts-22.github.io/2020/10/21/Vvboxdrverror/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://opts-22.github.io/2020/12/21/Vvboxdrverror/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -205,19 +206,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2020/10/22/obsolete/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            自制渣翻字幕-虚渊玄主笔军事动漫OBSOLTE
-          
-        </div>
-      </a>
     
-    
-      <a href="/2020/10/20/weezo/" class="article-nav-link">
+      <a href="/2020/11/20/windockecompressr/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">文件服务器中的老猫，Weezo</div>
+        <div class="article-nav-title">Docker-Desktop中压缩虚拟磁盘(VHDX)的大小</div>
       </a>
     
   </nav>
