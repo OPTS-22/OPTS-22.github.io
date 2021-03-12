@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>矿渣我家云刷OMV后的Hexo一键部署，Docker路径及容器管理，系统备份为镜像直接刷机功能脚本</title>
+    <url>/2021/03/01/Chainedboxassit/</url>
+    <content><![CDATA[<p>如果你想把我家云作服务器，但是作为初学者没怎么接触Debian的使用，因此总是把我家云的系统弄坏，建议您使用Docker来部署服务，这样易于您在服务器上的服务功能可以快速恢复，即使整个系统坏了，这里还提供了把整个系统备份而且备份出来的镜像可以直接在AndroidTools里面烧入到机器里面（也许瑞芯微CPU架构的矿渣都可以这样？）</p>
+<p>本脚本可以：</p>
+<p>·部署，更新HEXO网页</p>
+<p>·直接把整个系统备份为镜像，直接在刷机工具恢复（注意刷完后在脚本按7里给机器扩容！！！）</p>
+<p>·备份Docker，更改Docker数据路径</p>
+<p>脚本的说明是用英语写的，如果用起来不太懂，我以后会详细说一下用法……………….</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">function initUI() </span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">while [ true ]</span><br><span class="line">do</span><br><span class="line">more -16 /opt/TAU.txt</span><br><span class="line">echo &quot;&quot;</span><br><span class="line">echo &quot;-------------------------&quot;</span><br><span class="line">echo &quot;---NAS-MANAGEMENT-TOOLS--&quot;</span><br><span class="line">echo &quot;--------Ver:0.2----------&quot;</span><br><span class="line">echo &quot;--------by OT-22---------&quot;</span><br><span class="line"></span><br><span class="line">echo &quot;                             = HEXO-TOOL =&quot;</span><br><span class="line">echo &quot; 1. start server &quot;</span><br><span class="line">echo &quot; 2. upload post&quot;</span><br><span class="line">echo &quot; 3. auto update &quot;</span><br><span class="line">echo &quot; 4. auto deploy &quot;</span><br><span class="line">echo &quot;                             = BACKUP-TOOL = &quot;</span><br><span class="line">echo &quot; 5. !!! BACKUP SYSTEM IMG And Resize to custom size Then compress to TGZ  !!! &quot;</span><br><span class="line">echo &quot; 6. !!! BACKUP SYSTEM IMG Without Compress !!! &quot;</span><br><span class="line">echo &quot;                             = SYSTEM-TOOL = &quot;</span><br><span class="line">echo &quot; 7. Resize File System When you Recovery Backup &quot;</span><br><span class="line">echo &quot;                             = DOCKER-TOOL = &quot;</span><br><span class="line">echo &quot; 8. Moving Docker Data to p2; Recovery and Backup Docker Data &quot;</span><br><span class="line">echo &quot; 9. Install Docker cotainer &quot;</span><br><span class="line">echo &quot;  &quot;</span><br><span class="line">echo &quot;  Please set HEXO PATH by &#x27; vi /opt/d.sh &#x27; edit &#x27; hexo = &#x27;  &quot;</span><br><span class="line">echo &quot;                             != Backup instructions =!&quot;</span><br><span class="line">echo &quot;!= Backup 1 step will generate a file system copy in ext format =!&quot;</span><br><span class="line">echo &quot;!= Backup 2 step will Check the correctness of the ext file system,Make sure your backup and resize operate is available =!&quot;</span><br><span class="line">echo &quot;!= Backup 3 step will resize the copy and generate a backup image =!&quot;</span><br><span class="line">echo &quot;!= FOR MORE, PLEASE CHECK https://ot22.gitee.io/2020/10/17/omvbackup/ &quot;</span><br><span class="line">echo &quot; When you type path in this scrip,Dot not type / at the end of the path character,Such as &#x27;/root/data/&#x27; is invalid,You should &#x27;&#x27;/root/data&#x27; &quot;</span><br><span class="line">echo &quot;  &quot;</span><br><span class="line">echo -n &quot; Please enter : &quot;</span><br><span class="line">echo &quot;  &quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#######################</span></span></span><br><span class="line">hexo=&#x27;/sharedfolders/ud/hexo/blog&#x27;</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#######################</span></span></span><br><span class="line"></span><br><span class="line">read num</span><br><span class="line"></span><br><span class="line">if [ -z $num ];then</span><br><span class="line">exit 0</span><br><span class="line">elif [ $num = 1 ];then</span><br><span class="line">startServer</span><br><span class="line">elif [ $num = 2 ];then</span><br><span class="line">uploadpost</span><br><span class="line">elif [ $num = 3 ];then</span><br><span class="line">autoUpdate</span><br><span class="line">startServer</span><br><span class="line">elif [ $num = 4 ];then</span><br><span class="line">autoDeploy</span><br><span class="line">elif [ $num = 5 ];then</span><br><span class="line">backup1</span><br><span class="line">elif [ $num = 6 ];then</span><br><span class="line">backup2</span><br><span class="line">elif [ $num = 7 ];then</span><br><span class="line">resizesystem</span><br><span class="line">elif [ $num = 8 ];then</span><br><span class="line">dockermove</span><br><span class="line">elif [ $num = 9 ];then</span><br><span class="line">dockerinstall</span><br><span class="line">elif [ $num = 11 ];then</span><br><span class="line">liltest</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># elif [ $num = # ];then</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">else</span><br><span class="line">echo &quot;Input error !!!!!!&quot;</span><br><span class="line">fi</span><br><span class="line">done </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function read_yes_no () </span><br><span class="line">&#123;</span><br><span class="line">    printf &quot;[yes|no] &quot;</span><br><span class="line">    read yesno;</span><br><span class="line">    while [[ &quot;$&#123;yesno&#125;&quot; != &quot;yes&quot; &amp;&amp; &quot;$&#123;yesno&#125;&quot; != &quot;no&quot; ]]</span><br><span class="line">    do</span><br><span class="line">        printf &quot;please answer [yes|no] &quot;</span><br><span class="line">        read yesno;</span><br><span class="line">    done</span><br><span class="line"></span><br><span class="line">    if [[ &quot;$&#123;yesno&#125;&quot; == &quot;no&quot; ]]; then</span><br><span class="line">        return 1;</span><br><span class="line">    else</span><br><span class="line">        return 0;</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function startServer() </span><br><span class="line">&#123;</span><br><span class="line">cd $hexo</span><br><span class="line">hexo s</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function uploadpost()</span><br><span class="line">&#123;</span><br><span class="line">cd $hexo</span><br><span class="line">read -t 20 -p &quot;input your title &quot; a</span><br><span class="line">hexo new $a</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function autoUpdate()</span><br><span class="line">&#123;</span><br><span class="line">cd $hexo</span><br><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function backup1() </span><br><span class="line">&#123;</span><br><span class="line">read -t 20 -p &quot;Your backup path is &quot; backup0</span><br><span class="line">read -t 20 -p &quot;Your IMG size(Mbyte) is &quot; size</span><br><span class="line">echo &quot; Your Path is $backup0  &quot;</span><br><span class="line">echo &quot; Your Size is $size  &quot;</span><br><span class="line"></span><br><span class="line">cd $backup0/</span><br><span class="line">sync</span><br><span class="line">dd if=/dev/mmcblk1p1 of=$backup0/p0.ext bs=1M</span><br><span class="line">e2fsck -fy $backup0/p0.ext</span><br><span class="line">resize2fs -M $backup0/p0.ext</span><br><span class="line">resize2fs $backup0/p0.ext $size</span><br><span class="line">dd if=/dev/mmcblk1 of=$backup0/p.img bs=1M count=16</span><br><span class="line">dd if=$backup0/p0.ext of=$backup0/p.img bs=1M seek=16</span><br><span class="line">mv p.img omv-p2.img</span><br><span class="line">tar zcvf omv-p2.tar.gz omv-p2.img</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function backup2() </span><br><span class="line">&#123;</span><br><span class="line">read -t 20 -p &quot;Your backup path is &quot; backup0</span><br><span class="line">echo &quot; Your Path is $backup0  &quot;</span><br><span class="line"></span><br><span class="line">cd $backup0/</span><br><span class="line">sync</span><br><span class="line">dd if=/dev/mmcblk1p1 of=$backup0/p0.ext bs=1M</span><br><span class="line">e2fsck -fy $backup0/p0.ext</span><br><span class="line">resize2fs -M $backup0/p0.ext</span><br><span class="line">dd if=/dev/mmcblk1 of=$backup0/p.img bs=1M count=16</span><br><span class="line">dd if=$backup0/p0.ext of=$backup0/p.img bs=1M seek=16</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function autoDeploy()</span><br><span class="line">&#123;</span><br><span class="line">cd $hexo</span><br><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function resizesystem()</span><br><span class="line">&#123;</span><br><span class="line">resize2fs /dev/mmcblk1p1</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">function dockermove()</span><br><span class="line">&#123;</span><br><span class="line">echo &quot; Your Docker Path DON&#x27;NOT contain ./docker，It should be previous file of docker data.  &quot;</span><br><span class="line">echo &quot; Such as your docker file is &#x27;/home/docker&#x27;，Then you should type &#x27;/home&#x27;   &quot;</span><br><span class="line">echo &quot; The step is : BACKUP------&gt;RECOVERY------&gt;COPY------&gt;MOVE   &quot;</span><br><span class="line">read -t 20 -p &quot;input your docker path &quot; p2</span><br><span class="line">echo &quot; Your Path is $p2/docker  &quot;</span><br><span class="line">service docker stop</span><br><span class="line"></span><br><span class="line">echo &quot; BACKUP &quot;</span><br><span class="line">echo &quot; backup Docker Data? &quot;</span><br><span class="line"></span><br><span class="line">if  read_yes_no; then</span><br><span class="line">        cd $p2/docker</span><br><span class="line">        tar -cvpzf $p2/docker.tgz *</span><br><span class="line">    else</span><br><span class="line">        echo &quot; Let&#x27;s do next &quot;</span><br><span class="line">        echo &quot;  &quot;</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line">echo &quot; RECOVERY &quot;</span><br><span class="line">echo &quot; If you use docker data backup as a new docker data or not? &quot;</span><br><span class="line">echo &quot; Make sure you put docker.tgz in PATH &quot;</span><br><span class="line">echo &quot; Then you may be need to delete present docker data，YOU NEED DELETE? &quot;</span><br><span class="line"></span><br><span class="line">if  read_yes_no; then</span><br><span class="line">    echo &quot; TELL ME YOU ARE LUCID GUY &quot;</span><br><span class="line">    echo &quot; Now I will delete your docker data，continue????????????? &quot;</span><br><span class="line">        if  read_yes_no; then</span><br><span class="line">           rm -rf $p2/docker</span><br><span class="line">        else</span><br><span class="line">           echo &quot; Confirming you dont have docker data in target path &quot;</span><br><span class="line">           echo &quot;  &quot;</span><br><span class="line">        fi</span><br><span class="line">    else</span><br><span class="line">        echo &quot; Confirming you dont have docker data in target path &quot;</span><br><span class="line">        echo &quot;  &quot;</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line">echo &quot; I will RECOVERY your Docker data from docker.tgz &quot;</span><br><span class="line"></span><br><span class="line">if  read_yes_no; then</span><br><span class="line">        mkdir -p $p2/docker</span><br><span class="line">        chmod -R 771 $p2/docker</span><br><span class="line">        tar -xvpzf $p2/docker.tgz -C $p2/docker</span><br><span class="line">    else</span><br><span class="line">        echo &quot; May be you already exsited a docker data &quot;</span><br><span class="line">        echo &quot;  &quot;</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line">echo &quot; COPY &quot;</span><br><span class="line">echo &quot;If you copy local docker data as a new docker data or not?&quot;</span><br><span class="line"></span><br><span class="line">if  read_yes_no; then</span><br><span class="line">        cp -avx /var/lib/docker $p2</span><br><span class="line">    else</span><br><span class="line">        echo &quot; Let&#x27;s do next &quot;</span><br><span class="line">        echo &quot;  &quot;</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">echo &quot; REDIRECT &quot;</span><br><span class="line">echo &quot; Final Step，The default Docker data will set to Your docker data that you want to. &quot;</span><br><span class="line">echo &quot; Confirm execution? &quot;</span><br><span class="line">if  read_yes_no; then</span><br><span class="line">        echo &quot; Activating all containers ?  &quot;</span><br><span class="line">        echo &quot; it need to restart your server, Your server will POWER OFF SOON.  &quot;</span><br><span class="line">        if  read_yes_no; then</span><br><span class="line">           echo &quot;Nextly,Docker data will be moved. &quot;</span><br><span class="line">           echo &quot;REDIRECT----&gt;START CONTAINER----&gt;REBOOT SERVER &quot;</span><br><span class="line">           rm -rf /var/lib/docker</span><br><span class="line">           ln -s $p2/docker /var/lib/docker</span><br><span class="line">           dockerinstall</span><br><span class="line">           reboot</span><br><span class="line">        else</span><br><span class="line">           echo &quot;Nextly,Docker data will be moved. &quot;</span><br><span class="line">           rm -rf /var/lib/docker2</span><br><span class="line">           ln -s $p2/docker /var/lib/docker</span><br><span class="line">           exit 0</span><br><span class="line">        fi</span><br><span class="line">    else</span><br><span class="line">        service docker start</span><br><span class="line">        exit 0</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function dockerinstall()</span><br><span class="line">&#123;</span><br><span class="line">echo &quot; Install.............. &quot;</span><br><span class="line">docker run -d --name portainer -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data -v /public:/public --restart=unless-stopped portainer/portainer:linux-arm64</span><br><span class="line">docker run -d --name=calibre-web -e PUID=1000 -e PGID=1000 -e TZ=Asia/Shanghai -p 8083:8083 -v /home/docker/calibreweb:/config -v /sharedfolders/hd/ebook:/books --restart unless-stopped gsp8181/calibre-web</span><br><span class="line">IMAGE_NAME=80x86/filebrowser</span><br><span class="line">WEB_PORT=8866</span><br><span class="line">FB_AUTH_SERVER_ADDR=&quot;127.0.0.1&quot;</span><br><span class="line">docker run -d --name fb --restart=unless-stopped -e PUID=$UID -e PGID=$GID -e WEB_PORT=$WEB_PORT -e FB_AUTH_SERVER_ADDR=$FB_AUTH_SERVER_ADDR -p $WEB_PORT:$WEB_PORT -v /home/docker/fb:/config -v /:/myfiles --mount type=tmpfs,destination=/tmp $&#123;IMAGE_NAME&#125;:arm64</span><br><span class="line">docker run -d --name=baidupcs --restart always -v /sharedfolders/ud/DownLoad:/app/Downloads -v /home/docker/BaiduPCS:/app/.config/BaiduPCS-Go -p 5299:5299 80x86/baidupcs:latest</span><br><span class="line">echo &quot; Install Complete &quot;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">clear</span><br><span class="line">initUI</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>计算机</category>
+        <category>服务器&amp;网络</category>
+      </categories>
+      <tags>
+        <tag>计算机</tag>
+        <tag>运营维护</tag>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>解决VirtualBox虚拟机软件E_FALL(0x80004005)Machinewrap错误</title>
     <url>/2020/12/21/Vvboxdrverror/</url>
     <content><![CDATA[<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>原因：一般的，当你的VirtualBox虚拟机进行升级/降级安装时，创建一个虚拟机再打开你会发现他会报错误代码为E_FALL(0x80004005)Machinewrap的错误，如下图所示：</p>
@@ -34,25 +56,280 @@
       </tags>
   </entry>
   <entry>
-    <title>Docker-Desktop中压缩虚拟磁盘(VHDX)的大小</title>
-    <url>/2020/11/20/windockecompressr/</url>
-    <content><![CDATA[<p><img src="https://ftp.bmp.ovh/imgs/2021/01/58446f843eb879e4.jpg"></p>
-<h1 id="相关问题"><a href="#相关问题" class="headerlink" title="相关问题"></a>相关问题</h1><p>在Win10上使用Docker-Desktop时，当我删除了差不多5G的镜像文件中，发现Docker对于磁盘的占用依旧没有什么变化，仍然有8G的空间占用</p>
-<p>在Win10上运行Docker，除了早期的VirtualBox方式之外，往往有两种方式，一种是Hyper-V，一种是WSL，无论是两种中的哪一种，都使用VHDX虚拟磁盘文件来存放Docker的镜像和容器数据，然而虚拟磁盘是弹性的方式扩展空间的，你使用多少虚拟磁盘的空间自动扩展到多少，但是当你删除文件缩小虚拟磁盘空间的使用时，虚拟磁盘并未缩小</p>
+    <title>Game Record</title>
+    <url>/2020/10/23/Game%20Record/</url>
+    <content><![CDATA[<hr>
+<p><strong>记录—游戏—日常</strong></p>
 <a id="more"></a>
 
+<h1 id="Game-Record"><a href="#Game-Record" class="headerlink" title="Game Record"></a>Game Record</h1><h3 id="20-10-30"><a href="#20-10-30" class="headerlink" title="20.10.30"></a>20.10.30</h3><p><strong>ROARING FLARE</strong></p>
+<p>
+    <iframe name="iFrame1" width="780" height="480" src="https://player.bilibili.com/player.html?aid=842521100" scrolling="yes" frameborder="1"></iframe>
+</p>
 
+<p>你游竟然开了英杰池子，还新出了个古代机兵，成为新一代输出天花板，直接取代黑占星？？？？</p>
+<p>然后我就来一发嘛，双up吃，出个古代机兵还是有点困难</p>
+<p>那就随便抽抽吧</p>
+<p><img src="https://s1.ax1x.com/2020/10/31/BUSPxg.png" alt="BUSPxg.png"><br>然后…………….woc两个古代</p>
+<p><img src="https://s1.ax1x.com/2020/10/31/BUS9G8.png" alt="BUS9G8.png"></p>
+<p>12000的输出，帅！！！在放两个在自闭王子旁边，简直就是最强侍卫</p>
+<p><img src="https://s1.ax1x.com/2020/10/31/BUSCRS.png" alt="BUSCRS.png"></p>
+<h3 id="20-10-25"><a href="#20-10-25" class="headerlink" title="20.10.25"></a>20.10.25</h3><p>这么快就月末了，越来越忙了所以愈来愈少的空闲来耍耍游戏了，作为一个爱好也望花在其上的时间能更有意义<br>舟游开了复刻活动，可以换小马了，商店换了一个招聘劵，打算试试蒂蒂池，刚一发就惊了，竟然歪到了陈Sir，可谓最近好运连连，但接下来的卡西米尔我有点不详的预感…….因为白嫖了这么久的游戏还运气这么好…….</p>
+<p><img src="https://i.loli.net/2020/10/24/fhXa8buprKZ1UDR.jpg" alt="Screenshot_20201024_202034_e24760d1d02f1ef481aac80648200a09"></p>
+<p><img src="https://i.loli.net/2020/10/24/oPYh7fxVd9Aqiyp.jpg" alt="Screenshot_20201007_123701_e24760d1d02f1ef481aac80648200a09"></p>
+<p>卡西米尔池我比较喜欢的是奥斯塔狐狐，贾维三兄弟意大利黑帮血统竟然看到了东方的侠客和忍者元素<br>然后…..我的预感没错，第一发，歪了白金，第一发10连，歪了赫默，第二发十连，歪了煌，华法林，白金……….<br>抽是抽了这么多六星五星但全歪了，一个奥斯塔都没有？？50%概率4次全歪………<br>对于这个池子，为了避免我一年多了还没搞到奥斯卡（这次格劳克斯都是上年池子今天用劵换的）所以再抽10连，这个月慢慢攒吧</p>
+<p><img src="https://i.loli.net/2020/10/24/DCQW4eBcu6oIzdS.jpg" alt="Screenshot_20201024_202113_e24760d1d02f1ef481aac80648200a09"></p>
+<p><img src="https://i.loli.net/2020/10/24/Mey8rIlNu3PDbgT.jpg" alt="Screenshot_20201024_202119_e24760d1d02f1ef481aac80648200a09"></p>
+<p><img src="https://i.loli.net/2020/10/23/zUod5NMVA8ZDGKj.jpg" alt="Screenshot_20201017_002412_e24760d1d02f1ef481aac80648200a09"></p>
+<h3 id="20-9-25-10-10"><a href="#20-9-25-10-10" class="headerlink" title="20.9.25/10.10"></a>20.9.25/10.10</h3><p>42姐还不错哦，20发搞到，舒服了，2年多到现在也只氪了30………幻神基本搞到和队伍基本很完善了，这游戏基本上不怎么卡手了，期待美术设计不偏向于媚宅画风，剧情也更深度些（但是这游戏为了赚钱……叔叔我只喜欢能赚钱的东西），皮肤买了铃兰皮肤，这个看起来揉揉弱弱的小萝莉终于看起来坚挺些了，虽然没有铃兰也不太喜欢铃兰，原因是我不太喜欢游戏里边剧情上的把这么小的孩子送上战场干些杀人玩意（这么想是因为游戏剧情都比较严肃），所以这到底是体现制作组的媚宅还是泰拉社会环境的残酷，黑心制药企业雇佣童兵………</p>
+<p><img src="https://i.loli.net/2020/10/24/tOpFaQXJifUmA87.jpg" alt="Screenshot_20201024_202047_e24760d1d02f1ef481aac80648200a09"></p>
+<p>你游竟然开联动活动，还发40连，爷爱了，60发搞到黑铁匠，黑魔盾，之后换了个黑给，不行，这游戏太不给了<br>把黑魔盾，黑铁匠给觉醒技觉之后钱空了，黑魔盾走了防御分支，无论是物防还是法防面板都很高</p>
+<p>太爽了，邮箱随便来一发搞到光灵，岂不是英杰塔会很简单了，可以，发到你群去当海豹让一群人把我狗头砸了</p>
+<p>你游英杰8层，把英杰弓换了，立绘我很喜欢，光灵全觉醒后是真的好用，很多层可以单人通………..</p>
+<p>没钱了，把等身女神换了……..接下来不知道练什么了，觉醒圣灵不够用………</p>
+<p><img src="https://i.loli.net/2020/10/24/gK2avWlE8VCRdnX.png" alt="Screenshot_2020-10-01-21-47-44"></p>
+<p><img src="https://i.loli.net/2020/10/24/g8utfzY1kxMrdIc.png" alt="Screenshot_2020-10-24-20-34-07"></p>
+<p><img src="https://i.loli.net/2020/10/24/kEPChluaFAX1Wyw.png" alt="Screenshot_2020-10-24-20-34-38"></p>
+<p><img src="https://i.loli.net/2020/10/24/kvdFzju653QNiMA.png" alt="Screenshot_2020-10-24-20-35-19"></p>
+<p><img src="https://i.loli.net/2020/10/24/Bg6o2R5VDLOKMFJ.png" alt="Screenshot_2020-09-12-14-38-06"></p>
+<p><img src="https://i.loli.net/2020/10/24/ZqrN1sOLz4bHhom.png" alt="Screenshot_2020-10-24-20-34-54"></p>
+<p><img src="https://i.loli.net/2020/10/24/6FzpQ9lOJCbLiat.png" alt="Screenshot_2020-10-09-12-41-55"></p>
+<h3 id="20-8-0"><a href="#20-8-0" class="headerlink" title="20.8.0"></a>20.8.0</h3><p>舟公招三连，我这么秀怕是一群人会打死我，不过就是之前莱塔尼娅的薄雾屁都没抽到，这次伊芙，因陀罗get√</p>
+<p><img src="https://i.loli.net/2020/10/24/4WZ1k5SGlJXEPyh.jpg" alt="Screenshot_20200821_123020_e24760d1d02f1ef481aac80648200a09"></p>
+<p><img src="https://i.loli.net/2020/10/24/Eh57VxBkbQoRi2L.jpg" alt="Screenshot_20200821_122844_e24760d1d02f1ef481aac80648200a09"></p>
+<p><img src="https://i.loli.net/2020/10/24/nECadLeKkj39pw4.jpg" alt="Screenshot_20200820_121816_e24760d1d02f1ef481aac80648200a09"></p>
+<p><img src="https://i.loli.net/2020/10/24/DwcTtkjSCV3A48P.jpg" alt="Screenshot_20200820_121927_e24760d1d02f1ef481aac80648200a09"></p>
+<h3 id="20-8-25-9-10"><a href="#20-8-25-9-10" class="headerlink" title="20.8.25/9.10"></a>20.8.25/9.10</h3><p>舟夏活开了，六星小哥还不错，很给我喜欢，可惜后面返场20发都没搞到，不过森蚺池倒是11发全抽到，不行，她太色了<br>剧情是欢乐向的，但我更喜欢上年夏活，沙滩，海岸，派队的氛围很好，这次以荒野为主题体现了泰拉大陆的风土人情</p>
+<p><img src="https://i.loli.net/2020/10/24/7qK5YCbycgoDThQ.jpg" alt="Screenshot_20200826_212502_e24760d1d02f1ef481aac80648200a09"></p>
+<p><img src="https://i.loli.net/2020/10/24/dsm3YvlFAUh76x1.jpg" alt="Screenshot_20200826_222142_e24760d1d02f1ef481aac80648200a09"></p>
+<p><img src="https://i.loli.net/2020/10/24/LAGyvreQTWaSuOM.jpg" alt="Screenshot_20200827_082231_e24760d1d02f1ef481aac80648200a09"></p>
+]]></content>
+      <tags>
+        <tag>日常生活</tag>
+        <tag>游戏文化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>B站爆火的换脸唱歌视频,不用GoogleColab在自家电脑制作！</title>
+    <url>/2020/10/15/deepfakeunreval/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在8月份的时候，B站就多了很多换脸视频，大多都是换了两个外国小哥小姐姐唱歌时候的动态脸照，分别在唱Unravel，Damedayo这两首很魔性的歌，由于视频动作夸张搞笑，而视频被“P”的很真实，收到了很多网友的喜爱<img src="https://i.loli.net/2020/10/15/IFKWxGhU1VM5ZwR.gif" alt="0"></p>
+<a id="more"></a>
 
-<p><a href="https://imgchr.com/i/D3p4AA"><img src="https://s3.ax1x.com/2020/11/21/D3p4AA.png" alt="D3p4AA.png"></a></p>
-<p><a href="https://imgchr.com/i/D3pIht"><img src="https://s3.ax1x.com/2020/11/21/D3pIht.png" alt="D3pIht.png"></a></p>
-<p>这也要归功于微软没有加入自动压缩虚拟磁盘的功能，然而在Docker里面是否会添加这种机制呢，然而并没有，虽然社区上有人向微软和Docker反应添加这种功能，然而我并没有看到两个软件添加了这种机制，可能是有什么原因？</p>
-<p><a href="https://imgchr.com/i/D3pLng"><img src="https://s3.ax1x.com/2020/11/21/D3pLng.png" alt="D3pLng.png"></a></p>
-<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h3 id="Hyper-V"><a href="#Hyper-V" class="headerlink" title="Hyper-V:"></a>Hyper-V:</h3><p>尝试用Powershell以管理员运行以下代码，或者你可以把此保存为ps1文件执行</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#region 管理员身份运行</span><br><span class="line">$currentWi &#x3D; [Security.Principal.WindowsIdentity]::GetCurrent()</span><br><span class="line">$currentWp &#x3D; [Security.Principal.WindowsPrincipal]$currentWi</span><br><span class="line"> </span><br><span class="line">if( -not $currentWp.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))</span><br><span class="line">&#123;</span><br><span class="line">  $boundPara &#x3D; ($MyInvocation.BoundParameters.Keys | foreach&#123;</span><br><span class="line">     &#39;-&#123;0&#125; &#123;1&#125;&#39; -f  $_ ,$MyInvocation.BoundParameters[$_]&#125; ) -join &#39; &#39;</span><br><span class="line">  $currentFile &#x3D; (Resolve-Path  $MyInvocation.InvocationName).Path</span><br><span class="line"> </span><br><span class="line"> $fullPara &#x3D; $boundPara + &#39; &#39; + $args -join &#39; &#39;</span><br><span class="line"> Start-Process &quot;$psHome\powershell.exe&quot;   -ArgumentList &quot;$currentFile $fullPara&quot;   -verb runas</span><br><span class="line"> return</span><br><span class="line">&#125;</span><br><span class="line">#endregion</span><br><span class="line"></span><br><span class="line">#region 运行以下代码</span><br><span class="line">docker system prune -a -f</span><br><span class="line">net stop com.docker.service</span><br><span class="line">taskkill &#x2F;F &#x2F;IM &quot;Docker Desktop.exe&quot;</span><br><span class="line">stop-vm DockerDesktopVM</span><br><span class="line">Optimize-VHD -Path &quot;虚拟磁盘路径&quot; -Mode Full</span><br><span class="line">start-vm DockerDesktopVM</span><br><span class="line">start &quot;Docker程序路径&quot;</span><br><span class="line">net start com.docker.service</span><br><span class="line">#endregion</span><br></pre></td></tr></table></figure>
+<p>  连杜甫都被狠下毒手，还有唐僧等众多历史人物</p>
+<p><img src="https://i.loli.net/2020/10/15/BaNAWlbZJKExIHL.gif" alt="0"></p>
+<p>这一下看上去很真实，我当初也差不多信以为真，要说现在技术真的挺发达，可以弄出这么搞笑的东西</p>
+<p><img src="https://i.loli.net/2020/10/15/7esZvmrMgPR9FEK.png" alt="download"></p>
+<p><strong>好活当赏</strong></p>
+<p>就在大火大热之时，B站也有人发了制作这种视频的教程，本来也就很多研究git项目的大学生会耍耍嘛，视频中用到了<strong>Google colab</strong>，通过搭建好的脚本环境输入图片和预设就能导出一个Unravel的换脸视频了，一张照片就“痛“起来了，这项操作要求你：</p>
+<p><strong>·拥有一个谷歌账号</strong></p>
+<p><strong>·拥有科学上网工具</strong></p>
+<p><strong>·拥有谷歌硬盘账号</strong></p>
+<p><strong>·一点计算机知识</strong></p>
+<p>然而这年头谷歌账号很难搞，很多人都是需要用购买，还有一大堆繁琐的步骤，而科学上网工具也需要一点互联网经验才能搞到</p>
+<p>然而，在之后，好景不长，因为这个鬼畜带有几乎以假乱真，而且对原人物也是带有很强的侮辱性，所以，教程在各大网站都被封了………………….</p>
+<h1 id="搭建Python在本地制作换脸视频"><a href="#搭建Python在本地制作换脸视频" class="headerlink" title="搭建Python在本地制作换脸视频"></a>搭建Python在本地制作换脸视频</h1><h5 id="今天的主角是著名的的项目，DeepFake一阶运动模型"><a href="#今天的主角是著名的的项目，DeepFake一阶运动模型" class="headerlink" title="今天的主角是著名的的项目，DeepFake一阶运动模型"></a>今天的主角是著名的的项目，DeepFake<strong>一阶运动模型</strong></h5><p>First Order Motion，也就是<a href="https://link.zhihu.com/?target=https://cuijiahua.com/blog/tag/%E4%B8%80%E9%98%B6%E8%BF%90%E5%8A%A8%E6%A8%A1%E5%9E%8B/">一阶运动模型</a>，来自 NeurIPS 2019 论文。</p>
+<p>相关的项目地址：</p>
+<p>·<a href="https://github.com/AliaksandrSiarohin/first-order-model">https://github.com/AliaksandrSiarohin/first-order-model</a>   （实现）</p>
+<p>·<a href="https://papers.nips.cc/paper/8935-first-order-motion-model-for-image-animation">https://papers.nips.cc/paper/8935-first-order-motion-model-for-image-animation</a>    (论文)</p>
+<p>而这次的项目是一位大佬为我们整理好的<a href="https://github.com/anandpawara/Real_Time_Image_Animation">Real_Time_Image_Animation</a></p>
+<p>又叫实时图片动画，用Python和<a href="https://github.com/anandpawara/Real_Time_Image_Animation/search">Jupyter Notebook</a>搭建，套用了一阶运动模型训练好的 VoxCeleb 数据集，通过几个脚本代码便能运行，在项目页面里面作者也写明了你要干什么才能让它运行起来了</p>
+<blockquote>
+<h1 id="Real-time-Image-Animation"><a href="#Real-time-Image-Animation" class="headerlink" title="Real time Image Animation"></a>Real time Image Animation</h1><p>The Project is real time application in opencv using first order model</p>
+<h1 id="Steps-to-setup"><a href="#Steps-to-setup" class="headerlink" title="Steps to setup"></a>Steps to setup</h1><h2 id="Step-1-Create-virtual-environment"><a href="#Step-1-Create-virtual-environment" class="headerlink" title="Step 1: Create virtual environment"></a>Step 1: Create virtual environment</h2><p><strong>Python version</strong> : python v3.7.3 or higher</p>
+<p><strong>create virual environment</strong> : <code>pip install virtualenv</code></p>
+<p><strong>activate virtual environment</strong> : <code>virtualenv env</code></p>
+<h2 id="Step-2-Activate-virtual-environment"><a href="#Step-2-Activate-virtual-environment" class="headerlink" title="Step 2: Activate virtual environment"></a>Step 2: Activate virtual environment</h2><p><strong>For windows</strong> : <code>env/Script/activate</code></p>
+<p><strong>For Linux</strong> : <code>source env/bin/activate</code></p>
+<h2 id="Step-3-Install-required-modules"><a href="#Step-3-Install-required-modules" class="headerlink" title="Step 3 : Install required modules"></a>Step 3 : Install required modules</h2><p><strong>Install modules</strong> : <code>pip install -r requirements.txt</code></p>
+<p><strong>Install pytorch and torchvision</strong> : <code>pip install torch===1.0.0 torchvision===0.2.1 -f https://download.pytorch.org/whl/cu100/torch_stable.html</code></p>
+<h2 id="Step-4-Download-cascade-file-weights-and-model-and-save-in-folder-named-extract"><a href="#Step-4-Download-cascade-file-weights-and-model-and-save-in-folder-named-extract" class="headerlink" title="Step 4 : Download cascade file ,weights and model and save in folder named extract"></a>Step 4 : Download cascade file ,weights and model and save in folder named extract</h2><p><code>gdown --id 1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK</code> The file is also availible via direct link on Google’s Drive: <a href="https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK">https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK</a></p>
+<p><strong>On Linux machine</strong> : <code>unzip checkpoints.zip</code></p>
+<p>If on windows platfrom unzip checkpoints.zip using unzipping software like 7zip.</p>
+<p><strong>Delete zip file</strong> : <code>rm checkpoints.zip</code></p>
+<h2 id="Step-5-Run-the-project"><a href="#Step-5-Run-the-project" class="headerlink" title="Step 5 : Run the project"></a>Step 5 : Run the project</h2><p><strong>Run application from live camera</strong> : <code>python image_animation.py -i path_to_input_file -c path_to_checkpoint</code></p>
+<p><strong>Example</strong> : <code>python .\image_animation.py -i .\Inputs\Monalisa.png -c .\checkpoints\vox-cpk.pth.tar</code></p>
+<p><strong>Run application from video file</strong> : <code>python image_animation.py -i path_to_input_file -c path_to_checkpoint -v path_to_video_file</code></p>
+<p><strong>Example</strong> : <code>python .\image_animation.py -i .\Inputs\Monalisa.png -c .\checkpoints\vox-cpk.pth.tar -v .\video_input\test1.mp4</code></p>
+<p><a href="https://github.com/anandpawara/Real_Time_Image_Animation/blob/master/animate.gif"><img src="https://github.com/anandpawara/Real_Time_Image_Animation/raw/master/animate.gif" alt="test demo"></a></p>
+<h3 id="TODO"><a href="#TODO" class="headerlink" title="TODO:"></a>TODO:</h3><p>Tkinter version</p>
+<p>Need work on face alignments</p>
+<p>Future plans adding deepfake voice and merging with video</p>
+</blockquote>
+<p>可能有些人看不懂，所以我带你们来一遍</p>
+<h1 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h1><h3 id="1-安装Python-3-7"><a href="#1-安装Python-3-7" class="headerlink" title="1.安装Python 3.7"></a>1.安装Python 3.7</h3><p>为啥要安装3.7版本？因为后面的torch没有3.9版本的，去Python官网下载，并配置好环境变量</p>
+<p>具体怎么百度一大堆，有手就行</p>
+<h3 id="2-安装虚拟环境库"><a href="#2-安装虚拟环境库" class="headerlink" title="2.安装虚拟环境库"></a>2.安装虚拟环境库</h3><p>win+R键，输入CMD打开终端，输入此行分别安装和创建虚拟环境库</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;pip install virtualenv&#96;</span><br><span class="line">&#96;virtualenv env&#96;</span><br></pre></td></tr></table></figure>
 
-<h3 id="WSL2"><a href="#WSL2" class="headerlink" title="WSL2:"></a>WSL2:</h3><p>尝试用Powershell以管理员运行以下代码，或者你可以把此保存为ps1文件执行</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#region 管理员身份运行</span><br><span class="line">$currentWi &#x3D; [Security.Principal.WindowsIdentity]::GetCurrent()</span><br><span class="line">$currentWp &#x3D; [Security.Principal.WindowsPrincipal]$currentWi</span><br><span class="line"> </span><br><span class="line">if( -not $currentWp.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))</span><br><span class="line">&#123;</span><br><span class="line">  $boundPara &#x3D; ($MyInvocation.BoundParameters.Keys | foreach&#123;</span><br><span class="line">     &#39;-&#123;0&#125; &#123;1&#125;&#39; -f  $_ ,$MyInvocation.BoundParameters[$_]&#125; ) -join &#39; &#39;</span><br><span class="line">  $currentFile &#x3D; (Resolve-Path  $MyInvocation.InvocationName).Path</span><br><span class="line"> </span><br><span class="line"> $fullPara &#x3D; $boundPara + &#39; &#39; + $args -join &#39; &#39;</span><br><span class="line"> Start-Process &quot;$psHome\powershell.exe&quot;   -ArgumentList &quot;$currentFile $fullPara&quot;   -verb runas</span><br><span class="line"> return</span><br><span class="line">&#125;</span><br><span class="line">#endregion</span><br><span class="line"></span><br><span class="line">#region 运行以下代码</span><br><span class="line">docker system prune -a -f</span><br><span class="line">net stop com.docker.service</span><br><span class="line">taskkill &#x2F;F &#x2F;IM &quot;Docker Desktop.exe&quot;</span><br><span class="line">wsl --shutdown</span><br><span class="line">Optimize-VHD -Path &quot;虚拟磁盘路径&quot; -Mode Full</span><br><span class="line">wsl</span><br><span class="line">start Docker程序路径&quot;</span><br><span class="line">net start com.docker.service</span><br><span class="line">pause</span><br><span class="line">#endregion</span><br></pre></td></tr></table></figure>
+<h3 id="3-激活虚拟环境库"><a href="#3-激活虚拟环境库" class="headerlink" title="3.激活虚拟环境库"></a>3.激活虚拟环境库</h3><p>打开 C:\Users\Administrator\env\Scripts 打开activate.bat即可</p>
+<h3 id="4-安装第三方环境库"><a href="#4-安装第三方环境库" class="headerlink" title="4.安装第三方环境库"></a>4.安装第三方环境库</h3><p>终端 e:(把e换为你从项目下载的文件路径的盘符)</p>
+<p>cd /xxxx/xxxx/ (你项目文件的根目录)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;pip install -r requirements.txt&#96;</span><br></pre></td></tr></table></figure>
 
+<p>输入运行即可，要一段时间，运行库很多</p>
+<h3 id="5-安装Torch"><a href="#5-安装Torch" class="headerlink" title="5.安装Torch"></a>5.安装Torch</h3><p>接着上面的操作终端输入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;pip install torch&#x3D;&#x3D;&#x3D;1.0.0 torchvision&#x3D;&#x3D;&#x3D;0.2.1 -f https:&#x2F;&#x2F;download.pytorch.org&#x2F;whl&#x2F;cu100&#x2F;torch_stable.html&#96;</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-下载数据集"><a href="#6-下载数据集" class="headerlink" title="6.下载数据集"></a>6.下载数据集</h3><p>下载 <a href="https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK">https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK</a></p>
+<p>解压得两个vox文件放到 <strong>\Real_Time_Image_Animation-master\checkpoints</strong></p>
+<h3 id="7-安装FFmpeg解码器并配置变量"><a href="#7-安装FFmpeg解码器并配置变量" class="headerlink" title="7.安装FFmpeg解码器并配置变量"></a>7.安装FFmpeg解码器并配置变量</h3><p><a href="http://www.ffmpeg.org/">www.ffmpeg.org</a> 点windows图标下第一个build，安装好后配置环境变量</p>
+<p>怎么配置还是查百度，这个作用是可以把视频音频和视频合并，省功夫</p>
+<h3 id="8-运行脚本"><a href="#8-运行脚本" class="headerlink" title="8.运行脚本"></a>8.运行脚本</h3><p>终端 e:(把e换为你从项目下载的文件路径的盘符)</p>
+<p>cd /xxxx/xxxx/ (你项目文件的根目录)</p>
+<p>终端运行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python image_animation.py -i path_to_input_file -c path_to_checkpoint -v path_to_video_file</span><br></pre></td></tr></table></figure>
+
+<p>path_to_input_file 是输入的模板图片</p>
+<p>path_to_checkpoint 是权重文件路径</p>
+<p>path_to_video_file 是输入的视频文件</p>
+<p>比如</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python image_animation.py -i Inputs&#x2F;x.jpg -c checkpoints&#x2F;vox-adv-cpk.pth.tar -v 1.mp4</span><br></pre></td></tr></table></figure>
+
+<p>比如这个，输入图片默认放在input文件夹，导出的视频默认在output文件夹，模板视频在根目录</p>
+<h3 id="9-大功告成"><a href="#9-大功告成" class="headerlink" title="9.大功告成"></a>9.大功告成</h3><p>在导出的文件夹就可以找到相关的视频文件</p>
+<h3 id="10-替换其他的视频模板"><a href="#10-替换其他的视频模板" class="headerlink" title="10.替换其他的视频模板"></a>10.替换其他的视频模板</h3><p>原项目文档已经说明，你需要把视频模板裁剪为256x256大小，这个我推荐使用<strong>Premiere</strong>或者<strong>Vegas</strong>视频编辑软件，相关教程去百度查</p>
+<p>还有，输出的视频尺寸最好是正方形的，否则输出视频会把你的长方形比例照片弄成正方形的，会使人看起来很扁（笑），模板最好是正面的，表情不要太夸张</p>
+<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>这种技术是很侮辱人，请勿滥用</p>
+]]></content>
+      <categories>
+        <category>计算机</category>
+      </categories>
+      <tags>
+        <tag>计算机</tag>
+        <tag>机器学习</tag>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>学习笔记系列</title>
+    <url>/2020/10/01/learnote/</url>
+    <content><![CDATA[<div id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容">
+  <div class="hbe-input-container">
+  <input type="password" id="hbePass" placeholder="" />
+    <label for="hbePass">您好, 这里需要密码.</label>
+    <div class="bottom-line"></div>
+  </div>
+  <script id="hbeData" type="hbeData" data-hmacdigest="ed65a38ecc53ff6b705ffc8b5225b57bd665a543fa9dcce79a9dd43cec973276">d23a6ea4237b63f881a6a63a0bbfe921b8b69a6fe1cea5a83acbe7f4f4f99435cb08060d0ad3717f0f261e18abcada9ea394baffa5fc3a472c78cef89c3b964c52635668547fcefedb212f0a611ae96d573a16c8ddcadad5ad7274702801424bcdc8b136e5b5c19f393cec6e32de6034e3d846081998dc7fb67b2a40325f1214d9b781b87adc5ff65e0d4664303729e1f8cb684690e2aead4b008acc44ec8132f9c2899bb4b879f00f17ba6c747fa649862e87ba8945ef8e5404fd0b91d45e78859954a2fde763508cb1ed2ca0fdaecab20c00c8c5ed49004c7a948ce67b209ec26edce03da5971c28c0fc6d5b23b688e3d063c4729212517ff89d309af302f51bf6c07157c4efe40d2765ea14a23eb66b7aa5d3d2bcde3e5085128c59bfd57f7a151dde2536f05a897f735255bbe1345f6bbfd389ebdbcc356fc43b96e15563ca475ddbf76a71d9543d7b92164290b51216b80f6250709b008b7876814e4758f56230bc94280bf7404e367c14859b234053b8eccb414a3d6c61c308109eb750fd55aa58711358ca980c808c2396ae6b5a6b556711133ce3eae71f7ef04f857127267117d0e5c4cbb8b87a37e2d2eda8818764bb15e17301056e80e7da55e39c05ef0520bde997bde2df1062fb73eb2171ec026719588042092571e81a344b21d3f7ebd62a8efc10390c0afab0b23bfbc78dc83ca4da766ab315b8eed493569695eba225a8498d6b5253715c54a60369e7e4d263e8a52074bd46fd8ba4c6f82229f0a3ecc75fa7ca08572b1a2ce1af35213dc49daa049fe9ed1eebea3091fc6d931769aee009c232d06c00508d7918883b66cafe5400de468b2124d957b35d37d4191d2d3b9376f3e37e185c349e900a62a56349ad2ffff7e46b4c6571977e69f60c3721a96632fa917c3455c8cc12a03c539407e5b90dfb23ce44d7ff0aad1e2307ab29d41dbe890005d3d19a526263a3e6611c135324d2aea1632686d6fa5e4bdf6b0d03f48d87a5870cf06e5b2d564665744c398a9ab35f515d9d1a4e67af66f55aaeaff1ee1524676d5b415fdf28be2afdc3e822ec8f908bc9c1bfe38b732f281e0a8f6d5e5feefa89a13077017d8b39f2df7d016ccb4d34af3dfcb36e1e8aa123c1924951690616d2738716414a97c2726af4bc8af836b5f2e0585756f8cdc9f5eb1bb81e82d1f45700df68e2170996a68bc8af7cf5d26776e3b3585229ace8dddbdebd693c0db7b7904cd250fe309ef6dec72112f91476bf5acc3f0a7f60857375254ed70622cf07ebac01c8eff16c7b2448a19becf74dde59ee56e975bee886084f0bad361566d9f49e11f8e21310b7a3648d86611b41f78dea68caeff53cb8250e99eaf6ed94dde48b3fa999bd8bb862430ee8337e5d3a7927ddf92a3828fd3df81472e445b79800fffd87d2b75fb2fc4f6289da5176f76ff729be1451b805486bc3427a41a0b82ed9dbc0cb0acadacc9b40c1e3e8106fa471c455ccb1ef5a04de909e605b3b30cd73764192</script>
+</div>
+<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>自制渣翻字幕-虚渊玄主笔军事动漫OBSOLTE</title>
+    <url>/2020/10/22/obsolete/</url>
+    <content><![CDATA[<h1 id="OBSOLETE"><a href="#OBSOLETE" class="headerlink" title="OBSOLETE"></a>OBSOLETE</h1><p>想必很多看动漫的小年轻都知道虚渊玄，咱们的<strong>爱的战士</strong>，作为日本动漫作品创作鬼才，其在日漫这种浪漫主义作品中喜欢给你插入猝不及防的现实主义元素，善于运用把浪漫世界中美好之物一个个毁灭给你看的希腊式悲剧笔法:</p>
+<p><strong><em>它一定有令人悲痛的结局，往往是生离死别；他一定讲的是一个无辜的人，一个道德完善的英雄，遭受了不幸。</em></strong></p>
+<p><img src="https://i.loli.net/2020/10/24/U3ud2VCiQ5sabz1.jpg" alt="u=188288523,2253095310&amp;fm=26&amp;gp=0"></p>
+<p>老虚笔下的一个个作品都让你感受到了一次次心灵的洗礼。</p>
+<p>爱的战士老虚先后作有 《沙耶之歌》 《Fate》 《魔法少女小圆》，《心理测量者》 等作品，在其锋韧如刀的笔下突显了各个深刻的主题</p>
+<p>而日本动漫常常以魔幻世界或现实生活为背景，且又偏向讲述一个个高中生突然觉醒拯救世界之类的故事，但这次却是一个部军事动漫。日本的军事类动漫较多的只是其中包含军事的元素，但军事元素细节和对军事的讲述却很显不足，硬军事元素在日漫中常常缺少，但此类动漫也受国内军迷的爱戴，但很多主要是馋作品中一些人物的身子，却不是军事元素。<br>这次老虚以军事，机甲等主题的融合又会诞生出什么样的作品，很受期待。</p>
+<p>在2019年12月的时候OBSOLETE在Youtube由南梦宫代理播出，第一时间<br>便找资源并查找相关的翻译字幕，但发现缺少资源，于是自己开始对动漫的字幕工作。<br>在2019年12月中旬，完成了对OBSOLETE发布的6集的字幕工作，由于水平有限，难免有许多细节上的错误，但大致的意思应该是不会错，哈哈…………</p>
+<p><a href="https://imgchr.com/i/BVdZMF"><img src="https://s1.ax1x.com/2020/10/24/BVdZMF.png" alt="BVdZMF.png"></a></p>
+<a id="more"></a>
+
+<p><img src="https://i.loli.net/2020/10/23/yRVugpJwo49scqx.png" alt="image-20201023125846569"></p>
+<p><a href="https://imgchr.com/i/BAAB6J"><img src="https://s1.ax1x.com/2020/10/23/BAAB6J.jpg" alt="BAAB6J.jpg"></a><br><em>声明:动漫版权为南梦宫株式会社所有，该字幕仅仅提供交流学习之用，相关资源请24小时内删除</em></p>
+<p>链接:<a href="https://pan.baidu.com/s/1Ezdi3EiSQOgtJ3mc0GZbPw#/">https://pan.baidu.com/s/1Ezdi3EiSQOgtJ3mc0GZbPw#/</a><br>PassW0rd:j3n4</p>
+<p>不过现在快过去1年了，其他字幕也层出不穷，但是，OBSOLETE依旧是6集，而官方推特也天天在更新，<strong>莫非老虚这伙也摸了一年鱼？</strong></p>
+<p>OBSOLETE采用2.5D画面，美术设计方面十分不错，其在画面方面的优秀也是不容置疑的。<br>人物设定还是不错的，风并不是传统日漫的画风而比较写实，所以画面细节上也对比其他日漫来说非常优秀<br><a href="https://imgchr.com/i/BAAeTP"><img src="https://s1.ax1x.com/2020/10/23/BAAeTP.gif" alt="BAAeTP.gif"></a></p>
+<p>2014年，突然现身的外星人「佩多拉」向地球人提出「交易」，以石灰岩作为交换，地球人获得了比战机、战车、枪更便宜好用，任谁都能轻易驾驶的意识控制型泛用机器人「EXOFRAME」，并迅速扩散于全球，既能作为交通工具、工业机械，亦可成为战争机器…。2015年，首场以EXOFRAME作为武器的战事爆发，看似充满好处且和平的交易背后，隐藏的真相究竟为何…？</p>
+<p>在前六集里，故事讲述了人型机甲对地球政治，军事，商业的影响</p>
+<p>作画上该动漫的军事细节很到位，比如西方军队的宙斯盾系统，Scar改的<br>EXOFRAME枪，M1坦克，南美军队的苏式装备，还有各国的各种军队<br><a href="https://imgchr.com/i/BAAllQ"><img src="https://s1.ax1x.com/2020/10/23/BAAllQ.gif" alt="BAAllQ.gif"></a><br>描述的战争局面中各国与组织甚至是人是非常贴近现实，其中也反映了一些反战的主题<br><a href="https://imgchr.com/i/BAANkV"><img src="https://s1.ax1x.com/2020/10/23/BAANkV.gif" alt="BAANkV.gif"></a><br>虽然这些对军事的描述和处理对于军迷来说远远达不到他们的要求，但在对比日漫中来说是相当丰富的</p>
+]]></content>
+      <categories>
+        <category>文化</category>
+      </categories>
+      <tags>
+        <tag>日本ACG文化</tag>
+        <tag>字幕翻译</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>NAS系统备份与恢复以OMV为案例的几种方法,附我家云NAS备份方法</title>
+    <url>/2020/10/17/omvbackup/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>如果想把自己的NAS玩出各种花样的话要进行很多复杂的操作，NAS使用基于Linux内核的系统，对于还没有了解Linux使用及其发行版的的用户来说操作未免复杂，也经常手贱因为操作命令行，装软件包等操作错误导致系统一塌糊涂，崩溃，此时来恢复也需要查找教程未免复杂，此时我们需要建立一个备份来防止这些事情的发生。</p>
+<p><strong>这个教程以OMV为例，适用于其他Linux的NAS系统，本教程也提供了几个基于流行的不同硬件架构的NAS系统备份教程</strong></p>
+<a id="more"></a>
+
+<h1 id="运用dd，fsarchiver，rsync等方式的备份"><a href="#运用dd，fsarchiver，rsync等方式的备份" class="headerlink" title="运用dd，fsarchiver，rsync等方式的备份"></a>运用dd，fsarchiver，rsync等方式的备份</h1><p>这几个命令是Linux系统上常用的可以使用来备份系统的工具，其特点和功能各不相同，如果感觉命令行太麻烦或者担心由于命令行输入错误而导致硬盘损毁，你也可以使用一些工具来进行，在熟悉这几个命令后可以使用图形界面工具，本教程以OMV系统为例，所以介绍一下OMV系统上的backup插件，同样的，如果你使用群晖，威联通，甚至是Ubuntu，unraid等系统，其原理大致相同，都是使用这些命令来进行备份</p>
+<p>在下面要介绍的备份工具Clonzilla同样的多次运用到了dd命令</p>
+<p>Linux里面还有其他命令来备份系统或者文件，比如dump，tar，gzip等</p>
+<p><a href="http://zuyunfei.com/2015/06/04/linux-dd/">dd教程</a><br><a href="http://zuyunfei.com/2015/06/04/linux-dd/">fsarchiver教程</a></p>
+<h4 id="OMV-BACKUP"><a href="#OMV-BACKUP" class="headerlink" title="OMV-BACKUP"></a>OMV-BACKUP</h4><p>在OMV-Webui里边插件里一打开就能找到一个叫omv-Backup的插件，用这个插件来备份系统设置很简单，只要在插件页面设置一下就可以备份了，插件提供了三种模式:dd，fsarchiver，rsync，选择你的共享文件夹即可备份，之后会在窗口里开始运行备份，备份完成后，在你的共享文件夹根目录即可看到备份，里面包括了几个文件，有Grub，Fdisk，Dz等格式的文件，如果你使用dd模式，主要备份在格式是dd.gz的文件里面，如果为fsarchiver，主要备份在格式是fsa的文件里面。</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>这个插件运用了Linux系统下几个可以用来备份系统的工具，dd，fsarchiver，rsync，具体原理参照这几个工具的教程。</p>
+<h3 id="需要在systemrescued模式下进行恢复"><a href="#需要在systemrescued模式下进行恢复" class="headerlink" title="需要在systemrescued模式下进行恢复"></a>需要在systemrescued模式下进行恢复</h3><p>预先在omv-extra里面下载systemrescuecd的镜像，在启动时在grub菜单即可打开，之后就可在终端里进行操作。</p>
+<blockquote>
+<p>1 - Plugin emergency OS (USB), reboot<br>2 - Start OMV <strong>Web-GUI</strong><br>3 - I had to install SystemRescueCD to the OMV. Normally, this should already be part you your backup OMV. To install it go to <strong>OMV-Extras/Kernel</strong>.<br>4 - Tell OMV on this page to boot from <strong>SystemRescueCD</strong> once.<br>5 - Reboot.<br>Login via <strong>SSH</strong> (Putty) to the command line of SystemRescueCD. Username: root, Password: openmediavault.<br><a href="https://imgchr.com/i/0qryOH"><img src="https://s1.ax1x.com/2020/10/17/0qryOH.md.jpg" alt="0qryOH.md.jpg"></a></p>
+</blockquote>
+<h3 id="使用fsarchiver模式的恢复"><a href="#使用fsarchiver模式的恢复" class="headerlink" title="使用fsarchiver模式的恢复"></a>使用fsarchiver模式的恢复</h3><p>1.挂载存放备份数据的设备<br>如果你的备份文件夹挂载在sde1，在终端输入:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mount &#x2F;dev&#x2F;sde1 &#x2F;mnt&#x2F;backup</span><br></pre></td></tr></table></figure>
+
+<p>2.找准你的fsd备份文件和你需要备份到的系统盘，比如:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">备份文件:</span><br><span class="line">&#x2F;mnt&#x2F;backup&#x2F;omvbackup&#x2F;backup-omv-07-May-2018_10-36-31.fsa</span><br><span class="line">系统盘:</span><br><span class="line">&#x2F;dev&#x2F;sda1</span><br></pre></td></tr></table></figure>
+
+<p>3.卸载要恢复的设备的挂载状态</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">umount -v &#x2F;dev&#x2F;sda1</span><br></pre></td></tr></table></figure>
+
+<p>4.恢复备份文件到目标系统盘<br>在终端输入命令 fsarchiver restfs 备份文件路径 dest=目标系统盘路径，比如</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fsarchiver restfs &#x2F;mnt&#x2F;backup&#x2F;omvbackup&#x2F;backup-omv-07-May-2018_10-36-31.fsa id&#x3D;0,dest&#x3D;&#x2F;dev&#x2F;sda1</span><br></pre></td></tr></table></figure>
+
+<p>4.重启<br>reboot</p>
+<h3 id="使用dd模式备份的恢复"><a href="#使用dd模式备份的恢复" class="headerlink" title="使用dd模式备份的恢复"></a>使用dd模式备份的恢复</h3><p>1.挂载存放备份数据的设备<br>如果你的备份文件夹挂载在sde1，在终端输入:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mount &#x2F;dev&#x2F;sde1 &#x2F;mnt&#x2F;backup</span><br></pre></td></tr></table></figure>
+
+<p>2.找准你的fsd备份文件和你需要备份到的系统盘，比如:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">备份文件:</span><br><span class="line">&#x2F;mnt&#x2F;backup&#x2F;omvbackup&#x2F;backup-omv-07-May-2018_10-36-31.dd.gz</span><br><span class="line">系统盘:</span><br><span class="line">&#x2F;dev&#x2F;sda1</span><br></pre></td></tr></table></figure>
+
+<p>3.恢复备份文件到目标系统盘<br>在终端输入命令 gunzip -c 备份文件路径 | dd of=目标系统盘路径 bs=1M status=progress</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gunzip -c &#x2F;mnt&#x2F;backup&#x2F;omvbackup&#x2F;backup-omv-07-May-2018_10-36-31.dd.gz | dd of&#x3D;&#x2F;dev&#x2F;sda1 bs&#x3D;1M status&#x3D;progress</span><br></pre></td></tr></table></figure>
+
+<p>4.重启<br>reboot</p>
+<h3 id="关于三种模式的机制"><a href="#关于三种模式的机制" class="headerlink" title="关于三种模式的机制"></a>关于三种模式的机制</h3><p>dd不克隆整个驱动器。它克隆整个OS分区（以及可能是引导分区），包括没有相关信息的扇区。而且如果你的分区有1G文件100G储存那么他的备份文件就有100G，而在如上命令中对备份文件进行gzip压缩才可以恢复到文件占有的大小，这需要更长的时间。它也无法还原到比从中克隆的分区储存更小的分区。<br>fsarchiver克隆的过程与dd相同，但它只克隆占有的文件大小，并允许（在某种程度上）恢复到一个比原分区更小的分区。<br>rsync只将操作系统文件rsync发送到数据驱动器上的另一个目录。<br>哪一个最好？没人能告诉你。对你有好处的。rsync只允许一次备份。另外两个允许多个备份。我个人使用fsarchiver。</p>
+<h3 id="如何从Raid阵列恢复备份文件到系统盘"><a href="#如何从Raid阵列恢复备份文件到系统盘" class="headerlink" title="如何从Raid阵列恢复备份文件到系统盘"></a>如何从Raid阵列恢复备份文件到系统盘</h3><p>1.检查阵列 </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mdadm-D&#x2F;dev&#x2F;阵列</span><br></pre></td></tr></table></figure>
+
+<p>2.创建挂载点在mnt</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mkdir &#x2F;mnt&#x2F;xxx</span><br></pre></td></tr></table></figure>
+
+<p>3.挂载阵列到挂载点</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mount &#x2F;dev&#x2F;阵列 &#x2F;mnt&#x2F;xxx</span><br></pre></td></tr></table></figure>
+
+<p>4.把备份文件移动到阵列里<br>5.检查你的备份文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fsarchiver archinfo backup.fsa（备份文件路径）</span><br></pre></td></tr></table></figure>
+
+<p>6.建议你做一下这个步骤：如果要还原到新磁盘，请在fsarchiver restfs步骤之前将grub和分区表（.grubparts文件）的备份写入磁盘，方法是：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dd if&#x3D;&#x2F;mnt&#x2F;阵列&#x2F;backup.grubparts of&#x3D;&#x2F;dev&#x2F;sda1（系统盘）</span><br></pre></td></tr></table></figure>
+
+<p>7.释放备份文件到系统盘的分区中</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fsarchiver restfs backup.fsa （备份文件路径）id&#x3D;0,dest&#x3D;&#x2F;dev&#x2F;sda1（系统盘）</span><br></pre></td></tr></table></figure>
+
+<p>id=0表示只恢复备份中的第一个文件系统。我假设你只是用一个备份备份了一个文件系统<br>8.重启<br>输入reboot</p>
+<h3 id="对于插件备份文件的解释"><a href="#对于插件备份文件的解释" class="headerlink" title="对于插件备份文件的解释"></a>对于插件备份文件的解释</h3><p>有关插件正在保存的文件的详细信息：<br>backup-omv-18-Jan-2019_14-12-01.blkid：：这是blkid的输出，放在一个文件中以供参考。<br>backup-omv-18-Jan-2019_14-12-01.fdisk：：这是fdisk-l的输出，放在文件中以供参考。<br>backup-omv-18-Jan-2019_14-12-01.fsa：：这是fsarchiver文件。<br>backup-omv-18-Jan-2019_14-12-01.grub：：这是安装grub的磁盘的前446个字节<br>backup-omv-18-Jan-2019_14-12-01.grubparts：：这是安装grub的磁盘和分区表的前512个字节。<br>backup-omv-18-Jan-2019_14-12-01.packages：：这是dpkg-l | grep openmediavault的输出，放在一个文件中以供参考。<br>以供参考的都没啥用，作为备份的信息文件而已。</p>
+<h3 id="最后感谢omv社区大佬ryecoaaron编写这个插件"><a href="#最后感谢omv社区大佬ryecoaaron编写这个插件" class="headerlink" title="最后感谢omv社区大佬ryecoaaron编写这个插件"></a>最后感谢omv社区大佬<strong>ryecoaaron</strong>编写这个插件</h3><h1 id="Clonezilla备份"><a href="#Clonezilla备份" class="headerlink" title="Clonezilla备份"></a>Clonezilla备份</h1><p>再生龙是台湾省国网中心开发的一款多平台备份工具，作为Linux第三方一个强大的备份工具，OMV中的webui页面也装载了这个软件，提供了引导启动支持，只需要在omv-extras的内核里面安装镜像，而且操作简单方便，不用担心如上的命令行和繁琐难懂的操作，之后在引导启动之后，按照提示登陆ssh进入到clonezilla界面进行操作。</p>
+<h3 id="从OMV引导启动"><a href="#从OMV引导启动" class="headerlink" title="从OMV引导启动"></a>从OMV引导启动</h3><p>点击OMV-WebUI菜单中的omv-extra选择，如果没有请在插件中安装omv-extra，在内核选项中可看到自带的本地再生龙引导<br><img src="https://s1.ax1x.com/2020/10/18/0XFmHx.png" alt="0XFmHx.png"><br>这意味着我们不用做Clonzilla Live就能直接把Clonzilla的iso文件在放本地储存中直接grub引导<br>而OMV提供的Clonezilla有以下注意的事项:<br><strong>1.必须使用OMV提供的官方镜像才能直接从本地引导启动，新版本再生龙无法本地引导<br>2.该镜像为老版本再生龙，不支持新的硬件的UEFI启动，而且只有英文<br>3.从OMV-WebUI里面下载再生龙是从国外服务器上下载的，所以国内网络无法下载，可以从网络上直接下载镜像并装载到/boot路径中<br>4.请确保你的备份到目标的储存设备已经挂载在系统中，请谨慎操作，任何一个错误的操作都可能导致您系统或者数据的不可逆转的损毁</strong><br>在下载或者装载完镜像之后，在选项中选择“从clonezilla再生龙”，之后弹窗会提示你即将重启<br>5.在重启后启动putty输入你的ssh地址登陆到ssh中，输入用户名user，密码live，输入sudo clonzilla进入再生龙界面</p>
+<h3 id="备份操作"><a href="#备份操作" class="headerlink" title="备份操作"></a>备份操作</h3><p>1.在界面中，有<strong>设备到设备</strong>，<strong>设备到镜像</strong>的选项，第一项可以把整个系统包括引导复制到另一个与原设备大小相同的储存设备</p>
+<p>进入选项后选择第一个<strong>“初学者”</strong>模式</p>
+<p>之后可选项第一项复制整个硬盘，第二项复制单个分区</p>
+<p>在选项中先设定描述中有<strong>“source”</strong>原硬盘/分区，再设定描述中有<strong>“target”</strong>的目标硬盘分区</p>
+<p>选择-sfsck，再选择-reboot</p>
+<p>2.第二项就是可以备份/恢复镜像的<strong>设备到镜像</strong>选项，是我们备份的主要操作</p>
+<p>接下来，必须选择在其中写入或从其中恢复备份映像的映像目录，有<em>ssh-server_、_samba-server</em> 和 <em>nfs-server</em> 选项适合有网络连接但本地磁盘空闲空间或备份映像不可用的情况。我们需要克隆系统分区并将其保存到另一个储存设备中。如果选择 _local_dev_，你可以选择 USB 设备作为 Clonezilla 映像库。</p>
+<p>之后选择你需要备份到目标储存设备的硬盘</p>
+<p>之后选择是备份硬盘/分区为镜像还是从镜像恢复到/硬盘/分区，我们选择备份分区为镜像，选择第三项</p>
+<p>之后输入镜像名称和源系统盘，再生龙集成了ntfsclone、partclone、partimage 和 dd 等分区克隆工具，之后根据选项选择yes/no，等待备份完成</p>
+<p>重启 -reboot</p>
+<h3 id="恢复备份"><a href="#恢复备份" class="headerlink" title="恢复备份"></a>恢复备份</h3><p>操作一样，不同的是选择设备到镜像后选择恢复分区，之后选择目标分区后即可恢复</p>
+<p>注意事项:<br><strong>Clonezilla 不支持从大硬盘和分区中将映像恢复到较小的磁盘和分区</strong></p>
+<h2 id="特殊情况"><a href="#特殊情况" class="headerlink" title="特殊情况"></a>特殊情况</h2><h3 id="新硬件与UEFI启动"><a href="#新硬件与UEFI启动" class="headerlink" title="新硬件与UEFI启动"></a>新硬件与UEFI启动</h3><p>如果你是新硬件与UEFI启动，你需要制作Clonezilla Live在Bios中启动来进行备份操作，而且你无法在WebUI和SSH中完成操作，你需要外接显示器来操作</p>
+<h3 id="特殊架构的NAS"><a href="#特殊架构的NAS" class="headerlink" title="特殊架构的NAS"></a>特殊架构的NAS</h3><p>比如机顶盒，一部分NAS采用ARM芯片的特殊主板，比如瑞芯微RK芯片，一开始安装系统的办法也与普通计算机不同，比如我的<strong>我家云</strong>可能无法使用OMV-Backup和再生龙，由于设备无法引导进入救援状态以及Live系统，导致无法进行常规的备份恢复</p>
+<p>但是对于<strong>我家云</strong>，我们可以这样，先从OMV中制作出系统镜像，再从把镜像从瑞芯微刷机工具AndroidTool直接写入到设备，这样就完成了一次的备份与恢复</p>
+<p><strong>具体制作备份镜像如下：</strong></p>
+<p>假设你的硬盘设备是/dev/sda，执行如下命令会将镜像备份到/sharedfolders/hdd/p.img，同时缩小镜像尺寸到3.5G</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;sharedfolders&#x2F;ud&#x2F;</span><br><span class="line">sync</span><br><span class="line">dd if&#x3D;&#x2F;dev&#x2F;mmcblk1p1 of&#x3D;&#x2F;sharedfolders&#x2F;ud&#x2F;p0.ext bs&#x3D;1M</span><br><span class="line">#把整个分区拷贝成ext</span><br><span class="line">e2fsck -fy &#x2F;sharedfolders&#x2F;ud&#x2F;p0.ext</span><br><span class="line">#强制检查ext文件的正确性</span><br><span class="line">resize2fs -M &#x2F;sharedfolders&#x2F;ud&#x2F;p0.ext</span><br><span class="line">#减小文件系统到最小的大小</span><br><span class="line">resize2fs &#x2F;sharedfolders&#x2F;ud&#x2F;p0.ext 3500M</span><br><span class="line">#调整文件为3500M</span><br><span class="line">dd if&#x3D;&#x2F;dev&#x2F;mmcblk1 of&#x3D;&#x2F;sharedfolders&#x2F;ud&#x2F;p.img bs&#x3D;1M count&#x3D;16</span><br><span class="line">#拷贝硬盘的前16个块，每个块1M，并转换成img</span><br><span class="line">dd if&#x3D;&#x2F;sharedfolders&#x2F;ud&#x2F;p0.ext of&#x3D;&#x2F;sharedfolders&#x2F;ud&#x2F;p.img bs&#x3D;1M seek&#x3D;16</span><br><span class="line">#把ext文件(分区备份)的块和img(硬盘头扇区引导数据)文件的块合并，并覆盖ext文件的前16个块</span><br><span class="line">mv p.img omv-p2.img</span><br><span class="line">#改名</span><br><span class="line">tar zcvf omv-p2.tar.gz omv-p2.img</span><br><span class="line">#打包成tar</span><br><span class="line"></span><br><span class="line">#本备份使用DD命令，DD命令可以方便的备份整个硬盘的数据，包括引导分区等，此命令可以备份整个硬盘的数据并缩小备份包，由于DD命令可以完整的备份整个硬盘数据，所以其大小与硬盘大小一样，所以需要压缩，resize2fs需要先检查文件系统正确性，但直接备份整个硬盘的话备份并不是文件系统，所以无法缩小，此命令先备份分区数据再缩小分区数据的备份包，再把硬盘的引导分区合并到备份中，间接备份了整个硬盘。</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>没错，原理还是使用dd来备份再压缩成镜像，由于dd可以把整个硬盘包括分区表什么的拷贝下来，所以我们就可以用这个方式来备份并恢复了，之后直接在RK的专用刷机工具中烧入数据即可</p>
 ]]></content>
       <categories>
         <category>计算机</category>
@@ -61,156 +338,9 @@
       <tags>
         <tag>计算机</tag>
         <tag>运营维护</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>RetroArch-scummvm核心的配置和操作指南</title>
-    <url>/2020/10/24/retrocore-scummvm/</url>
-    <content><![CDATA[<p><a href="https://imgchr.com/i/BGD7tA"><img src="https://s1.ax1x.com/2020/10/29/BGD7tA.png" alt="BGD7tA.png"></a><br><a href="https://imgchr.com/i/BGsV2t"><img src="https://s1.ax1x.com/2020/10/29/BGsV2t.png" alt="BGsV2t.png"></a></p>
-<h4 id="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"><a href="#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变" class="headerlink" title="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"></a><em>注意这是一个动态更新型文章，文章内容可能会随时更新或者改变</em></h4><a id="more"></a>
-
-<h1 id="Libretro-ScummVM系列核心"><a href="#Libretro-ScummVM系列核心" class="headerlink" title="Libretro-ScummVM系列核心"></a>Libretro-ScummVM系列核心</h1><h2 id="机型"><a href="#机型" class="headerlink" title="机型:"></a>机型:</h2><p>ScummVM是卢卡斯图形冒险游戏开发引擎Scumm的模拟器，和RPGMAKER模拟器一样，可以在各平台模拟其游戏引擎内的游戏 *<em>1</em></p>
-<h2 id="相关ROM"><a href="#相关ROM" class="headerlink" title="相关ROM:"></a>相关ROM:</h2><p>包括各种20世纪90年代的游戏<br>钢铁天空下 Beneath a Steel Sky<br>断剑系列 Broken Sword<br>梦网 Dreamweb<br>德古拉:吸血鬼突击 Drascula: The Vampire Strikes Back<br>银翼杀手 Blade Runner<br>很多游戏都是90年代初的以赛 博 朋 克为主题的游戏</p>
-<h2 id="相关模拟器"><a href="#相关模拟器" class="headerlink" title="相关模拟器:"></a>相关模拟器:</h2><p> <a href="https://www.scummvm.org/downloads/">https://www.scummvm.org/downloads/</a><br>官方模拟器支持win，linux，mac，symbian，ps3，psp，dc，3ds，ds，will，gc，haiku，amigaOS，RISC，android，ios包揽全平台的模拟器</p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>提示:这个模拟器官方已经支持全平台了，再用Retroarch的意义很小了……而且官方模拟器已经集成了所有需要的配置文件，而Retroarch没有，且操作还很繁琐……….除非你要用到Retroarch的附加功能<br>SCUMM的意思是Script Creation Utility for Maniac Mansion，原意是疯狂大楼剧本创作工具，是Aric Wilmunder与Ron Gilbert 为了开发疯狂大楼(Maniac Mansion)这款游戏开发的工具。后来不仅在卢卡斯游戏本部得到了广泛使用还卖给其他公司开发同类游戏，在AVG大热的年代里推出了一大堆非常有趣的游戏。这些游戏都是DOS平台的，用DosBox也可以在PC上玩到。<br>ScummVM 模拟器 ,它可以让你玩到由美国卢卡斯艺术出的一系列精典游戏,如猴岛小英雄,星球大战等等,新版变动: 在这个版本中，增加了对西木头公司（WestWood）的《凯兰蒂亚传奇》引擎的支持，因而可以模拟一共三代的《凯兰蒂亚传奇》以及另一知名大作断剑系列。同时增加了对Feeble Files引擎的支持，并对先前支持的General、SCUMM、SAGA、Simon、Broken Sword 1、Broken Sword 2引擎和和WINCE端口进行了清楚BUG和增加功能的有序工作。 *<em>2</em></p>
-<h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><blockquote>
-<p>太长影响观感</p>
-</blockquote>
-<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><h3 id="几个额外设置"><a href="#几个额外设置" class="headerlink" title="几个额外设置"></a>几个额外设置</h3><p><strong>启用增强的MIDI仿真</strong></p>
-<p> 有些游戏只包含MIDI数据形式的音乐。 默认情况下，ScummVM将使用AdLib模拟MIDI模式。 使用流体合成MIDI仿真和适当的声音，可以为支持MIDI的游戏实现更高质量的音频， 这是RetroArch下推荐的操作模式。</p>
-<p> 选择“MIDI”选项卡，然后在“GM Device：”下选择“FluidSynth‘。</p>
-<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_midi.png" alt="img"></p>
-<p> 按下“soundfont：”按钮并导航到RetroArch系统目录。 输入sumplmvm/extra/文件夹。 (注：如果按顺序遵循本指南的步骤，则在按下“soundfont：”按钮时，将自动选择summvm/extra/ 文件夹)</p>
-<p> 选择文件Roland_SC-55.sf2并按“选择”按钮。</p>
-<p>勾选“混合广告Lib/MIDI模式”复选框。</p>
-<p> 按下“应用”按钮，然后继续到下面的“启用MT-32仿真”部分。</p>
-<p> 许多游戏受益于流体合成MIDI仿真。 一些特别值得注意的例子是：</p>
-<p>山姆和麦克斯上路了</p>
-<p>会幕之日</p>
-<p>星际世界</p>
-<p> 注意流体合成MIDI仿真稍微增加了ScummVM核心的CPU需求。 在绝大多数平台上，这不应该是一个问题。 如果在非常低功耗的设备上观察到裂纹声音，则应该通过将“GM设备：”设置为默认的“不要使用通用MIDI音乐”选项来禁用FluidSynthMIDI仿真。</p>
-<p><strong>游戏管理</strong></p>
-<p> 在游戏可以通过ScummVM核心运行之前，应该首先将其添加到内部启动程序中。 不这样做将防止保存特定于游戏的配置选项(例如。 音量级别，字幕速度，内部游戏设置覆盖)。</p>
-<p> 向ScummVM启动器添加一个游戏</p>
-<p> 每个游戏的数据文件必须复制到本地存储中唯一命名的目录(即。 每个游戏一个目录)。 任何特定游戏所需的特定文件列表可以在ScummVM数据文件页面上找到。</p>
-<p> 建议的“Flight of the Amazon Queen”目录布局是一个最简单的例子：</p>
-<p>└── ROMs/<br>    └── ScummVM/<br>        └── Flight of the Amazon Queen (CD DOS)/<br>            └── queen.1</p>
-<p>一旦所有文件到位，每个游戏可以添加如下：</p>
-<p> 运行ScummVM核心，没有内容：</p>
-<p> 转到RetroArch的主菜单屏幕。</p>
-<p> 选择“LoadCore”，然后选择“summVM‘。</p>
-<p> 选择“启动核心‘。</p>
-<p> 在主ScummVM用户界面中，按下“添加游戏…”按钮。</p>
-<p> 导航到游戏目录， 双击游戏目录本身进入它，然后按‘选择’按钮</p>
-<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_add_game.png" alt="img"></p>
-<p> 如果游戏被正确检测(即如果数据文件正确)，将自动打开“设置”对话框。</p>
-<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_game_options.png" alt="img"></p>
-<p> 一般来说，自动生成的配置设置应该不错了</p>
-<p> 然而：为了简单起见，以及与现有的.scummvm文件的兼容性（在下面的部分中讨论），应该将“ID：”条目设置为游戏的名字。 所有游戏名字都列在ScummVM兼容性页面上。</p>
-<p> 在大多数情况下，自动生成的“ID：会自动匹配游戏名字。</p>
-<p> 在某些情况下，自动生成的“ID：”将是带有附加标识后缀的“短名称。 这个后缀应该删除。 如果使用手柄，这可以通过单击“ID：”输入行的末尾，并使用“L2”按钮/触发器来删除不需要的字符来实现。</p>
-<p> 一旦“ID：”被修改（如果需要），按“OK”按钮“注册”游戏。</p>
-<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_1st_game_added.png" alt="img"></p>
-<p> 注意一旦一个游戏已经注册，它可以通过在ScummVM启动器游戏列表中选择它并按下“启动”按钮来运行。 但是：不建议以这种方式使用Scumm VM启动器，因为它阻止了每个游戏配置重写RetroArch的使用，因此输入重新映射</p>
-<p><strong>音量水平</strong></p>
-<p> Scumm VM游戏在音频音量水平上表现出惊人的差异。 为了舒适，几乎是强制性的调整特定的卷在每个游戏的基础上。 幸好这是微不足道的：</p>
-<p> 当游戏运行时，按Retro Pad“启动”按钮打开ScummVMGUI。</p>
-<p> 使用光标，按“选项”按钮。</p>
-<p> 调整‘音乐音量：’，‘SFX音量：’和‘回声音量：’滑块到所需的水平。</p>
-<p> 按“确定”按钮，然后按“恢复”按钮。<br> 如果游戏已经正确地添加到ScummVM启动器中，调整后的级别将在游戏会话之间保留。</p>
-<p> 如果游戏尚未添加到ScummVM启动器，或者.scummvm文件中的游戏ID与ScummVM发射器ID不匹配，则当游戏关闭时，所有设置都将丢失。</p>
-<p>手动音乐设备选择</p>
-<p> 默认情况下，ScummVM将自动为每个游戏选择最合适的音乐播放选项(即。 MT-32仿真、流体合成MIDI仿真或Ad Lib仿真)。 在大多数情况下，这将产生最好的声音质量，不需要用户干预。 然而，在一些情况和游戏中，手动覆盖是有益的。 这是应该由用户在每个游戏的基础上确定的东西，但这里有一些实际的例子：</p>
-<p> 使用MT-32仿真的默认选择，对于游戏魔法师西蒙来说是最好的，但对于大多数Android设备来说，这太需要CPU了。 通过强制游戏使用FluidSynthMIDI仿真，可以在性能和音质之间实现一个可接受的折衷。</p>
-<p> 西蒙魔法师2将使用流体合成MIDI模拟默认。 通过强制游戏使用MT-32仿真可以获得更好的质量音乐。 (由于这款游戏对CPU的要求比本系列中的第一款更高，所以Android设备上的平滑播放通常需要使用Ad Lib仿真)</p>
-<p> 在钢铁之下下这个游戏默认为MT-32仿真，这应该是最好的.但是强制使用FluidSynthMIDI仿真往往会产生“更高”的声音音乐，一些用户可能更喜欢。</p>
-<p> Amazon Queen的飞行是另一款默认MT-32仿真的游戏，但是（可以说）Fluid Synth MIDI仿真听起来要好得多。</p>
-<h3 id="支持的ROM格式"><a href="#支持的ROM格式" class="headerlink" title="支持的ROM格式:"></a>支持的ROM格式:</h3><p>.scummvm<br>然而大多数游戏不是这个格式，而模拟器可以直接从一些DOS格式中直接读取</p>
-<h3 id="固件"><a href="#固件" class="headerlink" title="固件:"></a>固件:</h3><p>ScummVM的部分游戏需要相关的配置文件才能运行，而且从ScummVM官方下载的游戏也无法从DOS直接运行，而ScummVM的官方模拟器已经集成了这些文件，如果在RA里面没有这些文件很多游戏将无法运行</p>
-<p>首先从ScummVM的官方模拟器中提取extra配置文件，比如安卓端，解包apk后在assets文件中<br>或者你可以直接从Github下载 <a href="https://github.com/libretro/scummvm/raw/master/backends/platform/libretro/aux-data/scummvm.zip">https://github.com/libretro/scummvm/raw/master/backends/platform/libretro/aux-data/scummvm.zip</a></p>
-<p>extra文件应该放到system/scummvm/extra中</p>
-<p>之后加载核心-运行核心 在scummvm界面中点击</p>
-<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_1st_run.png" alt="img"></p>
-<p>options，之后在extra path中选择system/scummvm/extra路径，保存</p>
-<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_paths.png" alt="img"></p>
-<p>theme文件是scummvm的主题，安装这个主题界面就和官方模拟器一样了，把解压到主题文件放在system/scummvm/theme中，和上面一样在options里面的theme path选择system/scummvm/extra路径，保存</p>
-<p>点misc项，选择 ‘ScummVM Modern Theme’ 选项，点击choose，保存</p>
-<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_misc.png" alt="img"></p>
-<h3 id="功能"><a href="#功能" class="headerlink" title="功能:"></a>功能:</h3><p>支持 截图 原生存档 手柄控制 按键映射</p>
-<p>不支持 </p>
-<h3 id="核心选项"><a href="#核心选项" class="headerlink" title="核心选项:"></a>核心选项:</h3><p>Gamepad Cursor Speed<br>调整光标速度<br> [scummvm_gamepad_cursor_speed] (1.0|1.5|2.0|2.5|3.0|0.25|0.5|0.75)</p>
-<p>由于不同分辨率下鼠标速度不同<br>‘320x200’ or ‘320x240’. 建议设置光标速度1.0<br>‘640x400’ or ‘640x480’, 建议设置光标速度2.0</p>
-<p>Analog Cursor Response<br>光标加速度<br> [scummvm_analog_response] (linear|cubic)<br>linear 直线型<br>cubic  二次方式</p>
-<p>Analog Deadzone (percent) [scummvm_analog_deadzone] (15|20|25|30|0|5|10)<br>设置Retropad模拟棒的死区。 用于消除光标漂移/不需要的输入。</p>
-<p> 死区设置可以对模拟光标移动的“感觉”产生显著影响。 该值应尽可能低，以获得最佳结果-即。 减小值，直到光标漂移明显，然后增加到下一个最高设置。 Xbox手柄通常需要15-20%。 许多与Android兼容的蓝牙游戏播放器都有一个内部的“硬件”死区，允许将这里的死区值设置为0%。</p>
-<p>Mouse Speed <br>[scummvm_mouse_speed] (1.0|1.25|1.5|1.75|2.0|2.5|3.0|0.05|0.1|0.15|0.2|0.25|0.3|0.35|0.4|0.45|0.5|0.6|0.7|0.8|0.9)</p>
-<p>使用Retroarch内部模拟的鼠标的鼠标速度</p>
-<p>Speed Hack (Restart) <br>[scummvm_speed_hack] (disabled|enabled)</p>
-<p>启用可选的速度修改，通过允许微妙的定时不准确，大大降低核心的CPU需求。</p>
-<p> 这个修改被认为是“安全的”-游戏应该正确运行时，它被启用，大多数不准确是不可察觉的，除了在少数边缘情况。 不过，它仍然是一个黑客，强烈建议桌面类机器的用户保持禁用它。</p>
-<h3 id="相关文件路径"><a href="#相关文件路径" class="headerlink" title="相关文件路径:"></a>相关文件路径:</h3><h3 id="控制"><a href="#控制" class="headerlink" title="控制:"></a>控制:</h3><h6 id="手柄"><a href="#手柄" class="headerlink" title="手柄"></a>手柄</h6><p><img src="https://i.loli.net/2020/10/31/Y79Q3SbAaWtH6iK.png" alt="image-20201031080912912"></p>
-<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20201031080940425.png" alt="image-20201031080940425"></p>
-<p><img src="https://i.loli.net/2020/10/31/hS2AOtIRloPvHMg.png" alt="image-20201031081030633"></p>
-<p><strong>Additional Notes:</strong></p>
-<ul>
-<li><p>按下“光标精细控制”按钮，将光标速度降低到“Gamepad光标速度”核心选项设置的值的⅓。</p>
-</li>
-<li><p>右旋转垫模拟棒被映射到8路“虚拟Numpad”，布局如下：</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[7][8][9]</span><br><span class="line">[4]   [6]</span><br><span class="line">[1][2][3]</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>额外的ScummVM的按键</strong></p>
-<ul>
-<li><p>Esc:</p>
-<ul>
-<li>跳过场景</li>
-<li>打开关闭菜单</li>
-</ul>
-</li>
-<li><p>Virtual Numpad + Numpad 5 + Numpad 0:</p>
-<ul>
-<li>Enables control during fight sequences in the <strong>‘Indiana Jones’</strong> series of games.</li>
-<li>Enables bypass of <strong>Monkey Island 2</strong> copy protection.</li>
-<li>启用在指定保存槽时需要文本输入的游戏中的保存</li>
-<li>在一些游戏中启用菜单导航 (Numpad 8 == up, Numpad 2 == down).</li>
-</ul>
-</li>
-<li><p>Enter + Backspace:</p>
-<ul>
-<li>启用在指定保存槽时需要文本输入的游戏中的保存.</li>
-<li>‘Enter’ 可能被用来攻击“虚空”战斗序列</li>
-<li>“Enter”在某些游戏中启用菜单项选择</li>
-</ul>
-</li>
-<li><p>. (period): Skips lines of dialogue in SCUMM engine games.</p>
-</li>
-<li><p>F1:</p>
-<ul>
-<li>在一些游戏中显示游戏中的菜单</li>
-<li>可以在一些游戏中保存。</li>
-</ul>
-</li>
-<li><p>F10: Shows hotspots in <strong>Simon the Sorcerer 1 + 2.</strong></p>
-<h5 id="鼠标"><a href="#鼠标" class="headerlink" title="鼠标"></a>鼠标</h5><p><img src="https://i.loli.net/2020/10/31/QcqY2pUvrnh1BFy.png" alt="image-20201031081759317"></p>
-</li>
-</ul>
-<p>为了确保在使用Retro鼠标时正确操作，建议在使用ScummVM核心运行内容时启用Retro Arch‘Grab鼠标’选项。默认情况下，“Grab鼠标”可以通过在键盘上按F11来打开/关闭。<br>使用Retro Pad移动光标时不需要“Grab鼠标”选项。</p>
-<h5 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h5><p>Scumm VM核心在Wii U平台上使用libretro指针API进行鼠标仿真。</p>
-<p><img src="https://i.loli.net/2020/10/31/swhH37pNeA51boD.png" alt="image-20201031082000215"></p>
-<h3 id="评测"><a href="#评测" class="headerlink" title="评测:"></a>评测:</h3><p>高性能组:<br>1.安卓<br>环境:Android10-armV8a，骁龙835，OpenGL，默认选项<br>结果:5个游戏平均 60FPS<br>低性能组:<br>环境:环境:Android6-armV8a，骁龙625，OpenGL，默认选项<br>结果: 5个游戏平均 48FPS</p>
-<p>Retroarch对比官方模拟器来说的确复杂了许多，但是你想深入研究ScummVM的话，你可以使用Retroarch来研究其原理和配置，这个模拟器过于冷门，其也从DOS平台的冷门可以看出，国内来说，游戏的确不受国人喜欢</p>
-<p><em>引用:*1,2  ScummVM 百度百科</em></p>
-]]></content>
-      <categories>
-        <category>计算机</category>
-        <category>模拟器</category>
-      </categories>
-      <tags>
-        <tag>仿真器</tag>
-        <tag>计算机史</tag>
+        <tag>Linux</tag>
+        <tag>NAS</tag>
+        <tag>家庭网络</tag>
       </tags>
   </entry>
   <entry>
@@ -427,6 +557,324 @@
         <tag>仿真器</tag>
         <tag>计算机史</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>RetroArch-scummvm核心的配置和操作指南</title>
+    <url>/2020/10/24/retrocore-scummvm/</url>
+    <content><![CDATA[<p><a href="https://imgchr.com/i/BGD7tA"><img src="https://s1.ax1x.com/2020/10/29/BGD7tA.png" alt="BGD7tA.png"></a><br><a href="https://imgchr.com/i/BGsV2t"><img src="https://s1.ax1x.com/2020/10/29/BGsV2t.png" alt="BGsV2t.png"></a></p>
+<h4 id="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"><a href="#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变" class="headerlink" title="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"></a><em>注意这是一个动态更新型文章，文章内容可能会随时更新或者改变</em></h4><a id="more"></a>
+
+<h1 id="Libretro-ScummVM系列核心"><a href="#Libretro-ScummVM系列核心" class="headerlink" title="Libretro-ScummVM系列核心"></a>Libretro-ScummVM系列核心</h1><h2 id="机型"><a href="#机型" class="headerlink" title="机型:"></a>机型:</h2><p>ScummVM是卢卡斯图形冒险游戏开发引擎Scumm的模拟器，和RPGMAKER模拟器一样，可以在各平台模拟其游戏引擎内的游戏 *<em>1</em></p>
+<h2 id="相关ROM"><a href="#相关ROM" class="headerlink" title="相关ROM:"></a>相关ROM:</h2><p>包括各种20世纪90年代的游戏<br>钢铁天空下 Beneath a Steel Sky<br>断剑系列 Broken Sword<br>梦网 Dreamweb<br>德古拉:吸血鬼突击 Drascula: The Vampire Strikes Back<br>银翼杀手 Blade Runner<br>很多游戏都是90年代初的以赛 博 朋 克为主题的游戏</p>
+<h2 id="相关模拟器"><a href="#相关模拟器" class="headerlink" title="相关模拟器:"></a>相关模拟器:</h2><p> <a href="https://www.scummvm.org/downloads/">https://www.scummvm.org/downloads/</a><br>官方模拟器支持win，linux，mac，symbian，ps3，psp，dc，3ds，ds，will，gc，haiku，amigaOS，RISC，android，ios包揽全平台的模拟器</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>提示:这个模拟器官方已经支持全平台了，再用Retroarch的意义很小了……而且官方模拟器已经集成了所有需要的配置文件，而Retroarch没有，且操作还很繁琐……….除非你要用到Retroarch的附加功能<br>SCUMM的意思是Script Creation Utility for Maniac Mansion，原意是疯狂大楼剧本创作工具，是Aric Wilmunder与Ron Gilbert 为了开发疯狂大楼(Maniac Mansion)这款游戏开发的工具。后来不仅在卢卡斯游戏本部得到了广泛使用还卖给其他公司开发同类游戏，在AVG大热的年代里推出了一大堆非常有趣的游戏。这些游戏都是DOS平台的，用DosBox也可以在PC上玩到。<br>ScummVM 模拟器 ,它可以让你玩到由美国卢卡斯艺术出的一系列精典游戏,如猴岛小英雄,星球大战等等,新版变动: 在这个版本中，增加了对西木头公司（WestWood）的《凯兰蒂亚传奇》引擎的支持，因而可以模拟一共三代的《凯兰蒂亚传奇》以及另一知名大作断剑系列。同时增加了对Feeble Files引擎的支持，并对先前支持的General、SCUMM、SAGA、Simon、Broken Sword 1、Broken Sword 2引擎和和WINCE端口进行了清楚BUG和增加功能的有序工作。 *<em>2</em></p>
+<h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><blockquote>
+<p>太长影响观感</p>
+</blockquote>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><h3 id="几个额外设置"><a href="#几个额外设置" class="headerlink" title="几个额外设置"></a>几个额外设置</h3><p><strong>启用增强的MIDI仿真</strong></p>
+<p> 有些游戏只包含MIDI数据形式的音乐。 默认情况下，ScummVM将使用AdLib模拟MIDI模式。 使用流体合成MIDI仿真和适当的声音，可以为支持MIDI的游戏实现更高质量的音频， 这是RetroArch下推荐的操作模式。</p>
+<p> 选择“MIDI”选项卡，然后在“GM Device：”下选择“FluidSynth‘。</p>
+<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_midi.png" alt="img"></p>
+<p> 按下“soundfont：”按钮并导航到RetroArch系统目录。 输入sumplmvm/extra/文件夹。 (注：如果按顺序遵循本指南的步骤，则在按下“soundfont：”按钮时，将自动选择summvm/extra/ 文件夹)</p>
+<p> 选择文件Roland_SC-55.sf2并按“选择”按钮。</p>
+<p>勾选“混合广告Lib/MIDI模式”复选框。</p>
+<p> 按下“应用”按钮，然后继续到下面的“启用MT-32仿真”部分。</p>
+<p> 许多游戏受益于流体合成MIDI仿真。 一些特别值得注意的例子是：</p>
+<p>山姆和麦克斯上路了</p>
+<p>会幕之日</p>
+<p>星际世界</p>
+<p> 注意流体合成MIDI仿真稍微增加了ScummVM核心的CPU需求。 在绝大多数平台上，这不应该是一个问题。 如果在非常低功耗的设备上观察到裂纹声音，则应该通过将“GM设备：”设置为默认的“不要使用通用MIDI音乐”选项来禁用FluidSynthMIDI仿真。</p>
+<p><strong>游戏管理</strong></p>
+<p> 在游戏可以通过ScummVM核心运行之前，应该首先将其添加到内部启动程序中。 不这样做将防止保存特定于游戏的配置选项(例如。 音量级别，字幕速度，内部游戏设置覆盖)。</p>
+<p> 向ScummVM启动器添加一个游戏</p>
+<p> 每个游戏的数据文件必须复制到本地存储中唯一命名的目录(即。 每个游戏一个目录)。 任何特定游戏所需的特定文件列表可以在ScummVM数据文件页面上找到。</p>
+<p> 建议的“Flight of the Amazon Queen”目录布局是一个最简单的例子：</p>
+<p>└── ROMs/<br>    └── ScummVM/<br>        └── Flight of the Amazon Queen (CD DOS)/<br>            └── queen.1</p>
+<p>一旦所有文件到位，每个游戏可以添加如下：</p>
+<p> 运行ScummVM核心，没有内容：</p>
+<p> 转到RetroArch的主菜单屏幕。</p>
+<p> 选择“LoadCore”，然后选择“summVM‘。</p>
+<p> 选择“启动核心‘。</p>
+<p> 在主ScummVM用户界面中，按下“添加游戏…”按钮。</p>
+<p> 导航到游戏目录， 双击游戏目录本身进入它，然后按‘选择’按钮</p>
+<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_add_game.png" alt="img"></p>
+<p> 如果游戏被正确检测(即如果数据文件正确)，将自动打开“设置”对话框。</p>
+<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_game_options.png" alt="img"></p>
+<p> 一般来说，自动生成的配置设置应该不错了</p>
+<p> 然而：为了简单起见，以及与现有的.scummvm文件的兼容性（在下面的部分中讨论），应该将“ID：”条目设置为游戏的名字。 所有游戏名字都列在ScummVM兼容性页面上。</p>
+<p> 在大多数情况下，自动生成的“ID：会自动匹配游戏名字。</p>
+<p> 在某些情况下，自动生成的“ID：”将是带有附加标识后缀的“短名称。 这个后缀应该删除。 如果使用手柄，这可以通过单击“ID：”输入行的末尾，并使用“L2”按钮/触发器来删除不需要的字符来实现。</p>
+<p> 一旦“ID：”被修改（如果需要），按“OK”按钮“注册”游戏。</p>
+<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_1st_game_added.png" alt="img"></p>
+<p> 注意一旦一个游戏已经注册，它可以通过在ScummVM启动器游戏列表中选择它并按下“启动”按钮来运行。 但是：不建议以这种方式使用Scumm VM启动器，因为它阻止了每个游戏配置重写RetroArch的使用，因此输入重新映射</p>
+<p><strong>音量水平</strong></p>
+<p> Scumm VM游戏在音频音量水平上表现出惊人的差异。 为了舒适，几乎是强制性的调整特定的卷在每个游戏的基础上。 幸好这是微不足道的：</p>
+<p> 当游戏运行时，按Retro Pad“启动”按钮打开ScummVMGUI。</p>
+<p> 使用光标，按“选项”按钮。</p>
+<p> 调整‘音乐音量：’，‘SFX音量：’和‘回声音量：’滑块到所需的水平。</p>
+<p> 按“确定”按钮，然后按“恢复”按钮。<br> 如果游戏已经正确地添加到ScummVM启动器中，调整后的级别将在游戏会话之间保留。</p>
+<p> 如果游戏尚未添加到ScummVM启动器，或者.scummvm文件中的游戏ID与ScummVM发射器ID不匹配，则当游戏关闭时，所有设置都将丢失。</p>
+<p>手动音乐设备选择</p>
+<p> 默认情况下，ScummVM将自动为每个游戏选择最合适的音乐播放选项(即。 MT-32仿真、流体合成MIDI仿真或Ad Lib仿真)。 在大多数情况下，这将产生最好的声音质量，不需要用户干预。 然而，在一些情况和游戏中，手动覆盖是有益的。 这是应该由用户在每个游戏的基础上确定的东西，但这里有一些实际的例子：</p>
+<p> 使用MT-32仿真的默认选择，对于游戏魔法师西蒙来说是最好的，但对于大多数Android设备来说，这太需要CPU了。 通过强制游戏使用FluidSynthMIDI仿真，可以在性能和音质之间实现一个可接受的折衷。</p>
+<p> 西蒙魔法师2将使用流体合成MIDI模拟默认。 通过强制游戏使用MT-32仿真可以获得更好的质量音乐。 (由于这款游戏对CPU的要求比本系列中的第一款更高，所以Android设备上的平滑播放通常需要使用Ad Lib仿真)</p>
+<p> 在钢铁之下下这个游戏默认为MT-32仿真，这应该是最好的.但是强制使用FluidSynthMIDI仿真往往会产生“更高”的声音音乐，一些用户可能更喜欢。</p>
+<p> Amazon Queen的飞行是另一款默认MT-32仿真的游戏，但是（可以说）Fluid Synth MIDI仿真听起来要好得多。</p>
+<h3 id="支持的ROM格式"><a href="#支持的ROM格式" class="headerlink" title="支持的ROM格式:"></a>支持的ROM格式:</h3><p>.scummvm<br>然而大多数游戏不是这个格式，而模拟器可以直接从一些DOS格式中直接读取</p>
+<h3 id="固件"><a href="#固件" class="headerlink" title="固件:"></a>固件:</h3><p>ScummVM的部分游戏需要相关的配置文件才能运行，而且从ScummVM官方下载的游戏也无法从DOS直接运行，而ScummVM的官方模拟器已经集成了这些文件，如果在RA里面没有这些文件很多游戏将无法运行</p>
+<p>首先从ScummVM的官方模拟器中提取extra配置文件，比如安卓端，解包apk后在assets文件中<br>或者你可以直接从Github下载 <a href="https://github.com/libretro/scummvm/raw/master/backends/platform/libretro/aux-data/scummvm.zip">https://github.com/libretro/scummvm/raw/master/backends/platform/libretro/aux-data/scummvm.zip</a></p>
+<p>extra文件应该放到system/scummvm/extra中</p>
+<p>之后加载核心-运行核心 在scummvm界面中点击</p>
+<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_1st_run.png" alt="img"></p>
+<p>options，之后在extra path中选择system/scummvm/extra路径，保存</p>
+<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_paths.png" alt="img"></p>
+<p>theme文件是scummvm的主题，安装这个主题界面就和官方模拟器一样了，把解压到主题文件放在system/scummvm/theme中，和上面一样在options里面的theme path选择system/scummvm/extra路径，保存</p>
+<p>点misc项，选择 ‘ScummVM Modern Theme’ 选项，点击choose，保存</p>
+<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_misc.png" alt="img"></p>
+<h3 id="功能"><a href="#功能" class="headerlink" title="功能:"></a>功能:</h3><p>支持 截图 原生存档 手柄控制 按键映射</p>
+<p>不支持 </p>
+<h3 id="核心选项"><a href="#核心选项" class="headerlink" title="核心选项:"></a>核心选项:</h3><p>Gamepad Cursor Speed<br>调整光标速度<br> [scummvm_gamepad_cursor_speed] (1.0|1.5|2.0|2.5|3.0|0.25|0.5|0.75)</p>
+<p>由于不同分辨率下鼠标速度不同<br>‘320x200’ or ‘320x240’. 建议设置光标速度1.0<br>‘640x400’ or ‘640x480’, 建议设置光标速度2.0</p>
+<p>Analog Cursor Response<br>光标加速度<br> [scummvm_analog_response] (linear|cubic)<br>linear 直线型<br>cubic  二次方式</p>
+<p>Analog Deadzone (percent) [scummvm_analog_deadzone] (15|20|25|30|0|5|10)<br>设置Retropad模拟棒的死区。 用于消除光标漂移/不需要的输入。</p>
+<p> 死区设置可以对模拟光标移动的“感觉”产生显著影响。 该值应尽可能低，以获得最佳结果-即。 减小值，直到光标漂移明显，然后增加到下一个最高设置。 Xbox手柄通常需要15-20%。 许多与Android兼容的蓝牙游戏播放器都有一个内部的“硬件”死区，允许将这里的死区值设置为0%。</p>
+<p>Mouse Speed <br>[scummvm_mouse_speed] (1.0|1.25|1.5|1.75|2.0|2.5|3.0|0.05|0.1|0.15|0.2|0.25|0.3|0.35|0.4|0.45|0.5|0.6|0.7|0.8|0.9)</p>
+<p>使用Retroarch内部模拟的鼠标的鼠标速度</p>
+<p>Speed Hack (Restart) <br>[scummvm_speed_hack] (disabled|enabled)</p>
+<p>启用可选的速度修改，通过允许微妙的定时不准确，大大降低核心的CPU需求。</p>
+<p> 这个修改被认为是“安全的”-游戏应该正确运行时，它被启用，大多数不准确是不可察觉的，除了在少数边缘情况。 不过，它仍然是一个黑客，强烈建议桌面类机器的用户保持禁用它。</p>
+<h3 id="相关文件路径"><a href="#相关文件路径" class="headerlink" title="相关文件路径:"></a>相关文件路径:</h3><h3 id="控制"><a href="#控制" class="headerlink" title="控制:"></a>控制:</h3><h6 id="手柄"><a href="#手柄" class="headerlink" title="手柄"></a>手柄</h6><p><img src="https://i.loli.net/2020/10/31/Y79Q3SbAaWtH6iK.png" alt="image-20201031080912912"></p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20201031080940425.png" alt="image-20201031080940425"></p>
+<p><img src="https://i.loli.net/2020/10/31/hS2AOtIRloPvHMg.png" alt="image-20201031081030633"></p>
+<p><strong>Additional Notes:</strong></p>
+<ul>
+<li><p>按下“光标精细控制”按钮，将光标速度降低到“Gamepad光标速度”核心选项设置的值的⅓。</p>
+</li>
+<li><p>右旋转垫模拟棒被映射到8路“虚拟Numpad”，布局如下：</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[7][8][9]</span><br><span class="line">[4]   [6]</span><br><span class="line">[1][2][3]</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>额外的ScummVM的按键</strong></p>
+<ul>
+<li><p>Esc:</p>
+<ul>
+<li>跳过场景</li>
+<li>打开关闭菜单</li>
+</ul>
+</li>
+<li><p>Virtual Numpad + Numpad 5 + Numpad 0:</p>
+<ul>
+<li>Enables control during fight sequences in the <strong>‘Indiana Jones’</strong> series of games.</li>
+<li>Enables bypass of <strong>Monkey Island 2</strong> copy protection.</li>
+<li>启用在指定保存槽时需要文本输入的游戏中的保存</li>
+<li>在一些游戏中启用菜单导航 (Numpad 8 == up, Numpad 2 == down).</li>
+</ul>
+</li>
+<li><p>Enter + Backspace:</p>
+<ul>
+<li>启用在指定保存槽时需要文本输入的游戏中的保存.</li>
+<li>‘Enter’ 可能被用来攻击“虚空”战斗序列</li>
+<li>“Enter”在某些游戏中启用菜单项选择</li>
+</ul>
+</li>
+<li><p>. (period): Skips lines of dialogue in SCUMM engine games.</p>
+</li>
+<li><p>F1:</p>
+<ul>
+<li>在一些游戏中显示游戏中的菜单</li>
+<li>可以在一些游戏中保存。</li>
+</ul>
+</li>
+<li><p>F10: Shows hotspots in <strong>Simon the Sorcerer 1 + 2.</strong></p>
+<h5 id="鼠标"><a href="#鼠标" class="headerlink" title="鼠标"></a>鼠标</h5><p><img src="https://i.loli.net/2020/10/31/QcqY2pUvrnh1BFy.png" alt="image-20201031081759317"></p>
+</li>
+</ul>
+<p>为了确保在使用Retro鼠标时正确操作，建议在使用ScummVM核心运行内容时启用Retro Arch‘Grab鼠标’选项。默认情况下，“Grab鼠标”可以通过在键盘上按F11来打开/关闭。<br>使用Retro Pad移动光标时不需要“Grab鼠标”选项。</p>
+<h5 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h5><p>Scumm VM核心在Wii U平台上使用libretro指针API进行鼠标仿真。</p>
+<p><img src="https://i.loli.net/2020/10/31/swhH37pNeA51boD.png" alt="image-20201031082000215"></p>
+<h3 id="评测"><a href="#评测" class="headerlink" title="评测:"></a>评测:</h3><p>高性能组:<br>1.安卓<br>环境:Android10-armV8a，骁龙835，OpenGL，默认选项<br>结果:5个游戏平均 60FPS<br>低性能组:<br>环境:环境:Android6-armV8a，骁龙625，OpenGL，默认选项<br>结果: 5个游戏平均 48FPS</p>
+<p>Retroarch对比官方模拟器来说的确复杂了许多，但是你想深入研究ScummVM的话，你可以使用Retroarch来研究其原理和配置，这个模拟器过于冷门，其也从DOS平台的冷门可以看出，国内来说，游戏的确不受国人喜欢</p>
+<p><em>引用:*1,2  ScummVM 百度百科</em></p>
+]]></content>
+      <categories>
+        <category>计算机</category>
+        <category>模拟器</category>
+      </categories>
+      <tags>
+        <tag>仿真器</tag>
+        <tag>计算机史</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>每天一个Retroarch小技巧</title>
+    <url>/2020/10/24/retroemu/</url>
+    <content><![CDATA[<p><a href="https://imgchr.com/i/BanMmq"><img src="https://s1.ax1x.com/2020/10/31/BanMmq.jpg" alt="BanMmq.jpg"></a></p>
+]]></content>
+      <categories>
+        <category>计算机</category>
+        <category>模拟器</category>
+      </categories>
+      <tags>
+        <tag>仿真器</tag>
+        <tag>计算机史</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>文件服务器中的老猫，Weezo</title>
+    <url>/2020/10/20/weezo/</url>
+    <content><![CDATA[<h1 id="文件共享服务器"><a href="#文件共享服务器" class="headerlink" title="文件共享服务器"></a>文件共享服务器</h1><p>如果你想搭建一个文件共享服务器来作私人云盘，你会选择什么，现在有很多服务软件可选，像可道云，易有云，NextCloud，Seafile，Cloudreve，Z-File，各有特色，功能强大，开源或者不开源，有些搭建简单有些搭建复杂。</p>
+<p><strong>但今天要介绍一下Weezo</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/uw1HLA75X3sFPWN.jpg" alt="u=2074893334,862763281&amp;fm=15&amp;gp=0"></p>
+<a id="more"></a>
+
+<p>比如我最喜欢用的可道云，界面华丽，内置微型桌面，有各种插件和支持，功能多样，再找一个好的VPS放到公网就可以作一个由自己支配的云盘了，再也不用怕百度云各种流氓操作了~</p>
+<p><strong>一个小巧华丽的文件浏览器，非常流畅</strong></p>
+<p><strong>在浏览器就能使用的桌面</strong></p>
+<p><strong>内置office，远程办公，甚至是NES模拟器</strong></p>
+<p><strong>还有可客户端支持，方便管理</strong></p>
+<p><strong>在线编辑代码</strong></p>
+<h1 id="Weezo"><a href="#Weezo" class="headerlink" title="Weezo"></a>Weezo</h1><p>但我今天并不是吹可道云怎么怎么好的，前段时间在找各种文件服务器的时候，找到一个已于2014年停止更新的文件共享解决方案，看截图似乎很像模像样，原来10年就有这么完备的私人云盘服务了吗？</p>
+<p>来自于21世纪10年代初期的网页设计，当时还是偏向于立体化的，在色彩方面也不是很讲究</p>
+<p>感觉回到了那时流行半夜贴吧故事会，B站也还是专门一群大学生在此创作二次元与鬼畜，手上还拿着塞班S60系统的诺基亚的时候………..</p>
+<p>所以，在深入了解Weezo后，我发现它不止是像模像样的程度了，他有:<br><strong>文件服务功能</strong><br><strong>博客空间功能</strong><br><strong>管理面板功能</strong><br><strong>影音中心功能</strong><br><strong>照片管理功能</strong><br>甚至有:<br><strong>远程桌面功能</strong><br><strong>RSS功能</strong><br><strong>公网映射，邮箱，社交账号功能</strong>(不可用)<br><strong>网络摄像头功能</strong><br>配置难度呢？一键安装，自动配置Apache，PHP，Mysql，仅支持Windows，图形化配置<br>是不是很惊艳，有些功能现在的文件共享解决方案也没有，而且可以集成这么多功能的也屈指可数，最重要的是，它还是10年左右的软件。</p>
+<p>接下咱们深入一下这个软件</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>很简单，安装包也就50M，现在还是可以在搜索引擎搜到资源，安装除了路径全部默认设置，Weezo也会给我们配置好所需的Web环境</p>
+<p>打开服务器，一个启动窗口下就在刷啦啦的打开各种服务，于是我们就可以看到软件面板了，在Win10下界面显示会有点问题，但并不影响使用</p>
+<p>我们设定好了管理员密码后，在浏览器输入你的设备的ip，然后就是可以让人怀念的登陆界面，就像那时典型的社交软件的界面一样</p>
+<p><img src="https://i.loli.net/2020/10/24/93ROkcErxD8JTiu.png" alt="image-20201024205408858"></p>
+<h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><p>登陆后界面还是较为空白，但我们可以看到这个界面很像是Windows Vista的窗口设计，然而这仅仅只是一个网页而已，在那时就可以实现类似视窗的界面了，我们可以对打开的窗口最大化，最小化，简直就像在网页中使用windows</p>
+<p>进入软件面板，我们先对账户和各种权限设置一下，之后我们便可以添加各种服务</p>
+<p><img src="https://i.loli.net/2020/10/23/MksiUKx34IaL7lz.png" alt="image-20201023140717644"></p>
+<p><img src="https://i.loli.net/2020/10/23/ImVhgcU3z49DtAJ.png" alt="image-20201023140659549"></p>
+<p>当然作为文件共享服务，我们先试试文件共享服务。文件共享支持你对电脑多个目录进行共享，对此分别设置各用户的权限等，我们现在添加两个文件目录</p>
+<p><img src="https://i.loli.net/2020/10/25/tLvlWay6sBAphNi.png" alt="image-20201023140815747"></p>
+<p>在页面端他的文件目录已经很贴近windows的资源管理器了，我们可以进行删除，拷贝，剪切，下载等功能，支持图标缩放</p>
+<p><img src="https://i.loli.net/2020/10/23/GdEN1BeqHiscI2R.png" alt="image-20201023140937080"></p>
+<p>支持读取文本，音乐，视频，照片，音乐会根据图标缩放的大小显示专辑图片</p>
+<p><img src="https://i.loli.net/2020/10/24/bAxmM3Pk6YiHCyf.png" alt="image-20201024210449043"></p>
+<p><img src="https://i.loli.net/2020/10/24/gPV6qc27m8LaYfC.png" alt="image-20201024210556089"></p>
+<p>下载功能还支持种子下载，批量下载与上传，当然，现在不可用了</p>
+<p><img src="https://i.loli.net/2020/10/24/1EJ5WikdDYbgRU8.png" alt="image-20201024211723034"></p>
+<p>之后的功能中，还有很多我很感兴趣，比如这个还算漂亮的博客<br>我可以写写文章，也会在日历中标记日期</p>
+<p>管理面板功能，依旧很惊艳，把访问人数和资源都画成图表便于查看</p>
+<p><img src="https://i.loli.net/2020/10/24/BXA67pRkPDEKy8C.png" alt="image-20201024210034004"></p>
+<p>还可以查看日志</p>
+<p><img src="https://i.loli.net/2020/10/24/8vGNWuagnzIeklB.png" alt="image-20201024210108852"></p>
+<p>我们可以在RSS功能中订阅源，但好像有点问题，Weezo一直都不能连接外网</p>
+<p><strong>然后是远程桌面，这也太牛了</strong>，没想到一个文件服务器居然还集成了这种功能，如图，我们可以在网页中操控我的设备，但对于现在来说操控有些卡顿了</p>
+<p><img src="https://i.loli.net/2020/10/24/vBVxncOA2EFQg7u.png" alt="image-20201024212119155"></p>
+<p>相册功能，我们可以添加相片进去，成为便于储存与展示照片的相册</p>
+<p><img src="https://i.loli.net/2020/10/24/ik1jPN7FIG4TKQ9.png" alt="QQ截图20201024212846"></p>
+<p>视频功能，我们可以添加视频进行，之后可以在网页上播放，Weezo可以使用Flash，QuickTime，M2U播放但Weezo的播放相对现在来说有点复杂和低效了，现在直接用html了</p>
+<p>预览这里还可以像电脑端B站网页把鼠标放在视频框该视频框机会动起来，小窗预览，厉害！</p>
+<p><img src="https://i.loli.net/2020/10/24/CqvWpmIS9Bkrsdj.png" alt="image-20201024214002275"></p>
+<p>音乐库，感觉很厉害的样子，新东西放在老容器里面的感觉</p>
+<p><img src="https://i.loli.net/2020/10/24/hDxCPlogz8ULSIQ.png" alt="image-20201024215107330"></p>
+<p>聊天功能，梦 回 10 年 网 络 聊 天 室</p>
+<p><img src="https://i.loli.net/2020/10/24/krbh45xmeMtP3Aq.png" alt="image-20201024215723630"></p>
+<p>网络摄像头功能，好吧，我也不知道具体有什么用</p>
+<p><img src="https://i.loli.net/2020/10/24/o5LzGJa9lND6fpx.png" alt="image-20201024215842851"></p>
+<p>博客功能</p>
+<p><img src="https://i.loli.net/2020/10/24/3ESKialBzYoPUWc.png" alt="image-20201024220108137"></p>
+<p>RSS源功能，这东西这么老了，我还记得我6年前在诺基亚手机桌面添加了好多源，啥科学松鼠会，微软学术之类的，现在的源都停止更新了，还保留着上世代互联网的味道</p>
+<p>如图下的时间你也能想到以前的什么东西………….</p>
+<p><img src="https://i.loli.net/2020/10/24/ywOPg53BnoNhqL8.png" alt="image-20201024220859056"></p>
+<p>网络电视，我8年前都不知道有这东西，这里连中国的电视源都有，牛，可惜全部失效了，世代遗产…….</p>
+<p><img src="https://i.loli.net/2020/10/24/Y8DXEg2OyTRWjw5.png" alt="image-20201024221140997"></p>
+<p>这些功能如果你感兴趣的话可以下载Weezo来体验一下，功能还是很丰富的，也不止我现在介绍的这些</p>
+<h2 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h2><p>Weezo使用的是老版本的apache和php，php的版本也只有5.2，对于现在的web环境来说容易会有一些问题，比如在中文名称下会导致名称显示不全，无法设置中文路径等，这时候可以尝试升级php来解决。</p>
+<p>用户设置里面我们可以添加用户，设置用户密码，设置用户功能面板，设置其权限等</p>
+<p><img src="https://i.loli.net/2020/10/23/X8NRjKtH7dTF3ef.png" alt="image-20201023140511116"></p>
+<p>在添加文件功能的时候要特别注意中文文件的问题，如果不能显示和添加中文路径可以多试几次或者直接使用添加文件而不是路径的方式，Weezo在启动一段时间后莫名其妙可以显示中文路径了，在此你也可以设置用户对文件的操作权限</p>
+<p>一开始这些文件是乱码的，不能进入，但若你静心等候的话，奇迹还是会出现的</p>
+<p><img src="https://i.loli.net/2020/10/24/1Bh8FCxGR2Hgb6K.png" alt="image-20201024221344194"></p>
+<p>Weezo有上传文件大小限制，可以在设置里设置限制大小，但设置里面最多也只能设置1G，这时候可以去配置文件里面设置超过1G的大小 C:\Users\Administrator\AppData\Roaming\Weezo\data</p>
+<p><img src="https://i.loli.net/2020/10/24/9akIdlWibofP5Gm.png" alt="image-20201024222144483"></p>
+<p><img src="https://i.loli.net/2020/10/25/LcJKqFfnCumGs4l.png" alt="image-20201024221531530"></p>
+<p>基本设置下可以设置服务模式，文件路径等，在下面显示了程序的主路径，环境路径，www文件路径，防火墙等，设置开机自启模式记得调Service因为运行这个程序要管理员权限</p>
+<p><img src="https://i.loli.net/2020/10/23/idKrWaPmeMYVfkx.png" alt="image-20201023140404379"></p>
+<p>服务器设置可以设置服务器地址，端口号，SSL，upnp，还有网络环境，签名证书，日志等</p>
+<p><img src="https://i.loli.net/2020/10/24/RIsaPD6e5K2MHxc.png" alt="image-20201024221800355"></p>
+<p>外观设置，壁纸，主题等，这点很像可道云</p>
+<p><img src="https://i.loli.net/2020/10/24/9LF38cnDTJzlGpU.png" alt="image-20201024221846699"></p>
+<p>有很多主题，都是当时流行的一些操作系统的UI，当然，也可以登陆到web里面设置主题和网页标题</p>
+<p><img src="https://i.loli.net/2020/10/24/Iwxu2YCLbXDRsPU.png" alt="image-20201024205758602"></p>
+<p><img src="https://i.loli.net/2020/10/24/BfM1up3QlORj9ZE.png" alt="image-20201024205843284"></p>
+<p>管理功能可以在网页中设置Weezo桌面服务端的设置</p>
+<p><img src="https://i.loli.net/2020/10/24/VpYRyOsEv9dwzPb.png" alt="image-20201024210010997"></p>
+<p>竟然还包含终端界面来对计算机进行管理</p>
+<p><img src="https://i.loli.net/2020/10/24/BwtVrGm6nWu87SY.png" alt="image-20201024210233443"></p>
+<p>杂项，设置文件加密，密钥，文件权限，还有文件评分功能？？？</p>
+<p><img src="https://i.loli.net/2020/10/24/PsxS3MJftzvZu5a.png" alt="image-20201024221957299"></p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1>]]></content>
+      <tags>
+        <tag>计算机</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker-Desktop中压缩虚拟磁盘(VHDX)的大小</title>
+    <url>/2020/11/20/windockecompressr/</url>
+    <content><![CDATA[<p><img src="https://ftp.bmp.ovh/imgs/2021/01/58446f843eb879e4.jpg"></p>
+<h1 id="相关问题"><a href="#相关问题" class="headerlink" title="相关问题"></a>相关问题</h1><p>在Win10上使用Docker-Desktop时，当我删除了差不多5G的镜像文件中，发现Docker对于磁盘的占用依旧没有什么变化，仍然有8G的空间占用</p>
+<p>在Win10上运行Docker，除了早期的VirtualBox方式之外，往往有两种方式，一种是Hyper-V，一种是WSL，无论是两种中的哪一种，都使用VHDX虚拟磁盘文件来存放Docker的镜像和容器数据，然而虚拟磁盘是弹性的方式扩展空间的，你使用多少虚拟磁盘的空间自动扩展到多少，但是当你删除文件缩小虚拟磁盘空间的使用时，虚拟磁盘并未缩小</p>
+<a id="more"></a>
+
+
+
+<p><a href="https://imgchr.com/i/D3p4AA"><img src="https://s3.ax1x.com/2020/11/21/D3p4AA.png" alt="D3p4AA.png"></a></p>
+<p><a href="https://imgchr.com/i/D3pIht"><img src="https://s3.ax1x.com/2020/11/21/D3pIht.png" alt="D3pIht.png"></a></p>
+<p>这也要归功于微软没有加入自动压缩虚拟磁盘的功能，然而在Docker里面是否会添加这种机制呢，然而并没有，虽然社区上有人向微软和Docker反应添加这种功能，然而我并没有看到两个软件添加了这种机制，可能是有什么原因？</p>
+<p><a href="https://imgchr.com/i/D3pLng"><img src="https://s3.ax1x.com/2020/11/21/D3pLng.png" alt="D3pLng.png"></a></p>
+<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h3 id="Hyper-V"><a href="#Hyper-V" class="headerlink" title="Hyper-V:"></a>Hyper-V:</h3><p>尝试用Powershell以管理员运行以下代码，或者你可以把此保存为ps1文件执行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#region 管理员身份运行</span><br><span class="line">$currentWi &#x3D; [Security.Principal.WindowsIdentity]::GetCurrent()</span><br><span class="line">$currentWp &#x3D; [Security.Principal.WindowsPrincipal]$currentWi</span><br><span class="line"> </span><br><span class="line">if( -not $currentWp.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))</span><br><span class="line">&#123;</span><br><span class="line">  $boundPara &#x3D; ($MyInvocation.BoundParameters.Keys | foreach&#123;</span><br><span class="line">     &#39;-&#123;0&#125; &#123;1&#125;&#39; -f  $_ ,$MyInvocation.BoundParameters[$_]&#125; ) -join &#39; &#39;</span><br><span class="line">  $currentFile &#x3D; (Resolve-Path  $MyInvocation.InvocationName).Path</span><br><span class="line"> </span><br><span class="line"> $fullPara &#x3D; $boundPara + &#39; &#39; + $args -join &#39; &#39;</span><br><span class="line"> Start-Process &quot;$psHome\powershell.exe&quot;   -ArgumentList &quot;$currentFile $fullPara&quot;   -verb runas</span><br><span class="line"> return</span><br><span class="line">&#125;</span><br><span class="line">#endregion</span><br><span class="line"></span><br><span class="line">#region 运行以下代码</span><br><span class="line">docker system prune -a -f</span><br><span class="line">net stop com.docker.service</span><br><span class="line">taskkill &#x2F;F &#x2F;IM &quot;Docker Desktop.exe&quot;</span><br><span class="line">stop-vm DockerDesktopVM</span><br><span class="line">Optimize-VHD -Path &quot;虚拟磁盘路径&quot; -Mode Full</span><br><span class="line">start-vm DockerDesktopVM</span><br><span class="line">start &quot;Docker程序路径&quot;</span><br><span class="line">net start com.docker.service</span><br><span class="line">#endregion</span><br></pre></td></tr></table></figure>
+
+<h3 id="WSL2"><a href="#WSL2" class="headerlink" title="WSL2:"></a>WSL2:</h3><p>尝试用Powershell以管理员运行以下代码，或者你可以把此保存为ps1文件执行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#region 管理员身份运行</span><br><span class="line">$currentWi &#x3D; [Security.Principal.WindowsIdentity]::GetCurrent()</span><br><span class="line">$currentWp &#x3D; [Security.Principal.WindowsPrincipal]$currentWi</span><br><span class="line"> </span><br><span class="line">if( -not $currentWp.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))</span><br><span class="line">&#123;</span><br><span class="line">  $boundPara &#x3D; ($MyInvocation.BoundParameters.Keys | foreach&#123;</span><br><span class="line">     &#39;-&#123;0&#125; &#123;1&#125;&#39; -f  $_ ,$MyInvocation.BoundParameters[$_]&#125; ) -join &#39; &#39;</span><br><span class="line">  $currentFile &#x3D; (Resolve-Path  $MyInvocation.InvocationName).Path</span><br><span class="line"> </span><br><span class="line"> $fullPara &#x3D; $boundPara + &#39; &#39; + $args -join &#39; &#39;</span><br><span class="line"> Start-Process &quot;$psHome\powershell.exe&quot;   -ArgumentList &quot;$currentFile $fullPara&quot;   -verb runas</span><br><span class="line"> return</span><br><span class="line">&#125;</span><br><span class="line">#endregion</span><br><span class="line"></span><br><span class="line">#region 运行以下代码</span><br><span class="line">docker system prune -a -f</span><br><span class="line">net stop com.docker.service</span><br><span class="line">taskkill &#x2F;F &#x2F;IM &quot;Docker Desktop.exe&quot;</span><br><span class="line">wsl --shutdown</span><br><span class="line">Optimize-VHD -Path &quot;虚拟磁盘路径&quot; -Mode Full</span><br><span class="line">wsl</span><br><span class="line">start Docker程序路径&quot;</span><br><span class="line">net start com.docker.service</span><br><span class="line">pause</span><br><span class="line">#endregion</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>计算机</category>
+        <category>服务器&amp;网络</category>
+      </categories>
+      <tags>
+        <tag>计算机</tag>
+        <tag>运营维护</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>哈？</title>
+    <url>/2020/10/15/%E5%93%88%EF%BC%9F/</url>
+    <content><![CDATA[<hr>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: </span><br><span class="line">date: 2020-10-15 18:52:07</span><br><span class="line">tags:</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+
+
+<a id="more"></a>
+
+
+
+<p>
+    <iframe name="iFrame1" width="780" height="480" src="/pages/font1/index.html" scrolling="yes" frameborder="1"></iframe>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]]></content>
   </entry>
   <entry>
     <title>RetroArch-MSX(BlueMSX)核心的配置和操作指南</title>
@@ -3069,23 +3517,10 @@ See: https://github.com/libretro/vbam-libretro/issues/58</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>每天一个Retroarch小技巧</title>
-    <url>/2020/10/24/retroemu/</url>
-    <content><![CDATA[<p><a href="https://imgchr.com/i/BanMmq"><img src="https://s1.ax1x.com/2020/10/31/BanMmq.jpg" alt="BanMmq.jpg"></a></p>
-]]></content>
-      <categories>
-        <category>计算机</category>
-        <category>模拟器</category>
-      </categories>
-      <tags>
-        <tag>仿真器</tag>
-        <tag>计算机史</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>拥有一台服务器可以用来做什么？</title>
     <url>/2020/10/24/whatifserver/</url>
     <content><![CDATA[<h1 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h1><p>服务器作为一种用途特殊的计算机，成为了现代网络技术发展中必不可少的东西，而服务器一般是互联网公司的核心载体，其项目的正常运行依靠的是服务器的计算支持；对于企业支撑业务来说其是必不可少的，但是对于家庭或者个人来说，一般只需求一样个人计算机来处理娱乐或者办公，一台难以操作，硬件架构并不是设计于娱乐办公的服务器，又可以用来做什么？<br>一般需要选择适合的服务器主机给我们使用，可以是物理机，也可以是虚拟机<br>一般虚拟机可以选择VPS，CVM，比如阿里云和腾讯云，如果你的服务器要部署在公网进行使用，我建议购买VPS，因为VPS提供公网ip而且有一定的网络安全保障，有管理客户端易于管理，但是硬件不能由你随意扩展，有一定的限制<br><img src="https://i.loli.net/2020/10/24/gifHNBR6G5781yo.jpg" alt="timg"></p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/3342888c8a05f8d2.png"></p>
 <a id="more"></a>
 
 <p><img src="https://i.loli.net/2020/10/24/1mRo8YaDUxzuAZn.jpg" alt="u=6321631,1173319109&amp;fm=11&amp;gp=0"></p>
@@ -3281,7 +3716,7 @@ See: https://github.com/libretro/vbam-libretro/issues/58</code></pre>
 <p>爷的盘盘里真的一个片子都木得，懒得下了</p>
 <p><strong>安装</strong></p>
 <p><strong>建议使用Docker安装，网上的教程肯定比我说的更详细</strong></p>
-<h2 id="附录-我弄的一个备份和Hexo上传部署网页的脚本"><a href="#附录-我弄的一个备份和Hexo上传部署网页的脚本" class="headerlink" title="附录-我弄的一个备份和Hexo上传部署网页的脚本"></a>附录-我弄的一个备份和Hexo上传部署网页的脚本</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">function initUI() </span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">while [ true ]</span><br><span class="line">do</span><br><span class="line">echo &quot;&quot;</span><br><span class="line">echo &quot;------------------------&quot;</span><br><span class="line">echo &quot;-------- H E X O --------&quot;</span><br><span class="line">echo &quot;---- OMV-BACKUP TOOL ----&quot;</span><br><span class="line">echo &quot;------------------------&quot;</span><br><span class="line"></span><br><span class="line">echo &quot; 1. start server &quot;</span><br><span class="line">echo &quot; 2. !!! BACKUP SYSTEM IMG STEP1 !!! &quot;</span><br><span class="line">echo &quot; 3. upload post&quot;</span><br><span class="line">echo &quot; 4. auto update &quot;</span><br><span class="line">echo &quot; 5. auto deploy &quot;</span><br><span class="line">echo &quot; 6. !!! BACKUP SYSTEM IMG STEP2 !!! &quot;</span><br><span class="line">echo &quot; 7. !!! BACKUP SYSTEM IMG STEP3 !!! &quot;</span><br><span class="line">echo &quot; 8.!!! BACKUP SYSTEM IMG STEP1+3 !!! &quot;</span><br><span class="line">echo &quot;                             != Backup instructions =!&quot;</span><br><span class="line">echo &quot;!= Backup 1 step will generate a file system copy in ext format =!&quot;</span><br><span class="line">echo &quot;!= Backup 2 step will Check the correctness of the ext2 file system,Make sure your backup is available =!&quot;</span><br><span class="line">echo &quot;!= You can skip this step2=!&quot;</span><br><span class="line">echo &quot;!= Backup 3 step will compress the copy and generate a backup image =!&quot;</span><br><span class="line">echo &quot;  &quot;</span><br><span class="line">echo -n &quot; Please enter : &quot;</span><br><span class="line"></span><br><span class="line">read num</span><br><span class="line"></span><br><span class="line">if [ -z $num ];then</span><br><span class="line">exit 0</span><br><span class="line">elif [ $num = 1 ];then</span><br><span class="line">startServer</span><br><span class="line">elif [ $num = 2 ];then</span><br><span class="line">backup1</span><br><span class="line">elif [ $num = 3 ];then</span><br><span class="line">getPID</span><br><span class="line">elif [ $num = 4 ];then</span><br><span class="line">autoUpdate</span><br><span class="line">startServer</span><br><span class="line">elif [ $num = 5 ];then</span><br><span class="line">autoDeploy</span><br><span class="line">elif [ $num = 6 ];then</span><br><span class="line">backup2</span><br><span class="line">elif [ $num = 7 ];then</span><br><span class="line">backup3</span><br><span class="line">elif [ $num = 8 ];then</span><br><span class="line">backup123</span><br><span class="line"></span><br><span class="line">else</span><br><span class="line">echo &quot;Input error !!!!!!&quot;</span><br><span class="line">fi</span><br><span class="line">done </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function startServer() </span><br><span class="line">&#123;</span><br><span class="line">cd /sharedfolders/ud/hexo/Blog</span><br><span class="line">hexo s</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function backup1()</span><br><span class="line">&#123;</span><br><span class="line">cd /sharedfolders/ud/</span><br><span class="line">sync</span><br><span class="line">dd if=/dev/mmcblk1p1 of=/sharedfolders/ud/p0.ext bs=1M</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function getPID()</span><br><span class="line">&#123;</span><br><span class="line">cd /sharedfolders/ud/hexo/Blog</span><br><span class="line">read -t 20 -p &quot;input your title &quot; a</span><br><span class="line">hexo new $a</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function autoUpdate()</span><br><span class="line">&#123;</span><br><span class="line">cd /sharedfolders/ud/hexo/Blog</span><br><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function backup2() </span><br><span class="line">&#123;</span><br><span class="line">cd /sharedfolders/ud/</span><br><span class="line">e2fsck -fy /sharedfolders/ud/p0.ext</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function backup3() </span><br><span class="line">&#123;</span><br><span class="line">cd /sharedfolders/ud/</span><br><span class="line">resize2fs -M /sharedfolders/ud/p0.ext</span><br><span class="line">resize2fs /sharedfolders/ud/p0.ext 4200M</span><br><span class="line">dd if=/dev/mmcblk1p1 of=/sharedfolders/ud/p.img bs=1M count=16</span><br><span class="line">dd if=/sharedfolders/ud/p0.ext of=/sharedfolders/ud/p.img bs=1M seek=16</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function backup123() </span><br><span class="line">&#123;</span><br><span class="line">cd /sharedfolders/ud/</span><br><span class="line">sync</span><br><span class="line">dd if=/dev/mmcblk1p1 of=/sharedfolders/ud/p0.ext bs=1M</span><br><span class="line">e2fsck -fy /sharedfolders/ud/p0.ext</span><br><span class="line">resize2fs -M /sharedfolders/ud/p0.ext</span><br><span class="line">resize2fs /sharedfolders/ud/p0.ext 4200M</span><br><span class="line">dd if=/dev/mmcblk1p1 of=/sharedfolders/ud/p.img bs=1M count=16</span><br><span class="line">dd if=/sharedfolders/ud/p0.ext of=/sharedfolders/ud/p.img bs=1M seek=16</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function autoDeploy()</span><br><span class="line">&#123;</span><br><span class="line">cd /sharedfolders/ud/hexo/Blog</span><br><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">clear</span><br><span class="line">initUI</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="附录-我弄的一个备份和Hexo上传部署网页的脚本"><a href="#附录-我弄的一个备份和Hexo上传部署网页的脚本" class="headerlink" title="附录-我弄的一个备份和Hexo上传部署网页的脚本"></a>附录-我弄的一个备份和Hexo上传部署网页的脚本</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">function initUI() </span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">while [ true ]</span><br><span class="line">do</span><br><span class="line">more -16 /opt/TAU.txt</span><br><span class="line">echo &quot;&quot;</span><br><span class="line">echo &quot;-------------------------&quot;</span><br><span class="line">echo &quot;---NAS-MANAGEMENT-TOOLS--&quot;</span><br><span class="line">echo &quot;--------Ver:0.2----------&quot;</span><br><span class="line">echo &quot;--------by OT-22---------&quot;</span><br><span class="line"></span><br><span class="line">echo &quot;                             = HEXO-TOOL =&quot;</span><br><span class="line">echo &quot; 1. start server &quot;</span><br><span class="line">echo &quot; 2. upload post&quot;</span><br><span class="line">echo &quot; 3. auto update &quot;</span><br><span class="line">echo &quot; 4. auto deploy &quot;</span><br><span class="line">echo &quot;                             = BACKUP-TOOL = &quot;</span><br><span class="line">echo &quot; 5. !!! BACKUP SYSTEM IMG And Resize to custom size Then compress to TGZ  !!! &quot;</span><br><span class="line">echo &quot; 6. !!! BACKUP SYSTEM IMG Without Compress !!! &quot;</span><br><span class="line">echo &quot;                             = SYSTEM-TOOL = &quot;</span><br><span class="line">echo &quot; 7. Resize File System When you Recovery Backup &quot;</span><br><span class="line">echo &quot;                             = DOCKER-TOOL = &quot;</span><br><span class="line">echo &quot; 8. Moving Docker Data to p2; Recovery and Backup Docker Data &quot;</span><br><span class="line">echo &quot; 9. Install Docker cotainer &quot;</span><br><span class="line">echo &quot;  &quot;</span><br><span class="line">echo &quot;  Please set HEXO PATH by &#x27; vi /opt/d.sh &#x27; edit &#x27; hexo = &#x27;  &quot;</span><br><span class="line">echo &quot;                             != Backup instructions =!&quot;</span><br><span class="line">echo &quot;!= Backup 1 step will generate a file system copy in ext format =!&quot;</span><br><span class="line">echo &quot;!= Backup 2 step will Check the correctness of the ext file system,Make sure your backup and resize operate is available =!&quot;</span><br><span class="line">echo &quot;!= Backup 3 step will resize the copy and generate a backup image =!&quot;</span><br><span class="line">echo &quot;!= FOR MORE, PLEASE CHECK https://ot22.gitee.io/2020/10/17/omvbackup/ &quot;</span><br><span class="line">echo &quot; When you type path in this scrip,Dot not type / at the end of the path character,Such as &#x27;/root/data/&#x27; is invalid,You should &#x27;&#x27;/root/data&#x27; &quot;</span><br><span class="line">echo &quot;  &quot;</span><br><span class="line">echo -n &quot; Please enter : &quot;</span><br><span class="line">echo &quot;  &quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#######################</span></span></span><br><span class="line">hexo=&#x27;/sharedfolders/ud/hexo/blog&#x27;</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#######################</span></span></span><br><span class="line"></span><br><span class="line">read num</span><br><span class="line"></span><br><span class="line">if [ -z $num ];then</span><br><span class="line">exit 0</span><br><span class="line">elif [ $num = 1 ];then</span><br><span class="line">startServer</span><br><span class="line">elif [ $num = 2 ];then</span><br><span class="line">uploadpost</span><br><span class="line">elif [ $num = 3 ];then</span><br><span class="line">autoUpdate</span><br><span class="line">startServer</span><br><span class="line">elif [ $num = 4 ];then</span><br><span class="line">autoDeploy</span><br><span class="line">elif [ $num = 5 ];then</span><br><span class="line">backup1</span><br><span class="line">elif [ $num = 6 ];then</span><br><span class="line">backup2</span><br><span class="line">elif [ $num = 7 ];then</span><br><span class="line">resizesystem</span><br><span class="line">elif [ $num = 8 ];then</span><br><span class="line">dockermove</span><br><span class="line">elif [ $num = 9 ];then</span><br><span class="line">dockerinstall</span><br><span class="line">elif [ $num = 11 ];then</span><br><span class="line">liltest</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># elif [ $num = # ];then</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">else</span><br><span class="line">echo &quot;Input error !!!!!!&quot;</span><br><span class="line">fi</span><br><span class="line">done </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function read_yes_no () </span><br><span class="line">&#123;</span><br><span class="line">    printf &quot;[yes|no] &quot;</span><br><span class="line">    read yesno;</span><br><span class="line">    while [[ &quot;$&#123;yesno&#125;&quot; != &quot;yes&quot; &amp;&amp; &quot;$&#123;yesno&#125;&quot; != &quot;no&quot; ]]</span><br><span class="line">    do</span><br><span class="line">        printf &quot;please answer [yes|no] &quot;</span><br><span class="line">        read yesno;</span><br><span class="line">    done</span><br><span class="line"></span><br><span class="line">    if [[ &quot;$&#123;yesno&#125;&quot; == &quot;no&quot; ]]; then</span><br><span class="line">        return 1;</span><br><span class="line">    else</span><br><span class="line">        return 0;</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function startServer() </span><br><span class="line">&#123;</span><br><span class="line">cd $hexo</span><br><span class="line">hexo s</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function uploadpost()</span><br><span class="line">&#123;</span><br><span class="line">cd $hexo</span><br><span class="line">read -t 20 -p &quot;input your title &quot; a</span><br><span class="line">hexo new $a</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function autoUpdate()</span><br><span class="line">&#123;</span><br><span class="line">cd $hexo</span><br><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function backup1() </span><br><span class="line">&#123;</span><br><span class="line">read -t 20 -p &quot;Your backup path is &quot; backup0</span><br><span class="line">read -t 20 -p &quot;Your IMG size(Mbyte) is &quot; size</span><br><span class="line">echo &quot; Your Path is $backup0  &quot;</span><br><span class="line">echo &quot; Your Size is $size  &quot;</span><br><span class="line"></span><br><span class="line">cd $backup0/</span><br><span class="line">sync</span><br><span class="line">dd if=/dev/mmcblk1p1 of=$backup0/p0.ext bs=1M</span><br><span class="line">e2fsck -fy $backup0/p0.ext</span><br><span class="line">resize2fs -M $backup0/p0.ext</span><br><span class="line">resize2fs $backup0/p0.ext $size</span><br><span class="line">dd if=/dev/mmcblk1 of=$backup0/p.img bs=1M count=16</span><br><span class="line">dd if=$backup0/p0.ext of=$backup0/p.img bs=1M seek=16</span><br><span class="line">mv p.img omv-p2.img</span><br><span class="line">tar zcvf omv-p2.tar.gz omv-p2.img</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function backup2() </span><br><span class="line">&#123;</span><br><span class="line">read -t 20 -p &quot;Your backup path is &quot; backup0</span><br><span class="line">echo &quot; Your Path is $backup0  &quot;</span><br><span class="line"></span><br><span class="line">cd $backup0/</span><br><span class="line">sync</span><br><span class="line">dd if=/dev/mmcblk1p1 of=$backup0/p0.ext bs=1M</span><br><span class="line">e2fsck -fy $backup0/p0.ext</span><br><span class="line">resize2fs -M $backup0/p0.ext</span><br><span class="line">dd if=/dev/mmcblk1 of=$backup0/p.img bs=1M count=16</span><br><span class="line">dd if=$backup0/p0.ext of=$backup0/p.img bs=1M seek=16</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function autoDeploy()</span><br><span class="line">&#123;</span><br><span class="line">cd $hexo</span><br><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function resizesystem()</span><br><span class="line">&#123;</span><br><span class="line">resize2fs /dev/mmcblk1p1</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">function dockermove()</span><br><span class="line">&#123;</span><br><span class="line">echo &quot; Your Docker Path DON&#x27;NOT contain ./docker，It should be previous file of docker data.  &quot;</span><br><span class="line">echo &quot; Such as your docker file is &#x27;/home/docker&#x27;，Then you should type &#x27;/home&#x27;   &quot;</span><br><span class="line">echo &quot; The step is : BACKUP------&gt;RECOVERY------&gt;COPY------&gt;MOVE   &quot;</span><br><span class="line">read -t 20 -p &quot;input your docker path &quot; p2</span><br><span class="line">echo &quot; Your Path is $p2/docker  &quot;</span><br><span class="line">service docker stop</span><br><span class="line"></span><br><span class="line">echo &quot; BACKUP &quot;</span><br><span class="line">echo &quot; backup Docker Data? &quot;</span><br><span class="line"></span><br><span class="line">if  read_yes_no; then</span><br><span class="line">        cd $p2/docker</span><br><span class="line">        tar -cvpzf $p2/docker.tgz *</span><br><span class="line">    else</span><br><span class="line">        echo &quot; Let&#x27;s do next &quot;</span><br><span class="line">        echo &quot;  &quot;</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line">echo &quot; RECOVERY &quot;</span><br><span class="line">echo &quot; If you use docker data backup as a new docker data or not? &quot;</span><br><span class="line">echo &quot; Make sure you put docker.tgz in PATH &quot;</span><br><span class="line">echo &quot; Then you may be need to delete present docker data，YOU NEED DELETE? &quot;</span><br><span class="line"></span><br><span class="line">if  read_yes_no; then</span><br><span class="line">    echo &quot; TELL ME YOU ARE LUCID GUY &quot;</span><br><span class="line">    echo &quot; Now I will delete your docker data，continue????????????? &quot;</span><br><span class="line">        if  read_yes_no; then</span><br><span class="line">           rm -rf $p2/docker</span><br><span class="line">        else</span><br><span class="line">           echo &quot; Confirming you dont have docker data in target path &quot;</span><br><span class="line">           echo &quot;  &quot;</span><br><span class="line">        fi</span><br><span class="line">    else</span><br><span class="line">        echo &quot; Confirming you dont have docker data in target path &quot;</span><br><span class="line">        echo &quot;  &quot;</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line">echo &quot; I will RECOVERY your Docker data from docker.tgz &quot;</span><br><span class="line"></span><br><span class="line">if  read_yes_no; then</span><br><span class="line">        mkdir -p $p2/docker</span><br><span class="line">        chmod -R 771 $p2/docker</span><br><span class="line">        tar -xvpzf $p2/docker.tgz -C $p2/docker</span><br><span class="line">    else</span><br><span class="line">        echo &quot; May be you already exsited a docker data &quot;</span><br><span class="line">        echo &quot;  &quot;</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line">echo &quot; COPY &quot;</span><br><span class="line">echo &quot;If you copy local docker data as a new docker data or not?&quot;</span><br><span class="line"></span><br><span class="line">if  read_yes_no; then</span><br><span class="line">        cp -avx /var/lib/docker $p2</span><br><span class="line">    else</span><br><span class="line">        echo &quot; Let&#x27;s do next &quot;</span><br><span class="line">        echo &quot;  &quot;</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">echo &quot; REDIRECT &quot;</span><br><span class="line">echo &quot; Final Step，The default Docker data will set to Your docker data that you want to. &quot;</span><br><span class="line">echo &quot; Confirm execution? &quot;</span><br><span class="line">if  read_yes_no; then</span><br><span class="line">        echo &quot; Activating all containers ?  &quot;</span><br><span class="line">        echo &quot; it need to restart your server, Your server will POWER OFF SOON.  &quot;</span><br><span class="line">        if  read_yes_no; then</span><br><span class="line">           echo &quot;Nextly,Docker data will be moved. &quot;</span><br><span class="line">           echo &quot;REDIRECT----&gt;START CONTAINER----&gt;REBOOT SERVER &quot;</span><br><span class="line">           rm -rf /var/lib/docker</span><br><span class="line">           ln -s $p2/docker /var/lib/docker</span><br><span class="line">           dockerinstall</span><br><span class="line">           reboot</span><br><span class="line">        else</span><br><span class="line">           echo &quot;Nextly,Docker data will be moved. &quot;</span><br><span class="line">           rm -rf /var/lib/docker2</span><br><span class="line">           ln -s $p2/docker /var/lib/docker</span><br><span class="line">           exit 0</span><br><span class="line">        fi</span><br><span class="line">    else</span><br><span class="line">        service docker start</span><br><span class="line">        exit 0</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function dockerinstall()</span><br><span class="line">&#123;</span><br><span class="line">echo &quot; Install.............. &quot;</span><br><span class="line">docker run -d --name portainer -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data -v /public:/public --restart=unless-stopped portainer/portainer:linux-arm64</span><br><span class="line">docker run -d --name=calibre-web -e PUID=1000 -e PGID=1000 -e TZ=Asia/Shanghai -p 8083:8083 -v /home/docker/calibreweb:/config -v /sharedfolders/hd/ebook:/books --restart unless-stopped gsp8181/calibre-web</span><br><span class="line">IMAGE_NAME=80x86/filebrowser</span><br><span class="line">WEB_PORT=8866</span><br><span class="line">FB_AUTH_SERVER_ADDR=&quot;127.0.0.1&quot;</span><br><span class="line">docker run -d --name fb --restart=unless-stopped -e PUID=$UID -e PGID=$GID -e WEB_PORT=$WEB_PORT -e FB_AUTH_SERVER_ADDR=$FB_AUTH_SERVER_ADDR -p $WEB_PORT:$WEB_PORT -v /home/docker/fb:/config -v /:/myfiles --mount type=tmpfs,destination=/tmp $&#123;IMAGE_NAME&#125;:arm64</span><br><span class="line">docker run -d --name=baidupcs --restart always -v /sharedfolders/ud/DownLoad:/app/Downloads -v /home/docker/BaiduPCS:/app/.config/BaiduPCS-Go -p 5299:5299 80x86/baidupcs:latest</span><br><span class="line">echo &quot; Install Complete &quot;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">clear</span><br><span class="line">initUI</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>保存为d.sh</p>
 <p>命令行输入：</p>
@@ -3296,420 +3731,8 @@ See: https://github.com/libretro/vbam-libretro/issues/58</code></pre>
       </categories>
       <tags>
         <tag>计算机</tag>
-        <tag>Linux</tag>
         <tag>运营维护</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Game Record</title>
-    <url>/2020/10/23/Game%20Record/</url>
-    <content><![CDATA[<hr>
-<p><strong>记录—游戏—日常</strong></p>
-<a id="more"></a>
-
-<h1 id="Game-Record"><a href="#Game-Record" class="headerlink" title="Game Record"></a>Game Record</h1><h3 id="20-10-30"><a href="#20-10-30" class="headerlink" title="20.10.30"></a>20.10.30</h3><p><strong>ROARING FLARE</strong></p>
-<p>
-    <iframe name="iFrame1" width="780" height="480" src="https://player.bilibili.com/player.html?aid=842521100" scrolling="yes" frameborder="1"></iframe>
-</p>
-
-<p>你游竟然开了英杰池子，还新出了个古代机兵，成为新一代输出天花板，直接取代黑占星？？？？</p>
-<p>然后我就来一发嘛，双up吃，出个古代机兵还是有点困难</p>
-<p>那就随便抽抽吧</p>
-<p><img src="https://s1.ax1x.com/2020/10/31/BUSPxg.png" alt="BUSPxg.png"><br>然后…………….woc两个古代</p>
-<p><img src="https://s1.ax1x.com/2020/10/31/BUS9G8.png" alt="BUS9G8.png"></p>
-<p>12000的输出，帅！！！在放两个在自闭王子旁边，简直就是最强侍卫</p>
-<p><img src="https://s1.ax1x.com/2020/10/31/BUSCRS.png" alt="BUSCRS.png"></p>
-<h3 id="20-10-25"><a href="#20-10-25" class="headerlink" title="20.10.25"></a>20.10.25</h3><p>这么快就月末了，越来越忙了所以愈来愈少的空闲来耍耍游戏了，作为一个爱好也望花在其上的时间能更有意义<br>舟游开了复刻活动，可以换小马了，商店换了一个招聘劵，打算试试蒂蒂池，刚一发就惊了，竟然歪到了陈Sir，可谓最近好运连连，但接下来的卡西米尔我有点不详的预感…….因为白嫖了这么久的游戏还运气这么好…….</p>
-<p><img src="https://i.loli.net/2020/10/24/fhXa8buprKZ1UDR.jpg" alt="Screenshot_20201024_202034_e24760d1d02f1ef481aac80648200a09"></p>
-<p><img src="https://i.loli.net/2020/10/24/oPYh7fxVd9Aqiyp.jpg" alt="Screenshot_20201007_123701_e24760d1d02f1ef481aac80648200a09"></p>
-<p>卡西米尔池我比较喜欢的是奥斯塔狐狐，贾维三兄弟意大利黑帮血统竟然看到了东方的侠客和忍者元素<br>然后…..我的预感没错，第一发，歪了白金，第一发10连，歪了赫默，第二发十连，歪了煌，华法林，白金……….<br>抽是抽了这么多六星五星但全歪了，一个奥斯塔都没有？？50%概率4次全歪………<br>对于这个池子，为了避免我一年多了还没搞到奥斯卡（这次格劳克斯都是上年池子今天用劵换的）所以再抽10连，这个月慢慢攒吧</p>
-<p><img src="https://i.loli.net/2020/10/24/DCQW4eBcu6oIzdS.jpg" alt="Screenshot_20201024_202113_e24760d1d02f1ef481aac80648200a09"></p>
-<p><img src="https://i.loli.net/2020/10/24/Mey8rIlNu3PDbgT.jpg" alt="Screenshot_20201024_202119_e24760d1d02f1ef481aac80648200a09"></p>
-<p><img src="https://i.loli.net/2020/10/23/zUod5NMVA8ZDGKj.jpg" alt="Screenshot_20201017_002412_e24760d1d02f1ef481aac80648200a09"></p>
-<h3 id="20-9-25-10-10"><a href="#20-9-25-10-10" class="headerlink" title="20.9.25/10.10"></a>20.9.25/10.10</h3><p>42姐还不错哦，20发搞到，舒服了，2年多到现在也只氪了30………幻神基本搞到和队伍基本很完善了，这游戏基本上不怎么卡手了，期待美术设计不偏向于媚宅画风，剧情也更深度些（但是这游戏为了赚钱……叔叔我只喜欢能赚钱的东西），皮肤买了铃兰皮肤，这个看起来揉揉弱弱的小萝莉终于看起来坚挺些了，虽然没有铃兰也不太喜欢铃兰，原因是我不太喜欢游戏里边剧情上的把这么小的孩子送上战场干些杀人玩意（这么想是因为游戏剧情都比较严肃），所以这到底是体现制作组的媚宅还是泰拉社会环境的残酷，黑心制药企业雇佣童兵………</p>
-<p><img src="https://i.loli.net/2020/10/24/tOpFaQXJifUmA87.jpg" alt="Screenshot_20201024_202047_e24760d1d02f1ef481aac80648200a09"></p>
-<p>你游竟然开联动活动，还发40连，爷爱了，60发搞到黑铁匠，黑魔盾，之后换了个黑给，不行，这游戏太不给了<br>把黑魔盾，黑铁匠给觉醒技觉之后钱空了，黑魔盾走了防御分支，无论是物防还是法防面板都很高</p>
-<p>太爽了，邮箱随便来一发搞到光灵，岂不是英杰塔会很简单了，可以，发到你群去当海豹让一群人把我狗头砸了</p>
-<p>你游英杰8层，把英杰弓换了，立绘我很喜欢，光灵全觉醒后是真的好用，很多层可以单人通………..</p>
-<p>没钱了，把等身女神换了……..接下来不知道练什么了，觉醒圣灵不够用………</p>
-<p><img src="https://i.loli.net/2020/10/24/gK2avWlE8VCRdnX.png" alt="Screenshot_2020-10-01-21-47-44"></p>
-<p><img src="https://i.loli.net/2020/10/24/g8utfzY1kxMrdIc.png" alt="Screenshot_2020-10-24-20-34-07"></p>
-<p><img src="https://i.loli.net/2020/10/24/kEPChluaFAX1Wyw.png" alt="Screenshot_2020-10-24-20-34-38"></p>
-<p><img src="https://i.loli.net/2020/10/24/kvdFzju653QNiMA.png" alt="Screenshot_2020-10-24-20-35-19"></p>
-<p><img src="https://i.loli.net/2020/10/24/Bg6o2R5VDLOKMFJ.png" alt="Screenshot_2020-09-12-14-38-06"></p>
-<p><img src="https://i.loli.net/2020/10/24/ZqrN1sOLz4bHhom.png" alt="Screenshot_2020-10-24-20-34-54"></p>
-<p><img src="https://i.loli.net/2020/10/24/6FzpQ9lOJCbLiat.png" alt="Screenshot_2020-10-09-12-41-55"></p>
-<h3 id="20-8-0"><a href="#20-8-0" class="headerlink" title="20.8.0"></a>20.8.0</h3><p>舟公招三连，我这么秀怕是一群人会打死我，不过就是之前莱塔尼娅的薄雾屁都没抽到，这次伊芙，因陀罗get√</p>
-<p><img src="https://i.loli.net/2020/10/24/4WZ1k5SGlJXEPyh.jpg" alt="Screenshot_20200821_123020_e24760d1d02f1ef481aac80648200a09"></p>
-<p><img src="https://i.loli.net/2020/10/24/Eh57VxBkbQoRi2L.jpg" alt="Screenshot_20200821_122844_e24760d1d02f1ef481aac80648200a09"></p>
-<p><img src="https://i.loli.net/2020/10/24/nECadLeKkj39pw4.jpg" alt="Screenshot_20200820_121816_e24760d1d02f1ef481aac80648200a09"></p>
-<p><img src="https://i.loli.net/2020/10/24/DwcTtkjSCV3A48P.jpg" alt="Screenshot_20200820_121927_e24760d1d02f1ef481aac80648200a09"></p>
-<h3 id="20-8-25-9-10"><a href="#20-8-25-9-10" class="headerlink" title="20.8.25/9.10"></a>20.8.25/9.10</h3><p>舟夏活开了，六星小哥还不错，很给我喜欢，可惜后面返场20发都没搞到，不过森蚺池倒是11发全抽到，不行，她太色了<br>剧情是欢乐向的，但我更喜欢上年夏活，沙滩，海岸，派队的氛围很好，这次以荒野为主题体现了泰拉大陆的风土人情</p>
-<p><img src="https://i.loli.net/2020/10/24/7qK5YCbycgoDThQ.jpg" alt="Screenshot_20200826_212502_e24760d1d02f1ef481aac80648200a09"></p>
-<p><img src="https://i.loli.net/2020/10/24/dsm3YvlFAUh76x1.jpg" alt="Screenshot_20200826_222142_e24760d1d02f1ef481aac80648200a09"></p>
-<p><img src="https://i.loli.net/2020/10/24/LAGyvreQTWaSuOM.jpg" alt="Screenshot_20200827_082231_e24760d1d02f1ef481aac80648200a09"></p>
-]]></content>
-      <tags>
-        <tag>日常生活</tag>
-        <tag>游戏文化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>自制渣翻字幕-虚渊玄主笔军事动漫OBSOLTE</title>
-    <url>/2020/10/22/obsolete/</url>
-    <content><![CDATA[<h1 id="OBSOLETE"><a href="#OBSOLETE" class="headerlink" title="OBSOLETE"></a>OBSOLETE</h1><p>想必很多看动漫的小年轻都知道虚渊玄，咱们的<strong>爱的战士</strong>，作为日本动漫作品创作鬼才，其在日漫这种浪漫主义作品中喜欢给你插入猝不及防的现实主义元素，善于运用把浪漫世界中美好之物一个个毁灭给你看的希腊式悲剧笔法:</p>
-<p><strong><em>它一定有令人悲痛的结局，往往是生离死别；他一定讲的是一个无辜的人，一个道德完善的英雄，遭受了不幸。</em></strong></p>
-<p><img src="https://i.loli.net/2020/10/24/U3ud2VCiQ5sabz1.jpg" alt="u=188288523,2253095310&amp;fm=26&amp;gp=0"></p>
-<p>老虚笔下的一个个作品都让你感受到了一次次心灵的洗礼。</p>
-<p>爱的战士老虚先后作有 《沙耶之歌》 《Fate》 《魔法少女小圆》，《心理测量者》 等作品，在其锋韧如刀的笔下突显了各个深刻的主题</p>
-<p>而日本动漫常常以魔幻世界或现实生活为背景，且又偏向讲述一个个高中生突然觉醒拯救世界之类的故事，但这次却是一个部军事动漫。日本的军事类动漫较多的只是其中包含军事的元素，但军事元素细节和对军事的讲述却很显不足，硬军事元素在日漫中常常缺少，但此类动漫也受国内军迷的爱戴，但很多主要是馋作品中一些人物的身子，却不是军事元素。<br>这次老虚以军事，机甲等主题的融合又会诞生出什么样的作品，很受期待。</p>
-<p>在2019年12月的时候OBSOLETE在Youtube由南梦宫代理播出，第一时间<br>便找资源并查找相关的翻译字幕，但发现缺少资源，于是自己开始对动漫的字幕工作。<br>在2019年12月中旬，完成了对OBSOLETE发布的6集的字幕工作，由于水平有限，难免有许多细节上的错误，但大致的意思应该是不会错，哈哈…………</p>
-<p><a href="https://imgchr.com/i/BVdZMF"><img src="https://s1.ax1x.com/2020/10/24/BVdZMF.png" alt="BVdZMF.png"></a></p>
-<a id="more"></a>
-
-<p><img src="https://i.loli.net/2020/10/23/yRVugpJwo49scqx.png" alt="image-20201023125846569"></p>
-<p><a href="https://imgchr.com/i/BAAB6J"><img src="https://s1.ax1x.com/2020/10/23/BAAB6J.jpg" alt="BAAB6J.jpg"></a><br><em>声明:动漫版权为南梦宫株式会社所有，该字幕仅仅提供交流学习之用，相关资源请24小时内删除</em></p>
-<p>链接:<a href="https://pan.baidu.com/s/1Ezdi3EiSQOgtJ3mc0GZbPw#/">https://pan.baidu.com/s/1Ezdi3EiSQOgtJ3mc0GZbPw#/</a><br>PassW0rd:j3n4</p>
-<p>不过现在快过去1年了，其他字幕也层出不穷，但是，OBSOLETE依旧是6集，而官方推特也天天在更新，<strong>莫非老虚这伙也摸了一年鱼？</strong></p>
-<p>OBSOLETE采用2.5D画面，美术设计方面十分不错，其在画面方面的优秀也是不容置疑的。<br>人物设定还是不错的，风并不是传统日漫的画风而比较写实，所以画面细节上也对比其他日漫来说非常优秀<br><a href="https://imgchr.com/i/BAAeTP"><img src="https://s1.ax1x.com/2020/10/23/BAAeTP.gif" alt="BAAeTP.gif"></a></p>
-<p>2014年，突然现身的外星人「佩多拉」向地球人提出「交易」，以石灰岩作为交换，地球人获得了比战机、战车、枪更便宜好用，任谁都能轻易驾驶的意识控制型泛用机器人「EXOFRAME」，并迅速扩散于全球，既能作为交通工具、工业机械，亦可成为战争机器…。2015年，首场以EXOFRAME作为武器的战事爆发，看似充满好处且和平的交易背后，隐藏的真相究竟为何…？</p>
-<p>在前六集里，故事讲述了人型机甲对地球政治，军事，商业的影响</p>
-<p>作画上该动漫的军事细节很到位，比如西方军队的宙斯盾系统，Scar改的<br>EXOFRAME枪，M1坦克，南美军队的苏式装备，还有各国的各种军队<br><a href="https://imgchr.com/i/BAAllQ"><img src="https://s1.ax1x.com/2020/10/23/BAAllQ.gif" alt="BAAllQ.gif"></a><br>描述的战争局面中各国与组织甚至是人是非常贴近现实，其中也反映了一些反战的主题<br><a href="https://imgchr.com/i/BAANkV"><img src="https://s1.ax1x.com/2020/10/23/BAANkV.gif" alt="BAANkV.gif"></a><br>虽然这些对军事的描述和处理对于军迷来说远远达不到他们的要求，但在对比日漫中来说是相当丰富的</p>
-]]></content>
-      <categories>
-        <category>文化</category>
-      </categories>
-      <tags>
-        <tag>日本ACG文化</tag>
-        <tag>字幕翻译</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>文件服务器中的老猫，Weezo</title>
-    <url>/2020/10/20/weezo/</url>
-    <content><![CDATA[<h1 id="文件共享服务器"><a href="#文件共享服务器" class="headerlink" title="文件共享服务器"></a>文件共享服务器</h1><p>如果你想搭建一个文件共享服务器来作私人云盘，你会选择什么，现在有很多服务软件可选，像可道云，易有云，NextCloud，Seafile，Cloudreve，Z-File，各有特色，功能强大，开源或者不开源，有些搭建简单有些搭建复杂。</p>
-<p><strong>但今天要介绍一下Weezo</strong></p>
-<p><img src="https://i.loli.net/2020/10/24/uw1HLA75X3sFPWN.jpg" alt="u=2074893334,862763281&amp;fm=15&amp;gp=0"></p>
-<a id="more"></a>
-
-<p>比如我最喜欢用的可道云，界面华丽，内置微型桌面，有各种插件和支持，功能多样，再找一个好的VPS放到公网就可以作一个由自己支配的云盘了，再也不用怕百度云各种流氓操作了~</p>
-<p><strong>一个小巧华丽的文件浏览器，非常流畅</strong></p>
-<p><strong>在浏览器就能使用的桌面</strong></p>
-<p><strong>内置office，远程办公，甚至是NES模拟器</strong></p>
-<p><strong>还有可客户端支持，方便管理</strong></p>
-<p><strong>在线编辑代码</strong></p>
-<h1 id="Weezo"><a href="#Weezo" class="headerlink" title="Weezo"></a>Weezo</h1><p>但我今天并不是吹可道云怎么怎么好的，前段时间在找各种文件服务器的时候，找到一个已于2014年停止更新的文件共享解决方案，看截图似乎很像模像样，原来10年就有这么完备的私人云盘服务了吗？</p>
-<p>来自于21世纪10年代初期的网页设计，当时还是偏向于立体化的，在色彩方面也不是很讲究</p>
-<p>感觉回到了那时流行半夜贴吧故事会，B站也还是专门一群大学生在此创作二次元与鬼畜，手上还拿着塞班S60系统的诺基亚的时候………..</p>
-<p>所以，在深入了解Weezo后，我发现它不止是像模像样的程度了，他有:<br><strong>文件服务功能</strong><br><strong>博客空间功能</strong><br><strong>管理面板功能</strong><br><strong>影音中心功能</strong><br><strong>照片管理功能</strong><br>甚至有:<br><strong>远程桌面功能</strong><br><strong>RSS功能</strong><br><strong>公网映射，邮箱，社交账号功能</strong>(不可用)<br><strong>网络摄像头功能</strong><br>配置难度呢？一键安装，自动配置Apache，PHP，Mysql，仅支持Windows，图形化配置<br>是不是很惊艳，有些功能现在的文件共享解决方案也没有，而且可以集成这么多功能的也屈指可数，最重要的是，它还是10年左右的软件。</p>
-<p>接下咱们深入一下这个软件</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>很简单，安装包也就50M，现在还是可以在搜索引擎搜到资源，安装除了路径全部默认设置，Weezo也会给我们配置好所需的Web环境</p>
-<p>打开服务器，一个启动窗口下就在刷啦啦的打开各种服务，于是我们就可以看到软件面板了，在Win10下界面显示会有点问题，但并不影响使用</p>
-<p>我们设定好了管理员密码后，在浏览器输入你的设备的ip，然后就是可以让人怀念的登陆界面，就像那时典型的社交软件的界面一样</p>
-<p><img src="https://i.loli.net/2020/10/24/93ROkcErxD8JTiu.png" alt="image-20201024205408858"></p>
-<h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><p>登陆后界面还是较为空白，但我们可以看到这个界面很像是Windows Vista的窗口设计，然而这仅仅只是一个网页而已，在那时就可以实现类似视窗的界面了，我们可以对打开的窗口最大化，最小化，简直就像在网页中使用windows</p>
-<p>进入软件面板，我们先对账户和各种权限设置一下，之后我们便可以添加各种服务</p>
-<p><img src="https://i.loli.net/2020/10/23/MksiUKx34IaL7lz.png" alt="image-20201023140717644"></p>
-<p><img src="https://i.loli.net/2020/10/23/ImVhgcU3z49DtAJ.png" alt="image-20201023140659549"></p>
-<p>当然作为文件共享服务，我们先试试文件共享服务。文件共享支持你对电脑多个目录进行共享，对此分别设置各用户的权限等，我们现在添加两个文件目录</p>
-<p><img src="https://i.loli.net/2020/10/25/tLvlWay6sBAphNi.png" alt="image-20201023140815747"></p>
-<p>在页面端他的文件目录已经很贴近windows的资源管理器了，我们可以进行删除，拷贝，剪切，下载等功能，支持图标缩放</p>
-<p><img src="https://i.loli.net/2020/10/23/GdEN1BeqHiscI2R.png" alt="image-20201023140937080"></p>
-<p>支持读取文本，音乐，视频，照片，音乐会根据图标缩放的大小显示专辑图片</p>
-<p><img src="https://i.loli.net/2020/10/24/bAxmM3Pk6YiHCyf.png" alt="image-20201024210449043"></p>
-<p><img src="https://i.loli.net/2020/10/24/gPV6qc27m8LaYfC.png" alt="image-20201024210556089"></p>
-<p>下载功能还支持种子下载，批量下载与上传，当然，现在不可用了</p>
-<p><img src="https://i.loli.net/2020/10/24/1EJ5WikdDYbgRU8.png" alt="image-20201024211723034"></p>
-<p>之后的功能中，还有很多我很感兴趣，比如这个还算漂亮的博客<br>我可以写写文章，也会在日历中标记日期</p>
-<p>管理面板功能，依旧很惊艳，把访问人数和资源都画成图表便于查看</p>
-<p><img src="https://i.loli.net/2020/10/24/BXA67pRkPDEKy8C.png" alt="image-20201024210034004"></p>
-<p>还可以查看日志</p>
-<p><img src="https://i.loli.net/2020/10/24/8vGNWuagnzIeklB.png" alt="image-20201024210108852"></p>
-<p>我们可以在RSS功能中订阅源，但好像有点问题，Weezo一直都不能连接外网</p>
-<p><strong>然后是远程桌面，这也太牛了</strong>，没想到一个文件服务器居然还集成了这种功能，如图，我们可以在网页中操控我的设备，但对于现在来说操控有些卡顿了</p>
-<p><img src="https://i.loli.net/2020/10/24/vBVxncOA2EFQg7u.png" alt="image-20201024212119155"></p>
-<p>相册功能，我们可以添加相片进去，成为便于储存与展示照片的相册</p>
-<p><img src="https://i.loli.net/2020/10/24/ik1jPN7FIG4TKQ9.png" alt="QQ截图20201024212846"></p>
-<p>视频功能，我们可以添加视频进行，之后可以在网页上播放，Weezo可以使用Flash，QuickTime，M2U播放但Weezo的播放相对现在来说有点复杂和低效了，现在直接用html了</p>
-<p>预览这里还可以像电脑端B站网页把鼠标放在视频框该视频框机会动起来，小窗预览，厉害！</p>
-<p><img src="https://i.loli.net/2020/10/24/CqvWpmIS9Bkrsdj.png" alt="image-20201024214002275"></p>
-<p>音乐库，感觉很厉害的样子，新东西放在老容器里面的感觉</p>
-<p><img src="https://i.loli.net/2020/10/24/hDxCPlogz8ULSIQ.png" alt="image-20201024215107330"></p>
-<p>聊天功能，梦 回 10 年 网 络 聊 天 室</p>
-<p><img src="https://i.loli.net/2020/10/24/krbh45xmeMtP3Aq.png" alt="image-20201024215723630"></p>
-<p>网络摄像头功能，好吧，我也不知道具体有什么用</p>
-<p><img src="https://i.loli.net/2020/10/24/o5LzGJa9lND6fpx.png" alt="image-20201024215842851"></p>
-<p>博客功能</p>
-<p><img src="https://i.loli.net/2020/10/24/3ESKialBzYoPUWc.png" alt="image-20201024220108137"></p>
-<p>RSS源功能，这东西这么老了，我还记得我6年前在诺基亚手机桌面添加了好多源，啥科学松鼠会，微软学术之类的，现在的源都停止更新了，还保留着上世代互联网的味道</p>
-<p>如图下的时间你也能想到以前的什么东西………….</p>
-<p><img src="https://i.loli.net/2020/10/24/ywOPg53BnoNhqL8.png" alt="image-20201024220859056"></p>
-<p>网络电视，我8年前都不知道有这东西，这里连中国的电视源都有，牛，可惜全部失效了，世代遗产…….</p>
-<p><img src="https://i.loli.net/2020/10/24/Y8DXEg2OyTRWjw5.png" alt="image-20201024221140997"></p>
-<p>这些功能如果你感兴趣的话可以下载Weezo来体验一下，功能还是很丰富的，也不止我现在介绍的这些</p>
-<h2 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h2><p>Weezo使用的是老版本的apache和php，php的版本也只有5.2，对于现在的web环境来说容易会有一些问题，比如在中文名称下会导致名称显示不全，无法设置中文路径等，这时候可以尝试升级php来解决。</p>
-<p>用户设置里面我们可以添加用户，设置用户密码，设置用户功能面板，设置其权限等</p>
-<p><img src="https://i.loli.net/2020/10/23/X8NRjKtH7dTF3ef.png" alt="image-20201023140511116"></p>
-<p>在添加文件功能的时候要特别注意中文文件的问题，如果不能显示和添加中文路径可以多试几次或者直接使用添加文件而不是路径的方式，Weezo在启动一段时间后莫名其妙可以显示中文路径了，在此你也可以设置用户对文件的操作权限</p>
-<p>一开始这些文件是乱码的，不能进入，但若你静心等候的话，奇迹还是会出现的</p>
-<p><img src="https://i.loli.net/2020/10/24/1Bh8FCxGR2Hgb6K.png" alt="image-20201024221344194"></p>
-<p>Weezo有上传文件大小限制，可以在设置里设置限制大小，但设置里面最多也只能设置1G，这时候可以去配置文件里面设置超过1G的大小 C:\Users\Administrator\AppData\Roaming\Weezo\data</p>
-<p><img src="https://i.loli.net/2020/10/24/9akIdlWibofP5Gm.png" alt="image-20201024222144483"></p>
-<p><img src="https://i.loli.net/2020/10/25/LcJKqFfnCumGs4l.png" alt="image-20201024221531530"></p>
-<p>基本设置下可以设置服务模式，文件路径等，在下面显示了程序的主路径，环境路径，www文件路径，防火墙等，设置开机自启模式记得调Service因为运行这个程序要管理员权限</p>
-<p><img src="https://i.loli.net/2020/10/23/idKrWaPmeMYVfkx.png" alt="image-20201023140404379"></p>
-<p>服务器设置可以设置服务器地址，端口号，SSL，upnp，还有网络环境，签名证书，日志等</p>
-<p><img src="https://i.loli.net/2020/10/24/RIsaPD6e5K2MHxc.png" alt="image-20201024221800355"></p>
-<p>外观设置，壁纸，主题等，这点很像可道云</p>
-<p><img src="https://i.loli.net/2020/10/24/9LF38cnDTJzlGpU.png" alt="image-20201024221846699"></p>
-<p>有很多主题，都是当时流行的一些操作系统的UI，当然，也可以登陆到web里面设置主题和网页标题</p>
-<p><img src="https://i.loli.net/2020/10/24/Iwxu2YCLbXDRsPU.png" alt="image-20201024205758602"></p>
-<p><img src="https://i.loli.net/2020/10/24/BfM1up3QlORj9ZE.png" alt="image-20201024205843284"></p>
-<p>管理功能可以在网页中设置Weezo桌面服务端的设置</p>
-<p><img src="https://i.loli.net/2020/10/24/VpYRyOsEv9dwzPb.png" alt="image-20201024210010997"></p>
-<p>竟然还包含终端界面来对计算机进行管理</p>
-<p><img src="https://i.loli.net/2020/10/24/BwtVrGm6nWu87SY.png" alt="image-20201024210233443"></p>
-<p>杂项，设置文件加密，密钥，文件权限，还有文件评分功能？？？</p>
-<p><img src="https://i.loli.net/2020/10/24/PsxS3MJftzvZu5a.png" alt="image-20201024221957299"></p>
-<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1>]]></content>
-      <tags>
-        <tag>计算机</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>NAS系统备份与恢复以OMV为案例的几种方法,附我家云NAS备份方法</title>
-    <url>/2020/10/17/omvbackup/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>如果想把自己的NAS玩出各种花样的话要进行很多复杂的操作，NAS使用基于Linux内核的系统，对于还没有了解Linux使用及其发行版的的用户来说操作未免复杂，也经常手贱因为操作命令行，装软件包等操作错误导致系统一塌糊涂，崩溃，此时来恢复也需要查找教程未免复杂，此时我们需要建立一个备份来防止这些事情的发生。</p>
-<p><strong>这个教程以OMV为例，适用于其他Linux的NAS系统，本教程也提供了几个基于流行的不同硬件架构的NAS系统备份教程</strong></p>
-<a id="more"></a>
-
-<h1 id="运用dd，fsarchiver，rsync等方式的备份"><a href="#运用dd，fsarchiver，rsync等方式的备份" class="headerlink" title="运用dd，fsarchiver，rsync等方式的备份"></a>运用dd，fsarchiver，rsync等方式的备份</h1><p>这几个命令是Linux系统上常用的可以使用来备份系统的工具，其特点和功能各不相同，如果感觉命令行太麻烦或者担心由于命令行输入错误而导致硬盘损毁，你也可以使用一些工具来进行，在熟悉这几个命令后可以使用图形界面工具，本教程以OMV系统为例，所以介绍一下OMV系统上的backup插件，同样的，如果你使用群晖，威联通，甚至是Ubuntu，unraid等系统，其原理大致相同，都是使用这些命令来进行备份</p>
-<p>在下面要介绍的备份工具Clonzilla同样的多次运用到了dd命令</p>
-<p>Linux里面还有其他命令来备份系统或者文件，比如dump，tar，gzip等</p>
-<p><a href="http://zuyunfei.com/2015/06/04/linux-dd/">dd教程</a><br><a href="http://zuyunfei.com/2015/06/04/linux-dd/">fsarchiver教程</a></p>
-<h4 id="OMV-BACKUP"><a href="#OMV-BACKUP" class="headerlink" title="OMV-BACKUP"></a>OMV-BACKUP</h4><p>在OMV-Webui里边插件里一打开就能找到一个叫omv-Backup的插件，用这个插件来备份系统设置很简单，只要在插件页面设置一下就可以备份了，插件提供了三种模式:dd，fsarchiver，rsync，选择你的共享文件夹即可备份，之后会在窗口里开始运行备份，备份完成后，在你的共享文件夹根目录即可看到备份，里面包括了几个文件，有Grub，Fdisk，Dz等格式的文件，如果你使用dd模式，主要备份在格式是dd.gz的文件里面，如果为fsarchiver，主要备份在格式是fsa的文件里面。</p>
-<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>这个插件运用了Linux系统下几个可以用来备份系统的工具，dd，fsarchiver，rsync，具体原理参照这几个工具的教程。</p>
-<h3 id="需要在systemrescued模式下进行恢复"><a href="#需要在systemrescued模式下进行恢复" class="headerlink" title="需要在systemrescued模式下进行恢复"></a>需要在systemrescued模式下进行恢复</h3><p>预先在omv-extra里面下载systemrescuecd的镜像，在启动时在grub菜单即可打开，之后就可在终端里进行操作。</p>
-<blockquote>
-<p>1 - Plugin emergency OS (USB), reboot<br>2 - Start OMV <strong>Web-GUI</strong><br>3 - I had to install SystemRescueCD to the OMV. Normally, this should already be part you your backup OMV. To install it go to <strong>OMV-Extras/Kernel</strong>.<br>4 - Tell OMV on this page to boot from <strong>SystemRescueCD</strong> once.<br>5 - Reboot.<br>Login via <strong>SSH</strong> (Putty) to the command line of SystemRescueCD. Username: root, Password: openmediavault.<br><a href="https://imgchr.com/i/0qryOH"><img src="https://s1.ax1x.com/2020/10/17/0qryOH.md.jpg" alt="0qryOH.md.jpg"></a></p>
-</blockquote>
-<h3 id="使用fsarchiver模式的恢复"><a href="#使用fsarchiver模式的恢复" class="headerlink" title="使用fsarchiver模式的恢复"></a>使用fsarchiver模式的恢复</h3><p>1.挂载存放备份数据的设备<br>如果你的备份文件夹挂载在sde1，在终端输入:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mount &#x2F;dev&#x2F;sde1 &#x2F;mnt&#x2F;backup</span><br></pre></td></tr></table></figure>
-
-<p>2.找准你的fsd备份文件和你需要备份到的系统盘，比如:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">备份文件:</span><br><span class="line">&#x2F;mnt&#x2F;backup&#x2F;omvbackup&#x2F;backup-omv-07-May-2018_10-36-31.fsa</span><br><span class="line">系统盘:</span><br><span class="line">&#x2F;dev&#x2F;sda1</span><br></pre></td></tr></table></figure>
-
-<p>3.卸载要恢复的设备的挂载状态</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">umount -v &#x2F;dev&#x2F;sda1</span><br></pre></td></tr></table></figure>
-
-<p>4.恢复备份文件到目标系统盘<br>在终端输入命令 fsarchiver restfs 备份文件路径 dest=目标系统盘路径，比如</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fsarchiver restfs &#x2F;mnt&#x2F;backup&#x2F;omvbackup&#x2F;backup-omv-07-May-2018_10-36-31.fsa id&#x3D;0,dest&#x3D;&#x2F;dev&#x2F;sda1</span><br></pre></td></tr></table></figure>
-
-<p>4.重启<br>reboot</p>
-<h3 id="使用dd模式备份的恢复"><a href="#使用dd模式备份的恢复" class="headerlink" title="使用dd模式备份的恢复"></a>使用dd模式备份的恢复</h3><p>1.挂载存放备份数据的设备<br>如果你的备份文件夹挂载在sde1，在终端输入:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mount &#x2F;dev&#x2F;sde1 &#x2F;mnt&#x2F;backup</span><br></pre></td></tr></table></figure>
-
-<p>2.找准你的fsd备份文件和你需要备份到的系统盘，比如:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">备份文件:</span><br><span class="line">&#x2F;mnt&#x2F;backup&#x2F;omvbackup&#x2F;backup-omv-07-May-2018_10-36-31.dd.gz</span><br><span class="line">系统盘:</span><br><span class="line">&#x2F;dev&#x2F;sda1</span><br></pre></td></tr></table></figure>
-
-<p>3.恢复备份文件到目标系统盘<br>在终端输入命令 gunzip -c 备份文件路径 | dd of=目标系统盘路径 bs=1M status=progress</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gunzip -c &#x2F;mnt&#x2F;backup&#x2F;omvbackup&#x2F;backup-omv-07-May-2018_10-36-31.dd.gz | dd of&#x3D;&#x2F;dev&#x2F;sda1 bs&#x3D;1M status&#x3D;progress</span><br></pre></td></tr></table></figure>
-
-<p>4.重启<br>reboot</p>
-<h3 id="关于三种模式的机制"><a href="#关于三种模式的机制" class="headerlink" title="关于三种模式的机制"></a>关于三种模式的机制</h3><p>dd不克隆整个驱动器。它克隆整个OS分区（以及可能是引导分区），包括没有相关信息的扇区。而且如果你的分区有1G文件100G储存那么他的备份文件就有100G，而在如上命令中对备份文件进行gzip压缩才可以恢复到文件占有的大小，这需要更长的时间。它也无法还原到比从中克隆的分区储存更小的分区。<br>fsarchiver克隆的过程与dd相同，但它只克隆占有的文件大小，并允许（在某种程度上）恢复到一个比原分区更小的分区。<br>rsync只将操作系统文件rsync发送到数据驱动器上的另一个目录。<br>哪一个最好？没人能告诉你。对你有好处的。rsync只允许一次备份。另外两个允许多个备份。我个人使用fsarchiver。</p>
-<h3 id="如何从Raid阵列恢复备份文件到系统盘"><a href="#如何从Raid阵列恢复备份文件到系统盘" class="headerlink" title="如何从Raid阵列恢复备份文件到系统盘"></a>如何从Raid阵列恢复备份文件到系统盘</h3><p>1.检查阵列 </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mdadm-D&#x2F;dev&#x2F;阵列</span><br></pre></td></tr></table></figure>
-
-<p>2.创建挂载点在mnt</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mkdir &#x2F;mnt&#x2F;xxx</span><br></pre></td></tr></table></figure>
-
-<p>3.挂载阵列到挂载点</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mount &#x2F;dev&#x2F;阵列 &#x2F;mnt&#x2F;xxx</span><br></pre></td></tr></table></figure>
-
-<p>4.把备份文件移动到阵列里<br>5.检查你的备份文件</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fsarchiver archinfo backup.fsa（备份文件路径）</span><br></pre></td></tr></table></figure>
-
-<p>6.建议你做一下这个步骤：如果要还原到新磁盘，请在fsarchiver restfs步骤之前将grub和分区表（.grubparts文件）的备份写入磁盘，方法是：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dd if&#x3D;&#x2F;mnt&#x2F;阵列&#x2F;backup.grubparts of&#x3D;&#x2F;dev&#x2F;sda1（系统盘）</span><br></pre></td></tr></table></figure>
-
-<p>7.释放备份文件到系统盘的分区中</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fsarchiver restfs backup.fsa （备份文件路径）id&#x3D;0,dest&#x3D;&#x2F;dev&#x2F;sda1（系统盘）</span><br></pre></td></tr></table></figure>
-
-<p>id=0表示只恢复备份中的第一个文件系统。我假设你只是用一个备份备份了一个文件系统<br>8.重启<br>输入reboot</p>
-<h3 id="对于插件备份文件的解释"><a href="#对于插件备份文件的解释" class="headerlink" title="对于插件备份文件的解释"></a>对于插件备份文件的解释</h3><p>有关插件正在保存的文件的详细信息：<br>backup-omv-18-Jan-2019_14-12-01.blkid：：这是blkid的输出，放在一个文件中以供参考。<br>backup-omv-18-Jan-2019_14-12-01.fdisk：：这是fdisk-l的输出，放在文件中以供参考。<br>backup-omv-18-Jan-2019_14-12-01.fsa：：这是fsarchiver文件。<br>backup-omv-18-Jan-2019_14-12-01.grub：：这是安装grub的磁盘的前446个字节<br>backup-omv-18-Jan-2019_14-12-01.grubparts：：这是安装grub的磁盘和分区表的前512个字节。<br>backup-omv-18-Jan-2019_14-12-01.packages：：这是dpkg-l | grep openmediavault的输出，放在一个文件中以供参考。<br>以供参考的都没啥用，作为备份的信息文件而已。</p>
-<h3 id="最后感谢omv社区大佬ryecoaaron编写这个插件"><a href="#最后感谢omv社区大佬ryecoaaron编写这个插件" class="headerlink" title="最后感谢omv社区大佬ryecoaaron编写这个插件"></a>最后感谢omv社区大佬<strong>ryecoaaron</strong>编写这个插件</h3><h1 id="Clonezilla备份"><a href="#Clonezilla备份" class="headerlink" title="Clonezilla备份"></a>Clonezilla备份</h1><p>再生龙是台湾省国网中心开发的一款多平台备份工具，作为Linux第三方一个强大的备份工具，OMV中的webui页面也装载了这个软件，提供了引导启动支持，只需要在omv-extras的内核里面安装镜像，而且操作简单方便，不用担心如上的命令行和繁琐难懂的操作，之后在引导启动之后，按照提示登陆ssh进入到clonezilla界面进行操作。</p>
-<h3 id="从OMV引导启动"><a href="#从OMV引导启动" class="headerlink" title="从OMV引导启动"></a>从OMV引导启动</h3><p>点击OMV-WebUI菜单中的omv-extra选择，如果没有请在插件中安装omv-extra，在内核选项中可看到自带的本地再生龙引导<br><img src="https://s1.ax1x.com/2020/10/18/0XFmHx.png" alt="0XFmHx.png"><br>这意味着我们不用做Clonzilla Live就能直接把Clonzilla的iso文件在放本地储存中直接grub引导<br>而OMV提供的Clonezilla有以下注意的事项:<br><strong>1.必须使用OMV提供的官方镜像才能直接从本地引导启动，新版本再生龙无法本地引导<br>2.该镜像为老版本再生龙，不支持新的硬件的UEFI启动，而且只有英文<br>3.从OMV-WebUI里面下载再生龙是从国外服务器上下载的，所以国内网络无法下载，可以从网络上直接下载镜像并装载到/boot路径中<br>4.请确保你的备份到目标的储存设备已经挂载在系统中，请谨慎操作，任何一个错误的操作都可能导致您系统或者数据的不可逆转的损毁</strong><br>在下载或者装载完镜像之后，在选项中选择“从clonezilla再生龙”，之后弹窗会提示你即将重启<br>5.在重启后启动putty输入你的ssh地址登陆到ssh中，输入用户名user，密码live，输入sudo clonzilla进入再生龙界面</p>
-<h3 id="备份操作"><a href="#备份操作" class="headerlink" title="备份操作"></a>备份操作</h3><p>1.在界面中，有<strong>设备到设备</strong>，<strong>设备到镜像</strong>的选项，第一项可以把整个系统包括引导复制到另一个与原设备大小相同的储存设备</p>
-<p>进入选项后选择第一个<strong>“初学者”</strong>模式</p>
-<p>之后可选项第一项复制整个硬盘，第二项复制单个分区</p>
-<p>在选项中先设定描述中有<strong>“source”</strong>原硬盘/分区，再设定描述中有<strong>“target”</strong>的目标硬盘分区</p>
-<p>选择-sfsck，再选择-reboot</p>
-<p>2.第二项就是可以备份/恢复镜像的<strong>设备到镜像</strong>选项，是我们备份的主要操作</p>
-<p>接下来，必须选择在其中写入或从其中恢复备份映像的映像目录，有<em>ssh-server_、_samba-server</em> 和 <em>nfs-server</em> 选项适合有网络连接但本地磁盘空闲空间或备份映像不可用的情况。我们需要克隆系统分区并将其保存到另一个储存设备中。如果选择 _local_dev_，你可以选择 USB 设备作为 Clonezilla 映像库。</p>
-<p>之后选择你需要备份到目标储存设备的硬盘</p>
-<p>之后选择是备份硬盘/分区为镜像还是从镜像恢复到/硬盘/分区，我们选择备份分区为镜像，选择第三项</p>
-<p>之后输入镜像名称和源系统盘，再生龙集成了ntfsclone、partclone、partimage 和 dd 等分区克隆工具，之后根据选项选择yes/no，等待备份完成</p>
-<p>重启 -reboot</p>
-<h3 id="恢复备份"><a href="#恢复备份" class="headerlink" title="恢复备份"></a>恢复备份</h3><p>操作一样，不同的是选择设备到镜像后选择恢复分区，之后选择目标分区后即可恢复</p>
-<p>注意事项:<br><strong>Clonezilla 不支持从大硬盘和分区中将映像恢复到较小的磁盘和分区</strong></p>
-<h2 id="特殊情况"><a href="#特殊情况" class="headerlink" title="特殊情况"></a>特殊情况</h2><h3 id="新硬件与UEFI启动"><a href="#新硬件与UEFI启动" class="headerlink" title="新硬件与UEFI启动"></a>新硬件与UEFI启动</h3><p>如果你是新硬件与UEFI启动，你需要制作Clonezilla Live在Bios中启动来进行备份操作，而且你无法在WebUI和SSH中完成操作，你需要外接显示器来操作</p>
-<h3 id="特殊架构的NAS"><a href="#特殊架构的NAS" class="headerlink" title="特殊架构的NAS"></a>特殊架构的NAS</h3><p>比如机顶盒，一部分NAS采用ARM芯片的特殊主板，比如瑞芯微RK芯片，一开始安装系统的办法也与普通计算机不同，比如我的<strong>我家云</strong>可能无法使用OMV-Backup和再生龙，由于设备无法引导进入救援状态以及Live系统，导致无法进行常规的备份恢复</p>
-<p>但是对于<strong>我家云</strong>，我们可以这样，先从OMV中制作出系统镜像，再从把镜像从瑞芯微刷机工具AndroidTool直接写入到设备，这样就完成了一次的备份与恢复</p>
-<p><strong>具体制作备份镜像如下：</strong></p>
-<p>假设你的硬盘设备是/dev/sda，执行如下命令会将镜像备份到/sharedfolders/hdd/p.img，同时缩小镜像尺寸到3.5G</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;sharedfolders&#x2F;ud&#x2F;</span><br><span class="line">sync</span><br><span class="line">dd if&#x3D;&#x2F;dev&#x2F;mmcblk1p1 of&#x3D;&#x2F;sharedfolders&#x2F;ud&#x2F;p0.ext bs&#x3D;1M</span><br><span class="line">#把整个分区拷贝成ext</span><br><span class="line">e2fsck -fy &#x2F;sharedfolders&#x2F;ud&#x2F;p0.ext</span><br><span class="line">#强制检查ext文件的正确性</span><br><span class="line">resize2fs -M &#x2F;sharedfolders&#x2F;ud&#x2F;p0.ext</span><br><span class="line">#减小文件系统到最小的大小</span><br><span class="line">resize2fs &#x2F;sharedfolders&#x2F;ud&#x2F;p0.ext 3500M</span><br><span class="line">#调整文件为3500M</span><br><span class="line">dd if&#x3D;&#x2F;dev&#x2F;mmcblk1 of&#x3D;&#x2F;sharedfolders&#x2F;ud&#x2F;p.img bs&#x3D;1M count&#x3D;16</span><br><span class="line">#拷贝硬盘的前16个块，每个块1M，并转换成img</span><br><span class="line">dd if&#x3D;&#x2F;sharedfolders&#x2F;ud&#x2F;p0.ext of&#x3D;&#x2F;sharedfolders&#x2F;ud&#x2F;p.img bs&#x3D;1M seek&#x3D;16</span><br><span class="line">#把ext文件(分区备份)的块和img(硬盘头扇区引导数据)文件的块合并，并覆盖ext文件的前16个块</span><br><span class="line">mv p.img omv-p2.img</span><br><span class="line">#改名</span><br><span class="line">tar zcvf omv-p2.tar.gz omv-p2.img</span><br><span class="line">#打包成tar</span><br><span class="line"></span><br><span class="line">#本备份使用DD命令，DD命令可以方便的备份整个硬盘的数据，包括引导分区等，此命令可以备份整个硬盘的数据并缩小备份包，由于DD命令可以完整的备份整个硬盘数据，所以其大小与硬盘大小一样，所以需要压缩，resize2fs需要先检查文件系统正确性，但直接备份整个硬盘的话备份并不是文件系统，所以无法缩小，此命令先备份分区数据再缩小分区数据的备份包，再把硬盘的引导分区合并到备份中，间接备份了整个硬盘。</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>没错，原理还是使用dd来备份再压缩成镜像，由于dd可以把整个硬盘包括分区表什么的拷贝下来，所以我们就可以用这个方式来备份并恢复了，之后直接在RK的专用刷机工具中烧入数据即可</p>
-]]></content>
-      <categories>
-        <category>计算机</category>
-        <category>服务器&amp;网络</category>
-      </categories>
-      <tags>
-        <tag>计算机</tag>
         <tag>Linux</tag>
-        <tag>运营维护</tag>
-        <tag>NAS</tag>
-        <tag>家庭网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>B站爆火的换脸唱歌视频,不用GoogleColab在自家电脑制作！</title>
-    <url>/2020/10/15/deepfakeunreval/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在8月份的时候，B站就多了很多换脸视频，大多都是换了两个外国小哥小姐姐唱歌时候的动态脸照，分别在唱Unravel，Damedayo这两首很魔性的歌，由于视频动作夸张搞笑，而视频被“P”的很真实，收到了很多网友的喜爱<img src="https://i.loli.net/2020/10/15/IFKWxGhU1VM5ZwR.gif" alt="0"></p>
-<a id="more"></a>
-
-<p>  连杜甫都被狠下毒手，还有唐僧等众多历史人物</p>
-<p><img src="https://i.loli.net/2020/10/15/BaNAWlbZJKExIHL.gif" alt="0"></p>
-<p>这一下看上去很真实，我当初也差不多信以为真，要说现在技术真的挺发达，可以弄出这么搞笑的东西</p>
-<p><img src="https://i.loli.net/2020/10/15/7esZvmrMgPR9FEK.png" alt="download"></p>
-<p><strong>好活当赏</strong></p>
-<p>就在大火大热之时，B站也有人发了制作这种视频的教程，本来也就很多研究git项目的大学生会耍耍嘛，视频中用到了<strong>Google colab</strong>，通过搭建好的脚本环境输入图片和预设就能导出一个Unravel的换脸视频了，一张照片就“痛“起来了，这项操作要求你：</p>
-<p><strong>·拥有一个谷歌账号</strong></p>
-<p><strong>·拥有科学上网工具</strong></p>
-<p><strong>·拥有谷歌硬盘账号</strong></p>
-<p><strong>·一点计算机知识</strong></p>
-<p>然而这年头谷歌账号很难搞，很多人都是需要用购买，还有一大堆繁琐的步骤，而科学上网工具也需要一点互联网经验才能搞到</p>
-<p>然而，在之后，好景不长，因为这个鬼畜带有几乎以假乱真，而且对原人物也是带有很强的侮辱性，所以，教程在各大网站都被封了………………….</p>
-<h1 id="搭建Python在本地制作换脸视频"><a href="#搭建Python在本地制作换脸视频" class="headerlink" title="搭建Python在本地制作换脸视频"></a>搭建Python在本地制作换脸视频</h1><h5 id="今天的主角是著名的的项目，DeepFake一阶运动模型"><a href="#今天的主角是著名的的项目，DeepFake一阶运动模型" class="headerlink" title="今天的主角是著名的的项目，DeepFake一阶运动模型"></a>今天的主角是著名的的项目，DeepFake<strong>一阶运动模型</strong></h5><p>First Order Motion，也就是<a href="https://link.zhihu.com/?target=https://cuijiahua.com/blog/tag/%E4%B8%80%E9%98%B6%E8%BF%90%E5%8A%A8%E6%A8%A1%E5%9E%8B/">一阶运动模型</a>，来自 NeurIPS 2019 论文。</p>
-<p>相关的项目地址：</p>
-<p>·<a href="https://github.com/AliaksandrSiarohin/first-order-model">https://github.com/AliaksandrSiarohin/first-order-model</a>   （实现）</p>
-<p>·<a href="https://papers.nips.cc/paper/8935-first-order-motion-model-for-image-animation">https://papers.nips.cc/paper/8935-first-order-motion-model-for-image-animation</a>    (论文)</p>
-<p>而这次的项目是一位大佬为我们整理好的<a href="https://github.com/anandpawara/Real_Time_Image_Animation">Real_Time_Image_Animation</a></p>
-<p>又叫实时图片动画，用Python和<a href="https://github.com/anandpawara/Real_Time_Image_Animation/search">Jupyter Notebook</a>搭建，套用了一阶运动模型训练好的 VoxCeleb 数据集，通过几个脚本代码便能运行，在项目页面里面作者也写明了你要干什么才能让它运行起来了</p>
-<blockquote>
-<h1 id="Real-time-Image-Animation"><a href="#Real-time-Image-Animation" class="headerlink" title="Real time Image Animation"></a>Real time Image Animation</h1><p>The Project is real time application in opencv using first order model</p>
-<h1 id="Steps-to-setup"><a href="#Steps-to-setup" class="headerlink" title="Steps to setup"></a>Steps to setup</h1><h2 id="Step-1-Create-virtual-environment"><a href="#Step-1-Create-virtual-environment" class="headerlink" title="Step 1: Create virtual environment"></a>Step 1: Create virtual environment</h2><p><strong>Python version</strong> : python v3.7.3 or higher</p>
-<p><strong>create virual environment</strong> : <code>pip install virtualenv</code></p>
-<p><strong>activate virtual environment</strong> : <code>virtualenv env</code></p>
-<h2 id="Step-2-Activate-virtual-environment"><a href="#Step-2-Activate-virtual-environment" class="headerlink" title="Step 2: Activate virtual environment"></a>Step 2: Activate virtual environment</h2><p><strong>For windows</strong> : <code>env/Script/activate</code></p>
-<p><strong>For Linux</strong> : <code>source env/bin/activate</code></p>
-<h2 id="Step-3-Install-required-modules"><a href="#Step-3-Install-required-modules" class="headerlink" title="Step 3 : Install required modules"></a>Step 3 : Install required modules</h2><p><strong>Install modules</strong> : <code>pip install -r requirements.txt</code></p>
-<p><strong>Install pytorch and torchvision</strong> : <code>pip install torch===1.0.0 torchvision===0.2.1 -f https://download.pytorch.org/whl/cu100/torch_stable.html</code></p>
-<h2 id="Step-4-Download-cascade-file-weights-and-model-and-save-in-folder-named-extract"><a href="#Step-4-Download-cascade-file-weights-and-model-and-save-in-folder-named-extract" class="headerlink" title="Step 4 : Download cascade file ,weights and model and save in folder named extract"></a>Step 4 : Download cascade file ,weights and model and save in folder named extract</h2><p><code>gdown --id 1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK</code> The file is also availible via direct link on Google’s Drive: <a href="https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK">https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK</a></p>
-<p><strong>On Linux machine</strong> : <code>unzip checkpoints.zip</code></p>
-<p>If on windows platfrom unzip checkpoints.zip using unzipping software like 7zip.</p>
-<p><strong>Delete zip file</strong> : <code>rm checkpoints.zip</code></p>
-<h2 id="Step-5-Run-the-project"><a href="#Step-5-Run-the-project" class="headerlink" title="Step 5 : Run the project"></a>Step 5 : Run the project</h2><p><strong>Run application from live camera</strong> : <code>python image_animation.py -i path_to_input_file -c path_to_checkpoint</code></p>
-<p><strong>Example</strong> : <code>python .\image_animation.py -i .\Inputs\Monalisa.png -c .\checkpoints\vox-cpk.pth.tar</code></p>
-<p><strong>Run application from video file</strong> : <code>python image_animation.py -i path_to_input_file -c path_to_checkpoint -v path_to_video_file</code></p>
-<p><strong>Example</strong> : <code>python .\image_animation.py -i .\Inputs\Monalisa.png -c .\checkpoints\vox-cpk.pth.tar -v .\video_input\test1.mp4</code></p>
-<p><a href="https://github.com/anandpawara/Real_Time_Image_Animation/blob/master/animate.gif"><img src="https://github.com/anandpawara/Real_Time_Image_Animation/raw/master/animate.gif" alt="test demo"></a></p>
-<h3 id="TODO"><a href="#TODO" class="headerlink" title="TODO:"></a>TODO:</h3><p>Tkinter version</p>
-<p>Need work on face alignments</p>
-<p>Future plans adding deepfake voice and merging with video</p>
-</blockquote>
-<p>可能有些人看不懂，所以我带你们来一遍</p>
-<h1 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h1><h3 id="1-安装Python-3-7"><a href="#1-安装Python-3-7" class="headerlink" title="1.安装Python 3.7"></a>1.安装Python 3.7</h3><p>为啥要安装3.7版本？因为后面的torch没有3.9版本的，去Python官网下载，并配置好环境变量</p>
-<p>具体怎么百度一大堆，有手就行</p>
-<h3 id="2-安装虚拟环境库"><a href="#2-安装虚拟环境库" class="headerlink" title="2.安装虚拟环境库"></a>2.安装虚拟环境库</h3><p>win+R键，输入CMD打开终端，输入此行分别安装和创建虚拟环境库</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;pip install virtualenv&#96;</span><br><span class="line">&#96;virtualenv env&#96;</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-激活虚拟环境库"><a href="#3-激活虚拟环境库" class="headerlink" title="3.激活虚拟环境库"></a>3.激活虚拟环境库</h3><p>打开 C:\Users\Administrator\env\Scripts 打开activate.bat即可</p>
-<h3 id="4-安装第三方环境库"><a href="#4-安装第三方环境库" class="headerlink" title="4.安装第三方环境库"></a>4.安装第三方环境库</h3><p>终端 e:(把e换为你从项目下载的文件路径的盘符)</p>
-<p>cd /xxxx/xxxx/ (你项目文件的根目录)</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;pip install -r requirements.txt&#96;</span><br></pre></td></tr></table></figure>
-
-<p>输入运行即可，要一段时间，运行库很多</p>
-<h3 id="5-安装Torch"><a href="#5-安装Torch" class="headerlink" title="5.安装Torch"></a>5.安装Torch</h3><p>接着上面的操作终端输入</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;pip install torch&#x3D;&#x3D;&#x3D;1.0.0 torchvision&#x3D;&#x3D;&#x3D;0.2.1 -f https:&#x2F;&#x2F;download.pytorch.org&#x2F;whl&#x2F;cu100&#x2F;torch_stable.html&#96;</span><br></pre></td></tr></table></figure>
-
-<h3 id="6-下载数据集"><a href="#6-下载数据集" class="headerlink" title="6.下载数据集"></a>6.下载数据集</h3><p>下载 <a href="https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK">https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK</a></p>
-<p>解压得两个vox文件放到 <strong>\Real_Time_Image_Animation-master\checkpoints</strong></p>
-<h3 id="7-安装FFmpeg解码器并配置变量"><a href="#7-安装FFmpeg解码器并配置变量" class="headerlink" title="7.安装FFmpeg解码器并配置变量"></a>7.安装FFmpeg解码器并配置变量</h3><p><a href="http://www.ffmpeg.org/">www.ffmpeg.org</a> 点windows图标下第一个build，安装好后配置环境变量</p>
-<p>怎么配置还是查百度，这个作用是可以把视频音频和视频合并，省功夫</p>
-<h3 id="8-运行脚本"><a href="#8-运行脚本" class="headerlink" title="8.运行脚本"></a>8.运行脚本</h3><p>终端 e:(把e换为你从项目下载的文件路径的盘符)</p>
-<p>cd /xxxx/xxxx/ (你项目文件的根目录)</p>
-<p>终端运行</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python image_animation.py -i path_to_input_file -c path_to_checkpoint -v path_to_video_file</span><br></pre></td></tr></table></figure>
-
-<p>path_to_input_file 是输入的模板图片</p>
-<p>path_to_checkpoint 是权重文件路径</p>
-<p>path_to_video_file 是输入的视频文件</p>
-<p>比如</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python image_animation.py -i Inputs&#x2F;x.jpg -c checkpoints&#x2F;vox-adv-cpk.pth.tar -v 1.mp4</span><br></pre></td></tr></table></figure>
-
-<p>比如这个，输入图片默认放在input文件夹，导出的视频默认在output文件夹，模板视频在根目录</p>
-<h3 id="9-大功告成"><a href="#9-大功告成" class="headerlink" title="9.大功告成"></a>9.大功告成</h3><p>在导出的文件夹就可以找到相关的视频文件</p>
-<h3 id="10-替换其他的视频模板"><a href="#10-替换其他的视频模板" class="headerlink" title="10.替换其他的视频模板"></a>10.替换其他的视频模板</h3><p>原项目文档已经说明，你需要把视频模板裁剪为256x256大小，这个我推荐使用<strong>Premiere</strong>或者<strong>Vegas</strong>视频编辑软件，相关教程去百度查</p>
-<p>还有，输出的视频尺寸最好是正方形的，否则输出视频会把你的长方形比例照片弄成正方形的，会使人看起来很扁（笑），模板最好是正面的，表情不要太夸张</p>
-<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>这种技术是很侮辱人，请勿滥用</p>
-]]></content>
-      <categories>
-        <category>计算机</category>
-      </categories>
-      <tags>
-        <tag>计算机</tag>
-        <tag>机器学习</tag>
-        <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>哈？</title>
-    <url>/2020/10/15/%E5%93%88%EF%BC%9F/</url>
-    <content><![CDATA[<hr>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: </span><br><span class="line">date: 2020-10-15 18:52:07</span><br><span class="line">tags:</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-
-
-
-<a id="more"></a>
-
-
-
-<p>
-    <iframe name="iFrame1" width="780" height="480" src="/pages/font1/index.html" scrolling="yes" frameborder="1"></iframe>
-</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-]]></content>
-  </entry>
-  <entry>
-    <title>学习笔记系列</title>
-    <url>/2020/10/01/learnote/</url>
-    <content><![CDATA[<div id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容">
-  <div class="hbe-input-container">
-  <input type="password" id="hbePass" placeholder="" />
-    <label for="hbePass">您好, 这里需要密码.</label>
-    <div class="bottom-line"></div>
-  </div>
-  <script id="hbeData" type="hbeData" data-hmacdigest="ed65a38ecc53ff6b705ffc8b5225b57bd665a543fa9dcce79a9dd43cec973276">d23a6ea4237b63f881a6a63a0bbfe921b8b69a6fe1cea5a83acbe7f4f4f99435cb08060d0ad3717f0f261e18abcada9ea394baffa5fc3a472c78cef89c3b964c52635668547fcefedb212f0a611ae96d573a16c8ddcadad5ad7274702801424bcdc8b136e5b5c19f393cec6e32de6034e3d846081998dc7fb67b2a40325f1214d9b781b87adc5ff65e0d4664303729e1f8cb684690e2aead4b008acc44ec8132f9c2899bb4b879f00f17ba6c747fa649862e87ba8945ef8e5404fd0b91d45e78859954a2fde763508cb1ed2ca0fdaecab20c00c8c5ed49004c7a948ce67b209ec26edce03da5971c28c0fc6d5b23b688e3d063c4729212517ff89d309af302f51bf6c07157c4efe40d2765ea14a23eb66b7aa5d3d2bcde3e5085128c59bfd57f7a151dde2536f05a897f735255bbe1345f6bbfd389ebdbcc356fc43b96e15563ca475ddbf76a71d9543d7b92164290b51216b80f6250709b008b7876814e4758f56230bc94280bf7404e367c14859b234053b8eccb414a3d6c61c308109eb750fd55aa58711358ca980c808c2396ae6b5a6b556711133ce3eae71f7ef04f857127267117d0e5c4cbb8b87a37e2d2eda8818764bb15e17301056e80e7da55e39c05ef0520bde997bde2df1062fb73eb2171ec026719588042092571e81a344b21d3f7ebd62a8efc10390c0afab0b23bfbc78dc83ca4da766ab315b8eed493569695eba225a8498d6b5253715c54a60369e7e4d263e8a52074bd46fd8ba4c6f82229f0a3ecc75fa7ca08572b1a2ce1af35213dc49daa049fe9ed1eebea3091fc6d931769aee009c232d06c00508d7918883b66cafe5400de468b2124d957b35d37d4191d2d3b9376f3e37e185c349e900a62a56349ad2ffff7e46b4c6571977e69f60c3721a96632fa917c3455c8cc12a03c539407e5b90dfb23ce44d7ff0aad1e2307ab29d41dbe890005d3d19a526263a3e6611c135324d2aea1632686d6fa5e4bdf6b0d03f48d87a5870cf06e5b2d564665744c398a9ab35f515d9d1a4e67af66f55aaeaff1ee1524676d5b415fdf28be2afdc3e822ec8f908bc9c1bfe38b732f281e0a8f6d5e5feefa89a13077017d8b39f2df7d016ccb4d34af3dfcb36e1e8aa123c1924951690616d2738716414a97c2726af4bc8af836b5f2e0585756f8cdc9f5eb1bb81e82d1f45700df68e2170996a68bc8af7cf5d26776e3b3585229ace8dddbdebd693c0db7b7904cd250fe309ef6dec72112f91476bf5acc3f0a7f60857375254ed70622cf07ebac01c8eff16c7b2448a19becf74dde59ee56e975bee886084f0bad361566d9f49e11f8e21310b7a3648d86611b41f78dea68caeff53cb8250e99eaf6ed94dde48b3fa999bd8bb862430ee8337e5d3a7927ddf92a3828fd3df81472e445b79800fffd87d2b75fb2fc4f6289da5176f76ff729be1451b805486bc3427a41a0b82ed9dbc0cb0acadacc9b40c1e3e8106fa471c455ccb1ef5a04de909e605b3b30cd73764192</script>
-</div>
-<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
-      <tags>
-        <tag>学习笔记</tag>
       </tags>
   </entry>
 </search>
