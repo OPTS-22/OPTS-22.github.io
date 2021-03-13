@@ -93,156 +93,6 @@
       </tags>
   </entry>
   <entry>
-    <title>RetroArch-scummvm核心的配置和操作指南</title>
-    <url>/2020/10/24/retrocore-scummvm/</url>
-    <content><![CDATA[<p><a href="https://imgchr.com/i/BGD7tA"><img src="https://s1.ax1x.com/2020/10/29/BGD7tA.png" alt="BGD7tA.png"></a><br><a href="https://imgchr.com/i/BGsV2t"><img src="https://s1.ax1x.com/2020/10/29/BGsV2t.png" alt="BGsV2t.png"></a></p>
-<h4 id="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"><a href="#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变" class="headerlink" title="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"></a><em>注意这是一个动态更新型文章，文章内容可能会随时更新或者改变</em></h4><a id="more"></a>
-
-<h1 id="Libretro-ScummVM系列核心"><a href="#Libretro-ScummVM系列核心" class="headerlink" title="Libretro-ScummVM系列核心"></a>Libretro-ScummVM系列核心</h1><h2 id="机型"><a href="#机型" class="headerlink" title="机型:"></a>机型:</h2><p>ScummVM是卢卡斯图形冒险游戏开发引擎Scumm的模拟器，和RPGMAKER模拟器一样，可以在各平台模拟其游戏引擎内的游戏 *<em>1</em></p>
-<h2 id="相关ROM"><a href="#相关ROM" class="headerlink" title="相关ROM:"></a>相关ROM:</h2><p>包括各种20世纪90年代的游戏<br>钢铁天空下 Beneath a Steel Sky<br>断剑系列 Broken Sword<br>梦网 Dreamweb<br>德古拉:吸血鬼突击 Drascula: The Vampire Strikes Back<br>银翼杀手 Blade Runner<br>很多游戏都是90年代初的以赛 博 朋 克为主题的游戏</p>
-<h2 id="相关模拟器"><a href="#相关模拟器" class="headerlink" title="相关模拟器:"></a>相关模拟器:</h2><p> <a href="https://www.scummvm.org/downloads/">https://www.scummvm.org/downloads/</a><br>官方模拟器支持win，linux，mac，symbian，ps3，psp，dc，3ds，ds，will，gc，haiku，amigaOS，RISC，android，ios包揽全平台的模拟器</p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>提示:这个模拟器官方已经支持全平台了，再用Retroarch的意义很小了……而且官方模拟器已经集成了所有需要的配置文件，而Retroarch没有，且操作还很繁琐……….除非你要用到Retroarch的附加功能<br>SCUMM的意思是Script Creation Utility for Maniac Mansion，原意是疯狂大楼剧本创作工具，是Aric Wilmunder与Ron Gilbert 为了开发疯狂大楼(Maniac Mansion)这款游戏开发的工具。后来不仅在卢卡斯游戏本部得到了广泛使用还卖给其他公司开发同类游戏，在AVG大热的年代里推出了一大堆非常有趣的游戏。这些游戏都是DOS平台的，用DosBox也可以在PC上玩到。<br>ScummVM 模拟器 ,它可以让你玩到由美国卢卡斯艺术出的一系列精典游戏,如猴岛小英雄,星球大战等等,新版变动: 在这个版本中，增加了对西木头公司（WestWood）的《凯兰蒂亚传奇》引擎的支持，因而可以模拟一共三代的《凯兰蒂亚传奇》以及另一知名大作断剑系列。同时增加了对Feeble Files引擎的支持，并对先前支持的General、SCUMM、SAGA、Simon、Broken Sword 1、Broken Sword 2引擎和和WINCE端口进行了清楚BUG和增加功能的有序工作。 *<em>2</em></p>
-<h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><blockquote>
-<p>太长影响观感</p>
-</blockquote>
-<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><h3 id="几个额外设置"><a href="#几个额外设置" class="headerlink" title="几个额外设置"></a>几个额外设置</h3><p><strong>启用增强的MIDI仿真</strong></p>
-<p> 有些游戏只包含MIDI数据形式的音乐。 默认情况下，ScummVM将使用AdLib模拟MIDI模式。 使用流体合成MIDI仿真和适当的声音，可以为支持MIDI的游戏实现更高质量的音频， 这是RetroArch下推荐的操作模式。</p>
-<p> 选择“MIDI”选项卡，然后在“GM Device：”下选择“FluidSynth‘。</p>
-<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_midi.png" alt="img"></p>
-<p> 按下“soundfont：”按钮并导航到RetroArch系统目录。 输入sumplmvm/extra/文件夹。 (注：如果按顺序遵循本指南的步骤，则在按下“soundfont：”按钮时，将自动选择summvm/extra/ 文件夹)</p>
-<p> 选择文件Roland_SC-55.sf2并按“选择”按钮。</p>
-<p>勾选“混合广告Lib/MIDI模式”复选框。</p>
-<p> 按下“应用”按钮，然后继续到下面的“启用MT-32仿真”部分。</p>
-<p> 许多游戏受益于流体合成MIDI仿真。 一些特别值得注意的例子是：</p>
-<p>山姆和麦克斯上路了</p>
-<p>会幕之日</p>
-<p>星际世界</p>
-<p> 注意流体合成MIDI仿真稍微增加了ScummVM核心的CPU需求。 在绝大多数平台上，这不应该是一个问题。 如果在非常低功耗的设备上观察到裂纹声音，则应该通过将“GM设备：”设置为默认的“不要使用通用MIDI音乐”选项来禁用FluidSynthMIDI仿真。</p>
-<p><strong>游戏管理</strong></p>
-<p> 在游戏可以通过ScummVM核心运行之前，应该首先将其添加到内部启动程序中。 不这样做将防止保存特定于游戏的配置选项(例如。 音量级别，字幕速度，内部游戏设置覆盖)。</p>
-<p> 向ScummVM启动器添加一个游戏</p>
-<p> 每个游戏的数据文件必须复制到本地存储中唯一命名的目录(即。 每个游戏一个目录)。 任何特定游戏所需的特定文件列表可以在ScummVM数据文件页面上找到。</p>
-<p> 建议的“Flight of the Amazon Queen”目录布局是一个最简单的例子：</p>
-<p>└── ROMs/<br>    └── ScummVM/<br>        └── Flight of the Amazon Queen (CD DOS)/<br>            └── queen.1</p>
-<p>一旦所有文件到位，每个游戏可以添加如下：</p>
-<p> 运行ScummVM核心，没有内容：</p>
-<p> 转到RetroArch的主菜单屏幕。</p>
-<p> 选择“LoadCore”，然后选择“summVM‘。</p>
-<p> 选择“启动核心‘。</p>
-<p> 在主ScummVM用户界面中，按下“添加游戏…”按钮。</p>
-<p> 导航到游戏目录， 双击游戏目录本身进入它，然后按‘选择’按钮</p>
-<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_add_game.png" alt="img"></p>
-<p> 如果游戏被正确检测(即如果数据文件正确)，将自动打开“设置”对话框。</p>
-<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_game_options.png" alt="img"></p>
-<p> 一般来说，自动生成的配置设置应该不错了</p>
-<p> 然而：为了简单起见，以及与现有的.scummvm文件的兼容性（在下面的部分中讨论），应该将“ID：”条目设置为游戏的名字。 所有游戏名字都列在ScummVM兼容性页面上。</p>
-<p> 在大多数情况下，自动生成的“ID：会自动匹配游戏名字。</p>
-<p> 在某些情况下，自动生成的“ID：”将是带有附加标识后缀的“短名称。 这个后缀应该删除。 如果使用手柄，这可以通过单击“ID：”输入行的末尾，并使用“L2”按钮/触发器来删除不需要的字符来实现。</p>
-<p> 一旦“ID：”被修改（如果需要），按“OK”按钮“注册”游戏。</p>
-<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_1st_game_added.png" alt="img"></p>
-<p> 注意一旦一个游戏已经注册，它可以通过在ScummVM启动器游戏列表中选择它并按下“启动”按钮来运行。 但是：不建议以这种方式使用Scumm VM启动器，因为它阻止了每个游戏配置重写RetroArch的使用，因此输入重新映射</p>
-<p><strong>音量水平</strong></p>
-<p> Scumm VM游戏在音频音量水平上表现出惊人的差异。 为了舒适，几乎是强制性的调整特定的卷在每个游戏的基础上。 幸好这是微不足道的：</p>
-<p> 当游戏运行时，按Retro Pad“启动”按钮打开ScummVMGUI。</p>
-<p> 使用光标，按“选项”按钮。</p>
-<p> 调整‘音乐音量：’，‘SFX音量：’和‘回声音量：’滑块到所需的水平。</p>
-<p> 按“确定”按钮，然后按“恢复”按钮。<br> 如果游戏已经正确地添加到ScummVM启动器中，调整后的级别将在游戏会话之间保留。</p>
-<p> 如果游戏尚未添加到ScummVM启动器，或者.scummvm文件中的游戏ID与ScummVM发射器ID不匹配，则当游戏关闭时，所有设置都将丢失。</p>
-<p>手动音乐设备选择</p>
-<p> 默认情况下，ScummVM将自动为每个游戏选择最合适的音乐播放选项(即。 MT-32仿真、流体合成MIDI仿真或Ad Lib仿真)。 在大多数情况下，这将产生最好的声音质量，不需要用户干预。 然而，在一些情况和游戏中，手动覆盖是有益的。 这是应该由用户在每个游戏的基础上确定的东西，但这里有一些实际的例子：</p>
-<p> 使用MT-32仿真的默认选择，对于游戏魔法师西蒙来说是最好的，但对于大多数Android设备来说，这太需要CPU了。 通过强制游戏使用FluidSynthMIDI仿真，可以在性能和音质之间实现一个可接受的折衷。</p>
-<p> 西蒙魔法师2将使用流体合成MIDI模拟默认。 通过强制游戏使用MT-32仿真可以获得更好的质量音乐。 (由于这款游戏对CPU的要求比本系列中的第一款更高，所以Android设备上的平滑播放通常需要使用Ad Lib仿真)</p>
-<p> 在钢铁之下下这个游戏默认为MT-32仿真，这应该是最好的.但是强制使用FluidSynthMIDI仿真往往会产生“更高”的声音音乐，一些用户可能更喜欢。</p>
-<p> Amazon Queen的飞行是另一款默认MT-32仿真的游戏，但是（可以说）Fluid Synth MIDI仿真听起来要好得多。</p>
-<h3 id="支持的ROM格式"><a href="#支持的ROM格式" class="headerlink" title="支持的ROM格式:"></a>支持的ROM格式:</h3><p>.scummvm<br>然而大多数游戏不是这个格式，而模拟器可以直接从一些DOS格式中直接读取</p>
-<h3 id="固件"><a href="#固件" class="headerlink" title="固件:"></a>固件:</h3><p>ScummVM的部分游戏需要相关的配置文件才能运行，而且从ScummVM官方下载的游戏也无法从DOS直接运行，而ScummVM的官方模拟器已经集成了这些文件，如果在RA里面没有这些文件很多游戏将无法运行</p>
-<p>首先从ScummVM的官方模拟器中提取extra配置文件，比如安卓端，解包apk后在assets文件中<br>或者你可以直接从Github下载 <a href="https://github.com/libretro/scummvm/raw/master/backends/platform/libretro/aux-data/scummvm.zip">https://github.com/libretro/scummvm/raw/master/backends/platform/libretro/aux-data/scummvm.zip</a></p>
-<p>extra文件应该放到system/scummvm/extra中</p>
-<p>之后加载核心-运行核心 在scummvm界面中点击</p>
-<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_1st_run.png" alt="img"></p>
-<p>options，之后在extra path中选择system/scummvm/extra路径，保存</p>
-<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_paths.png" alt="img"></p>
-<p>theme文件是scummvm的主题，安装这个主题界面就和官方模拟器一样了，把解压到主题文件放在system/scummvm/theme中，和上面一样在options里面的theme path选择system/scummvm/extra路径，保存</p>
-<p>点misc项，选择 ‘ScummVM Modern Theme’ 选项，点击choose，保存</p>
-<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_misc.png" alt="img"></p>
-<h3 id="功能"><a href="#功能" class="headerlink" title="功能:"></a>功能:</h3><p>支持 截图 原生存档 手柄控制 按键映射</p>
-<p>不支持 </p>
-<h3 id="核心选项"><a href="#核心选项" class="headerlink" title="核心选项:"></a>核心选项:</h3><p>Gamepad Cursor Speed<br>调整光标速度<br> [scummvm_gamepad_cursor_speed] (1.0|1.5|2.0|2.5|3.0|0.25|0.5|0.75)</p>
-<p>由于不同分辨率下鼠标速度不同<br>‘320x200’ or ‘320x240’. 建议设置光标速度1.0<br>‘640x400’ or ‘640x480’, 建议设置光标速度2.0</p>
-<p>Analog Cursor Response<br>光标加速度<br> [scummvm_analog_response] (linear|cubic)<br>linear 直线型<br>cubic  二次方式</p>
-<p>Analog Deadzone (percent) [scummvm_analog_deadzone] (15|20|25|30|0|5|10)<br>设置Retropad模拟棒的死区。 用于消除光标漂移/不需要的输入。</p>
-<p> 死区设置可以对模拟光标移动的“感觉”产生显著影响。 该值应尽可能低，以获得最佳结果-即。 减小值，直到光标漂移明显，然后增加到下一个最高设置。 Xbox手柄通常需要15-20%。 许多与Android兼容的蓝牙游戏播放器都有一个内部的“硬件”死区，允许将这里的死区值设置为0%。</p>
-<p>Mouse Speed <br>[scummvm_mouse_speed] (1.0|1.25|1.5|1.75|2.0|2.5|3.0|0.05|0.1|0.15|0.2|0.25|0.3|0.35|0.4|0.45|0.5|0.6|0.7|0.8|0.9)</p>
-<p>使用Retroarch内部模拟的鼠标的鼠标速度</p>
-<p>Speed Hack (Restart) <br>[scummvm_speed_hack] (disabled|enabled)</p>
-<p>启用可选的速度修改，通过允许微妙的定时不准确，大大降低核心的CPU需求。</p>
-<p> 这个修改被认为是“安全的”-游戏应该正确运行时，它被启用，大多数不准确是不可察觉的，除了在少数边缘情况。 不过，它仍然是一个黑客，强烈建议桌面类机器的用户保持禁用它。</p>
-<h3 id="相关文件路径"><a href="#相关文件路径" class="headerlink" title="相关文件路径:"></a>相关文件路径:</h3><h3 id="控制"><a href="#控制" class="headerlink" title="控制:"></a>控制:</h3><h6 id="手柄"><a href="#手柄" class="headerlink" title="手柄"></a>手柄</h6><p><img src="https://i.loli.net/2020/10/31/Y79Q3SbAaWtH6iK.png" alt="image-20201031080912912"></p>
-<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20201031080940425.png" alt="image-20201031080940425"></p>
-<p><img src="https://i.loli.net/2020/10/31/hS2AOtIRloPvHMg.png" alt="image-20201031081030633"></p>
-<p><strong>Additional Notes:</strong></p>
-<ul>
-<li><p>按下“光标精细控制”按钮，将光标速度降低到“Gamepad光标速度”核心选项设置的值的⅓。</p>
-</li>
-<li><p>右旋转垫模拟棒被映射到8路“虚拟Numpad”，布局如下：</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[7][8][9]</span><br><span class="line">[4]   [6]</span><br><span class="line">[1][2][3]</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>额外的ScummVM的按键</strong></p>
-<ul>
-<li><p>Esc:</p>
-<ul>
-<li>跳过场景</li>
-<li>打开关闭菜单</li>
-</ul>
-</li>
-<li><p>Virtual Numpad + Numpad 5 + Numpad 0:</p>
-<ul>
-<li>Enables control during fight sequences in the <strong>‘Indiana Jones’</strong> series of games.</li>
-<li>Enables bypass of <strong>Monkey Island 2</strong> copy protection.</li>
-<li>启用在指定保存槽时需要文本输入的游戏中的保存</li>
-<li>在一些游戏中启用菜单导航 (Numpad 8 == up, Numpad 2 == down).</li>
-</ul>
-</li>
-<li><p>Enter + Backspace:</p>
-<ul>
-<li>启用在指定保存槽时需要文本输入的游戏中的保存.</li>
-<li>‘Enter’ 可能被用来攻击“虚空”战斗序列</li>
-<li>“Enter”在某些游戏中启用菜单项选择</li>
-</ul>
-</li>
-<li><p>. (period): Skips lines of dialogue in SCUMM engine games.</p>
-</li>
-<li><p>F1:</p>
-<ul>
-<li>在一些游戏中显示游戏中的菜单</li>
-<li>可以在一些游戏中保存。</li>
-</ul>
-</li>
-<li><p>F10: Shows hotspots in <strong>Simon the Sorcerer 1 + 2.</strong></p>
-<h5 id="鼠标"><a href="#鼠标" class="headerlink" title="鼠标"></a>鼠标</h5><p><img src="https://i.loli.net/2020/10/31/QcqY2pUvrnh1BFy.png" alt="image-20201031081759317"></p>
-</li>
-</ul>
-<p>为了确保在使用Retro鼠标时正确操作，建议在使用ScummVM核心运行内容时启用Retro Arch‘Grab鼠标’选项。默认情况下，“Grab鼠标”可以通过在键盘上按F11来打开/关闭。<br>使用Retro Pad移动光标时不需要“Grab鼠标”选项。</p>
-<h5 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h5><p>Scumm VM核心在Wii U平台上使用libretro指针API进行鼠标仿真。</p>
-<p><img src="https://i.loli.net/2020/10/31/swhH37pNeA51boD.png" alt="image-20201031082000215"></p>
-<h3 id="评测"><a href="#评测" class="headerlink" title="评测:"></a>评测:</h3><p>高性能组:<br>1.安卓<br>环境:Android10-armV8a，骁龙835，OpenGL，默认选项<br>结果:5个游戏平均 60FPS<br>低性能组:<br>环境:环境:Android6-armV8a，骁龙625，OpenGL，默认选项<br>结果: 5个游戏平均 48FPS</p>
-<p>Retroarch对比官方模拟器来说的确复杂了许多，但是你想深入研究ScummVM的话，你可以使用Retroarch来研究其原理和配置，这个模拟器过于冷门，其也从DOS平台的冷门可以看出，国内来说，游戏的确不受国人喜欢</p>
-<p><em>引用:*1,2  ScummVM 百度百科</em></p>
-]]></content>
-      <categories>
-        <category>计算机</category>
-        <category>模拟器</category>
-      </categories>
-      <tags>
-        <tag>仿真器</tag>
-        <tag>计算机史</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>RetroArch-tic80核心的配置和操作指南</title>
     <url>/2020/10/24/retrocore-tic80/</url>
     <content><![CDATA[<p><a href="https://imgchr.com/i/BJZEHH"><img src="https://s1.ax1x.com/2020/10/29/BJZEHH.jpg" alt="BJZEHH.jpg"></a><br><a href="https://imgchr.com/i/BJZJEj"><img src="https://s1.ax1x.com/2020/10/29/BJZJEj.jpg" alt="BJZJEj.jpg"></a></p>
@@ -447,6 +297,156 @@
 <h3 id="核心选项"><a href="#核心选项" class="headerlink" title="核心选项:"></a>核心选项:</h3><p><strong>Mouse API instead of Pointer</strong><br>是否开启鼠标指针<br>[tic80_mouse]<br> (<strong>disabled</strong>|enabled)</p>
 <p> <strong>Mouse Cursor</strong><br>鼠标指针样式<br>[tic80_mouse_cursor]<br>(<strong>disabled</strong>|dot|cross|arrow)</p>
 <h3 id="相关文件路径"><a href="#相关文件路径" class="headerlink" title="相关文件路径:"></a>相关文件路径:</h3><h3 id="控制"><a href="#控制" class="headerlink" title="控制:"></a>控制:</h3><h3 id="评测"><a href="#评测" class="headerlink" title="评测:"></a>评测:</h3><p>高性能组:<br>1.安卓<br>环境:Android10-armV8a，骁龙835，OpenGL，默认选项<br>结果: 60fps<br>低性能组:<br>环境:环境:Android6-armV8a，骁龙625，OpenGL，默认选项<br>结果: 60fps</p>
+]]></content>
+      <categories>
+        <category>计算机</category>
+        <category>模拟器</category>
+      </categories>
+      <tags>
+        <tag>仿真器</tag>
+        <tag>计算机史</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RetroArch-scummvm核心的配置和操作指南</title>
+    <url>/2020/10/24/retrocore-scummvm/</url>
+    <content><![CDATA[<p><a href="https://imgchr.com/i/BGD7tA"><img src="https://s1.ax1x.com/2020/10/29/BGD7tA.png" alt="BGD7tA.png"></a><br><a href="https://imgchr.com/i/BGsV2t"><img src="https://s1.ax1x.com/2020/10/29/BGsV2t.png" alt="BGsV2t.png"></a></p>
+<h4 id="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"><a href="#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变" class="headerlink" title="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"></a><em>注意这是一个动态更新型文章，文章内容可能会随时更新或者改变</em></h4><a id="more"></a>
+
+<h1 id="Libretro-ScummVM系列核心"><a href="#Libretro-ScummVM系列核心" class="headerlink" title="Libretro-ScummVM系列核心"></a>Libretro-ScummVM系列核心</h1><h2 id="机型"><a href="#机型" class="headerlink" title="机型:"></a>机型:</h2><p>ScummVM是卢卡斯图形冒险游戏开发引擎Scumm的模拟器，和RPGMAKER模拟器一样，可以在各平台模拟其游戏引擎内的游戏 *<em>1</em></p>
+<h2 id="相关ROM"><a href="#相关ROM" class="headerlink" title="相关ROM:"></a>相关ROM:</h2><p>包括各种20世纪90年代的游戏<br>钢铁天空下 Beneath a Steel Sky<br>断剑系列 Broken Sword<br>梦网 Dreamweb<br>德古拉:吸血鬼突击 Drascula: The Vampire Strikes Back<br>银翼杀手 Blade Runner<br>很多游戏都是90年代初的以赛 博 朋 克为主题的游戏</p>
+<h2 id="相关模拟器"><a href="#相关模拟器" class="headerlink" title="相关模拟器:"></a>相关模拟器:</h2><p> <a href="https://www.scummvm.org/downloads/">https://www.scummvm.org/downloads/</a><br>官方模拟器支持win，linux，mac，symbian，ps3，psp，dc，3ds，ds，will，gc，haiku，amigaOS，RISC，android，ios包揽全平台的模拟器</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>提示:这个模拟器官方已经支持全平台了，再用Retroarch的意义很小了……而且官方模拟器已经集成了所有需要的配置文件，而Retroarch没有，且操作还很繁琐……….除非你要用到Retroarch的附加功能<br>SCUMM的意思是Script Creation Utility for Maniac Mansion，原意是疯狂大楼剧本创作工具，是Aric Wilmunder与Ron Gilbert 为了开发疯狂大楼(Maniac Mansion)这款游戏开发的工具。后来不仅在卢卡斯游戏本部得到了广泛使用还卖给其他公司开发同类游戏，在AVG大热的年代里推出了一大堆非常有趣的游戏。这些游戏都是DOS平台的，用DosBox也可以在PC上玩到。<br>ScummVM 模拟器 ,它可以让你玩到由美国卢卡斯艺术出的一系列精典游戏,如猴岛小英雄,星球大战等等,新版变动: 在这个版本中，增加了对西木头公司（WestWood）的《凯兰蒂亚传奇》引擎的支持，因而可以模拟一共三代的《凯兰蒂亚传奇》以及另一知名大作断剑系列。同时增加了对Feeble Files引擎的支持，并对先前支持的General、SCUMM、SAGA、Simon、Broken Sword 1、Broken Sword 2引擎和和WINCE端口进行了清楚BUG和增加功能的有序工作。 *<em>2</em></p>
+<h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><blockquote>
+<p>太长影响观感</p>
+</blockquote>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><h3 id="几个额外设置"><a href="#几个额外设置" class="headerlink" title="几个额外设置"></a>几个额外设置</h3><p><strong>启用增强的MIDI仿真</strong></p>
+<p> 有些游戏只包含MIDI数据形式的音乐。 默认情况下，ScummVM将使用AdLib模拟MIDI模式。 使用流体合成MIDI仿真和适当的声音，可以为支持MIDI的游戏实现更高质量的音频， 这是RetroArch下推荐的操作模式。</p>
+<p> 选择“MIDI”选项卡，然后在“GM Device：”下选择“FluidSynth‘。</p>
+<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_midi.png" alt="img"></p>
+<p> 按下“soundfont：”按钮并导航到RetroArch系统目录。 输入sumplmvm/extra/文件夹。 (注：如果按顺序遵循本指南的步骤，则在按下“soundfont：”按钮时，将自动选择summvm/extra/ 文件夹)</p>
+<p> 选择文件Roland_SC-55.sf2并按“选择”按钮。</p>
+<p>勾选“混合广告Lib/MIDI模式”复选框。</p>
+<p> 按下“应用”按钮，然后继续到下面的“启用MT-32仿真”部分。</p>
+<p> 许多游戏受益于流体合成MIDI仿真。 一些特别值得注意的例子是：</p>
+<p>山姆和麦克斯上路了</p>
+<p>会幕之日</p>
+<p>星际世界</p>
+<p> 注意流体合成MIDI仿真稍微增加了ScummVM核心的CPU需求。 在绝大多数平台上，这不应该是一个问题。 如果在非常低功耗的设备上观察到裂纹声音，则应该通过将“GM设备：”设置为默认的“不要使用通用MIDI音乐”选项来禁用FluidSynthMIDI仿真。</p>
+<p><strong>游戏管理</strong></p>
+<p> 在游戏可以通过ScummVM核心运行之前，应该首先将其添加到内部启动程序中。 不这样做将防止保存特定于游戏的配置选项(例如。 音量级别，字幕速度，内部游戏设置覆盖)。</p>
+<p> 向ScummVM启动器添加一个游戏</p>
+<p> 每个游戏的数据文件必须复制到本地存储中唯一命名的目录(即。 每个游戏一个目录)。 任何特定游戏所需的特定文件列表可以在ScummVM数据文件页面上找到。</p>
+<p> 建议的“Flight of the Amazon Queen”目录布局是一个最简单的例子：</p>
+<p>└── ROMs/<br>    └── ScummVM/<br>        └── Flight of the Amazon Queen (CD DOS)/<br>            └── queen.1</p>
+<p>一旦所有文件到位，每个游戏可以添加如下：</p>
+<p> 运行ScummVM核心，没有内容：</p>
+<p> 转到RetroArch的主菜单屏幕。</p>
+<p> 选择“LoadCore”，然后选择“summVM‘。</p>
+<p> 选择“启动核心‘。</p>
+<p> 在主ScummVM用户界面中，按下“添加游戏…”按钮。</p>
+<p> 导航到游戏目录， 双击游戏目录本身进入它，然后按‘选择’按钮</p>
+<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_add_game.png" alt="img"></p>
+<p> 如果游戏被正确检测(即如果数据文件正确)，将自动打开“设置”对话框。</p>
+<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_game_options.png" alt="img"></p>
+<p> 一般来说，自动生成的配置设置应该不错了</p>
+<p> 然而：为了简单起见，以及与现有的.scummvm文件的兼容性（在下面的部分中讨论），应该将“ID：”条目设置为游戏的名字。 所有游戏名字都列在ScummVM兼容性页面上。</p>
+<p> 在大多数情况下，自动生成的“ID：会自动匹配游戏名字。</p>
+<p> 在某些情况下，自动生成的“ID：”将是带有附加标识后缀的“短名称。 这个后缀应该删除。 如果使用手柄，这可以通过单击“ID：”输入行的末尾，并使用“L2”按钮/触发器来删除不需要的字符来实现。</p>
+<p> 一旦“ID：”被修改（如果需要），按“OK”按钮“注册”游戏。</p>
+<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_1st_game_added.png" alt="img"></p>
+<p> 注意一旦一个游戏已经注册，它可以通过在ScummVM启动器游戏列表中选择它并按下“启动”按钮来运行。 但是：不建议以这种方式使用Scumm VM启动器，因为它阻止了每个游戏配置重写RetroArch的使用，因此输入重新映射</p>
+<p><strong>音量水平</strong></p>
+<p> Scumm VM游戏在音频音量水平上表现出惊人的差异。 为了舒适，几乎是强制性的调整特定的卷在每个游戏的基础上。 幸好这是微不足道的：</p>
+<p> 当游戏运行时，按Retro Pad“启动”按钮打开ScummVMGUI。</p>
+<p> 使用光标，按“选项”按钮。</p>
+<p> 调整‘音乐音量：’，‘SFX音量：’和‘回声音量：’滑块到所需的水平。</p>
+<p> 按“确定”按钮，然后按“恢复”按钮。<br> 如果游戏已经正确地添加到ScummVM启动器中，调整后的级别将在游戏会话之间保留。</p>
+<p> 如果游戏尚未添加到ScummVM启动器，或者.scummvm文件中的游戏ID与ScummVM发射器ID不匹配，则当游戏关闭时，所有设置都将丢失。</p>
+<p>手动音乐设备选择</p>
+<p> 默认情况下，ScummVM将自动为每个游戏选择最合适的音乐播放选项(即。 MT-32仿真、流体合成MIDI仿真或Ad Lib仿真)。 在大多数情况下，这将产生最好的声音质量，不需要用户干预。 然而，在一些情况和游戏中，手动覆盖是有益的。 这是应该由用户在每个游戏的基础上确定的东西，但这里有一些实际的例子：</p>
+<p> 使用MT-32仿真的默认选择，对于游戏魔法师西蒙来说是最好的，但对于大多数Android设备来说，这太需要CPU了。 通过强制游戏使用FluidSynthMIDI仿真，可以在性能和音质之间实现一个可接受的折衷。</p>
+<p> 西蒙魔法师2将使用流体合成MIDI模拟默认。 通过强制游戏使用MT-32仿真可以获得更好的质量音乐。 (由于这款游戏对CPU的要求比本系列中的第一款更高，所以Android设备上的平滑播放通常需要使用Ad Lib仿真)</p>
+<p> 在钢铁之下下这个游戏默认为MT-32仿真，这应该是最好的.但是强制使用FluidSynthMIDI仿真往往会产生“更高”的声音音乐，一些用户可能更喜欢。</p>
+<p> Amazon Queen的飞行是另一款默认MT-32仿真的游戏，但是（可以说）Fluid Synth MIDI仿真听起来要好得多。</p>
+<h3 id="支持的ROM格式"><a href="#支持的ROM格式" class="headerlink" title="支持的ROM格式:"></a>支持的ROM格式:</h3><p>.scummvm<br>然而大多数游戏不是这个格式，而模拟器可以直接从一些DOS格式中直接读取</p>
+<h3 id="固件"><a href="#固件" class="headerlink" title="固件:"></a>固件:</h3><p>ScummVM的部分游戏需要相关的配置文件才能运行，而且从ScummVM官方下载的游戏也无法从DOS直接运行，而ScummVM的官方模拟器已经集成了这些文件，如果在RA里面没有这些文件很多游戏将无法运行</p>
+<p>首先从ScummVM的官方模拟器中提取extra配置文件，比如安卓端，解包apk后在assets文件中<br>或者你可以直接从Github下载 <a href="https://github.com/libretro/scummvm/raw/master/backends/platform/libretro/aux-data/scummvm.zip">https://github.com/libretro/scummvm/raw/master/backends/platform/libretro/aux-data/scummvm.zip</a></p>
+<p>extra文件应该放到system/scummvm/extra中</p>
+<p>之后加载核心-运行核心 在scummvm界面中点击</p>
+<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_1st_run.png" alt="img"></p>
+<p>options，之后在extra path中选择system/scummvm/extra路径，保存</p>
+<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_paths.png" alt="img"></p>
+<p>theme文件是scummvm的主题，安装这个主题界面就和官方模拟器一样了，把解压到主题文件放在system/scummvm/theme中，和上面一样在options里面的theme path选择system/scummvm/extra路径，保存</p>
+<p>点misc项，选择 ‘ScummVM Modern Theme’ 选项，点击choose，保存</p>
+<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_misc.png" alt="img"></p>
+<h3 id="功能"><a href="#功能" class="headerlink" title="功能:"></a>功能:</h3><p>支持 截图 原生存档 手柄控制 按键映射</p>
+<p>不支持 </p>
+<h3 id="核心选项"><a href="#核心选项" class="headerlink" title="核心选项:"></a>核心选项:</h3><p>Gamepad Cursor Speed<br>调整光标速度<br> [scummvm_gamepad_cursor_speed] (1.0|1.5|2.0|2.5|3.0|0.25|0.5|0.75)</p>
+<p>由于不同分辨率下鼠标速度不同<br>‘320x200’ or ‘320x240’. 建议设置光标速度1.0<br>‘640x400’ or ‘640x480’, 建议设置光标速度2.0</p>
+<p>Analog Cursor Response<br>光标加速度<br> [scummvm_analog_response] (linear|cubic)<br>linear 直线型<br>cubic  二次方式</p>
+<p>Analog Deadzone (percent) [scummvm_analog_deadzone] (15|20|25|30|0|5|10)<br>设置Retropad模拟棒的死区。 用于消除光标漂移/不需要的输入。</p>
+<p> 死区设置可以对模拟光标移动的“感觉”产生显著影响。 该值应尽可能低，以获得最佳结果-即。 减小值，直到光标漂移明显，然后增加到下一个最高设置。 Xbox手柄通常需要15-20%。 许多与Android兼容的蓝牙游戏播放器都有一个内部的“硬件”死区，允许将这里的死区值设置为0%。</p>
+<p>Mouse Speed <br>[scummvm_mouse_speed] (1.0|1.25|1.5|1.75|2.0|2.5|3.0|0.05|0.1|0.15|0.2|0.25|0.3|0.35|0.4|0.45|0.5|0.6|0.7|0.8|0.9)</p>
+<p>使用Retroarch内部模拟的鼠标的鼠标速度</p>
+<p>Speed Hack (Restart) <br>[scummvm_speed_hack] (disabled|enabled)</p>
+<p>启用可选的速度修改，通过允许微妙的定时不准确，大大降低核心的CPU需求。</p>
+<p> 这个修改被认为是“安全的”-游戏应该正确运行时，它被启用，大多数不准确是不可察觉的，除了在少数边缘情况。 不过，它仍然是一个黑客，强烈建议桌面类机器的用户保持禁用它。</p>
+<h3 id="相关文件路径"><a href="#相关文件路径" class="headerlink" title="相关文件路径:"></a>相关文件路径:</h3><h3 id="控制"><a href="#控制" class="headerlink" title="控制:"></a>控制:</h3><h6 id="手柄"><a href="#手柄" class="headerlink" title="手柄"></a>手柄</h6><p><img src="https://i.loli.net/2020/10/31/Y79Q3SbAaWtH6iK.png" alt="image-20201031080912912"></p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20201031080940425.png" alt="image-20201031080940425"></p>
+<p><img src="https://i.loli.net/2020/10/31/hS2AOtIRloPvHMg.png" alt="image-20201031081030633"></p>
+<p><strong>Additional Notes:</strong></p>
+<ul>
+<li><p>按下“光标精细控制”按钮，将光标速度降低到“Gamepad光标速度”核心选项设置的值的⅓。</p>
+</li>
+<li><p>右旋转垫模拟棒被映射到8路“虚拟Numpad”，布局如下：</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[7][8][9]</span><br><span class="line">[4]   [6]</span><br><span class="line">[1][2][3]</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>额外的ScummVM的按键</strong></p>
+<ul>
+<li><p>Esc:</p>
+<ul>
+<li>跳过场景</li>
+<li>打开关闭菜单</li>
+</ul>
+</li>
+<li><p>Virtual Numpad + Numpad 5 + Numpad 0:</p>
+<ul>
+<li>Enables control during fight sequences in the <strong>‘Indiana Jones’</strong> series of games.</li>
+<li>Enables bypass of <strong>Monkey Island 2</strong> copy protection.</li>
+<li>启用在指定保存槽时需要文本输入的游戏中的保存</li>
+<li>在一些游戏中启用菜单导航 (Numpad 8 == up, Numpad 2 == down).</li>
+</ul>
+</li>
+<li><p>Enter + Backspace:</p>
+<ul>
+<li>启用在指定保存槽时需要文本输入的游戏中的保存.</li>
+<li>‘Enter’ 可能被用来攻击“虚空”战斗序列</li>
+<li>“Enter”在某些游戏中启用菜单项选择</li>
+</ul>
+</li>
+<li><p>. (period): Skips lines of dialogue in SCUMM engine games.</p>
+</li>
+<li><p>F1:</p>
+<ul>
+<li>在一些游戏中显示游戏中的菜单</li>
+<li>可以在一些游戏中保存。</li>
+</ul>
+</li>
+<li><p>F10: Shows hotspots in <strong>Simon the Sorcerer 1 + 2.</strong></p>
+<h5 id="鼠标"><a href="#鼠标" class="headerlink" title="鼠标"></a>鼠标</h5><p><img src="https://i.loli.net/2020/10/31/QcqY2pUvrnh1BFy.png" alt="image-20201031081759317"></p>
+</li>
+</ul>
+<p>为了确保在使用Retro鼠标时正确操作，建议在使用ScummVM核心运行内容时启用Retro Arch‘Grab鼠标’选项。默认情况下，“Grab鼠标”可以通过在键盘上按F11来打开/关闭。<br>使用Retro Pad移动光标时不需要“Grab鼠标”选项。</p>
+<h5 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h5><p>Scumm VM核心在Wii U平台上使用libretro指针API进行鼠标仿真。</p>
+<p><img src="https://i.loli.net/2020/10/31/swhH37pNeA51boD.png" alt="image-20201031082000215"></p>
+<h3 id="评测"><a href="#评测" class="headerlink" title="评测:"></a>评测:</h3><p>高性能组:<br>1.安卓<br>环境:Android10-armV8a，骁龙835，OpenGL，默认选项<br>结果:5个游戏平均 60FPS<br>低性能组:<br>环境:环境:Android6-armV8a，骁龙625，OpenGL，默认选项<br>结果: 5个游戏平均 48FPS</p>
+<p>Retroarch对比官方模拟器来说的确复杂了许多，但是你想深入研究ScummVM的话，你可以使用Retroarch来研究其原理和配置，这个模拟器过于冷门，其也从DOS平台的冷门可以看出，国内来说，游戏的确不受国人喜欢</p>
+<p><em>引用:*1,2  ScummVM 百度百科</em></p>
 ]]></content>
       <categories>
         <category>计算机</category>
@@ -1889,6 +1889,520 @@ Alive (F) - Disk 1B.dsk</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>RetroArch-DC(Flycast)核心的配置和操作指南</title>
+    <url>/2020/10/24/retrocore-flycast/</url>
+    <content><![CDATA[<p><a href="https://imgchr.com/i/BJe6OS"><img src="https://s1.ax1x.com/2020/10/29/BJe6OS.jpg" alt="BJe6OS.jpg"></a><br><a href="https://imgchr.com/i/BJeTyT"><img src="https://s1.ax1x.com/2020/10/29/BJeTyT.png" alt="BJeTyT.png"></a><br><a href="https://imgchr.com/i/BJmPmD"><img src="https://s1.ax1x.com/2020/10/29/BJmPmD.jpg" alt="BJmPmD.jpg"></a></p>
+<h4 id="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"><a href="#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变" class="headerlink" title="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"></a><em>注意这是一个动态更新型文章，文章内容可能会随时更新或者改变</em></h4><a id="more"></a>
+
+<h1 id="Libretro-GBA系列核心"><a href="#Libretro-GBA系列核心" class="headerlink" title="Libretro-GBA系列核心"></a>Libretro-GBA系列核心</h1><h2 id="机型"><a href="#机型" class="headerlink" title="机型:"></a>机型:</h2><p>Dreamcast</p>
+<h2 id="相关ROM"><a href="#相关ROM" class="headerlink" title="相关ROM:"></a>相关ROM:</h2><p>斑鸠</p>
+<h2 id="相关模拟器"><a href="#相关模拟器" class="headerlink" title="相关模拟器:"></a>相关模拟器:</h2><p> realcast<br> redstorm (闭源)</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>flycast是一个世嘉多平台的模拟器，可以模拟SegaDreamcast，Naomi和Atomiswave等平台，flycast是模拟器relcast的分枝，由flyinghead编写，广泛被用于各模拟器前端。<br>很多来自于MAME模拟器的街机平台的基板为NAOMI和Atomiswave平台的3D街机ROM需要用此模拟器运行</p>
+<p>它支持:<br>SEGA Dreamcast games (CHD, CDI, GDI, CUE) including games based on Windows CE<br>SEGA NAOMI games (.zip, .7z, .dat/.lst)SEGA NAOMI GD-ROM games (.zip, .7z, .dat/.lst and .chd)<br>Sammy Atomiswave games (.zip, .7z)<br>注意，它不支持:<br>SEGA NAOMI 2, Hikaru, or SEGA System SP </p>
+<h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><blockquote>
+<p>Sega - Dreamcast/NAOMI (Flycast)</p>
+<p>Contribute to this documentation</p>
+<p>In order to propose improvements to this document, <a href="https://github.com/libretro/docs/tree/master/docs/library/flycastc.md">visit its corresponding source page on github</a>. Changes are proposed using “Pull Requests.”</p>
+<p>Background</p>
+<p>Flycast is a multi-platform Sega Dreamcast, NAOMI, and Atomiswave emulator.</p>
+<p>Why use this core?</p>
+<p>Awaiting description.</p>
+<p>How to get and install the flycast core:</p>
+<p>Start up RetroArch. Inside the main menu, go to ‘Online Updater’.</p>
+<p>Just to make sure we have the latest info files, select ‘Update Core Info FIles’. Wait until this is done. Then, select ‘Core Updater’.</p>
+<p>Browse through the list and select ‘Sega Dreamcast (flycast)’.</p>
+<p>After this has finished downloading, the core should now be ready for use!</p>
+<p>How to play (after installation):</p>
+<p>Go back to RetroArch’s main menu screen. Select ‘Load Content’.</p>
+<p>Browse to the folder that contains the content you want to run.</p>
+<p>Select the content that you want to run.</p>
+<p>If you are asked which core to select, choose ‘Sega Dreamcast (flycast)’.</p>
+<p>The game should now start running!</p>
+<p>How to play NAOMI Games:<br>Run NAOMI games stored in MAME format zip files by following the same process as standard Dreamcast games</p>
+<p>Run NAOMI GD-ROM format games stored in MAME zip + chd format by running the zip file through RetroArch.  The zip file should be stored in your roms folder with the chd file in a subdirectory of the roms folder named after the mame ID.</p>
+<p>Example (MAME ID=ikaruga)<br>[ROM FOLDER]/ikaruga.zip<br>[ROM FOLDER]/ikaruga/gdl-0010.chd</p>
+<p>Authors</p>
+<p>flyinghead</p>
+<p>See also</p>
+<p>License</p>
+<p>A summary of the licenses behind RetroArch and its cores can be found <a href="../development/licenses.md">here</a>.</p>
+<p><a href="https://github.com/libretro/flycast/blob/master/LICENSE">GPLv2</a></p>
+<p>Extensions</p>
+<p>Content that can be loaded by the flycast core have the following file extensions:</p>
+<p>.cdi<br>.gdi<br>.chd<br>.cue<br>.bin<br>.iso<br>.elf<br>.zip<br>.7z<br>.lst<br>.dat<br>.m3u</p>
+<p>Databases</p>
+<p>RetroArch database(s) that are associated with the flycast core:</p>
+<p><a href="https://github.com/libretro/libretro-database/blob/master/rdb/Sega%20-%20Dreamcast.rdb">Sega - Dreamcast</a></p>
+<p>BIOS</p>
+<p>Required or optional firmware files go in RetroArch’s system directory.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Filename</th>
+<th align="center">Description</th>
+<th align="center">md5sum</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">dc/dc_boot.bin</td>
+<td align="center">Dreamcast BIOS - Requried for Dreamcast</td>
+<td align="center">e10c53c2f8b90bab96ead2d368858623</td>
+</tr>
+<tr>
+<td align="center">dc/dc_flash.bin</td>
+<td align="center">Date/Time/Language - Required for Dreamcast</td>
+<td align="center">0a93f7940c455905bea6e392dfde92a4</td>
+</tr>
+<tr>
+<td align="center">dc/naomi.zip</td>
+<td align="center">Naomi Bios from MAME - Optional</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">dc/hod2bios.zip</td>
+<td align="center">Naomi The House of the Dead 2 Bios from MAME - Optional</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">dc/f355dlx.zip</td>
+<td align="center">Naomi Ferrari F355 Challenge deluxe Bios from MAME - Optional</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">dc/f355bios.zip</td>
+<td align="center">Naomi Ferrari F355 Challenge twin/deluxe Bios from MAME - Optional</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">dc/airlbios.zip</td>
+<td align="center">Naomi Airline Pilots deluxe Bios from MAME - Optional</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">dc/awbios.zip</td>
+<td align="center">Atomiswave BIOS from MAME - Optional</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<p>!!! attention<br>        naomi.zip must include the epr-21576g.ic27 file (md5sum:3bffafac42a7767d8dcecf771f5552ba)<br>    All bios files need to be in a directory named ‘dc’ in RetroArch’s system directory.</p>
+<p>Features</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th align="center">Supported</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Restart</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Screenshots</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Saves</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>States</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Rewind</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Netplay</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Core Options</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>RetroAchievements</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>RetroArch Cheats</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Native Cheats</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Controls</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Remapping</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Multi-Mouse</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Rumble</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Sensors</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Camera</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Location</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Subsystem</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Softpatching</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Disk Control</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Username</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Crop Overscan (in RetroArch’s Video settings)</td>
+<td align="center">✕</td>
+</tr>
+</tbody></table>
+<p>Directories</p>
+<p>The FlyCast core’s directory name is ‘Flycast’</p>
+<p>The FlyCast core creates these files in RetroArch’s system directory.</p>
+<p>dc/vmu_save_A1.bin<br>dc/vmu_save_B1.bin<br>dc/vmu_save_C1.bin<br>dc/vmu_save_D1.bin<br>dc/data/dc_nvmem.bin</p>
+<p>dc directory ()<br>– vmu_save_A1.bin ()<br>– vmu_save_B1.bin ()<br>– vmu_save_C1.bin ()<br>– vmu_save_D1.bin ()<br>– data directory ()<br>— dc_nvmem.bin ()</p>
+<p>Core provided aspect ratio</p>
+<p>FlyCast’s core provided aspect ratio is 4/3.</p>
+<p>Rumble</p>
+<p>Rumble only works when the Joypad being used has rumble functionality and the Joypad input driver being used has rumble function implementation (e.g. <strong>Xinput</strong>).</p>
+<p>Core options</p>
+<p>The FlyCast core has the following option(s) that can be tweaked from the core options menu. The default setting is bolded. Settings with (Restart) means that core has to be closed for the new setting to be applied on next launch.</p>
+<p><strong>CPU Mode (restart)</strong> (<strong>dynamic_recomplier</strong>/generic_recomplier)</p>
+<center> Awaiting description. </center>
+
+<p><strong>Boot to BIOS (restart)</strong> (<strong>Off</strong>/On)</p>
+<center> Boot directly into the Dreamcast BIOS menu. </center>
+
+<p><strong>Internal resolution (restart)</strong> (<strong>640x480</strong>/1280x960/1920x1440/2560x1920/3200x2400/3840x2880/<br>4480x3360/5120x3840/5760x4320/6400x4800/7040x5280/7680x5760/8320x6240/8960x6720/<br>9600x7200/10240x7680/10880x8160/11520x8640/12160x9120/12800x9600)</p>
+<center> Self explanatory. </center>
+
+<center>
+
+<p>??? note “Internal resolution - 640x480”</p>
+<center>
+
+<p>??? note “Internal resolution - 1920x1440”</p>
+<p><strong>Mipmapping</strong> (Off/<strong>On</strong>)</p>
+<center> Awaiting description. </center>
+
+<p><strong>Volume modifier</strong> (<strong>On</strong>/off)</p>
+<center> A GPU feature that is typically used by games to draw shadows of objects. You should typically leave this on - performance impact should be minimal to negligible. </center>
+
+<p><strong>Widescreen hack</strong> (<strong>Off</strong>/On)</p>
+<center> Awaiting description. </center>
+
+<p><strong>Audio buffer size</strong> (<strong>1024</strong>/2048)</p>
+<center> Awaiting description. </center>
+
+<p><strong>Cable type</strong> (<strong>TV (VBS/Y+S/C)</strong>/TV (RGB)/VGA (RGB))</p>
+<center> Awaiting description. </center>
+
+<p><strong>Broadcast</strong> (<strong>2</strong>/3/4/0/1)</p>
+<center> Awaiting description. </center>
+
+<p><strong>Framerate</strong> (<strong>fullspeed</strong>/normal)</p>
+<center> Awaiting description. </center>
+
+<p><strong>Region</strong> (<strong>3</strong>/0/1/2)</p>
+<center> Awaiting description. </center>
+
+<p><strong>Precompile shaders</strong> (<strong>Off</strong>/On)</p>
+<center> Awaiting description. </center>
+
+<p><strong>“Enable RTT (Render To Texture)</strong> (Off/<strong>On</strong>)</p>
+<center> Awaiting description. </center>
+
+<p><strong>Purupuru Pack (restart)</strong> (Off/<strong>On</strong>)</p>
+<center> Awaiting description. </center>
+
+<p>Controllers</p>
+<p>Device types</p>
+<p>The Flycast core supports the following device type(s) in the controls menu, bolded device types are the default for the specified user(s):</p>
+<p>User 1 - 4 device types</p>
+<p>None - Input disabled.<br><strong>RetroPad</strong> - Joypad<br>RetroPad w/Analog - Joypad - <strong>There is no reason to switch to this.</strong></p>
+<p>Controller tables</p>
+<p>Joypad and analog device type table</p>
+<p><img src="../image/controller/dc.png"></p>
+<table>
+<thead>
+<tr>
+<th>User 1 - 4 input descriptors</th>
+<th></th>
+<th>RetroPad</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A</td>
+<td><img src="../image/retropad/retro_b.png"></td>
+<td>A</td>
+</tr>
+<tr>
+<td>X</td>
+<td><img src="../image/retropad/retro_y.png"></td>
+<td>X</td>
+</tr>
+<tr>
+<td>Start</td>
+<td><img src="../image/retropad/retro_start.png"></td>
+<td>Start</td>
+</tr>
+<tr>
+<td>D-Pad Up</td>
+<td><img src="../image/retropad/retro_dpad_up.png"></td>
+<td>D-Pad Up</td>
+</tr>
+<tr>
+<td>D-Pad Down</td>
+<td><img src="../image/retropad/retro_dpad_down.png"></td>
+<td>D-Pad Down</td>
+</tr>
+<tr>
+<td>D-Pad Left</td>
+<td><img src="../image/retropad/retro_dpad_left.png"></td>
+<td>D-Pad Left</td>
+</tr>
+<tr>
+<td>D-Pad Right</td>
+<td><img src="../image/retropad/retro_dpad_right.png"></td>
+<td>D-Pad Right</td>
+</tr>
+<tr>
+<td>B</td>
+<td><img src="../image/retropad/retro_a.png"></td>
+<td>B</td>
+</tr>
+<tr>
+<td>Y</td>
+<td><img src="../image/retropad/retro_x.png"></td>
+<td>Y</td>
+</tr>
+<tr>
+<td>L (fierce)</td>
+<td><img src="../image/retropad/retro_l1.png"></td>
+<td>L (fierce)</td>
+</tr>
+<tr>
+<td>R (fierce)</td>
+<td><img src="../image/retropad/retro_r1.png"></td>
+<td>R (fierce)</td>
+</tr>
+<tr>
+<td>L (weak)</td>
+<td><img src="../image/retropad/retro_l2.png"></td>
+<td>L (weak)</td>
+</tr>
+<tr>
+<td>R (weak)</td>
+<td><img src="../image/retropad/retro_r2.png"></td>
+<td>R (weak)</td>
+</tr>
+<tr>
+<td>Analog X</td>
+<td><img src="../image/retropad/retro_left_stick.png"> X</td>
+<td>Analog X</td>
+</tr>
+<tr>
+<td>Analog Y</td>
+<td><img src="../image/retropad/retro_left_stick.png"> Y</td>
+<td>Analog Y</td>
+</tr>
+</tbody></table>
+<p>Multiple-disc games</p>
+<p>If foo is a multiple-disc game, you should have .chd/cue/cdi/gdi files for each one, e.g. <code>foo (Disc 1).chd</code>, <code>foo (Disc 2).chd</code>, <code>foo (Disc 3).chd</code>.</p>
+<p>To take advantage of Flycast’s Disk Control feature for disk swapping, an index file (a m3u file) should be made.</p>
+<p>Create a text file and save it as <code>foo.m3u</code>. Then enter your game’s .chd/cue/cdi/gdi files on it. The m3u file contents should look something like this:</p>
+<p><code>foo.m3u</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">foo (Disc 1).chd</span><br><span class="line">foo (Disc 2).chd</span><br><span class="line">foo (Disc 3).chd</span><br></pre></td></tr></table></figure>
+
+<p>After that, you can load the <code>foo.m3u</code> file in RetroArch with the Flycast core.</p>
+<p>An alternative is to append discs to the current playlist via the “Disk Image Append” option in the Disk Control RetroArch menu.</p>
+<p>Compatibility</p>
+<p>General Flycast Issues</p>
+<p>If the date and time are not being saved properly, please ensure you have the correct dc_flash.bin and dc_bios.bin files (check the md5sum values).  Also try deleting all of the dc_nvmem.bin files in the system/dc directory.<br>Once you save to a VMU slot with any game, that VMU becomes inaccessible the next time you load the emulator. The fix for this is to enable the Core Option for “Boot to BIOS”, exit RA, delete all of the vmu_save*.bin files, start RA/Flycast.  It will boot to BIOS where you can select the VMU option, select one of the VMUs, click the “All” icon in upper-left, click Delete All and the VMU will be formatted/intialized.  Disable the “Boot to BIOS” option, restart RA, and everything should be fine.<br>Polygon sorting issues can make objects appear distorted. Use Per-Pixel Alpha sorting for accurate rendering (at the expense of performance).<br>When using an Xbox 360 Controller, analog triggers don’t work properly. Use the bumpers instead.<br>Changing games without closing and reloading RetroArch often leads to RetroArch crashing.</p>
+<table>
+<thead>
+<tr>
+<th>Game</th>
+<th>Issue</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Crazy Taxi (PAL)</td>
+<td>Player taxis do not emit engine sounds.</td>
+</tr>
+<tr>
+<td>Crazy Taxi (USA)</td>
+<td>Player taxis do not emit engine sounds.</td>
+</tr>
+<tr>
+<td>Jet Grind Radio (USA)</td>
+<td>Police reports during levels do not display correctly.</td>
+</tr>
+<tr>
+<td>Sonic Adventure (PAL)</td>
+<td>Must be set to use “VGA” output in core options, as “TV” mode will cause all subsequent FMV to make RetroArch become unresponsive.</td>
+</tr>
+<tr>
+<td>Unreal Tournament (USA)</td>
+<td>Set Cable Type to ‘VGA (RGB)’, otherwise the game will crash at start.</td>
+</tr>
+</tbody></table>
+<p>External Links</p>
+<p><a href="https://github.com/libretro/libretro-super/blob/master/dist/info/flycast_libretro.info">Libretro Flycast Core info file</a><br><a href="https://github.com/libretro/flycast">Libretro Flycast Github Repository</a><br><a href="https://github.com/libretro/flycast/issues">Report Flycast Core Issues Here</a></p>
+</blockquote>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><h3 id="支持的ROM格式"><a href="#支持的ROM格式" class="headerlink" title="支持的ROM格式:"></a>支持的ROM格式:</h3><ul>
+<li>.cdi</li>
+<li>.gdi</li>
+<li>.chd</li>
+<li>.cue</li>
+<li>.bin</li>
+<li>.iso</li>
+<li>.elf</li>
+<li>.zip</li>
+<li>.7z</li>
+<li>.lst</li>
+<li>.dat</li>
+<li>.m3u</li>
+</ul>
+<p>其中.lst和.dat这种老旧的文件格式不应该再被使用</p>
+<p>SEGA Dreamcast 的格式为.CHD, CDI, GDI, CUE<br>其余MAME的格式为.zip,7z</p>
+<p>如果你要运行MAME的NAOMI，awBios的.chd格式的ROM，你应该建立一个名字与该游戏和按照MAME游戏列表上相同的文件夹，再把带有游戏编号的.chd文件放在该文件夹上，比如:<br>ROM-雎鸠(ikaruga)，他的MAME官方游戏ROM的名字为ikaruga.zip，所以你要创建一名为个”ikaruga”的文件夹，把带编号的.chd文件夹放在此内，否则ROM无法与数据库对应而无法运行<br> [ROM FOLDER]/ikaruga.zip<br> [ROM FOLDER]/ikaruga/gdl-0010.chd</p>
+<p>如果DC游戏有两个ROM文件，你应该在要求换碟(ROM文件)的时候用Retroarch的磁盘控制器更换ROM文件，或者你可以用m3u文件引导的方式来自动换碟</p>
+<h3 id="固件"><a href="#固件" class="headerlink" title="固件:"></a>固件:</h3><p>请放在system文件夹中并按照标准创建一个dc子文件夹，固件即放在此<br>如果想运行NAOMI和atomiswave的ROM，你需要从MAME模拟器提取最新的NAOMI和atomiswave固件</p>
+<p><strong>如果出现EROOR 01:</strong></p>
+<p>1.不是最新的NAOMI和awbios的Bios固件，或者ROM版本错误</p>
+<p>2.并不是NAOMI或者awbios的机型，可能是NAOMI2，换言之模拟器并不能运行此ROM</p>
+<p><a href="https://imgchr.com/i/BtThcV"><img src="https://s1.ax1x.com/2020/10/30/BtThcV.png" alt="BtThcV.png"></a></p>
+<p><strong>如果出现CAUTION 54:</strong></p>
+<p>游戏基板设置错误，默认的基板设置并不能运行此游戏，这个常常发生在竖屏ROM上，首先RA上面打开核心设置，把此项打开</p>
+<p><a href="https://imgchr.com/i/BanOun"><img src="https://s1.ax1x.com/2020/10/31/BanOun.png" alt="BanOun.png"></a></p>
+<p>打开ROM,狂按L3，之后就进入BIOS界面了</p>
+<p><a href="https://imgchr.com/i/BauQvd"><img src="https://s1.ax1x.com/2020/10/31/BauQvd.png" alt="BauQvd.png"></a></p>
+<p>L3确定，R3移动光标</p>
+<p>点击SYSTEM ASSIGNMENTS</p>
+<p><a href="https://imgchr.com/i/BauJVP"><img src="https://s1.ax1x.com/2020/10/31/BauJVP.png" alt="BauJVP.png"></a></p>
+<p><strong>第一项：设定用户数量</strong></p>
+<p><strong>第二项：别动，没屁用，动了声音会出现问题</strong></p>
+<p><strong>第三项：屏幕方向，一般要动这个设为竖屏才能运行</strong></p>
+<p><strong>第四项：别动</strong></p>
+<p>之后退出退出，完事</p>
+<p>附：如果竖屏屏幕倒过来了，你可以</p>
+<p>1.在ROM菜单建立独立配置</p>
+<p>2.在用户界面打开显示高级选项</p>
+<p>3.在视频——输出——屏幕旋转那点一下变成90</p>
+<p>（必选）<br>dc/dc_boot.bin<br>Dreamcast BIOS文件<br>dc/dc_flash.bin<br>DC的Date/Time/Language 系统文件<br>（可选）<br>dc/naomi.zip<br>MAME的Naomi Bios 文件<br>dc/hod2bios.zip<br>MAME的Naomi The House of the Dead 2 Bios from<br>dc/f355dlx.zip<br>MAME的Naomi Ferrari F355 Challenge deluxe Bios<br>dc/f355bios.zip<br>MAME的Naomi Ferrari F355 Challenge twin/deluxe Bios<br>dc/airlbios.zip<br>MAME的Naomi Airline Pilots deluxe Bios<br>dc/awbios.zip<br>MAME的Atomiswave BIOS</p>
+<h3 id="功能"><a href="#功能" class="headerlink" title="功能:"></a>功能:</h3><p>支持 截图 重启 原生保存 RA作弊 震动 磁盘控制 手柄控制 按键映射</p>
+<p>不支持 即时存档 链接模式 原生作弊</p>
+<p>震动<br>只有当使用的手柄具有隆隆功能时，震动才能工作，并且正在使用的手柄输入驱动程序具有隆隆功能(例如 <strong>xinput</strong>)。</p>
+<p>问题:关于MAME街机游戏和DC游戏控制器不同的问题<br>如下表，这是一些不同按键的街机游戏所对应DC控制器的按键映射，在游玩时你可以参照此处</p>
+<p>问题:一些MAME游戏有可解锁内容功能<br>有些游戏有解锁功能，有些在按照某个特定时间解释的，或者通过服务菜单通过密码，此页面包括几个游戏的EEPROM文件，如果你想在不需要做额外步骤的情况下解锁所有功能，那只有通过使用提供的已解释内容的EEPROM存档文件。 其他类型的附加功能打算在未来添加，如命令列表、手册和秘密功能<br>使用已经解锁内容的存档文件，我们可以节省一大批时间<br><a href="https://github.com/TheArcadeStriker/flycast-wiki/wiki/Savedata-and-Extras-for-NAOMI-Atomiswave-games">https://github.com/TheArcadeStriker/flycast-wiki/wiki/Savedata-and-Extras-for-NAOMI-Atomiswave-games</a></p>
+<h3 id="核心选项"><a href="#核心选项" class="headerlink" title="核心选项:"></a>核心选项:</h3><p>基本上默认的核心选项为兼容性和稳定性最高的选项，基本不会让你出现什么问题，但你要把设置特化来换取性能，你对核心不太了解可能会出问题<br><strong>CPU Mode (restart)</strong><br> (<strong>dynamic_recomplier</strong>/generic_recomplier)<br>CPU 模式</p>
+<center> Awaiting description. </center>
+
+<p><strong>Boot to BIOS (restart)</strong> (<strong>Off</strong>/On)<br>从Dreamcast的bios界面启动</p>
+<center> Boot directly into the Dreamcast BIOS menu. </center>
+
+<p><strong>Internal resolution (restart)</strong> (<strong>640x480</strong>/1280x960/1920x1440/2560x1920/3200x2400/3840x2880/<br>4480x3360/5120x3840/5760x4320/6400x4800/7040x5280/7680x5760/8320x6240/8960x6720/<br>9600x7200/10240x7680/10880x8160/11520x8640/12160x9120/12800x9600)<br>设定内部分辨率</p>
+<center> 可以调整画面清晰度，但需要性能</center>
+
+<center>
+640x480分辨率
+[![Btoxoj.md.png](https://s1.ax1x.com/2020/10/30/Btoxoj.md.png)](https://imgchr.com/i/Btoxoj)
+
+
+
+<center>
+1920x1440分辨率
+ [![BtoqQf.png](https://s1.ax1x.com/2020/10/30/BtoqQf.png)](https://imgchr.com/i/BtoqQf)
+
+
+
+<p><strong>Mipmapping</strong> (Off/<strong>On</strong>)<br>设定Mip贴图</p>
+<center> Mip贴图，当物体移近使用者时，程序会在物体表面贴上较精细、清晰度较高的材质图案，于是让物体呈现出更高层、更加真实的效果；而当物体远离使用者时，程序就会贴上较单纯、清晰度较低的材质图样，进而提升图形处理的整体效率. </center>
+
+<p><strong>Volume modifier</strong> (<strong>On</strong>/off)<br>体积云</p>
+<center> 游戏通常用来绘制物体阴影的GPU的增强功能，通常应该将这种对性能的影响保持在最小到可以忽略不计的
+. </center>
+
+<p><strong>Widescreen hack</strong> (<strong>Off</strong>/On)<br>宽屏修改</p>
+<center> 宽屏修改，启用4：3边框之外的渲染几何，结果因ROM的不同而不同，在某些情况下会产生轻微的副作用，在另一些情况下会出现明显的图形故障，而在某些情况下则完全不起作用。
+. </center>
+
+<p><strong>Audio buffer size</strong> (<strong>1024</strong>/2048)<br>音频缓冲区的大小</p>
+<center> 音频缓冲区的大小. </center>
+
+<p><strong>Cable type</strong> (<strong>TV (VBS/Y+S/C)</strong>/TV (RGB)/VGA (RGB))<br>模拟视频线缆类型</p>
+<center> 设定模拟器输入的视频线缆类型，这项设置会影响画面表现和性能.，建议使用前者，TV复合</center>
+
+<p><strong>Broadcast</strong> (<strong>2</strong>/3/4/0/1)<br>设置广播制式设置<br>Broadcast setting. 0=NTSC, 1=PAL, 2=PAL/M, 3=PAL/N, 4=Default</p>
+<center> 有啥用呢？？. </center>
+
+<p><strong>Framerate</strong> (<strong>fullspeed</strong>/normal)<br>帧率限制</p>
+<center> 限制帧率，可以设置60fps和30fps. </center>
+
+<p><strong>Region</strong> (<strong>3</strong>/0/1/2)<br>设置主机地区<br>Region setting. 0=Japan, 1=USA, 2=Europe, 3=Default</p>
+<center> 将主机区域设置为日本、美国、欧洲或其他地区， 如果玩Naomi/aw游戏，另一个设置可以默认为韩国或其他东西。
+. </center>
+
+<p><strong>Precompile shaders</strong> (<strong>Off</strong>/On)<br>预编译着色器</p>
+<center> Awaiting description. </center>
+
+<p><strong>“Enable RTT (Render To Texture)</strong> (Off/<strong>On</strong>)<br>启用渲染到纹理</p>
+<center> 渲染到纹理技术，增强画面细节，少量牺牲性能 </center>
+
+<p><strong>Purupuru Pack (restart)</strong> (Off/<strong>On</strong>)<br>噗噜噗噜包？？？</p>
+<center> 啥东西啊？ </center>
+
+
+<p>如果日期和时间没有正确保存，请确保您有正确的dc_flash.bin和dc_bios.bin文件(检查md5sum值)。 还可以尝试删除系统/DC目录中的所有dc_nvmem.bin文件。 一旦您用任何游戏保存到vmu插槽，那么下次加载仿真器时，vmu将无法访问， 解决办法是启用“引导到BIOS”的核心选项，退出ra，删除所有vmu_save*.bin文件，启动ra/flycast。 它将引导到BIOS，在那里您可以选择vmu选项，选择一个vmus，单击左上角的“all”图标，单击“删除所有”，vmu将被格式化/初始化。 禁用“引导到BIOS”选项，重新启动ra，那应该没问题了</p>
+<p>多边形排序问题会使对象出现扭曲，您应该使用每像素α排序进行精确渲染（以牺牲性能为代价）<br>当使用Xbox360控制器时，扳机键不能正常工作，那只能用侧边键代替了………</p>
+<p>改变核心配置而不关闭并重新启动RA往往导致RA崩溃</p>
+<p>兼容性和游戏错误报告列表请参照上面的官方文档Compatibility栏</p>
+<h3 id="相关文件路径"><a href="#相关文件路径" class="headerlink" title="相关文件路径:"></a>相关文件路径:</h3><p>FlyCast核心会创建这些文件在system文件夹和system/dc文件夹</p>
+<blockquote>
+<p>dc/vmu_save_A1.bin<br>dc/vmu_save_B1.bin<br>dc/vmu_save_C1.bin<br>dc/vmu_save_D1.bin<br>dc/data/dc_nvmem.bin</p>
+<p>dc directory ()<br>– vmu_save_A1.bin ()<br>– vmu_save_B1.bin ()<br>– vmu_save_C1.bin ()<br>– vmu_save_D1.bin ()<br>– data directory ()<br>— dc_nvmem.bin ()</p>
+</blockquote>
+<h3 id="控制"><a href="#控制" class="headerlink" title="控制:"></a>控制:</h3><p><a href="https://imgchr.com/i/Bt7OaQ"><img src="https://s1.ax1x.com/2020/10/30/Bt7OaQ.png" alt="Bt7OaQ.png"></a></p>
+<p><img src="https://i.loli.net/2020/10/30/ISE1j8QO2AvchUF.png" alt="2图"></p>
+<h3 id="评测"><a href="#评测" class="headerlink" title="评测:"></a>评测:</h3><p>高性能组:<br>1.安卓<br>环境:Android10-armV8a，骁龙835，OpenGL，默认选项<br>结果: 斑鸠 57.9fps 依照ROM模拟难度不同帧数不同<br>低性能组:<br>1.安卓<br>环境:Android6-armV8a，骁龙625，OpenGL，默认选项<br>结果: 斑鸠 39fps 帧率依据场景变化很不稳定，依照ROM模拟难度不同而不同</p>
+]]></content>
+      <categories>
+        <category>计算机</category>
+        <category>模拟器</category>
+      </categories>
+      <tags>
+        <tag>仿真器</tag>
+        <tag>计算机史</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RetroArch-GBA系列核心的配置和操作指南</title>
     <url>/2020/10/24/retrocore-gba/</url>
     <content><![CDATA[<p><a href="https://imgchr.com/i/Beu1vq"><img src="https://s1.ax1x.com/2020/10/25/Beu1vq.png" alt="Beu1vq.png"></a></p>
@@ -2573,520 +3087,6 @@ See: https://github.com/libretro/vbam-libretro/issues/58</code></pre>
 <h2 id="相关路径与文件-1"><a href="#相关路径与文件-1" class="headerlink" title="相关路径与文件:"></a>相关路径与文件:</h2><h2 id="控制"><a href="#控制" class="headerlink" title="控制:"></a>控制:</h2><p>B<br>Turbo B Y<br>Select<br>Start<br>D-Pad Up<br>D-Pad Down<br>D-Pad Left<br>D-Pad Right<br>A<br>Turbo A X<br>L L1<br>R R1<br>Solar Sensor (Darker) L2<br>Solar Sensor (Lighter) R2<br>Tilt X-Axis L<br>Tilt X-Yxis L<br>Gyro 圆形R</p>
 <h2 id="测评"><a href="#测评" class="headerlink" title="测评:"></a>测评:</h2><p>高性能组:<br>1.安卓<br>环境:Android10-armV8a，骁龙835，OpenGL，默认选项<br>结果:<br>低性能组:<br>环境:环境:Android6-armV8a，骁龙625，OpenGL，默认选项<br>结果:</p>
 <p>功能奇多无比，让你体验真实的GBA，内味太浓</p>
-]]></content>
-      <categories>
-        <category>计算机</category>
-        <category>模拟器</category>
-      </categories>
-      <tags>
-        <tag>仿真器</tag>
-        <tag>计算机史</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>RetroArch-DC(Flycast)核心的配置和操作指南</title>
-    <url>/2020/10/24/retrocore-flycast/</url>
-    <content><![CDATA[<p><a href="https://imgchr.com/i/BJe6OS"><img src="https://s1.ax1x.com/2020/10/29/BJe6OS.jpg" alt="BJe6OS.jpg"></a><br><a href="https://imgchr.com/i/BJeTyT"><img src="https://s1.ax1x.com/2020/10/29/BJeTyT.png" alt="BJeTyT.png"></a><br><a href="https://imgchr.com/i/BJmPmD"><img src="https://s1.ax1x.com/2020/10/29/BJmPmD.jpg" alt="BJmPmD.jpg"></a></p>
-<h4 id="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"><a href="#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变" class="headerlink" title="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"></a><em>注意这是一个动态更新型文章，文章内容可能会随时更新或者改变</em></h4><a id="more"></a>
-
-<h1 id="Libretro-GBA系列核心"><a href="#Libretro-GBA系列核心" class="headerlink" title="Libretro-GBA系列核心"></a>Libretro-GBA系列核心</h1><h2 id="机型"><a href="#机型" class="headerlink" title="机型:"></a>机型:</h2><p>Dreamcast</p>
-<h2 id="相关ROM"><a href="#相关ROM" class="headerlink" title="相关ROM:"></a>相关ROM:</h2><p>斑鸠</p>
-<h2 id="相关模拟器"><a href="#相关模拟器" class="headerlink" title="相关模拟器:"></a>相关模拟器:</h2><p> realcast<br> redstorm (闭源)</p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>flycast是一个世嘉多平台的模拟器，可以模拟SegaDreamcast，Naomi和Atomiswave等平台，flycast是模拟器relcast的分枝，由flyinghead编写，广泛被用于各模拟器前端。<br>很多来自于MAME模拟器的街机平台的基板为NAOMI和Atomiswave平台的3D街机ROM需要用此模拟器运行</p>
-<p>它支持:<br>SEGA Dreamcast games (CHD, CDI, GDI, CUE) including games based on Windows CE<br>SEGA NAOMI games (.zip, .7z, .dat/.lst)SEGA NAOMI GD-ROM games (.zip, .7z, .dat/.lst and .chd)<br>Sammy Atomiswave games (.zip, .7z)<br>注意，它不支持:<br>SEGA NAOMI 2, Hikaru, or SEGA System SP </p>
-<h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><blockquote>
-<p>Sega - Dreamcast/NAOMI (Flycast)</p>
-<p>Contribute to this documentation</p>
-<p>In order to propose improvements to this document, <a href="https://github.com/libretro/docs/tree/master/docs/library/flycastc.md">visit its corresponding source page on github</a>. Changes are proposed using “Pull Requests.”</p>
-<p>Background</p>
-<p>Flycast is a multi-platform Sega Dreamcast, NAOMI, and Atomiswave emulator.</p>
-<p>Why use this core?</p>
-<p>Awaiting description.</p>
-<p>How to get and install the flycast core:</p>
-<p>Start up RetroArch. Inside the main menu, go to ‘Online Updater’.</p>
-<p>Just to make sure we have the latest info files, select ‘Update Core Info FIles’. Wait until this is done. Then, select ‘Core Updater’.</p>
-<p>Browse through the list and select ‘Sega Dreamcast (flycast)’.</p>
-<p>After this has finished downloading, the core should now be ready for use!</p>
-<p>How to play (after installation):</p>
-<p>Go back to RetroArch’s main menu screen. Select ‘Load Content’.</p>
-<p>Browse to the folder that contains the content you want to run.</p>
-<p>Select the content that you want to run.</p>
-<p>If you are asked which core to select, choose ‘Sega Dreamcast (flycast)’.</p>
-<p>The game should now start running!</p>
-<p>How to play NAOMI Games:<br>Run NAOMI games stored in MAME format zip files by following the same process as standard Dreamcast games</p>
-<p>Run NAOMI GD-ROM format games stored in MAME zip + chd format by running the zip file through RetroArch.  The zip file should be stored in your roms folder with the chd file in a subdirectory of the roms folder named after the mame ID.</p>
-<p>Example (MAME ID=ikaruga)<br>[ROM FOLDER]/ikaruga.zip<br>[ROM FOLDER]/ikaruga/gdl-0010.chd</p>
-<p>Authors</p>
-<p>flyinghead</p>
-<p>See also</p>
-<p>License</p>
-<p>A summary of the licenses behind RetroArch and its cores can be found <a href="../development/licenses.md">here</a>.</p>
-<p><a href="https://github.com/libretro/flycast/blob/master/LICENSE">GPLv2</a></p>
-<p>Extensions</p>
-<p>Content that can be loaded by the flycast core have the following file extensions:</p>
-<p>.cdi<br>.gdi<br>.chd<br>.cue<br>.bin<br>.iso<br>.elf<br>.zip<br>.7z<br>.lst<br>.dat<br>.m3u</p>
-<p>Databases</p>
-<p>RetroArch database(s) that are associated with the flycast core:</p>
-<p><a href="https://github.com/libretro/libretro-database/blob/master/rdb/Sega%20-%20Dreamcast.rdb">Sega - Dreamcast</a></p>
-<p>BIOS</p>
-<p>Required or optional firmware files go in RetroArch’s system directory.</p>
-<table>
-<thead>
-<tr>
-<th align="center">Filename</th>
-<th align="center">Description</th>
-<th align="center">md5sum</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">dc/dc_boot.bin</td>
-<td align="center">Dreamcast BIOS - Requried for Dreamcast</td>
-<td align="center">e10c53c2f8b90bab96ead2d368858623</td>
-</tr>
-<tr>
-<td align="center">dc/dc_flash.bin</td>
-<td align="center">Date/Time/Language - Required for Dreamcast</td>
-<td align="center">0a93f7940c455905bea6e392dfde92a4</td>
-</tr>
-<tr>
-<td align="center">dc/naomi.zip</td>
-<td align="center">Naomi Bios from MAME - Optional</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">dc/hod2bios.zip</td>
-<td align="center">Naomi The House of the Dead 2 Bios from MAME - Optional</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">dc/f355dlx.zip</td>
-<td align="center">Naomi Ferrari F355 Challenge deluxe Bios from MAME - Optional</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">dc/f355bios.zip</td>
-<td align="center">Naomi Ferrari F355 Challenge twin/deluxe Bios from MAME - Optional</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">dc/airlbios.zip</td>
-<td align="center">Naomi Airline Pilots deluxe Bios from MAME - Optional</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">dc/awbios.zip</td>
-<td align="center">Atomiswave BIOS from MAME - Optional</td>
-<td align="center"></td>
-</tr>
-</tbody></table>
-<p>!!! attention<br>        naomi.zip must include the epr-21576g.ic27 file (md5sum:3bffafac42a7767d8dcecf771f5552ba)<br>    All bios files need to be in a directory named ‘dc’ in RetroArch’s system directory.</p>
-<p>Features</p>
-<table>
-<thead>
-<tr>
-<th>Feature</th>
-<th align="center">Supported</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Restart</td>
-<td align="center">✔</td>
-</tr>
-<tr>
-<td>Screenshots</td>
-<td align="center">✔</td>
-</tr>
-<tr>
-<td>Saves</td>
-<td align="center">✔</td>
-</tr>
-<tr>
-<td>States</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Rewind</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Netplay</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Core Options</td>
-<td align="center">✔</td>
-</tr>
-<tr>
-<td>RetroAchievements</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>RetroArch Cheats</td>
-<td align="center">✔</td>
-</tr>
-<tr>
-<td>Native Cheats</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Controls</td>
-<td align="center">✔</td>
-</tr>
-<tr>
-<td>Remapping</td>
-<td align="center">✔</td>
-</tr>
-<tr>
-<td>Multi-Mouse</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Rumble</td>
-<td align="center">✔</td>
-</tr>
-<tr>
-<td>Sensors</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Camera</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Location</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Subsystem</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Softpatching</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Disk Control</td>
-<td align="center">✔</td>
-</tr>
-<tr>
-<td>Username</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Crop Overscan (in RetroArch’s Video settings)</td>
-<td align="center">✕</td>
-</tr>
-</tbody></table>
-<p>Directories</p>
-<p>The FlyCast core’s directory name is ‘Flycast’</p>
-<p>The FlyCast core creates these files in RetroArch’s system directory.</p>
-<p>dc/vmu_save_A1.bin<br>dc/vmu_save_B1.bin<br>dc/vmu_save_C1.bin<br>dc/vmu_save_D1.bin<br>dc/data/dc_nvmem.bin</p>
-<p>dc directory ()<br>– vmu_save_A1.bin ()<br>– vmu_save_B1.bin ()<br>– vmu_save_C1.bin ()<br>– vmu_save_D1.bin ()<br>– data directory ()<br>— dc_nvmem.bin ()</p>
-<p>Core provided aspect ratio</p>
-<p>FlyCast’s core provided aspect ratio is 4/3.</p>
-<p>Rumble</p>
-<p>Rumble only works when the Joypad being used has rumble functionality and the Joypad input driver being used has rumble function implementation (e.g. <strong>Xinput</strong>).</p>
-<p>Core options</p>
-<p>The FlyCast core has the following option(s) that can be tweaked from the core options menu. The default setting is bolded. Settings with (Restart) means that core has to be closed for the new setting to be applied on next launch.</p>
-<p><strong>CPU Mode (restart)</strong> (<strong>dynamic_recomplier</strong>/generic_recomplier)</p>
-<center> Awaiting description. </center>
-
-<p><strong>Boot to BIOS (restart)</strong> (<strong>Off</strong>/On)</p>
-<center> Boot directly into the Dreamcast BIOS menu. </center>
-
-<p><strong>Internal resolution (restart)</strong> (<strong>640x480</strong>/1280x960/1920x1440/2560x1920/3200x2400/3840x2880/<br>4480x3360/5120x3840/5760x4320/6400x4800/7040x5280/7680x5760/8320x6240/8960x6720/<br>9600x7200/10240x7680/10880x8160/11520x8640/12160x9120/12800x9600)</p>
-<center> Self explanatory. </center>
-
-<center>
-
-<p>??? note “Internal resolution - 640x480”</p>
-<center>
-
-<p>??? note “Internal resolution - 1920x1440”</p>
-<p><strong>Mipmapping</strong> (Off/<strong>On</strong>)</p>
-<center> Awaiting description. </center>
-
-<p><strong>Volume modifier</strong> (<strong>On</strong>/off)</p>
-<center> A GPU feature that is typically used by games to draw shadows of objects. You should typically leave this on - performance impact should be minimal to negligible. </center>
-
-<p><strong>Widescreen hack</strong> (<strong>Off</strong>/On)</p>
-<center> Awaiting description. </center>
-
-<p><strong>Audio buffer size</strong> (<strong>1024</strong>/2048)</p>
-<center> Awaiting description. </center>
-
-<p><strong>Cable type</strong> (<strong>TV (VBS/Y+S/C)</strong>/TV (RGB)/VGA (RGB))</p>
-<center> Awaiting description. </center>
-
-<p><strong>Broadcast</strong> (<strong>2</strong>/3/4/0/1)</p>
-<center> Awaiting description. </center>
-
-<p><strong>Framerate</strong> (<strong>fullspeed</strong>/normal)</p>
-<center> Awaiting description. </center>
-
-<p><strong>Region</strong> (<strong>3</strong>/0/1/2)</p>
-<center> Awaiting description. </center>
-
-<p><strong>Precompile shaders</strong> (<strong>Off</strong>/On)</p>
-<center> Awaiting description. </center>
-
-<p><strong>“Enable RTT (Render To Texture)</strong> (Off/<strong>On</strong>)</p>
-<center> Awaiting description. </center>
-
-<p><strong>Purupuru Pack (restart)</strong> (Off/<strong>On</strong>)</p>
-<center> Awaiting description. </center>
-
-<p>Controllers</p>
-<p>Device types</p>
-<p>The Flycast core supports the following device type(s) in the controls menu, bolded device types are the default for the specified user(s):</p>
-<p>User 1 - 4 device types</p>
-<p>None - Input disabled.<br><strong>RetroPad</strong> - Joypad<br>RetroPad w/Analog - Joypad - <strong>There is no reason to switch to this.</strong></p>
-<p>Controller tables</p>
-<p>Joypad and analog device type table</p>
-<p><img src="../image/controller/dc.png"></p>
-<table>
-<thead>
-<tr>
-<th>User 1 - 4 input descriptors</th>
-<th></th>
-<th>RetroPad</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>A</td>
-<td><img src="../image/retropad/retro_b.png"></td>
-<td>A</td>
-</tr>
-<tr>
-<td>X</td>
-<td><img src="../image/retropad/retro_y.png"></td>
-<td>X</td>
-</tr>
-<tr>
-<td>Start</td>
-<td><img src="../image/retropad/retro_start.png"></td>
-<td>Start</td>
-</tr>
-<tr>
-<td>D-Pad Up</td>
-<td><img src="../image/retropad/retro_dpad_up.png"></td>
-<td>D-Pad Up</td>
-</tr>
-<tr>
-<td>D-Pad Down</td>
-<td><img src="../image/retropad/retro_dpad_down.png"></td>
-<td>D-Pad Down</td>
-</tr>
-<tr>
-<td>D-Pad Left</td>
-<td><img src="../image/retropad/retro_dpad_left.png"></td>
-<td>D-Pad Left</td>
-</tr>
-<tr>
-<td>D-Pad Right</td>
-<td><img src="../image/retropad/retro_dpad_right.png"></td>
-<td>D-Pad Right</td>
-</tr>
-<tr>
-<td>B</td>
-<td><img src="../image/retropad/retro_a.png"></td>
-<td>B</td>
-</tr>
-<tr>
-<td>Y</td>
-<td><img src="../image/retropad/retro_x.png"></td>
-<td>Y</td>
-</tr>
-<tr>
-<td>L (fierce)</td>
-<td><img src="../image/retropad/retro_l1.png"></td>
-<td>L (fierce)</td>
-</tr>
-<tr>
-<td>R (fierce)</td>
-<td><img src="../image/retropad/retro_r1.png"></td>
-<td>R (fierce)</td>
-</tr>
-<tr>
-<td>L (weak)</td>
-<td><img src="../image/retropad/retro_l2.png"></td>
-<td>L (weak)</td>
-</tr>
-<tr>
-<td>R (weak)</td>
-<td><img src="../image/retropad/retro_r2.png"></td>
-<td>R (weak)</td>
-</tr>
-<tr>
-<td>Analog X</td>
-<td><img src="../image/retropad/retro_left_stick.png"> X</td>
-<td>Analog X</td>
-</tr>
-<tr>
-<td>Analog Y</td>
-<td><img src="../image/retropad/retro_left_stick.png"> Y</td>
-<td>Analog Y</td>
-</tr>
-</tbody></table>
-<p>Multiple-disc games</p>
-<p>If foo is a multiple-disc game, you should have .chd/cue/cdi/gdi files for each one, e.g. <code>foo (Disc 1).chd</code>, <code>foo (Disc 2).chd</code>, <code>foo (Disc 3).chd</code>.</p>
-<p>To take advantage of Flycast’s Disk Control feature for disk swapping, an index file (a m3u file) should be made.</p>
-<p>Create a text file and save it as <code>foo.m3u</code>. Then enter your game’s .chd/cue/cdi/gdi files on it. The m3u file contents should look something like this:</p>
-<p><code>foo.m3u</code></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">foo (Disc 1).chd</span><br><span class="line">foo (Disc 2).chd</span><br><span class="line">foo (Disc 3).chd</span><br></pre></td></tr></table></figure>
-
-<p>After that, you can load the <code>foo.m3u</code> file in RetroArch with the Flycast core.</p>
-<p>An alternative is to append discs to the current playlist via the “Disk Image Append” option in the Disk Control RetroArch menu.</p>
-<p>Compatibility</p>
-<p>General Flycast Issues</p>
-<p>If the date and time are not being saved properly, please ensure you have the correct dc_flash.bin and dc_bios.bin files (check the md5sum values).  Also try deleting all of the dc_nvmem.bin files in the system/dc directory.<br>Once you save to a VMU slot with any game, that VMU becomes inaccessible the next time you load the emulator. The fix for this is to enable the Core Option for “Boot to BIOS”, exit RA, delete all of the vmu_save*.bin files, start RA/Flycast.  It will boot to BIOS where you can select the VMU option, select one of the VMUs, click the “All” icon in upper-left, click Delete All and the VMU will be formatted/intialized.  Disable the “Boot to BIOS” option, restart RA, and everything should be fine.<br>Polygon sorting issues can make objects appear distorted. Use Per-Pixel Alpha sorting for accurate rendering (at the expense of performance).<br>When using an Xbox 360 Controller, analog triggers don’t work properly. Use the bumpers instead.<br>Changing games without closing and reloading RetroArch often leads to RetroArch crashing.</p>
-<table>
-<thead>
-<tr>
-<th>Game</th>
-<th>Issue</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Crazy Taxi (PAL)</td>
-<td>Player taxis do not emit engine sounds.</td>
-</tr>
-<tr>
-<td>Crazy Taxi (USA)</td>
-<td>Player taxis do not emit engine sounds.</td>
-</tr>
-<tr>
-<td>Jet Grind Radio (USA)</td>
-<td>Police reports during levels do not display correctly.</td>
-</tr>
-<tr>
-<td>Sonic Adventure (PAL)</td>
-<td>Must be set to use “VGA” output in core options, as “TV” mode will cause all subsequent FMV to make RetroArch become unresponsive.</td>
-</tr>
-<tr>
-<td>Unreal Tournament (USA)</td>
-<td>Set Cable Type to ‘VGA (RGB)’, otherwise the game will crash at start.</td>
-</tr>
-</tbody></table>
-<p>External Links</p>
-<p><a href="https://github.com/libretro/libretro-super/blob/master/dist/info/flycast_libretro.info">Libretro Flycast Core info file</a><br><a href="https://github.com/libretro/flycast">Libretro Flycast Github Repository</a><br><a href="https://github.com/libretro/flycast/issues">Report Flycast Core Issues Here</a></p>
-</blockquote>
-<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><h3 id="支持的ROM格式"><a href="#支持的ROM格式" class="headerlink" title="支持的ROM格式:"></a>支持的ROM格式:</h3><ul>
-<li>.cdi</li>
-<li>.gdi</li>
-<li>.chd</li>
-<li>.cue</li>
-<li>.bin</li>
-<li>.iso</li>
-<li>.elf</li>
-<li>.zip</li>
-<li>.7z</li>
-<li>.lst</li>
-<li>.dat</li>
-<li>.m3u</li>
-</ul>
-<p>其中.lst和.dat这种老旧的文件格式不应该再被使用</p>
-<p>SEGA Dreamcast 的格式为.CHD, CDI, GDI, CUE<br>其余MAME的格式为.zip,7z</p>
-<p>如果你要运行MAME的NAOMI，awBios的.chd格式的ROM，你应该建立一个名字与该游戏和按照MAME游戏列表上相同的文件夹，再把带有游戏编号的.chd文件放在该文件夹上，比如:<br>ROM-雎鸠(ikaruga)，他的MAME官方游戏ROM的名字为ikaruga.zip，所以你要创建一名为个”ikaruga”的文件夹，把带编号的.chd文件夹放在此内，否则ROM无法与数据库对应而无法运行<br> [ROM FOLDER]/ikaruga.zip<br> [ROM FOLDER]/ikaruga/gdl-0010.chd</p>
-<p>如果DC游戏有两个ROM文件，你应该在要求换碟(ROM文件)的时候用Retroarch的磁盘控制器更换ROM文件，或者你可以用m3u文件引导的方式来自动换碟</p>
-<h3 id="固件"><a href="#固件" class="headerlink" title="固件:"></a>固件:</h3><p>请放在system文件夹中并按照标准创建一个dc子文件夹，固件即放在此<br>如果想运行NAOMI和atomiswave的ROM，你需要从MAME模拟器提取最新的NAOMI和atomiswave固件</p>
-<p><strong>如果出现EROOR 01:</strong></p>
-<p>1.不是最新的NAOMI和awbios的Bios固件，或者ROM版本错误</p>
-<p>2.并不是NAOMI或者awbios的机型，可能是NAOMI2，换言之模拟器并不能运行此ROM</p>
-<p><a href="https://imgchr.com/i/BtThcV"><img src="https://s1.ax1x.com/2020/10/30/BtThcV.png" alt="BtThcV.png"></a></p>
-<p><strong>如果出现CAUTION 54:</strong></p>
-<p>游戏基板设置错误，默认的基板设置并不能运行此游戏，这个常常发生在竖屏ROM上，首先RA上面打开核心设置，把此项打开</p>
-<p><a href="https://imgchr.com/i/BanOun"><img src="https://s1.ax1x.com/2020/10/31/BanOun.png" alt="BanOun.png"></a></p>
-<p>打开ROM,狂按L3，之后就进入BIOS界面了</p>
-<p><a href="https://imgchr.com/i/BauQvd"><img src="https://s1.ax1x.com/2020/10/31/BauQvd.png" alt="BauQvd.png"></a></p>
-<p>L3确定，R3移动光标</p>
-<p>点击SYSTEM ASSIGNMENTS</p>
-<p><a href="https://imgchr.com/i/BauJVP"><img src="https://s1.ax1x.com/2020/10/31/BauJVP.png" alt="BauJVP.png"></a></p>
-<p><strong>第一项：设定用户数量</strong></p>
-<p><strong>第二项：别动，没屁用，动了声音会出现问题</strong></p>
-<p><strong>第三项：屏幕方向，一般要动这个设为竖屏才能运行</strong></p>
-<p><strong>第四项：别动</strong></p>
-<p>之后退出退出，完事</p>
-<p>附：如果竖屏屏幕倒过来了，你可以</p>
-<p>1.在ROM菜单建立独立配置</p>
-<p>2.在用户界面打开显示高级选项</p>
-<p>3.在视频——输出——屏幕旋转那点一下变成90</p>
-<p>（必选）<br>dc/dc_boot.bin<br>Dreamcast BIOS文件<br>dc/dc_flash.bin<br>DC的Date/Time/Language 系统文件<br>（可选）<br>dc/naomi.zip<br>MAME的Naomi Bios 文件<br>dc/hod2bios.zip<br>MAME的Naomi The House of the Dead 2 Bios from<br>dc/f355dlx.zip<br>MAME的Naomi Ferrari F355 Challenge deluxe Bios<br>dc/f355bios.zip<br>MAME的Naomi Ferrari F355 Challenge twin/deluxe Bios<br>dc/airlbios.zip<br>MAME的Naomi Airline Pilots deluxe Bios<br>dc/awbios.zip<br>MAME的Atomiswave BIOS</p>
-<h3 id="功能"><a href="#功能" class="headerlink" title="功能:"></a>功能:</h3><p>支持 截图 重启 原生保存 RA作弊 震动 磁盘控制 手柄控制 按键映射</p>
-<p>不支持 即时存档 链接模式 原生作弊</p>
-<p>震动<br>只有当使用的手柄具有隆隆功能时，震动才能工作，并且正在使用的手柄输入驱动程序具有隆隆功能(例如 <strong>xinput</strong>)。</p>
-<p>问题:关于MAME街机游戏和DC游戏控制器不同的问题<br>如下表，这是一些不同按键的街机游戏所对应DC控制器的按键映射，在游玩时你可以参照此处</p>
-<p>问题:一些MAME游戏有可解锁内容功能<br>有些游戏有解锁功能，有些在按照某个特定时间解释的，或者通过服务菜单通过密码，此页面包括几个游戏的EEPROM文件，如果你想在不需要做额外步骤的情况下解锁所有功能，那只有通过使用提供的已解释内容的EEPROM存档文件。 其他类型的附加功能打算在未来添加，如命令列表、手册和秘密功能<br>使用已经解锁内容的存档文件，我们可以节省一大批时间<br><a href="https://github.com/TheArcadeStriker/flycast-wiki/wiki/Savedata-and-Extras-for-NAOMI-Atomiswave-games">https://github.com/TheArcadeStriker/flycast-wiki/wiki/Savedata-and-Extras-for-NAOMI-Atomiswave-games</a></p>
-<h3 id="核心选项"><a href="#核心选项" class="headerlink" title="核心选项:"></a>核心选项:</h3><p>基本上默认的核心选项为兼容性和稳定性最高的选项，基本不会让你出现什么问题，但你要把设置特化来换取性能，你对核心不太了解可能会出问题<br><strong>CPU Mode (restart)</strong><br> (<strong>dynamic_recomplier</strong>/generic_recomplier)<br>CPU 模式</p>
-<center> Awaiting description. </center>
-
-<p><strong>Boot to BIOS (restart)</strong> (<strong>Off</strong>/On)<br>从Dreamcast的bios界面启动</p>
-<center> Boot directly into the Dreamcast BIOS menu. </center>
-
-<p><strong>Internal resolution (restart)</strong> (<strong>640x480</strong>/1280x960/1920x1440/2560x1920/3200x2400/3840x2880/<br>4480x3360/5120x3840/5760x4320/6400x4800/7040x5280/7680x5760/8320x6240/8960x6720/<br>9600x7200/10240x7680/10880x8160/11520x8640/12160x9120/12800x9600)<br>设定内部分辨率</p>
-<center> 可以调整画面清晰度，但需要性能</center>
-
-<center>
-640x480分辨率
-[![Btoxoj.md.png](https://s1.ax1x.com/2020/10/30/Btoxoj.md.png)](https://imgchr.com/i/Btoxoj)
-
-
-
-<center>
-1920x1440分辨率
- [![BtoqQf.png](https://s1.ax1x.com/2020/10/30/BtoqQf.png)](https://imgchr.com/i/BtoqQf)
-
-
-
-<p><strong>Mipmapping</strong> (Off/<strong>On</strong>)<br>设定Mip贴图</p>
-<center> Mip贴图，当物体移近使用者时，程序会在物体表面贴上较精细、清晰度较高的材质图案，于是让物体呈现出更高层、更加真实的效果；而当物体远离使用者时，程序就会贴上较单纯、清晰度较低的材质图样，进而提升图形处理的整体效率. </center>
-
-<p><strong>Volume modifier</strong> (<strong>On</strong>/off)<br>体积云</p>
-<center> 游戏通常用来绘制物体阴影的GPU的增强功能，通常应该将这种对性能的影响保持在最小到可以忽略不计的
-. </center>
-
-<p><strong>Widescreen hack</strong> (<strong>Off</strong>/On)<br>宽屏修改</p>
-<center> 宽屏修改，启用4：3边框之外的渲染几何，结果因ROM的不同而不同，在某些情况下会产生轻微的副作用，在另一些情况下会出现明显的图形故障，而在某些情况下则完全不起作用。
-. </center>
-
-<p><strong>Audio buffer size</strong> (<strong>1024</strong>/2048)<br>音频缓冲区的大小</p>
-<center> 音频缓冲区的大小. </center>
-
-<p><strong>Cable type</strong> (<strong>TV (VBS/Y+S/C)</strong>/TV (RGB)/VGA (RGB))<br>模拟视频线缆类型</p>
-<center> 设定模拟器输入的视频线缆类型，这项设置会影响画面表现和性能.，建议使用前者，TV复合</center>
-
-<p><strong>Broadcast</strong> (<strong>2</strong>/3/4/0/1)<br>设置广播制式设置<br>Broadcast setting. 0=NTSC, 1=PAL, 2=PAL/M, 3=PAL/N, 4=Default</p>
-<center> 有啥用呢？？. </center>
-
-<p><strong>Framerate</strong> (<strong>fullspeed</strong>/normal)<br>帧率限制</p>
-<center> 限制帧率，可以设置60fps和30fps. </center>
-
-<p><strong>Region</strong> (<strong>3</strong>/0/1/2)<br>设置主机地区<br>Region setting. 0=Japan, 1=USA, 2=Europe, 3=Default</p>
-<center> 将主机区域设置为日本、美国、欧洲或其他地区， 如果玩Naomi/aw游戏，另一个设置可以默认为韩国或其他东西。
-. </center>
-
-<p><strong>Precompile shaders</strong> (<strong>Off</strong>/On)<br>预编译着色器</p>
-<center> Awaiting description. </center>
-
-<p><strong>“Enable RTT (Render To Texture)</strong> (Off/<strong>On</strong>)<br>启用渲染到纹理</p>
-<center> 渲染到纹理技术，增强画面细节，少量牺牲性能 </center>
-
-<p><strong>Purupuru Pack (restart)</strong> (Off/<strong>On</strong>)<br>噗噜噗噜包？？？</p>
-<center> 啥东西啊？ </center>
-
-
-<p>如果日期和时间没有正确保存，请确保您有正确的dc_flash.bin和dc_bios.bin文件(检查md5sum值)。 还可以尝试删除系统/DC目录中的所有dc_nvmem.bin文件。 一旦您用任何游戏保存到vmu插槽，那么下次加载仿真器时，vmu将无法访问， 解决办法是启用“引导到BIOS”的核心选项，退出ra，删除所有vmu_save*.bin文件，启动ra/flycast。 它将引导到BIOS，在那里您可以选择vmu选项，选择一个vmus，单击左上角的“all”图标，单击“删除所有”，vmu将被格式化/初始化。 禁用“引导到BIOS”选项，重新启动ra，那应该没问题了</p>
-<p>多边形排序问题会使对象出现扭曲，您应该使用每像素α排序进行精确渲染（以牺牲性能为代价）<br>当使用Xbox360控制器时，扳机键不能正常工作，那只能用侧边键代替了………</p>
-<p>改变核心配置而不关闭并重新启动RA往往导致RA崩溃</p>
-<p>兼容性和游戏错误报告列表请参照上面的官方文档Compatibility栏</p>
-<h3 id="相关文件路径"><a href="#相关文件路径" class="headerlink" title="相关文件路径:"></a>相关文件路径:</h3><p>FlyCast核心会创建这些文件在system文件夹和system/dc文件夹</p>
-<blockquote>
-<p>dc/vmu_save_A1.bin<br>dc/vmu_save_B1.bin<br>dc/vmu_save_C1.bin<br>dc/vmu_save_D1.bin<br>dc/data/dc_nvmem.bin</p>
-<p>dc directory ()<br>– vmu_save_A1.bin ()<br>– vmu_save_B1.bin ()<br>– vmu_save_C1.bin ()<br>– vmu_save_D1.bin ()<br>– data directory ()<br>— dc_nvmem.bin ()</p>
-</blockquote>
-<h3 id="控制"><a href="#控制" class="headerlink" title="控制:"></a>控制:</h3><p><a href="https://imgchr.com/i/Bt7OaQ"><img src="https://s1.ax1x.com/2020/10/30/Bt7OaQ.png" alt="Bt7OaQ.png"></a></p>
-<p><img src="https://i.loli.net/2020/10/30/ISE1j8QO2AvchUF.png" alt="2图"></p>
-<h3 id="评测"><a href="#评测" class="headerlink" title="评测:"></a>评测:</h3><p>高性能组:<br>1.安卓<br>环境:Android10-armV8a，骁龙835，OpenGL，默认选项<br>结果: 斑鸠 57.9fps 依照ROM模拟难度不同帧数不同<br>低性能组:<br>1.安卓<br>环境:Android6-armV8a，骁龙625，OpenGL，默认选项<br>结果: 斑鸠 39fps 帧率依据场景变化很不稳定，依照ROM模拟难度不同而不同</p>
 ]]></content>
       <categories>
         <category>计算机</category>
