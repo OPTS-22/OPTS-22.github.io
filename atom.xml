@@ -6,7 +6,7 @@
   <link href="https://opts-22.github.io/atom.xml" rel="self"/>
   
   <link href="https://opts-22.github.io/"/>
-  <updated>2021-03-12T09:22:47.896Z</updated>
+  <updated>2021-03-12T12:10:31.312Z</updated>
   <id>https://opts-22.github.io/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>矿渣我家云刷OMV后的Hexo一键部署，Docker路径及容器管理，系统备份为镜像直接刷机功能脚本</title>
+    <link href="https://opts-22.github.io/2021/03/01/chainedboxassit/"/>
+    <id>https://opts-22.github.io/2021/03/01/chainedboxassit/</id>
+    <published>2021-03-01T09:34:29.000Z</published>
+    <updated>2021-03-12T12:10:31.312Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;如果你想把我家云作服务器，但是作为初学者没怎么接触Debian的使用，因此总是把我家云的系统弄坏，建议您使用Docker来部署服务，这样易于您在服务器上的服务功能可以快速恢复，即使整个系统坏了，这里还提供了把整个系统备份而且备份出来的镜像可以直接在AndroidTools里</summary>
+        
+      
+    
+    
+    
+    <category term="计算机" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+    <category term="服务器&amp;网络" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E6%9C%8D%E5%8A%A1%E5%99%A8-%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="计算机" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+    <category term="运营维护" scheme="https://opts-22.github.io/tags/%E8%BF%90%E8%90%A5%E7%BB%B4%E6%8A%A4/"/>
+    
+    <category term="Linux" scheme="https://opts-22.github.io/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>解决VirtualBox虚拟机软件E_FALL(0x80004005)Machinewrap错误</title>
@@ -86,30 +117,6 @@
   </entry>
   
   <entry>
-    <title>RetroArch-tic80核心的配置和操作指南</title>
-    <link href="https://opts-22.github.io/2020/10/24/retrocore-tic80/"/>
-    <id>https://opts-22.github.io/2020/10/24/retrocore-tic80/</id>
-    <published>2020-10-24T14:43:42.000Z</published>
-    <updated>2020-10-31T09:28:07.000Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/BJZEHH&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BJZEHH.jpg&quot; alt=&quot;BJZEHH.jpg&quot;&gt;&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://imgchr.com/i/BJZJEj&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BJZJEj.jpg&quot; alt=&quot;BJZJEj.jpg&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4 id=&quot;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot;&gt;&lt;a href=&quot;#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot; class=&quot;headerlink&quot; title=&quot;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot;&gt;&lt;/a&gt;&lt;em&gt;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&lt;/em&gt;&lt;/h4&gt;</summary>
-    
-    
-    
-    <category term="计算机" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
-    
-    <category term="模拟器" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E6%A8%A1%E6%8B%9F%E5%99%A8/"/>
-    
-    
-    <category term="仿真器" scheme="https://opts-22.github.io/tags/%E4%BB%BF%E7%9C%9F%E5%99%A8/"/>
-    
-    <category term="计算机史" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%B2/"/>
-    
-  </entry>
-  
-  <entry>
     <title>RetroArch-scummvm核心的配置和操作指南</title>
     <link href="https://opts-22.github.io/2020/10/24/retrocore-scummvm/"/>
     <id>https://opts-22.github.io/2020/10/24/retrocore-scummvm/</id>
@@ -134,14 +141,14 @@
   </entry>
   
   <entry>
-    <title>RetroArch-MSX(BlueMSX)核心的配置和操作指南</title>
-    <link href="https://opts-22.github.io/2020/10/24/retrocore-bluemsx/"/>
-    <id>https://opts-22.github.io/2020/10/24/retrocore-bluemsx/</id>
+    <title>RetroArch-tic80核心的配置和操作指南</title>
+    <link href="https://opts-22.github.io/2020/10/24/retrocore-tic80/"/>
+    <id>https://opts-22.github.io/2020/10/24/retrocore-tic80/</id>
     <published>2020-10-24T14:43:42.000Z</published>
-    <updated>2020-10-31T13:01:15.000Z</updated>
+    <updated>2020-10-31T09:28:07.000Z</updated>
     
     
-    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/BG0F1K&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BG0F1K.gif&quot; alt=&quot;BG0F1K.gif&quot;&gt;&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://imgchr.com/i/BGBgsS&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BGBgsS.jpg&quot; alt=&quot;BGBgsS.jpg&quot;&gt;&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://imgchr.com/i/BGBIGq&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BGBIGq.jpg&quot; alt=&quot;BGBIGq.jpg&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/BJZEHH&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BJZEHH.jpg&quot; alt=&quot;BJZEHH.jpg&quot;&gt;&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://imgchr.com/i/BJZJEj&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BJZJEj.jpg&quot; alt=&quot;BJZJEj.jpg&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4 id=&quot;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot;&gt;&lt;a href=&quot;#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot; class=&quot;headerlink&quot; title=&quot;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot;&gt;&lt;/a&gt;&lt;em&gt;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&lt;/em&gt;&lt;/h4&gt;</summary>
     
     
@@ -189,6 +196,30 @@
     
     
     <summary type="html">&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/BJe6OS&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BJe6OS.jpg&quot; alt=&quot;BJe6OS.jpg&quot;&gt;&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://imgchr.com/i/BJeTyT&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BJeTyT.png&quot; alt=&quot;BJeTyT.png&quot;&gt;&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://imgchr.com/i/BJmPmD&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BJmPmD.jpg&quot; alt=&quot;BJmPmD.jpg&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot;&gt;&lt;a href=&quot;#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot; class=&quot;headerlink&quot; title=&quot;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot;&gt;&lt;/a&gt;&lt;em&gt;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&lt;/em&gt;&lt;/h4&gt;</summary>
+    
+    
+    
+    <category term="计算机" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+    <category term="模拟器" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E6%A8%A1%E6%8B%9F%E5%99%A8/"/>
+    
+    
+    <category term="仿真器" scheme="https://opts-22.github.io/tags/%E4%BB%BF%E7%9C%9F%E5%99%A8/"/>
+    
+    <category term="计算机史" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%B2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RetroArch-MSX(BlueMSX)核心的配置和操作指南</title>
+    <link href="https://opts-22.github.io/2020/10/24/retrocore-bluemsx/"/>
+    <id>https://opts-22.github.io/2020/10/24/retrocore-bluemsx/</id>
+    <published>2020-10-24T14:43:42.000Z</published>
+    <updated>2020-10-31T13:01:15.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/BG0F1K&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BG0F1K.gif&quot; alt=&quot;BG0F1K.gif&quot;&gt;&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://imgchr.com/i/BGBgsS&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BGBgsS.jpg&quot; alt=&quot;BGBgsS.jpg&quot;&gt;&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://imgchr.com/i/BGBIGq&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BGBIGq.jpg&quot; alt=&quot;BGBIGq.jpg&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4 id=&quot;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot;&gt;&lt;a href=&quot;#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot; class=&quot;headerlink&quot; title=&quot;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot;&gt;&lt;/a&gt;&lt;em&gt;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&lt;/em&gt;&lt;/h4&gt;</summary>
     
     
@@ -277,9 +308,9 @@
     
     <category term="计算机" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
     
-    <category term="Linux" scheme="https://opts-22.github.io/tags/Linux/"/>
-    
     <category term="运营维护" scheme="https://opts-22.github.io/tags/%E8%BF%90%E8%90%A5%E7%BB%B4%E6%8A%A4/"/>
+    
+    <category term="Linux" scheme="https://opts-22.github.io/tags/Linux/"/>
     
   </entry>
   
@@ -350,9 +381,9 @@
     
     <category term="计算机" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
     
-    <category term="Linux" scheme="https://opts-22.github.io/tags/Linux/"/>
-    
     <category term="运营维护" scheme="https://opts-22.github.io/tags/%E8%BF%90%E8%90%A5%E7%BB%B4%E6%8A%A4/"/>
+    
+    <category term="Linux" scheme="https://opts-22.github.io/tags/Linux/"/>
     
     <category term="NAS" scheme="https://opts-22.github.io/tags/NAS/"/>
     
