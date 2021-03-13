@@ -147,68 +147,6 @@
     
     
     <article
-  id="post-chainedboxassit"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/03/01/chainedboxassit/"
-    >矿渣我家云刷OMV后的Hexo一键部署，Docker路径及容器管理，系统备份为镜像直接刷机功能脚本</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/03/01/chainedboxassit/" class="article-date">
-  <time datetime="2021-03-01T09:34:29.000Z" itemprop="datePublished">2021-03-01</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a> / <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E6%9C%8D%E5%8A%A1%E5%99%A8-%E7%BD%91%E7%BB%9C/">服务器&网络</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>如果你想把我家云作服务器，但是作为初学者没怎么接触Debian的使用，因此总是把我家云的系统弄坏，建议您使用Docker来部署服务，这样易于您在服务器上的服务功能可以快速恢复，即使整个系统坏了，这里还提供了把整个系统备份而且备份出来的镜像可以直接在AndroidTools里面烧入到机器里面（也许瑞芯微CPU架构的矿渣都可以这样？）</p>
-<p>本脚本可以：</p>
-<p>·部署，更新HEXO网页</p>
-<p>·直接把整个系统备份为镜像，直接在刷机工具恢复（注意刷完后在脚本按7里给机器扩容！！！）</p>
-<p>·备份Docker，更改Docker数据路径</p>
-<p><img src="https://ftp.bmp.ovh/imgs/2021/03/3342888c8a05f8d2.png"></p>
-<p><img src="https://ftp.bmp.ovh/imgs/2021/03/49ba7c7e53ebd546.png"></p>
-<p>脚本的说明是用英语写的，如果用起来不太懂，我以后会详细说一下用法……………….</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">function initUI() </span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">while [ true ]</span><br><span class="line">do</span><br><span class="line">more -16 /opt/TAU.txt</span><br><span class="line">echo &quot;&quot;</span><br><span class="line">echo &quot;-------------------------&quot;</span><br><span class="line">echo &quot;---NAS-MANAGEMENT-TOOLS--&quot;</span><br><span class="line">echo &quot;--------Ver:0.2----------&quot;</span><br><span class="line">echo &quot;--------by OT-22---------&quot;</span><br><span class="line"></span><br><span class="line">echo &quot;                             = HEXO-TOOL =&quot;</span><br><span class="line">echo &quot; 1. start server &quot;</span><br><span class="line">echo &quot; 2. upload post&quot;</span><br><span class="line">echo &quot; 3. auto update &quot;</span><br><span class="line">echo &quot; 4. auto deploy &quot;</span><br><span class="line">echo &quot;                             = BACKUP-TOOL = &quot;</span><br><span class="line">echo &quot; 5. !!! BACKUP SYSTEM IMG And Resize to custom size Then compress to TGZ  !!! &quot;</span><br><span class="line">echo &quot; 6. !!! BACKUP SYSTEM IMG Without Compress !!! &quot;</span><br><span class="line">echo &quot;                             = SYSTEM-TOOL = &quot;</span><br><span class="line">echo &quot; 7. Resize File System When you Recovery Backup &quot;</span><br><span class="line">echo &quot;                             = DOCKER-TOOL = &quot;</span><br><span class="line">echo &quot; 8. Moving Docker Data to p2; Recovery and Backup Docker Data &quot;</span><br><span class="line">echo &quot; 9. Install Docker cotainer &quot;</span><br><span class="line">echo &quot;  &quot;</span><br><span class="line">echo &quot;  Please set HEXO PATH by &#x27; vi /opt/d.sh &#x27; edit &#x27; hexo = &#x27;  &quot;</span><br><span class="line">echo &quot;                             != Backup instructions =!&quot;</span><br><span class="line">echo &quot;!= Backup 1 step will generate a file system copy in ext format =!&quot;</span><br><span class="line">echo &quot;!= Backup 2 step will Check the correctness of the ext file system,Make sure your backup and resize operate is available =!&quot;</span><br><span class="line">echo &quot;!= Backup 3 step will resize the copy and generate a backup image =!&quot;</span><br><span class="line">echo &quot;!= FOR MORE, PLEASE CHECK https://ot22.gitee.io/2020/10/17/omvbackup/ &quot;</span><br><span class="line">echo &quot; When you type path in this scrip,Dot not type / at the end of the path character,Such as &#x27;/root/data/&#x27; is invalid,You should &#x27;&#x27;/root/data&#x27; &quot;</span><br><span class="line">echo &quot;  &quot;</span><br><span class="line">echo -n &quot; Please enter : &quot;</span><br><span class="line">echo &quot;  &quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#######################</span></span></span><br><span class="line">hexo=&#x27;/sharedfolders/ud/hexo/blog&#x27;</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#######################</span></span></span><br><span class="line"></span><br><span class="line">read num</span><br><span class="line"></span><br><span class="line">if [ -z $num ];then</span><br><span class="line">exit 0</span><br><span class="line">elif [ $num = 1 ];then</span><br><span class="line">startServer</span><br><span class="line">elif [ $num = 2 ];then</span><br><span class="line">uploadpost</span><br><span class="line">elif [ $num = 3 ];then</span><br><span class="line">autoUpdate</span><br><span class="line">startServer</span><br><span class="line">elif [ $num = 4 ];then</span><br><span class="line">autoDeploy</span><br><span class="line">elif [ $num = 5 ];then</span><br><span class="line">backup1</span><br><span class="line">elif [ $num = 6 ];then</span><br><span class="line">backup2</span><br><span class="line">elif [ $num = 7 ];then</span><br><span class="line">resizesystem</span><br><span class="line">elif [ $num = 8 ];then</span><br><span class="line">dockermove</span><br><span class="line">elif [ $num = 9 ];then</span><br><span class="line">dockerinstall</span><br><span class="line">elif [ $num = 11 ];then</span><br><span class="line">liltest</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># elif [ $num = # ];then</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">else</span><br><span class="line">echo &quot;Input error !!!!!!&quot;</span><br><span class="line">fi</span><br><span class="line">done </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function read_yes_no () </span><br><span class="line">&#123;</span><br><span class="line">    printf &quot;[yes|no] &quot;</span><br><span class="line">    read yesno;</span><br><span class="line">    while [[ &quot;$&#123;yesno&#125;&quot; != &quot;yes&quot; &amp;&amp; &quot;$&#123;yesno&#125;&quot; != &quot;no&quot; ]]</span><br><span class="line">    do</span><br><span class="line">        printf &quot;please answer [yes|no] &quot;</span><br><span class="line">        read yesno;</span><br><span class="line">    done</span><br><span class="line"></span><br><span class="line">    if [[ &quot;$&#123;yesno&#125;&quot; == &quot;no&quot; ]]; then</span><br><span class="line">        return 1;</span><br><span class="line">    else</span><br><span class="line">        return 0;</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function startServer() </span><br><span class="line">&#123;</span><br><span class="line">cd $hexo</span><br><span class="line">hexo s</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function uploadpost()</span><br><span class="line">&#123;</span><br><span class="line">cd $hexo</span><br><span class="line">read -t 20 -p &quot;input your title &quot; a</span><br><span class="line">hexo new $a</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function autoUpdate()</span><br><span class="line">&#123;</span><br><span class="line">cd $hexo</span><br><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function backup1() </span><br><span class="line">&#123;</span><br><span class="line">read -t 20 -p &quot;Your backup path is &quot; backup0</span><br><span class="line">read -t 20 -p &quot;Your IMG size(Mbyte) is &quot; size</span><br><span class="line">echo &quot; Your Path is $backup0  &quot;</span><br><span class="line">echo &quot; Your Size is $size  &quot;</span><br><span class="line"></span><br><span class="line">cd $backup0/</span><br><span class="line">sync</span><br><span class="line">dd if=/dev/mmcblk1p1 of=$backup0/p0.ext bs=1M</span><br><span class="line">e2fsck -fy $backup0/p0.ext</span><br><span class="line">resize2fs -M $backup0/p0.ext</span><br><span class="line">resize2fs $backup0/p0.ext $size</span><br><span class="line">dd if=/dev/mmcblk1 of=$backup0/p.img bs=1M count=16</span><br><span class="line">dd if=$backup0/p0.ext of=$backup0/p.img bs=1M seek=16</span><br><span class="line">mv p.img omv-p2.img</span><br><span class="line">tar zcvf omv-p2.tar.gz omv-p2.img</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function backup2() </span><br><span class="line">&#123;</span><br><span class="line">read -t 20 -p &quot;Your backup path is &quot; backup0</span><br><span class="line">echo &quot; Your Path is $backup0  &quot;</span><br><span class="line"></span><br><span class="line">cd $backup0/</span><br><span class="line">sync</span><br><span class="line">dd if=/dev/mmcblk1p1 of=$backup0/p0.ext bs=1M</span><br><span class="line">e2fsck -fy $backup0/p0.ext</span><br><span class="line">resize2fs -M $backup0/p0.ext</span><br><span class="line">dd if=/dev/mmcblk1 of=$backup0/p.img bs=1M count=16</span><br><span class="line">dd if=$backup0/p0.ext of=$backup0/p.img bs=1M seek=16</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function autoDeploy()</span><br><span class="line">&#123;</span><br><span class="line">cd $hexo</span><br><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function resizesystem()</span><br><span class="line">&#123;</span><br><span class="line">resize2fs /dev/mmcblk1p1</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">function dockermove()</span><br><span class="line">&#123;</span><br><span class="line">echo &quot; Your Docker Path DON&#x27;NOT contain ./docker，It should be previous file of docker data.  &quot;</span><br><span class="line">echo &quot; Such as your docker file is &#x27;/home/docker&#x27;，Then you should type &#x27;/home&#x27;   &quot;</span><br><span class="line">echo &quot; The step is : BACKUP------&gt;RECOVERY------&gt;COPY------&gt;MOVE   &quot;</span><br><span class="line">read -t 20 -p &quot;input your docker path &quot; p2</span><br><span class="line">echo &quot; Your Path is $p2/docker  &quot;</span><br><span class="line">service docker stop</span><br><span class="line"></span><br><span class="line">echo &quot; BACKUP &quot;</span><br><span class="line">echo &quot; backup Docker Data? &quot;</span><br><span class="line"></span><br><span class="line">if  read_yes_no; then</span><br><span class="line">        cd $p2/docker</span><br><span class="line">        tar -cvpzf $p2/docker.tgz *</span><br><span class="line">    else</span><br><span class="line">        echo &quot; Let&#x27;s do next &quot;</span><br><span class="line">        echo &quot;  &quot;</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line">echo &quot; RECOVERY &quot;</span><br><span class="line">echo &quot; If you use docker data backup as a new docker data or not? &quot;</span><br><span class="line">echo &quot; Make sure you put docker.tgz in PATH &quot;</span><br><span class="line">echo &quot; Then you may be need to delete present docker data，YOU NEED DELETE? &quot;</span><br><span class="line"></span><br><span class="line">if  read_yes_no; then</span><br><span class="line">    echo &quot; TELL ME YOU ARE LUCID GUY &quot;</span><br><span class="line">    echo &quot; Now I will delete your docker data，continue????????????? &quot;</span><br><span class="line">        if  read_yes_no; then</span><br><span class="line">           rm -rf $p2/docker</span><br><span class="line">        else</span><br><span class="line">           echo &quot; Confirming you dont have docker data in target path &quot;</span><br><span class="line">           echo &quot;  &quot;</span><br><span class="line">        fi</span><br><span class="line">    else</span><br><span class="line">        echo &quot; Confirming you dont have docker data in target path &quot;</span><br><span class="line">        echo &quot;  &quot;</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line">echo &quot; I will RECOVERY your Docker data from docker.tgz &quot;</span><br><span class="line"></span><br><span class="line">if  read_yes_no; then</span><br><span class="line">        mkdir -p $p2/docker</span><br><span class="line">        chmod -R 771 $p2/docker</span><br><span class="line">        tar -xvpzf $p2/docker.tgz -C $p2/docker</span><br><span class="line">    else</span><br><span class="line">        echo &quot; May be you already exsited a docker data &quot;</span><br><span class="line">        echo &quot;  &quot;</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line">echo &quot; COPY &quot;</span><br><span class="line">echo &quot;If you copy local docker data as a new docker data or not?&quot;</span><br><span class="line"></span><br><span class="line">if  read_yes_no; then</span><br><span class="line">        cp -avx /var/lib/docker $p2</span><br><span class="line">    else</span><br><span class="line">        echo &quot; Let&#x27;s do next &quot;</span><br><span class="line">        echo &quot;  &quot;</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">echo &quot; REDIRECT &quot;</span><br><span class="line">echo &quot; Final Step，The default Docker data will set to Your docker data that you want to. &quot;</span><br><span class="line">echo &quot; Confirm execution? &quot;</span><br><span class="line">if  read_yes_no; then</span><br><span class="line">        echo &quot; Activating all containers ?  &quot;</span><br><span class="line">        echo &quot; it need to restart your server, Your server will POWER OFF SOON.  &quot;</span><br><span class="line">        if  read_yes_no; then</span><br><span class="line">           echo &quot;Nextly,Docker data will be moved. &quot;</span><br><span class="line">           echo &quot;REDIRECT----&gt;START CONTAINER----&gt;REBOOT SERVER &quot;</span><br><span class="line">           rm -rf /var/lib/docker</span><br><span class="line">           ln -s $p2/docker /var/lib/docker</span><br><span class="line">           dockerinstall</span><br><span class="line">           reboot</span><br><span class="line">        else</span><br><span class="line">           echo &quot;Nextly,Docker data will be moved. &quot;</span><br><span class="line">           rm -rf /var/lib/docker2</span><br><span class="line">           ln -s $p2/docker /var/lib/docker</span><br><span class="line">           exit 0</span><br><span class="line">        fi</span><br><span class="line">    else</span><br><span class="line">        service docker start</span><br><span class="line">        exit 0</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function dockerinstall()</span><br><span class="line">&#123;</span><br><span class="line">echo &quot; Install.............. &quot;</span><br><span class="line">docker run -d --name portainer -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data -v /public:/public --restart=unless-stopped portainer/portainer:linux-arm64</span><br><span class="line">docker run -d --name=calibre-web -e PUID=1000 -e PGID=1000 -e TZ=Asia/Shanghai -p 8083:8083 -v /home/docker/calibreweb:/config -v /sharedfolders/hd/ebook:/books --restart unless-stopped gsp8181/calibre-web</span><br><span class="line">IMAGE_NAME=80x86/filebrowser</span><br><span class="line">WEB_PORT=8866</span><br><span class="line">FB_AUTH_SERVER_ADDR=&quot;127.0.0.1&quot;</span><br><span class="line">docker run -d --name fb --restart=unless-stopped -e PUID=$UID -e PGID=$GID -e WEB_PORT=$WEB_PORT -e FB_AUTH_SERVER_ADDR=$FB_AUTH_SERVER_ADDR -p $WEB_PORT:$WEB_PORT -v /home/docker/fb:/config -v /:/myfiles --mount type=tmpfs,destination=/tmp $&#123;IMAGE_NAME&#125;:arm64</span><br><span class="line">docker run -d --name=baidupcs --restart always -v /sharedfolders/ud/DownLoad:/app/Downloads -v /home/docker/BaiduPCS:/app/.config/BaiduPCS-Go -p 5299:5299 80x86/baidupcs:latest</span><br><span class="line">echo &quot; Install Complete &quot;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">clear</span><br><span class="line">initUI</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/" rel="tag">计算机</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%90%E8%90%A5%E7%BB%B4%E6%8A%A4/" rel="tag">运营维护</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
   id="post-vboxdrverror"
   class="article article-type-post"
   itemscope
@@ -373,63 +311,6 @@
 
     
     <article
-  id="post-retrocore-scummvm"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/10/24/retrocore-scummvm/"
-    >RetroArch-scummvm核心的配置和操作指南</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2020/10/24/retrocore-scummvm/" class="article-date">
-  <time datetime="2020-10-24T14:43:42.000Z" itemprop="datePublished">2020-10-24</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a> / <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E6%A8%A1%E6%8B%9F%E5%99%A8/">模拟器</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><a target="_blank" rel="noopener" href="https://imgchr.com/i/BGD7tA"><img src="https://s1.ax1x.com/2020/10/29/BGD7tA.png" alt="BGD7tA.png"></a><br><a target="_blank" rel="noopener" href="https://imgchr.com/i/BGsV2t"><img src="https://s1.ax1x.com/2020/10/29/BGsV2t.png" alt="BGsV2t.png"></a></p>
-<h4 id="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"><a href="#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变" class="headerlink" title="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"></a><em>注意这是一个动态更新型文章，文章内容可能会随时更新或者改变</em></h4> 
-      <a class="article-more-link" href="/2020/10/24/retrocore-scummvm/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BB%BF%E7%9C%9F%E5%99%A8/" rel="tag">仿真器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%B2/" rel="tag">计算机史</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
   id="post-retrocore-tic80"
   class="article article-type-post"
   itemscope
@@ -463,6 +344,63 @@
   <p><a target="_blank" rel="noopener" href="https://imgchr.com/i/BJZEHH"><img src="https://s1.ax1x.com/2020/10/29/BJZEHH.jpg" alt="BJZEHH.jpg"></a><br><a target="_blank" rel="noopener" href="https://imgchr.com/i/BJZJEj"><img src="https://s1.ax1x.com/2020/10/29/BJZJEj.jpg" alt="BJZJEj.jpg"></a></p>
 <h4 id="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"><a href="#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变" class="headerlink" title="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"></a><em>注意这是一个动态更新型文章，文章内容可能会随时更新或者改变</em></h4> 
       <a class="article-more-link" href="/2020/10/24/retrocore-tic80/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BB%BF%E7%9C%9F%E5%99%A8/" rel="tag">仿真器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%B2/" rel="tag">计算机史</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-retrocore-scummvm"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/10/24/retrocore-scummvm/"
+    >RetroArch-scummvm核心的配置和操作指南</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/10/24/retrocore-scummvm/" class="article-date">
+  <time datetime="2020-10-24T14:43:42.000Z" itemprop="datePublished">2020-10-24</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a> / <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E6%A8%A1%E6%8B%9F%E5%99%A8/">模拟器</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://imgchr.com/i/BGD7tA"><img src="https://s1.ax1x.com/2020/10/29/BGD7tA.png" alt="BGD7tA.png"></a><br><a target="_blank" rel="noopener" href="https://imgchr.com/i/BGsV2t"><img src="https://s1.ax1x.com/2020/10/29/BGsV2t.png" alt="BGsV2t.png"></a></p>
+<h4 id="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"><a href="#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变" class="headerlink" title="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"></a><em>注意这是一个动态更新型文章，文章内容可能会随时更新或者改变</em></h4> 
+      <a class="article-more-link" href="/2020/10/24/retrocore-scummvm/"
         >阅读更多...</a
       >
        
@@ -693,6 +631,59 @@
         >阅读更多...</a
       >
        
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BB%BF%E7%9C%9F%E5%99%A8/" rel="tag">仿真器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8F%B2/" rel="tag">计算机史</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-retroemu"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/10/24/retroemu/"
+    >每天一个Retroarch小技巧</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/10/24/retroemu/" class="article-date">
+  <time datetime="2020-10-24T14:42:13.000Z" itemprop="datePublished">2020-10-24</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a> / <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E6%A8%A1%E6%8B%9F%E5%99%A8/">模拟器</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://imgchr.com/i/BanMmq"><img src="https://s1.ax1x.com/2020/10/31/BanMmq.jpg" alt="BanMmq.jpg"></a></p>
+ 
       <!-- reward -->
       
     </div>

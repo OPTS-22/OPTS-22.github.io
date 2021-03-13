@@ -1,30 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>矿渣我家云刷OMV后的Hexo一键部署，Docker路径及容器管理，系统备份为镜像直接刷机功能脚本</title>
-    <url>/2021/03/01/chainedboxassit/</url>
-    <content><![CDATA[<p>如果你想把我家云作服务器，但是作为初学者没怎么接触Debian的使用，因此总是把我家云的系统弄坏，建议您使用Docker来部署服务，这样易于您在服务器上的服务功能可以快速恢复，即使整个系统坏了，这里还提供了把整个系统备份而且备份出来的镜像可以直接在AndroidTools里面烧入到机器里面（也许瑞芯微CPU架构的矿渣都可以这样？）</p>
-<p>本脚本可以：</p>
-<p>·部署，更新HEXO网页</p>
-<p>·直接把整个系统备份为镜像，直接在刷机工具恢复（注意刷完后在脚本按7里给机器扩容！！！）</p>
-<p>·备份Docker，更改Docker数据路径</p>
-<p><img src="https://ftp.bmp.ovh/imgs/2021/03/3342888c8a05f8d2.png"></p>
-<p><img src="https://ftp.bmp.ovh/imgs/2021/03/49ba7c7e53ebd546.png"></p>
-<p>脚本的说明是用英语写的，如果用起来不太懂，我以后会详细说一下用法……………….</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">function initUI() </span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">while [ true ]</span><br><span class="line">do</span><br><span class="line">more -16 /opt/TAU.txt</span><br><span class="line">echo &quot;&quot;</span><br><span class="line">echo &quot;-------------------------&quot;</span><br><span class="line">echo &quot;---NAS-MANAGEMENT-TOOLS--&quot;</span><br><span class="line">echo &quot;--------Ver:0.2----------&quot;</span><br><span class="line">echo &quot;--------by OT-22---------&quot;</span><br><span class="line"></span><br><span class="line">echo &quot;                             = HEXO-TOOL =&quot;</span><br><span class="line">echo &quot; 1. start server &quot;</span><br><span class="line">echo &quot; 2. upload post&quot;</span><br><span class="line">echo &quot; 3. auto update &quot;</span><br><span class="line">echo &quot; 4. auto deploy &quot;</span><br><span class="line">echo &quot;                             = BACKUP-TOOL = &quot;</span><br><span class="line">echo &quot; 5. !!! BACKUP SYSTEM IMG And Resize to custom size Then compress to TGZ  !!! &quot;</span><br><span class="line">echo &quot; 6. !!! BACKUP SYSTEM IMG Without Compress !!! &quot;</span><br><span class="line">echo &quot;                             = SYSTEM-TOOL = &quot;</span><br><span class="line">echo &quot; 7. Resize File System When you Recovery Backup &quot;</span><br><span class="line">echo &quot;                             = DOCKER-TOOL = &quot;</span><br><span class="line">echo &quot; 8. Moving Docker Data to p2; Recovery and Backup Docker Data &quot;</span><br><span class="line">echo &quot; 9. Install Docker cotainer &quot;</span><br><span class="line">echo &quot;  &quot;</span><br><span class="line">echo &quot;  Please set HEXO PATH by &#x27; vi /opt/d.sh &#x27; edit &#x27; hexo = &#x27;  &quot;</span><br><span class="line">echo &quot;                             != Backup instructions =!&quot;</span><br><span class="line">echo &quot;!= Backup 1 step will generate a file system copy in ext format =!&quot;</span><br><span class="line">echo &quot;!= Backup 2 step will Check the correctness of the ext file system,Make sure your backup and resize operate is available =!&quot;</span><br><span class="line">echo &quot;!= Backup 3 step will resize the copy and generate a backup image =!&quot;</span><br><span class="line">echo &quot;!= FOR MORE, PLEASE CHECK https://ot22.gitee.io/2020/10/17/omvbackup/ &quot;</span><br><span class="line">echo &quot; When you type path in this scrip,Dot not type / at the end of the path character,Such as &#x27;/root/data/&#x27; is invalid,You should &#x27;&#x27;/root/data&#x27; &quot;</span><br><span class="line">echo &quot;  &quot;</span><br><span class="line">echo -n &quot; Please enter : &quot;</span><br><span class="line">echo &quot;  &quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#######################</span></span></span><br><span class="line">hexo=&#x27;/sharedfolders/ud/hexo/blog&#x27;</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#######################</span></span></span><br><span class="line"></span><br><span class="line">read num</span><br><span class="line"></span><br><span class="line">if [ -z $num ];then</span><br><span class="line">exit 0</span><br><span class="line">elif [ $num = 1 ];then</span><br><span class="line">startServer</span><br><span class="line">elif [ $num = 2 ];then</span><br><span class="line">uploadpost</span><br><span class="line">elif [ $num = 3 ];then</span><br><span class="line">autoUpdate</span><br><span class="line">startServer</span><br><span class="line">elif [ $num = 4 ];then</span><br><span class="line">autoDeploy</span><br><span class="line">elif [ $num = 5 ];then</span><br><span class="line">backup1</span><br><span class="line">elif [ $num = 6 ];then</span><br><span class="line">backup2</span><br><span class="line">elif [ $num = 7 ];then</span><br><span class="line">resizesystem</span><br><span class="line">elif [ $num = 8 ];then</span><br><span class="line">dockermove</span><br><span class="line">elif [ $num = 9 ];then</span><br><span class="line">dockerinstall</span><br><span class="line">elif [ $num = 11 ];then</span><br><span class="line">liltest</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># elif [ $num = # ];then</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">else</span><br><span class="line">echo &quot;Input error !!!!!!&quot;</span><br><span class="line">fi</span><br><span class="line">done </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function read_yes_no () </span><br><span class="line">&#123;</span><br><span class="line">    printf &quot;[yes|no] &quot;</span><br><span class="line">    read yesno;</span><br><span class="line">    while [[ &quot;$&#123;yesno&#125;&quot; != &quot;yes&quot; &amp;&amp; &quot;$&#123;yesno&#125;&quot; != &quot;no&quot; ]]</span><br><span class="line">    do</span><br><span class="line">        printf &quot;please answer [yes|no] &quot;</span><br><span class="line">        read yesno;</span><br><span class="line">    done</span><br><span class="line"></span><br><span class="line">    if [[ &quot;$&#123;yesno&#125;&quot; == &quot;no&quot; ]]; then</span><br><span class="line">        return 1;</span><br><span class="line">    else</span><br><span class="line">        return 0;</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function startServer() </span><br><span class="line">&#123;</span><br><span class="line">cd $hexo</span><br><span class="line">hexo s</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function uploadpost()</span><br><span class="line">&#123;</span><br><span class="line">cd $hexo</span><br><span class="line">read -t 20 -p &quot;input your title &quot; a</span><br><span class="line">hexo new $a</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function autoUpdate()</span><br><span class="line">&#123;</span><br><span class="line">cd $hexo</span><br><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function backup1() </span><br><span class="line">&#123;</span><br><span class="line">read -t 20 -p &quot;Your backup path is &quot; backup0</span><br><span class="line">read -t 20 -p &quot;Your IMG size(Mbyte) is &quot; size</span><br><span class="line">echo &quot; Your Path is $backup0  &quot;</span><br><span class="line">echo &quot; Your Size is $size  &quot;</span><br><span class="line"></span><br><span class="line">cd $backup0/</span><br><span class="line">sync</span><br><span class="line">dd if=/dev/mmcblk1p1 of=$backup0/p0.ext bs=1M</span><br><span class="line">e2fsck -fy $backup0/p0.ext</span><br><span class="line">resize2fs -M $backup0/p0.ext</span><br><span class="line">resize2fs $backup0/p0.ext $size</span><br><span class="line">dd if=/dev/mmcblk1 of=$backup0/p.img bs=1M count=16</span><br><span class="line">dd if=$backup0/p0.ext of=$backup0/p.img bs=1M seek=16</span><br><span class="line">mv p.img omv-p2.img</span><br><span class="line">tar zcvf omv-p2.tar.gz omv-p2.img</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function backup2() </span><br><span class="line">&#123;</span><br><span class="line">read -t 20 -p &quot;Your backup path is &quot; backup0</span><br><span class="line">echo &quot; Your Path is $backup0  &quot;</span><br><span class="line"></span><br><span class="line">cd $backup0/</span><br><span class="line">sync</span><br><span class="line">dd if=/dev/mmcblk1p1 of=$backup0/p0.ext bs=1M</span><br><span class="line">e2fsck -fy $backup0/p0.ext</span><br><span class="line">resize2fs -M $backup0/p0.ext</span><br><span class="line">dd if=/dev/mmcblk1 of=$backup0/p.img bs=1M count=16</span><br><span class="line">dd if=$backup0/p0.ext of=$backup0/p.img bs=1M seek=16</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function autoDeploy()</span><br><span class="line">&#123;</span><br><span class="line">cd $hexo</span><br><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function resizesystem()</span><br><span class="line">&#123;</span><br><span class="line">resize2fs /dev/mmcblk1p1</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">function dockermove()</span><br><span class="line">&#123;</span><br><span class="line">echo &quot; Your Docker Path DON&#x27;NOT contain ./docker，It should be previous file of docker data.  &quot;</span><br><span class="line">echo &quot; Such as your docker file is &#x27;/home/docker&#x27;，Then you should type &#x27;/home&#x27;   &quot;</span><br><span class="line">echo &quot; The step is : BACKUP------&gt;RECOVERY------&gt;COPY------&gt;MOVE   &quot;</span><br><span class="line">read -t 20 -p &quot;input your docker path &quot; p2</span><br><span class="line">echo &quot; Your Path is $p2/docker  &quot;</span><br><span class="line">service docker stop</span><br><span class="line"></span><br><span class="line">echo &quot; BACKUP &quot;</span><br><span class="line">echo &quot; backup Docker Data? &quot;</span><br><span class="line"></span><br><span class="line">if  read_yes_no; then</span><br><span class="line">        cd $p2/docker</span><br><span class="line">        tar -cvpzf $p2/docker.tgz *</span><br><span class="line">    else</span><br><span class="line">        echo &quot; Let&#x27;s do next &quot;</span><br><span class="line">        echo &quot;  &quot;</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line">echo &quot; RECOVERY &quot;</span><br><span class="line">echo &quot; If you use docker data backup as a new docker data or not? &quot;</span><br><span class="line">echo &quot; Make sure you put docker.tgz in PATH &quot;</span><br><span class="line">echo &quot; Then you may be need to delete present docker data，YOU NEED DELETE? &quot;</span><br><span class="line"></span><br><span class="line">if  read_yes_no; then</span><br><span class="line">    echo &quot; TELL ME YOU ARE LUCID GUY &quot;</span><br><span class="line">    echo &quot; Now I will delete your docker data，continue????????????? &quot;</span><br><span class="line">        if  read_yes_no; then</span><br><span class="line">           rm -rf $p2/docker</span><br><span class="line">        else</span><br><span class="line">           echo &quot; Confirming you dont have docker data in target path &quot;</span><br><span class="line">           echo &quot;  &quot;</span><br><span class="line">        fi</span><br><span class="line">    else</span><br><span class="line">        echo &quot; Confirming you dont have docker data in target path &quot;</span><br><span class="line">        echo &quot;  &quot;</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line">echo &quot; I will RECOVERY your Docker data from docker.tgz &quot;</span><br><span class="line"></span><br><span class="line">if  read_yes_no; then</span><br><span class="line">        mkdir -p $p2/docker</span><br><span class="line">        chmod -R 771 $p2/docker</span><br><span class="line">        tar -xvpzf $p2/docker.tgz -C $p2/docker</span><br><span class="line">    else</span><br><span class="line">        echo &quot; May be you already exsited a docker data &quot;</span><br><span class="line">        echo &quot;  &quot;</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line">echo &quot; COPY &quot;</span><br><span class="line">echo &quot;If you copy local docker data as a new docker data or not?&quot;</span><br><span class="line"></span><br><span class="line">if  read_yes_no; then</span><br><span class="line">        cp -avx /var/lib/docker $p2</span><br><span class="line">    else</span><br><span class="line">        echo &quot; Let&#x27;s do next &quot;</span><br><span class="line">        echo &quot;  &quot;</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">echo &quot; REDIRECT &quot;</span><br><span class="line">echo &quot; Final Step，The default Docker data will set to Your docker data that you want to. &quot;</span><br><span class="line">echo &quot; Confirm execution? &quot;</span><br><span class="line">if  read_yes_no; then</span><br><span class="line">        echo &quot; Activating all containers ?  &quot;</span><br><span class="line">        echo &quot; it need to restart your server, Your server will POWER OFF SOON.  &quot;</span><br><span class="line">        if  read_yes_no; then</span><br><span class="line">           echo &quot;Nextly,Docker data will be moved. &quot;</span><br><span class="line">           echo &quot;REDIRECT----&gt;START CONTAINER----&gt;REBOOT SERVER &quot;</span><br><span class="line">           rm -rf /var/lib/docker</span><br><span class="line">           ln -s $p2/docker /var/lib/docker</span><br><span class="line">           dockerinstall</span><br><span class="line">           reboot</span><br><span class="line">        else</span><br><span class="line">           echo &quot;Nextly,Docker data will be moved. &quot;</span><br><span class="line">           rm -rf /var/lib/docker2</span><br><span class="line">           ln -s $p2/docker /var/lib/docker</span><br><span class="line">           exit 0</span><br><span class="line">        fi</span><br><span class="line">    else</span><br><span class="line">        service docker start</span><br><span class="line">        exit 0</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function dockerinstall()</span><br><span class="line">&#123;</span><br><span class="line">echo &quot; Install.............. &quot;</span><br><span class="line">docker run -d --name portainer -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data -v /public:/public --restart=unless-stopped portainer/portainer:linux-arm64</span><br><span class="line">docker run -d --name=calibre-web -e PUID=1000 -e PGID=1000 -e TZ=Asia/Shanghai -p 8083:8083 -v /home/docker/calibreweb:/config -v /sharedfolders/hd/ebook:/books --restart unless-stopped gsp8181/calibre-web</span><br><span class="line">IMAGE_NAME=80x86/filebrowser</span><br><span class="line">WEB_PORT=8866</span><br><span class="line">FB_AUTH_SERVER_ADDR=&quot;127.0.0.1&quot;</span><br><span class="line">docker run -d --name fb --restart=unless-stopped -e PUID=$UID -e PGID=$GID -e WEB_PORT=$WEB_PORT -e FB_AUTH_SERVER_ADDR=$FB_AUTH_SERVER_ADDR -p $WEB_PORT:$WEB_PORT -v /home/docker/fb:/config -v /:/myfiles --mount type=tmpfs,destination=/tmp $&#123;IMAGE_NAME&#125;:arm64</span><br><span class="line">docker run -d --name=baidupcs --restart always -v /sharedfolders/ud/DownLoad:/app/Downloads -v /home/docker/BaiduPCS:/app/.config/BaiduPCS-Go -p 5299:5299 80x86/baidupcs:latest</span><br><span class="line">echo &quot; Install Complete &quot;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">clear</span><br><span class="line">initUI</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>计算机</category>
-        <category>服务器&amp;网络</category>
-      </categories>
-      <tags>
-        <tag>计算机</tag>
-        <tag>运营维护</tag>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>解决VirtualBox虚拟机软件E_FALL(0x80004005)Machinewrap错误</title>
     <url>/2020/12/21/vboxdrverror/</url>
     <content><![CDATA[<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>原因：一般的，当你的VirtualBox虚拟机进行升级/降级安装时，创建一个虚拟机再打开你会发现他会报错误代码为E_FALL(0x80004005)Machinewrap的错误，如下图所示：</p>
@@ -90,156 +66,6 @@
       <tags>
         <tag>计算机</tag>
         <tag>运营维护</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>RetroArch-scummvm核心的配置和操作指南</title>
-    <url>/2020/10/24/retrocore-scummvm/</url>
-    <content><![CDATA[<p><a href="https://imgchr.com/i/BGD7tA"><img src="https://s1.ax1x.com/2020/10/29/BGD7tA.png" alt="BGD7tA.png"></a><br><a href="https://imgchr.com/i/BGsV2t"><img src="https://s1.ax1x.com/2020/10/29/BGsV2t.png" alt="BGsV2t.png"></a></p>
-<h4 id="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"><a href="#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变" class="headerlink" title="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"></a><em>注意这是一个动态更新型文章，文章内容可能会随时更新或者改变</em></h4><a id="more"></a>
-
-<h1 id="Libretro-ScummVM系列核心"><a href="#Libretro-ScummVM系列核心" class="headerlink" title="Libretro-ScummVM系列核心"></a>Libretro-ScummVM系列核心</h1><h2 id="机型"><a href="#机型" class="headerlink" title="机型:"></a>机型:</h2><p>ScummVM是卢卡斯图形冒险游戏开发引擎Scumm的模拟器，和RPGMAKER模拟器一样，可以在各平台模拟其游戏引擎内的游戏 *<em>1</em></p>
-<h2 id="相关ROM"><a href="#相关ROM" class="headerlink" title="相关ROM:"></a>相关ROM:</h2><p>包括各种20世纪90年代的游戏<br>钢铁天空下 Beneath a Steel Sky<br>断剑系列 Broken Sword<br>梦网 Dreamweb<br>德古拉:吸血鬼突击 Drascula: The Vampire Strikes Back<br>银翼杀手 Blade Runner<br>很多游戏都是90年代初的以赛 博 朋 克为主题的游戏</p>
-<h2 id="相关模拟器"><a href="#相关模拟器" class="headerlink" title="相关模拟器:"></a>相关模拟器:</h2><p> <a href="https://www.scummvm.org/downloads/">https://www.scummvm.org/downloads/</a><br>官方模拟器支持win，linux，mac，symbian，ps3，psp，dc，3ds，ds，will，gc，haiku，amigaOS，RISC，android，ios包揽全平台的模拟器</p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>提示:这个模拟器官方已经支持全平台了，再用Retroarch的意义很小了……而且官方模拟器已经集成了所有需要的配置文件，而Retroarch没有，且操作还很繁琐……….除非你要用到Retroarch的附加功能<br>SCUMM的意思是Script Creation Utility for Maniac Mansion，原意是疯狂大楼剧本创作工具，是Aric Wilmunder与Ron Gilbert 为了开发疯狂大楼(Maniac Mansion)这款游戏开发的工具。后来不仅在卢卡斯游戏本部得到了广泛使用还卖给其他公司开发同类游戏，在AVG大热的年代里推出了一大堆非常有趣的游戏。这些游戏都是DOS平台的，用DosBox也可以在PC上玩到。<br>ScummVM 模拟器 ,它可以让你玩到由美国卢卡斯艺术出的一系列精典游戏,如猴岛小英雄,星球大战等等,新版变动: 在这个版本中，增加了对西木头公司（WestWood）的《凯兰蒂亚传奇》引擎的支持，因而可以模拟一共三代的《凯兰蒂亚传奇》以及另一知名大作断剑系列。同时增加了对Feeble Files引擎的支持，并对先前支持的General、SCUMM、SAGA、Simon、Broken Sword 1、Broken Sword 2引擎和和WINCE端口进行了清楚BUG和增加功能的有序工作。 *<em>2</em></p>
-<h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><blockquote>
-<p>太长影响观感</p>
-</blockquote>
-<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><h3 id="几个额外设置"><a href="#几个额外设置" class="headerlink" title="几个额外设置"></a>几个额外设置</h3><p><strong>启用增强的MIDI仿真</strong></p>
-<p> 有些游戏只包含MIDI数据形式的音乐。 默认情况下，ScummVM将使用AdLib模拟MIDI模式。 使用流体合成MIDI仿真和适当的声音，可以为支持MIDI的游戏实现更高质量的音频， 这是RetroArch下推荐的操作模式。</p>
-<p> 选择“MIDI”选项卡，然后在“GM Device：”下选择“FluidSynth‘。</p>
-<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_midi.png" alt="img"></p>
-<p> 按下“soundfont：”按钮并导航到RetroArch系统目录。 输入sumplmvm/extra/文件夹。 (注：如果按顺序遵循本指南的步骤，则在按下“soundfont：”按钮时，将自动选择summvm/extra/ 文件夹)</p>
-<p> 选择文件Roland_SC-55.sf2并按“选择”按钮。</p>
-<p>勾选“混合广告Lib/MIDI模式”复选框。</p>
-<p> 按下“应用”按钮，然后继续到下面的“启用MT-32仿真”部分。</p>
-<p> 许多游戏受益于流体合成MIDI仿真。 一些特别值得注意的例子是：</p>
-<p>山姆和麦克斯上路了</p>
-<p>会幕之日</p>
-<p>星际世界</p>
-<p> 注意流体合成MIDI仿真稍微增加了ScummVM核心的CPU需求。 在绝大多数平台上，这不应该是一个问题。 如果在非常低功耗的设备上观察到裂纹声音，则应该通过将“GM设备：”设置为默认的“不要使用通用MIDI音乐”选项来禁用FluidSynthMIDI仿真。</p>
-<p><strong>游戏管理</strong></p>
-<p> 在游戏可以通过ScummVM核心运行之前，应该首先将其添加到内部启动程序中。 不这样做将防止保存特定于游戏的配置选项(例如。 音量级别，字幕速度，内部游戏设置覆盖)。</p>
-<p> 向ScummVM启动器添加一个游戏</p>
-<p> 每个游戏的数据文件必须复制到本地存储中唯一命名的目录(即。 每个游戏一个目录)。 任何特定游戏所需的特定文件列表可以在ScummVM数据文件页面上找到。</p>
-<p> 建议的“Flight of the Amazon Queen”目录布局是一个最简单的例子：</p>
-<p>└── ROMs/<br>    └── ScummVM/<br>        └── Flight of the Amazon Queen (CD DOS)/<br>            └── queen.1</p>
-<p>一旦所有文件到位，每个游戏可以添加如下：</p>
-<p> 运行ScummVM核心，没有内容：</p>
-<p> 转到RetroArch的主菜单屏幕。</p>
-<p> 选择“LoadCore”，然后选择“summVM‘。</p>
-<p> 选择“启动核心‘。</p>
-<p> 在主ScummVM用户界面中，按下“添加游戏…”按钮。</p>
-<p> 导航到游戏目录， 双击游戏目录本身进入它，然后按‘选择’按钮</p>
-<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_add_game.png" alt="img"></p>
-<p> 如果游戏被正确检测(即如果数据文件正确)，将自动打开“设置”对话框。</p>
-<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_game_options.png" alt="img"></p>
-<p> 一般来说，自动生成的配置设置应该不错了</p>
-<p> 然而：为了简单起见，以及与现有的.scummvm文件的兼容性（在下面的部分中讨论），应该将“ID：”条目设置为游戏的名字。 所有游戏名字都列在ScummVM兼容性页面上。</p>
-<p> 在大多数情况下，自动生成的“ID：会自动匹配游戏名字。</p>
-<p> 在某些情况下，自动生成的“ID：”将是带有附加标识后缀的“短名称。 这个后缀应该删除。 如果使用手柄，这可以通过单击“ID：”输入行的末尾，并使用“L2”按钮/触发器来删除不需要的字符来实现。</p>
-<p> 一旦“ID：”被修改（如果需要），按“OK”按钮“注册”游戏。</p>
-<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_1st_game_added.png" alt="img"></p>
-<p> 注意一旦一个游戏已经注册，它可以通过在ScummVM启动器游戏列表中选择它并按下“启动”按钮来运行。 但是：不建议以这种方式使用Scumm VM启动器，因为它阻止了每个游戏配置重写RetroArch的使用，因此输入重新映射</p>
-<p><strong>音量水平</strong></p>
-<p> Scumm VM游戏在音频音量水平上表现出惊人的差异。 为了舒适，几乎是强制性的调整特定的卷在每个游戏的基础上。 幸好这是微不足道的：</p>
-<p> 当游戏运行时，按Retro Pad“启动”按钮打开ScummVMGUI。</p>
-<p> 使用光标，按“选项”按钮。</p>
-<p> 调整‘音乐音量：’，‘SFX音量：’和‘回声音量：’滑块到所需的水平。</p>
-<p> 按“确定”按钮，然后按“恢复”按钮。<br> 如果游戏已经正确地添加到ScummVM启动器中，调整后的级别将在游戏会话之间保留。</p>
-<p> 如果游戏尚未添加到ScummVM启动器，或者.scummvm文件中的游戏ID与ScummVM发射器ID不匹配，则当游戏关闭时，所有设置都将丢失。</p>
-<p>手动音乐设备选择</p>
-<p> 默认情况下，ScummVM将自动为每个游戏选择最合适的音乐播放选项(即。 MT-32仿真、流体合成MIDI仿真或Ad Lib仿真)。 在大多数情况下，这将产生最好的声音质量，不需要用户干预。 然而，在一些情况和游戏中，手动覆盖是有益的。 这是应该由用户在每个游戏的基础上确定的东西，但这里有一些实际的例子：</p>
-<p> 使用MT-32仿真的默认选择，对于游戏魔法师西蒙来说是最好的，但对于大多数Android设备来说，这太需要CPU了。 通过强制游戏使用FluidSynthMIDI仿真，可以在性能和音质之间实现一个可接受的折衷。</p>
-<p> 西蒙魔法师2将使用流体合成MIDI模拟默认。 通过强制游戏使用MT-32仿真可以获得更好的质量音乐。 (由于这款游戏对CPU的要求比本系列中的第一款更高，所以Android设备上的平滑播放通常需要使用Ad Lib仿真)</p>
-<p> 在钢铁之下下这个游戏默认为MT-32仿真，这应该是最好的.但是强制使用FluidSynthMIDI仿真往往会产生“更高”的声音音乐，一些用户可能更喜欢。</p>
-<p> Amazon Queen的飞行是另一款默认MT-32仿真的游戏，但是（可以说）Fluid Synth MIDI仿真听起来要好得多。</p>
-<h3 id="支持的ROM格式"><a href="#支持的ROM格式" class="headerlink" title="支持的ROM格式:"></a>支持的ROM格式:</h3><p>.scummvm<br>然而大多数游戏不是这个格式，而模拟器可以直接从一些DOS格式中直接读取</p>
-<h3 id="固件"><a href="#固件" class="headerlink" title="固件:"></a>固件:</h3><p>ScummVM的部分游戏需要相关的配置文件才能运行，而且从ScummVM官方下载的游戏也无法从DOS直接运行，而ScummVM的官方模拟器已经集成了这些文件，如果在RA里面没有这些文件很多游戏将无法运行</p>
-<p>首先从ScummVM的官方模拟器中提取extra配置文件，比如安卓端，解包apk后在assets文件中<br>或者你可以直接从Github下载 <a href="https://github.com/libretro/scummvm/raw/master/backends/platform/libretro/aux-data/scummvm.zip">https://github.com/libretro/scummvm/raw/master/backends/platform/libretro/aux-data/scummvm.zip</a></p>
-<p>extra文件应该放到system/scummvm/extra中</p>
-<p>之后加载核心-运行核心 在scummvm界面中点击</p>
-<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_1st_run.png" alt="img"></p>
-<p>options，之后在extra path中选择system/scummvm/extra路径，保存</p>
-<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_paths.png" alt="img"></p>
-<p>theme文件是scummvm的主题，安装这个主题界面就和官方模拟器一样了，把解压到主题文件放在system/scummvm/theme中，和上面一样在options里面的theme path选择system/scummvm/extra路径，保存</p>
-<p>点misc项，选择 ‘ScummVM Modern Theme’ 选项，点击choose，保存</p>
-<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_misc.png" alt="img"></p>
-<h3 id="功能"><a href="#功能" class="headerlink" title="功能:"></a>功能:</h3><p>支持 截图 原生存档 手柄控制 按键映射</p>
-<p>不支持 </p>
-<h3 id="核心选项"><a href="#核心选项" class="headerlink" title="核心选项:"></a>核心选项:</h3><p>Gamepad Cursor Speed<br>调整光标速度<br> [scummvm_gamepad_cursor_speed] (1.0|1.5|2.0|2.5|3.0|0.25|0.5|0.75)</p>
-<p>由于不同分辨率下鼠标速度不同<br>‘320x200’ or ‘320x240’. 建议设置光标速度1.0<br>‘640x400’ or ‘640x480’, 建议设置光标速度2.0</p>
-<p>Analog Cursor Response<br>光标加速度<br> [scummvm_analog_response] (linear|cubic)<br>linear 直线型<br>cubic  二次方式</p>
-<p>Analog Deadzone (percent) [scummvm_analog_deadzone] (15|20|25|30|0|5|10)<br>设置Retropad模拟棒的死区。 用于消除光标漂移/不需要的输入。</p>
-<p> 死区设置可以对模拟光标移动的“感觉”产生显著影响。 该值应尽可能低，以获得最佳结果-即。 减小值，直到光标漂移明显，然后增加到下一个最高设置。 Xbox手柄通常需要15-20%。 许多与Android兼容的蓝牙游戏播放器都有一个内部的“硬件”死区，允许将这里的死区值设置为0%。</p>
-<p>Mouse Speed <br>[scummvm_mouse_speed] (1.0|1.25|1.5|1.75|2.0|2.5|3.0|0.05|0.1|0.15|0.2|0.25|0.3|0.35|0.4|0.45|0.5|0.6|0.7|0.8|0.9)</p>
-<p>使用Retroarch内部模拟的鼠标的鼠标速度</p>
-<p>Speed Hack (Restart) <br>[scummvm_speed_hack] (disabled|enabled)</p>
-<p>启用可选的速度修改，通过允许微妙的定时不准确，大大降低核心的CPU需求。</p>
-<p> 这个修改被认为是“安全的”-游戏应该正确运行时，它被启用，大多数不准确是不可察觉的，除了在少数边缘情况。 不过，它仍然是一个黑客，强烈建议桌面类机器的用户保持禁用它。</p>
-<h3 id="相关文件路径"><a href="#相关文件路径" class="headerlink" title="相关文件路径:"></a>相关文件路径:</h3><h3 id="控制"><a href="#控制" class="headerlink" title="控制:"></a>控制:</h3><h6 id="手柄"><a href="#手柄" class="headerlink" title="手柄"></a>手柄</h6><p><img src="https://i.loli.net/2020/10/31/Y79Q3SbAaWtH6iK.png" alt="image-20201031080912912"></p>
-<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20201031080940425.png" alt="image-20201031080940425"></p>
-<p><img src="https://i.loli.net/2020/10/31/hS2AOtIRloPvHMg.png" alt="image-20201031081030633"></p>
-<p><strong>Additional Notes:</strong></p>
-<ul>
-<li><p>按下“光标精细控制”按钮，将光标速度降低到“Gamepad光标速度”核心选项设置的值的⅓。</p>
-</li>
-<li><p>右旋转垫模拟棒被映射到8路“虚拟Numpad”，布局如下：</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[7][8][9]</span><br><span class="line">[4]   [6]</span><br><span class="line">[1][2][3]</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>额外的ScummVM的按键</strong></p>
-<ul>
-<li><p>Esc:</p>
-<ul>
-<li>跳过场景</li>
-<li>打开关闭菜单</li>
-</ul>
-</li>
-<li><p>Virtual Numpad + Numpad 5 + Numpad 0:</p>
-<ul>
-<li>Enables control during fight sequences in the <strong>‘Indiana Jones’</strong> series of games.</li>
-<li>Enables bypass of <strong>Monkey Island 2</strong> copy protection.</li>
-<li>启用在指定保存槽时需要文本输入的游戏中的保存</li>
-<li>在一些游戏中启用菜单导航 (Numpad 8 == up, Numpad 2 == down).</li>
-</ul>
-</li>
-<li><p>Enter + Backspace:</p>
-<ul>
-<li>启用在指定保存槽时需要文本输入的游戏中的保存.</li>
-<li>‘Enter’ 可能被用来攻击“虚空”战斗序列</li>
-<li>“Enter”在某些游戏中启用菜单项选择</li>
-</ul>
-</li>
-<li><p>. (period): Skips lines of dialogue in SCUMM engine games.</p>
-</li>
-<li><p>F1:</p>
-<ul>
-<li>在一些游戏中显示游戏中的菜单</li>
-<li>可以在一些游戏中保存。</li>
-</ul>
-</li>
-<li><p>F10: Shows hotspots in <strong>Simon the Sorcerer 1 + 2.</strong></p>
-<h5 id="鼠标"><a href="#鼠标" class="headerlink" title="鼠标"></a>鼠标</h5><p><img src="https://i.loli.net/2020/10/31/QcqY2pUvrnh1BFy.png" alt="image-20201031081759317"></p>
-</li>
-</ul>
-<p>为了确保在使用Retro鼠标时正确操作，建议在使用ScummVM核心运行内容时启用Retro Arch‘Grab鼠标’选项。默认情况下，“Grab鼠标”可以通过在键盘上按F11来打开/关闭。<br>使用Retro Pad移动光标时不需要“Grab鼠标”选项。</p>
-<h5 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h5><p>Scumm VM核心在Wii U平台上使用libretro指针API进行鼠标仿真。</p>
-<p><img src="https://i.loli.net/2020/10/31/swhH37pNeA51boD.png" alt="image-20201031082000215"></p>
-<h3 id="评测"><a href="#评测" class="headerlink" title="评测:"></a>评测:</h3><p>高性能组:<br>1.安卓<br>环境:Android10-armV8a，骁龙835，OpenGL，默认选项<br>结果:5个游戏平均 60FPS<br>低性能组:<br>环境:环境:Android6-armV8a，骁龙625，OpenGL，默认选项<br>结果: 5个游戏平均 48FPS</p>
-<p>Retroarch对比官方模拟器来说的确复杂了许多，但是你想深入研究ScummVM的话，你可以使用Retroarch来研究其原理和配置，这个模拟器过于冷门，其也从DOS平台的冷门可以看出，国内来说，游戏的确不受国人喜欢</p>
-<p><em>引用:*1,2  ScummVM 百度百科</em></p>
-]]></content>
-      <categories>
-        <category>计算机</category>
-        <category>模拟器</category>
-      </categories>
-      <tags>
-        <tag>仿真器</tag>
-        <tag>计算机史</tag>
       </tags>
   </entry>
   <entry>
@@ -447,6 +273,156 @@
 <h3 id="核心选项"><a href="#核心选项" class="headerlink" title="核心选项:"></a>核心选项:</h3><p><strong>Mouse API instead of Pointer</strong><br>是否开启鼠标指针<br>[tic80_mouse]<br> (<strong>disabled</strong>|enabled)</p>
 <p> <strong>Mouse Cursor</strong><br>鼠标指针样式<br>[tic80_mouse_cursor]<br>(<strong>disabled</strong>|dot|cross|arrow)</p>
 <h3 id="相关文件路径"><a href="#相关文件路径" class="headerlink" title="相关文件路径:"></a>相关文件路径:</h3><h3 id="控制"><a href="#控制" class="headerlink" title="控制:"></a>控制:</h3><h3 id="评测"><a href="#评测" class="headerlink" title="评测:"></a>评测:</h3><p>高性能组:<br>1.安卓<br>环境:Android10-armV8a，骁龙835，OpenGL，默认选项<br>结果: 60fps<br>低性能组:<br>环境:环境:Android6-armV8a，骁龙625，OpenGL，默认选项<br>结果: 60fps</p>
+]]></content>
+      <categories>
+        <category>计算机</category>
+        <category>模拟器</category>
+      </categories>
+      <tags>
+        <tag>仿真器</tag>
+        <tag>计算机史</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RetroArch-scummvm核心的配置和操作指南</title>
+    <url>/2020/10/24/retrocore-scummvm/</url>
+    <content><![CDATA[<p><a href="https://imgchr.com/i/BGD7tA"><img src="https://s1.ax1x.com/2020/10/29/BGD7tA.png" alt="BGD7tA.png"></a><br><a href="https://imgchr.com/i/BGsV2t"><img src="https://s1.ax1x.com/2020/10/29/BGsV2t.png" alt="BGsV2t.png"></a></p>
+<h4 id="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"><a href="#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变" class="headerlink" title="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"></a><em>注意这是一个动态更新型文章，文章内容可能会随时更新或者改变</em></h4><a id="more"></a>
+
+<h1 id="Libretro-ScummVM系列核心"><a href="#Libretro-ScummVM系列核心" class="headerlink" title="Libretro-ScummVM系列核心"></a>Libretro-ScummVM系列核心</h1><h2 id="机型"><a href="#机型" class="headerlink" title="机型:"></a>机型:</h2><p>ScummVM是卢卡斯图形冒险游戏开发引擎Scumm的模拟器，和RPGMAKER模拟器一样，可以在各平台模拟其游戏引擎内的游戏 *<em>1</em></p>
+<h2 id="相关ROM"><a href="#相关ROM" class="headerlink" title="相关ROM:"></a>相关ROM:</h2><p>包括各种20世纪90年代的游戏<br>钢铁天空下 Beneath a Steel Sky<br>断剑系列 Broken Sword<br>梦网 Dreamweb<br>德古拉:吸血鬼突击 Drascula: The Vampire Strikes Back<br>银翼杀手 Blade Runner<br>很多游戏都是90年代初的以赛 博 朋 克为主题的游戏</p>
+<h2 id="相关模拟器"><a href="#相关模拟器" class="headerlink" title="相关模拟器:"></a>相关模拟器:</h2><p> <a href="https://www.scummvm.org/downloads/">https://www.scummvm.org/downloads/</a><br>官方模拟器支持win，linux，mac，symbian，ps3，psp，dc，3ds，ds，will，gc，haiku，amigaOS，RISC，android，ios包揽全平台的模拟器</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>提示:这个模拟器官方已经支持全平台了，再用Retroarch的意义很小了……而且官方模拟器已经集成了所有需要的配置文件，而Retroarch没有，且操作还很繁琐……….除非你要用到Retroarch的附加功能<br>SCUMM的意思是Script Creation Utility for Maniac Mansion，原意是疯狂大楼剧本创作工具，是Aric Wilmunder与Ron Gilbert 为了开发疯狂大楼(Maniac Mansion)这款游戏开发的工具。后来不仅在卢卡斯游戏本部得到了广泛使用还卖给其他公司开发同类游戏，在AVG大热的年代里推出了一大堆非常有趣的游戏。这些游戏都是DOS平台的，用DosBox也可以在PC上玩到。<br>ScummVM 模拟器 ,它可以让你玩到由美国卢卡斯艺术出的一系列精典游戏,如猴岛小英雄,星球大战等等,新版变动: 在这个版本中，增加了对西木头公司（WestWood）的《凯兰蒂亚传奇》引擎的支持，因而可以模拟一共三代的《凯兰蒂亚传奇》以及另一知名大作断剑系列。同时增加了对Feeble Files引擎的支持，并对先前支持的General、SCUMM、SAGA、Simon、Broken Sword 1、Broken Sword 2引擎和和WINCE端口进行了清楚BUG和增加功能的有序工作。 *<em>2</em></p>
+<h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><blockquote>
+<p>太长影响观感</p>
+</blockquote>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><h3 id="几个额外设置"><a href="#几个额外设置" class="headerlink" title="几个额外设置"></a>几个额外设置</h3><p><strong>启用增强的MIDI仿真</strong></p>
+<p> 有些游戏只包含MIDI数据形式的音乐。 默认情况下，ScummVM将使用AdLib模拟MIDI模式。 使用流体合成MIDI仿真和适当的声音，可以为支持MIDI的游戏实现更高质量的音频， 这是RetroArch下推荐的操作模式。</p>
+<p> 选择“MIDI”选项卡，然后在“GM Device：”下选择“FluidSynth‘。</p>
+<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_midi.png" alt="img"></p>
+<p> 按下“soundfont：”按钮并导航到RetroArch系统目录。 输入sumplmvm/extra/文件夹。 (注：如果按顺序遵循本指南的步骤，则在按下“soundfont：”按钮时，将自动选择summvm/extra/ 文件夹)</p>
+<p> 选择文件Roland_SC-55.sf2并按“选择”按钮。</p>
+<p>勾选“混合广告Lib/MIDI模式”复选框。</p>
+<p> 按下“应用”按钮，然后继续到下面的“启用MT-32仿真”部分。</p>
+<p> 许多游戏受益于流体合成MIDI仿真。 一些特别值得注意的例子是：</p>
+<p>山姆和麦克斯上路了</p>
+<p>会幕之日</p>
+<p>星际世界</p>
+<p> 注意流体合成MIDI仿真稍微增加了ScummVM核心的CPU需求。 在绝大多数平台上，这不应该是一个问题。 如果在非常低功耗的设备上观察到裂纹声音，则应该通过将“GM设备：”设置为默认的“不要使用通用MIDI音乐”选项来禁用FluidSynthMIDI仿真。</p>
+<p><strong>游戏管理</strong></p>
+<p> 在游戏可以通过ScummVM核心运行之前，应该首先将其添加到内部启动程序中。 不这样做将防止保存特定于游戏的配置选项(例如。 音量级别，字幕速度，内部游戏设置覆盖)。</p>
+<p> 向ScummVM启动器添加一个游戏</p>
+<p> 每个游戏的数据文件必须复制到本地存储中唯一命名的目录(即。 每个游戏一个目录)。 任何特定游戏所需的特定文件列表可以在ScummVM数据文件页面上找到。</p>
+<p> 建议的“Flight of the Amazon Queen”目录布局是一个最简单的例子：</p>
+<p>└── ROMs/<br>    └── ScummVM/<br>        └── Flight of the Amazon Queen (CD DOS)/<br>            └── queen.1</p>
+<p>一旦所有文件到位，每个游戏可以添加如下：</p>
+<p> 运行ScummVM核心，没有内容：</p>
+<p> 转到RetroArch的主菜单屏幕。</p>
+<p> 选择“LoadCore”，然后选择“summVM‘。</p>
+<p> 选择“启动核心‘。</p>
+<p> 在主ScummVM用户界面中，按下“添加游戏…”按钮。</p>
+<p> 导航到游戏目录， 双击游戏目录本身进入它，然后按‘选择’按钮</p>
+<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_add_game.png" alt="img"></p>
+<p> 如果游戏被正确检测(即如果数据文件正确)，将自动打开“设置”对话框。</p>
+<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_game_options.png" alt="img"></p>
+<p> 一般来说，自动生成的配置设置应该不错了</p>
+<p> 然而：为了简单起见，以及与现有的.scummvm文件的兼容性（在下面的部分中讨论），应该将“ID：”条目设置为游戏的名字。 所有游戏名字都列在ScummVM兼容性页面上。</p>
+<p> 在大多数情况下，自动生成的“ID：会自动匹配游戏名字。</p>
+<p> 在某些情况下，自动生成的“ID：”将是带有附加标识后缀的“短名称。 这个后缀应该删除。 如果使用手柄，这可以通过单击“ID：”输入行的末尾，并使用“L2”按钮/触发器来删除不需要的字符来实现。</p>
+<p> 一旦“ID：”被修改（如果需要），按“OK”按钮“注册”游戏。</p>
+<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_1st_game_added.png" alt="img"></p>
+<p> 注意一旦一个游戏已经注册，它可以通过在ScummVM启动器游戏列表中选择它并按下“启动”按钮来运行。 但是：不建议以这种方式使用Scumm VM启动器，因为它阻止了每个游戏配置重写RetroArch的使用，因此输入重新映射</p>
+<p><strong>音量水平</strong></p>
+<p> Scumm VM游戏在音频音量水平上表现出惊人的差异。 为了舒适，几乎是强制性的调整特定的卷在每个游戏的基础上。 幸好这是微不足道的：</p>
+<p> 当游戏运行时，按Retro Pad“启动”按钮打开ScummVMGUI。</p>
+<p> 使用光标，按“选项”按钮。</p>
+<p> 调整‘音乐音量：’，‘SFX音量：’和‘回声音量：’滑块到所需的水平。</p>
+<p> 按“确定”按钮，然后按“恢复”按钮。<br> 如果游戏已经正确地添加到ScummVM启动器中，调整后的级别将在游戏会话之间保留。</p>
+<p> 如果游戏尚未添加到ScummVM启动器，或者.scummvm文件中的游戏ID与ScummVM发射器ID不匹配，则当游戏关闭时，所有设置都将丢失。</p>
+<p>手动音乐设备选择</p>
+<p> 默认情况下，ScummVM将自动为每个游戏选择最合适的音乐播放选项(即。 MT-32仿真、流体合成MIDI仿真或Ad Lib仿真)。 在大多数情况下，这将产生最好的声音质量，不需要用户干预。 然而，在一些情况和游戏中，手动覆盖是有益的。 这是应该由用户在每个游戏的基础上确定的东西，但这里有一些实际的例子：</p>
+<p> 使用MT-32仿真的默认选择，对于游戏魔法师西蒙来说是最好的，但对于大多数Android设备来说，这太需要CPU了。 通过强制游戏使用FluidSynthMIDI仿真，可以在性能和音质之间实现一个可接受的折衷。</p>
+<p> 西蒙魔法师2将使用流体合成MIDI模拟默认。 通过强制游戏使用MT-32仿真可以获得更好的质量音乐。 (由于这款游戏对CPU的要求比本系列中的第一款更高，所以Android设备上的平滑播放通常需要使用Ad Lib仿真)</p>
+<p> 在钢铁之下下这个游戏默认为MT-32仿真，这应该是最好的.但是强制使用FluidSynthMIDI仿真往往会产生“更高”的声音音乐，一些用户可能更喜欢。</p>
+<p> Amazon Queen的飞行是另一款默认MT-32仿真的游戏，但是（可以说）Fluid Synth MIDI仿真听起来要好得多。</p>
+<h3 id="支持的ROM格式"><a href="#支持的ROM格式" class="headerlink" title="支持的ROM格式:"></a>支持的ROM格式:</h3><p>.scummvm<br>然而大多数游戏不是这个格式，而模拟器可以直接从一些DOS格式中直接读取</p>
+<h3 id="固件"><a href="#固件" class="headerlink" title="固件:"></a>固件:</h3><p>ScummVM的部分游戏需要相关的配置文件才能运行，而且从ScummVM官方下载的游戏也无法从DOS直接运行，而ScummVM的官方模拟器已经集成了这些文件，如果在RA里面没有这些文件很多游戏将无法运行</p>
+<p>首先从ScummVM的官方模拟器中提取extra配置文件，比如安卓端，解包apk后在assets文件中<br>或者你可以直接从Github下载 <a href="https://github.com/libretro/scummvm/raw/master/backends/platform/libretro/aux-data/scummvm.zip">https://github.com/libretro/scummvm/raw/master/backends/platform/libretro/aux-data/scummvm.zip</a></p>
+<p>extra文件应该放到system/scummvm/extra中</p>
+<p>之后加载核心-运行核心 在scummvm界面中点击</p>
+<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_1st_run.png" alt="img"></p>
+<p>options，之后在extra path中选择system/scummvm/extra路径，保存</p>
+<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_paths.png" alt="img"></p>
+<p>theme文件是scummvm的主题，安装这个主题界面就和官方模拟器一样了，把解压到主题文件放在system/scummvm/theme中，和上面一样在options里面的theme path选择system/scummvm/extra路径，保存</p>
+<p>点misc项，选择 ‘ScummVM Modern Theme’ 选项，点击choose，保存</p>
+<p><img src="https://docs.libretro.com/image/core/scummvm/scummvm_menu_misc.png" alt="img"></p>
+<h3 id="功能"><a href="#功能" class="headerlink" title="功能:"></a>功能:</h3><p>支持 截图 原生存档 手柄控制 按键映射</p>
+<p>不支持 </p>
+<h3 id="核心选项"><a href="#核心选项" class="headerlink" title="核心选项:"></a>核心选项:</h3><p>Gamepad Cursor Speed<br>调整光标速度<br> [scummvm_gamepad_cursor_speed] (1.0|1.5|2.0|2.5|3.0|0.25|0.5|0.75)</p>
+<p>由于不同分辨率下鼠标速度不同<br>‘320x200’ or ‘320x240’. 建议设置光标速度1.0<br>‘640x400’ or ‘640x480’, 建议设置光标速度2.0</p>
+<p>Analog Cursor Response<br>光标加速度<br> [scummvm_analog_response] (linear|cubic)<br>linear 直线型<br>cubic  二次方式</p>
+<p>Analog Deadzone (percent) [scummvm_analog_deadzone] (15|20|25|30|0|5|10)<br>设置Retropad模拟棒的死区。 用于消除光标漂移/不需要的输入。</p>
+<p> 死区设置可以对模拟光标移动的“感觉”产生显著影响。 该值应尽可能低，以获得最佳结果-即。 减小值，直到光标漂移明显，然后增加到下一个最高设置。 Xbox手柄通常需要15-20%。 许多与Android兼容的蓝牙游戏播放器都有一个内部的“硬件”死区，允许将这里的死区值设置为0%。</p>
+<p>Mouse Speed <br>[scummvm_mouse_speed] (1.0|1.25|1.5|1.75|2.0|2.5|3.0|0.05|0.1|0.15|0.2|0.25|0.3|0.35|0.4|0.45|0.5|0.6|0.7|0.8|0.9)</p>
+<p>使用Retroarch内部模拟的鼠标的鼠标速度</p>
+<p>Speed Hack (Restart) <br>[scummvm_speed_hack] (disabled|enabled)</p>
+<p>启用可选的速度修改，通过允许微妙的定时不准确，大大降低核心的CPU需求。</p>
+<p> 这个修改被认为是“安全的”-游戏应该正确运行时，它被启用，大多数不准确是不可察觉的，除了在少数边缘情况。 不过，它仍然是一个黑客，强烈建议桌面类机器的用户保持禁用它。</p>
+<h3 id="相关文件路径"><a href="#相关文件路径" class="headerlink" title="相关文件路径:"></a>相关文件路径:</h3><h3 id="控制"><a href="#控制" class="headerlink" title="控制:"></a>控制:</h3><h6 id="手柄"><a href="#手柄" class="headerlink" title="手柄"></a>手柄</h6><p><img src="https://i.loli.net/2020/10/31/Y79Q3SbAaWtH6iK.png" alt="image-20201031080912912"></p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20201031080940425.png" alt="image-20201031080940425"></p>
+<p><img src="https://i.loli.net/2020/10/31/hS2AOtIRloPvHMg.png" alt="image-20201031081030633"></p>
+<p><strong>Additional Notes:</strong></p>
+<ul>
+<li><p>按下“光标精细控制”按钮，将光标速度降低到“Gamepad光标速度”核心选项设置的值的⅓。</p>
+</li>
+<li><p>右旋转垫模拟棒被映射到8路“虚拟Numpad”，布局如下：</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[7][8][9]</span><br><span class="line">[4]   [6]</span><br><span class="line">[1][2][3]</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>额外的ScummVM的按键</strong></p>
+<ul>
+<li><p>Esc:</p>
+<ul>
+<li>跳过场景</li>
+<li>打开关闭菜单</li>
+</ul>
+</li>
+<li><p>Virtual Numpad + Numpad 5 + Numpad 0:</p>
+<ul>
+<li>Enables control during fight sequences in the <strong>‘Indiana Jones’</strong> series of games.</li>
+<li>Enables bypass of <strong>Monkey Island 2</strong> copy protection.</li>
+<li>启用在指定保存槽时需要文本输入的游戏中的保存</li>
+<li>在一些游戏中启用菜单导航 (Numpad 8 == up, Numpad 2 == down).</li>
+</ul>
+</li>
+<li><p>Enter + Backspace:</p>
+<ul>
+<li>启用在指定保存槽时需要文本输入的游戏中的保存.</li>
+<li>‘Enter’ 可能被用来攻击“虚空”战斗序列</li>
+<li>“Enter”在某些游戏中启用菜单项选择</li>
+</ul>
+</li>
+<li><p>. (period): Skips lines of dialogue in SCUMM engine games.</p>
+</li>
+<li><p>F1:</p>
+<ul>
+<li>在一些游戏中显示游戏中的菜单</li>
+<li>可以在一些游戏中保存。</li>
+</ul>
+</li>
+<li><p>F10: Shows hotspots in <strong>Simon the Sorcerer 1 + 2.</strong></p>
+<h5 id="鼠标"><a href="#鼠标" class="headerlink" title="鼠标"></a>鼠标</h5><p><img src="https://i.loli.net/2020/10/31/QcqY2pUvrnh1BFy.png" alt="image-20201031081759317"></p>
+</li>
+</ul>
+<p>为了确保在使用Retro鼠标时正确操作，建议在使用ScummVM核心运行内容时启用Retro Arch‘Grab鼠标’选项。默认情况下，“Grab鼠标”可以通过在键盘上按F11来打开/关闭。<br>使用Retro Pad移动光标时不需要“Grab鼠标”选项。</p>
+<h5 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h5><p>Scumm VM核心在Wii U平台上使用libretro指针API进行鼠标仿真。</p>
+<p><img src="https://i.loli.net/2020/10/31/swhH37pNeA51boD.png" alt="image-20201031082000215"></p>
+<h3 id="评测"><a href="#评测" class="headerlink" title="评测:"></a>评测:</h3><p>高性能组:<br>1.安卓<br>环境:Android10-armV8a，骁龙835，OpenGL，默认选项<br>结果:5个游戏平均 60FPS<br>低性能组:<br>环境:环境:Android6-armV8a，骁龙625，OpenGL，默认选项<br>结果: 5个游戏平均 48FPS</p>
+<p>Retroarch对比官方模拟器来说的确复杂了许多，但是你想深入研究ScummVM的话，你可以使用Retroarch来研究其原理和配置，这个模拟器过于冷门，其也从DOS平台的冷门可以看出，国内来说，游戏的确不受国人喜欢</p>
+<p><em>引用:*1,2  ScummVM 百度百科</em></p>
 ]]></content>
       <categories>
         <category>计算机</category>
@@ -3326,8 +3302,8 @@ See: https://github.com/libretro/vbam-libretro/issues/58</code></pre>
       </categories>
       <tags>
         <tag>计算机</tag>
-        <tag>运营维护</tag>
         <tag>Linux</tag>
+        <tag>运营维护</tag>
       </tags>
   </entry>
   <entry>
@@ -3543,8 +3519,8 @@ See: https://github.com/libretro/vbam-libretro/issues/58</code></pre>
       </categories>
       <tags>
         <tag>计算机</tag>
-        <tag>运营维护</tag>
         <tag>Linux</tag>
+        <tag>运营维护</tag>
         <tag>NAS</tag>
         <tag>家庭网络</tag>
       </tags>
