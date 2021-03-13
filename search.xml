@@ -458,6 +458,706 @@
       </tags>
   </entry>
   <entry>
+    <title>RetroArch-MSX(BlueMSX)核心的配置和操作指南</title>
+    <url>/2020/10/24/retrocore-bluemsx/</url>
+    <content><![CDATA[<p><a href="https://imgchr.com/i/BG0F1K"><img src="https://s1.ax1x.com/2020/10/29/BG0F1K.gif" alt="BG0F1K.gif"></a><br><a href="https://imgchr.com/i/BGBgsS"><img src="https://s1.ax1x.com/2020/10/29/BGBgsS.jpg" alt="BGBgsS.jpg"></a><br><a href="https://imgchr.com/i/BGBIGq"><img src="https://s1.ax1x.com/2020/10/29/BGBIGq.jpg" alt="BGBIGq.jpg"></a></p>
+<h4 id="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"><a href="#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变" class="headerlink" title="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"></a><em>注意这是一个动态更新型文章，文章内容可能会随时更新或者改变</em></h4><a id="more"></a>
+
+
+
+<h1 id="Libretro-MSX-BlueMSX-系列核心"><a href="#Libretro-MSX-BlueMSX-系列核心" class="headerlink" title="Libretro-MSX(BlueMSX)系列核心"></a>Libretro-MSX(BlueMSX)系列核心</h1><h2 id="机型"><a href="#机型" class="headerlink" title="机型:"></a>机型:</h2><ul>
+<li>微软 MSX 微型计算机</li>
+<li>微软 MSX2 微型计算机</li>
+<li>Spectravideo SVI 微型计算机</li>
+<li>ColecoVision 家用游戏机</li>
+<li>Sega SG-1000 家用游戏机<h2 id="相关ROM"><a href="#相关ROM" class="headerlink" title="相关ROM:"></a>相关ROM:</h2></li>
+</ul>
+<h2 id="相关模拟器"><a href="#相关模拟器" class="headerlink" title="相关模拟器:"></a>相关模拟器:</h2><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>官方网站: <a href="http://bluemsx.msxblue.com/">http://bluemsx.msxblue.com/</a><br>BlueMSX在这短短的时间内，已经成为最先进和功能丰富的MSX模拟器， 它支持大多数常见的机器和各种各样的扩展硬件，模拟器中还包含一个功能丰富的调试器。<br>在过去两年中，MSX仿真得到了扩展，并增加了对其他系统的支持。 蓝色MSX现在也是一个SVI模拟器，并支持Coleco视觉和SegaSG-1000，SC-3000，SF-7000控制台</p>
+<p>简单说一些BlueMSX的功能</p>
+<ul>
+<li>支持sg-1000，sc-3000，sf-7000，colecovision，svi318/328，msx、msx2、msx2和Turboor，并进行机器定制</li>
+<li>插件功能增加了调试器和训练器</li>
+<li>协助msx开发人员的高级调试器</li>
+<li>多语言支持和指定键盘布局。 </li>
+<li>dsk/rom/cas和zip的文件支持</li>
+<li>MSX-Midi、MSX-Music、MSX-Audio、SCC和Moonsound，具有过采样控制和DAC</li>
+<li>键盘配置器和强大的主题结构</li>
+<li>最近的文件列表和快速保存，以便更快地访问</li>
+<li>储蓄者被重写以获得更高的向后兼容性</li>
+<li>各种大小的屏幕捕捉和音频捕捉</li>
+<li>可定制的热键</li>
+</ul>
+<h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><blockquote>
+<p>MSX/SVI/ColecoVision/SG-1000 (blueMSX)</p>
+<p>Background</p>
+<p>blueMSX is a cycle accurate emulator that emulates all generations of MSX computers as well as SVI, ColecoVision and Sega SG-1000.</p>
+<p>Author/License</p>
+<p>The blueMSX core has been authored by</p>
+<p>Daniel Vik</p>
+<p>The blueMSX core is licensed under</p>
+<p><a href="https://github.com/libretro/blueMSX-libretro/blob/master/license.txt">GPLv2</a></p>
+<p>A summary of the licenses behind RetroArch and its cores can be found <a href="../development/licenses.md">here</a>.</p>
+<p>Extensions</p>
+<p>Content that can be loaded by the blueMSX core have the following file extensions:</p>
+<p>.rom<br>.ri<br>.mx1<br>.mx2<br>.col<br>.dsk<br>.cas<br>.sg<br>.sc<br>.m3u</p>
+<p>Databases</p>
+<p>RetroArch database(s) that are associated with the blueMSX core:</p>
+<p><a href="https://github.com/libretro/libretro-database/blob/master/rdb/Microsoft%20-%20MSX.rdb">Microsoft - MSX</a><br><a href="https://github.com/libretro/libretro-database/blob/master/rdb/Microsoft%20-%20MSX2.rdb">Microsoft - MSX2</a><br><a href="https://github.com/libretro/libretro-database/blob/master/rdb/Coleco%20-%20ColecoVision.rdb">Coleco - ColecoVision</a><br><a href="https://github.com/libretro/libretro-database/blob/master/rdb/Sega%20-%20SG-1000.rdb">Sega - SG-1000</a></p>
+<p>BIOS</p>
+<p>The blueMSX core requires the ‘Databases’ and ‘Machines’ folders from a full installation of blueMSX.</p>
+<p>You can download the ‘Databases’ and ‘Machines’ folders from an <a href="http://bluemsx.msxblue.com/download.html">official full standalone blueMSX emulator installation</a>. Get blueMSXv282full.zip near the bottom of the page.</p>
+<p>Move/Copy the ‘Databases’ and ‘Machines’ Folders to RetroArch’s System directory.</p>
+<p><img src="../image/core/bluemsx/bios.png"></p>
+<p>Features</p>
+<p>Frontend-level settings or features that the blueMSX core respects.</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th align="center">Supported</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Restart</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Screenshots</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Saves</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>States</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Rewind</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Netplay</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Core Options</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>RetroAchievements</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>RetroArch Cheats</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Native Cheats</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Controls</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Remapping</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Multi-Mouse</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Rumble</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Sensors</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Camera</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Location</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Subsystem</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td><a href="../guides/softpatching.md">Softpatching</a></td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Disk Control</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Username</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Language</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Crop Overscan</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>LEDs</td>
+<td align="center">✕</td>
+</tr>
+</tbody></table>
+<p>Directories</p>
+<p>The blueMSX core’s library name is ‘blueMSX’</p>
+<p>The blueMSX core saves/loads to/from these directories.</p>
+<p><strong>Frontend’s System directory</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">File</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">bluemsx.ini</td>
+<td align="center">blueMSX Config</td>
+</tr>
+<tr>
+<td align="center">bluemsx_history.ini</td>
+<td align="center">blueMSX History</td>
+</tr>
+</tbody></table>
+<p>Geometry and timing</p>
+<p>The blueMSX core’s core provided FPS is 60<br>The blueMSX core’s core provided sample rate is 44100 Hz<br>The blueMSX core’s base width is (Base width)<br>The blueMSX core’s base height is (Base height)<br>The blueMSX core’s max width is (Max width)<br>The blueMSX core’s max height is (Max height)<br>The blueMSX core’s core provided aspect ratio is (Ratio)</p>
+<p>Usage</p>
+<p>ColecoVision Gamepad Mapping is as follow:</p>
+<p>Button 1 as Retropad A<br>Button 2 as Retropad B<br>Dial keys 1 to 8 as X, Y, R, L, R2, L2, R3, L3<br>Star (*) as Select, Hash (#) as Start<br>0 &amp; 9 are on keyboard 1 &amp; 2 for Player 1<br>0 &amp; 9 are on keyboard 3 &amp; 4 for Player 2.</p>
+<p>To play SpectraVideo cassettes type ‘cload’ then ‘run’</p>
+<p>or BLOAD ‘’CAS:’’,R depending on the game.</p>
+<p>Multiple-disk games</p>
+<p>If foo is a multiple-disk game, you should have .dsk files for each one, e.g. <code>foo (Disk 1).dsk</code>, <code>foo (Disk 2).dsk</code>, <code>foo (Disk 3).dsk</code>.</p>
+<p>To take advantage of BlueMSX Disk Control feature for disk swapping, an index file (a m3u file) should be made.</p>
+<p>Create a text file and save it as <code>foo.m3u</code>. Then enter your game’s .dsk files on it. The m3u file contents should look something like this:</p>
+<p><code>foo.m3u</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">foo (Disk 1).dsk</span><br><span class="line">foo (Disk 2).dsk</span><br><span class="line">foo (Disk 3).dsk</span><br></pre></td></tr></table></figure>
+
+<p>After that, you can load the <code>foo.m3u</code> file in RetroArch with the BlueMSX core.</p>
+<p>An alternative is to append disks to the current playlist via the “Disk Image Append” option RetroArch menu.</p>
+<p>Core options</p>
+<p>The blueMSX core has the following option(s) that can be tweaked from the core options menu. The default setting is bolded.</p>
+<p>Settings with (Restart) means that core has to be closed for the new setting to be applied on next launch.</p>
+<p><strong>Machine Type (Restart)</strong> [bluemsx_msxtype] (<strong>Auto</strong>|MSX|MSXturboR|MSX2|MSX2+|SEGA - SG-1000|SEGA - SC-3000|SEGA - SF-7000|SVI - Spectravideo SVI-318|SVI - Spectravideo SVI-328|SVI - Spectravideo SVI-328 MK2|ColecoVision|Coleco (Spectravideo SVI-603))</p>
+<pre><code>Manually select the machine type you would like the core to start in.</code></pre>
+<p><strong>Crop Overscan</strong> [bluemsx_overscan] (<strong>disabled</strong>|enabled|MSX2)</p>
+<pre><code>Forces cropping of overscanned frames</code></pre>
+<p>??? note “<em>Crop Overscan Off</em>“<br>    <img src="../image/core/bluemsx/crop_off.png"></p>
+<p>??? note “<em>Crop Overscan On</em>“<br>    <img src="../image/core/bluemsx/crop_on.png"></p>
+<p>??? note “<em>Crop Overscan MSX2</em>“<br>    <img src="../image/core/bluemsx/crop_msx2.png"></p>
+<p><strong>VDP Sync Type (Restart)</strong> [bluemsx_vdp_synctype] (<strong>Auto</strong>|50Hz|60Hz)</p>
+<pre><code>Match the game/machine region frequency to avoid emulated speed issues.</code></pre>
+<p><strong>No Sprite Limit</strong> [bluemsx_nospritelimits] (<strong>OFF</strong>|ON)</p>
+<pre><code>Remove the 4 sprite per line limit which can reduce or remove sprite flicker in some games.</code></pre>
+<p><strong>Sound YM2413 Enable (Restart)</strong> [bluemsx_ym2413_enable] (<strong>enabled</strong>|disabled)</p>
+<pre><code>Awaiting description.</code></pre>
+<p><strong>Cart Mapper Type (Restart)</strong> [bluemsx_cartmapper] (<strong>Auto</strong>|Normal|mirrored|basic|0x4000|0xC000|ascii8|ascii8sram|ascii16|ascii16sram|<br>ascii16nf|konami4|konami4nf|konami5|konamisynth|korean80|korean90|korean126|<br>MegaFlashRomScc|MegaFlashRomSccPlus|msxdos2|scc|sccexpanded|sccmirrored|sccplus|<br>snatcher|sdsnatcher|SegaBasic|SG1000|SG1000Castle|SG1000RamA|SG1000RamB|SC3000)</p>
+<pre><code>When a ROM game or application is in the database, the emulator uses the databases to apply the correct mapper. If the sha1 value of a dump is not yet in the databases, it uses an automatic mapper detection system, but it can fail in some cases. In this situation, you can manually select the correct mapper.</code></pre>
+<p>Controllers</p>
+<p>The blueMSX core supports the following device type(s) in the controls menu, bolded device types are the default for the specified user(s):</p>
+<p>User 1 device types</p>
+<p>None - Doesn’t disable input. There’s no reason to switch to this.<br><strong>RetroPad</strong> - Joypad<br>RetroKeyboard - Keyboard - Keyboard inputs are always active. Has keymapper support.<br>RetroPad Keyboard Map - Joypad - Awaiting description.</p>
+<p>User 2 device types</p>
+<p>None - Doesn’t disable input. There’s no reason to switch to this.<br><strong>RetroPad</strong> - Joypad<br>RetroKeyboard - Keyboard - Keyboard inputs are always active.</p>
+<p>Controller tables</p>
+<p>Joypad</p>
+<table>
+<thead>
+<tr>
+<th>User 1 and 2 Remap descriptors for ‘RetroPad’ device type</th>
+<th>RetroPad Inputs</th>
+<th>blueMSX core inputs</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Button 2</td>
+<td><img src="../image/retropad/retro_b.png"></td>
+<td>Button 2, Coleco Button 2</td>
+</tr>
+<tr>
+<td>Button 3</td>
+<td><img src="../image/retropad/retro_y.png"></td>
+<td>Button 3, Coleco #2</td>
+</tr>
+<tr>
+<td>Select</td>
+<td><img src="../image/retropad/retro_select.png"></td>
+<td>Select, Coleco Star (*)</td>
+</tr>
+<tr>
+<td>Start</td>
+<td><img src="../image/retropad/retro_start.png"></td>
+<td>Start, Coleco Hash (#)</td>
+</tr>
+<tr>
+<td>Joy Up</td>
+<td><img src="../image/retropad/retro_dpad_up.png"></td>
+<td>Joy Up</td>
+</tr>
+<tr>
+<td>Joy Down</td>
+<td><img src="../image/retropad/retro_dpad_down.png"></td>
+<td>Joy Down</td>
+</tr>
+<tr>
+<td>Joy Left</td>
+<td><img src="../image/retropad/retro_dpad_left.png"></td>
+<td>Joy Left</td>
+</tr>
+<tr>
+<td>Joy Right</td>
+<td><img src="../image/retropad/retro_dpad_right.png"></td>
+<td>Joy Right</td>
+</tr>
+<tr>
+<td>Button 1</td>
+<td><img src="../image/retropad/retro_a.png"></td>
+<td>Button 1,  Coleco Button 1</td>
+</tr>
+<tr>
+<td>Button 4</td>
+<td><img src="../image/retropad/retro_x.png"></td>
+<td>Button 4, Coleco #1</td>
+</tr>
+<tr>
+<td>Button 5</td>
+<td><img src="../image/retropad/retro_l1.png"></td>
+<td>Button 5, Coleco #4</td>
+</tr>
+<tr>
+<td>Button 6</td>
+<td><img src="../image/retropad/retro_r1.png"></td>
+<td>Button 6, Coleco #3</td>
+</tr>
+<tr>
+<td>Button 7</td>
+<td><img src="../image/retropad/retro_l2.png"></td>
+<td>Button 7, Coleco #6</td>
+</tr>
+<tr>
+<td>Button 8</td>
+<td><img src="../image/retropad/retro_r2.png"></td>
+<td>Button 8, Coleco #5</td>
+</tr>
+<tr>
+<td>Button 9</td>
+<td><img src="../image/retropad/retro_l3.png"></td>
+<td>Button 9. Coleco #8</td>
+</tr>
+<tr>
+<td>Button 10</td>
+<td><img src="../image/retropad/retro_r3.png"></td>
+<td>Button 10, Coleco #7</td>
+</tr>
+</tbody></table>
+<p>Keyboard</p>
+<table>
+<thead>
+<tr>
+<th>RetroKeyboard Inputs</th>
+<th>RetroKeyboard</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Keyboard Backspace</td>
+<td>BACKSPACE</td>
+</tr>
+<tr>
+<td>Keyboard Tab</td>
+<td>TAB</td>
+</tr>
+<tr>
+<td>Keyboard Return</td>
+<td>RETURN</td>
+</tr>
+<tr>
+<td>Keyboard Pause</td>
+<td>PAUSE</td>
+</tr>
+<tr>
+<td>Keyboard Escape</td>
+<td>ESCAPE</td>
+</tr>
+<tr>
+<td>Keyboard Space</td>
+<td>SPACE</td>
+</tr>
+<tr>
+<td>Keyboard Quote ‘</td>
+<td>COLON</td>
+</tr>
+<tr>
+<td>Keyboard Comma ,</td>
+<td>COMMA</td>
+</tr>
+<tr>
+<td>Keyboard Minus -</td>
+<td>NEGATIVE</td>
+</tr>
+<tr>
+<td>Keyboard Period .</td>
+<td>PERIOD</td>
+</tr>
+<tr>
+<td>Keyboard Slash /</td>
+<td>DIVIDE</td>
+</tr>
+<tr>
+<td>Keyboard 0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Keyboard 1</td>
+<td>1, Player 1 Coleco #0</td>
+</tr>
+<tr>
+<td>Keyboard 2</td>
+<td>2, Player 1 Coleco #9</td>
+</tr>
+<tr>
+<td>Keyboard 3</td>
+<td>3, Player 2 Coleco #0</td>
+</tr>
+<tr>
+<td>Keyboard 4</td>
+<td>4, Player 2 Coleco #9</td>
+</tr>
+<tr>
+<td>Keyboard 5</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Keyboard 6</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Keyboard 7</td>
+<td>7</td>
+</tr>
+<tr>
+<td>Keyboard 8</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Keyboard 9</td>
+<td>9</td>
+</tr>
+<tr>
+<td>Keyboard Semicolon ;</td>
+<td>SEMICOLON</td>
+</tr>
+<tr>
+<td>Keyboard Equals =</td>
+<td>CIRCUMFLEX</td>
+</tr>
+<tr>
+<td>Keyboard Left Bracket [</td>
+<td>LEFT BRACKET</td>
+</tr>
+<tr>
+<td>Keyboard Backslash \</td>
+<td>BACKSLASH (YEN)</td>
+</tr>
+<tr>
+<td>Keyboard Right Bracket ]</td>
+<td>RIGHT BRACKET</td>
+</tr>
+<tr>
+<td>Keyboard Backquote `</td>
+<td>AT</td>
+</tr>
+<tr>
+<td>Keyboard a</td>
+<td>A</td>
+</tr>
+<tr>
+<td>Keyboard b</td>
+<td>B</td>
+</tr>
+<tr>
+<td>Keyboard c</td>
+<td>C</td>
+</tr>
+<tr>
+<td>Keyboard d</td>
+<td>D</td>
+</tr>
+<tr>
+<td>Keyboard e</td>
+<td>E</td>
+</tr>
+<tr>
+<td>Keyboard f</td>
+<td>F</td>
+</tr>
+<tr>
+<td>Keyboard g</td>
+<td>G</td>
+</tr>
+<tr>
+<td>Keyboard h</td>
+<td>H</td>
+</tr>
+<tr>
+<td>Keyboard i</td>
+<td>I</td>
+</tr>
+<tr>
+<td>Keyboard j</td>
+<td>J</td>
+</tr>
+<tr>
+<td>Keyboard k</td>
+<td>K</td>
+</tr>
+<tr>
+<td>Keyboard l</td>
+<td>L</td>
+</tr>
+<tr>
+<td>Keyboard m</td>
+<td>M</td>
+</tr>
+<tr>
+<td>Keyboard n</td>
+<td>N</td>
+</tr>
+<tr>
+<td>Keyboard o</td>
+<td>O</td>
+</tr>
+<tr>
+<td>Keyboard p</td>
+<td>P</td>
+</tr>
+<tr>
+<td>Keyboard q</td>
+<td>Q</td>
+</tr>
+<tr>
+<td>Keyboard r</td>
+<td>R</td>
+</tr>
+<tr>
+<td>Keyboard s</td>
+<td>S</td>
+</tr>
+<tr>
+<td>Keyboard t</td>
+<td>T</td>
+</tr>
+<tr>
+<td>Keyboard u</td>
+<td>U</td>
+</tr>
+<tr>
+<td>Keyboard v</td>
+<td>V</td>
+</tr>
+<tr>
+<td>Keyboard w</td>
+<td>W</td>
+</tr>
+<tr>
+<td>Keyboard x</td>
+<td>X</td>
+</tr>
+<tr>
+<td>Keyboard y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>Keyboard z</td>
+<td>Z</td>
+</tr>
+<tr>
+<td>Keyboard Delete</td>
+<td>DELETE</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 0</td>
+<td>NUMPAD 0</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 1</td>
+<td>NUMPAD 1</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 2</td>
+<td>NUMPAD 2</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 3</td>
+<td>NUMPAD 3</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 4</td>
+<td>NUMPAD 4</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 5</td>
+<td>NUMPAD 5</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 6</td>
+<td>NUMPAD 6</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 7</td>
+<td>NUMPAD 7</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 8</td>
+<td>NUMPAD 8</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 9</td>
+<td>NUMPAD 9</td>
+</tr>
+<tr>
+<td>Keyboard Keypad Period .</td>
+<td>NUMPAD COMMA</td>
+</tr>
+<tr>
+<td>Keyboard Keypad Divide /</td>
+<td>NUMPAD DIVIDE</td>
+</tr>
+<tr>
+<td>Keyboard Keypad Multiply *</td>
+<td>NUMPAD MULTIPLY</td>
+</tr>
+<tr>
+<td>Keyboard Keypad Minus -</td>
+<td>NUMPAD SUBTRACTION</td>
+</tr>
+<tr>
+<td>Keyboard Keypad Plus +</td>
+<td>NUMPAD ADD</td>
+</tr>
+<tr>
+<td>Keyboard Keypad Enter</td>
+<td>NUMPAD PERIOD</td>
+</tr>
+<tr>
+<td>Keyboard Up</td>
+<td>UP</td>
+</tr>
+<tr>
+<td>Keyboard Down</td>
+<td>DOWN</td>
+</tr>
+<tr>
+<td>Keyboard Right</td>
+<td>RIGHT</td>
+</tr>
+<tr>
+<td>Keyboard Left</td>
+<td>LEFT</td>
+</tr>
+<tr>
+<td>Keyboard Insert</td>
+<td>INSERT</td>
+</tr>
+<tr>
+<td>Keyboard Home</td>
+<td>CLS</td>
+</tr>
+<tr>
+<td>Keyboard End</td>
+<td>STOP</td>
+</tr>
+<tr>
+<td>Keyboard Page Up</td>
+<td>SELECT</td>
+</tr>
+<tr>
+<td>Keyboard F1</td>
+<td>F1</td>
+</tr>
+<tr>
+<td>Keyboard F2</td>
+<td>F2</td>
+</tr>
+<tr>
+<td>Keyboard F3</td>
+<td>F3</td>
+</tr>
+<tr>
+<td>Keyboard F4</td>
+<td>F4</td>
+</tr>
+<tr>
+<td>Keyboard F5</td>
+<td>F5</td>
+</tr>
+<tr>
+<td>Keyboard Caps Lock</td>
+<td>CAPS</td>
+</tr>
+<tr>
+<td>Keyboard Right Shift</td>
+<td>RIGHT SHIFT</td>
+</tr>
+<tr>
+<td>Keyboard Left Shift</td>
+<td>LEFT SHIFT</td>
+</tr>
+<tr>
+<td>Keyboard Left Control</td>
+<td>CONTROL</td>
+</tr>
+<tr>
+<td>Keyboard Left Alt</td>
+<td>GRAPH</td>
+</tr>
+<tr>
+<td>Keyboard Print</td>
+<td>PRINT</td>
+</tr>
+</tbody></table>
+<p>Supported combinations</p>
+<p>Keyboard Left or Right Shift + Keyboard 0 = UNDERSCORE</p>
+<p>Compatibility</p>
+<p><a href="http://www.msxblue.com/manual/settingsports.htm">blueMSX Manual</a></p>
+<p>External Links</p>
+<p><a href="http://bluemsx.com/">Official blueMSX Website</a><br><a href="http://sourceforge.net/projects/bluemsx/">Official blueMSX SourceForge Repository</a><br><a href="https://github.com/libretro/libretro-super/blob/master/dist/info/bluemsx_libretro.info">Libretro blueMSX Core info file</a><br><a href="https://github.com/libretro/blueMSX-libretro">Libretro blueMSX Github Repository</a><br><a href="https://github.com/libretro/blueMSX-libretro/issues">Report Libretro blueMSX Core Issues Here</a></p>
+<p>See also</p>
+<p>Sega - SG-1000</p>
+<p><a href="genesis_plus_gx.md">Sega - MS/GG/MD/CD (Genesis Plus GX)</a><br><a href="gearsystem.md">Sega - MS/GG/SG-1000 (Gearsystem)</a></p>
+<p>Microsoft - MSX</p>
+<p><a href="fmsx.md">Microsoft - MSX (fMSX)</a></p>
+<p>Microsoft - MSX2</p>
+<p><a href="fmsx.md">Microsoft - MSX (fMSX)</a></p>
+</blockquote>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><h3 id="支持的ROM格式"><a href="#支持的ROM格式" class="headerlink" title="支持的ROM格式:"></a>支持的ROM格式:</h3><h3 id="固件"><a href="#固件" class="headerlink" title="固件:"></a>固件:</h3><h3 id="功能"><a href="#功能" class="headerlink" title="功能:"></a>功能:</h3><p>支持</p>
+<p>不支持</p>
+<h3 id="核心选项"><a href="#核心选项" class="headerlink" title="核心选项:"></a>核心选项:</h3><h3 id="相关文件路径"><a href="#相关文件路径" class="headerlink" title="相关文件路径:"></a>相关文件路径:</h3><h3 id="控制"><a href="#控制" class="headerlink" title="控制:"></a>控制:</h3><h3 id="评测"><a href="#评测" class="headerlink" title="评测:"></a>评测:</h3><p>高性能组:<br>1.安卓<br>环境:Android10-armV8a，骁龙835，OpenGL，默认选项<br>结果:<br>低性能组:<br>环境:环境:Android6-armV8a，骁龙625，OpenGL，默认选项<br>结果:</p>
+]]></content>
+      <categories>
+        <category>计算机</category>
+        <category>模拟器</category>
+      </categories>
+      <tags>
+        <tag>仿真器</tag>
+        <tag>计算机史</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RetroArch-cpc(caprice32)核心的配置和操作指南</title>
     <url>/2020/10/24/retrocore-cpc/</url>
     <content><![CDATA[<p><a href="https://imgchr.com/i/BGsrGR"><img src="https://s1.ax1x.com/2020/10/29/BGsrGR.png" alt="BGsrGR.png"></a></p>
@@ -2387,706 +3087,6 @@ See: https://github.com/libretro/vbam-libretro/issues/58</code></pre>
 <h2 id="相关路径与文件-1"><a href="#相关路径与文件-1" class="headerlink" title="相关路径与文件:"></a>相关路径与文件:</h2><h2 id="控制"><a href="#控制" class="headerlink" title="控制:"></a>控制:</h2><p>B<br>Turbo B Y<br>Select<br>Start<br>D-Pad Up<br>D-Pad Down<br>D-Pad Left<br>D-Pad Right<br>A<br>Turbo A X<br>L L1<br>R R1<br>Solar Sensor (Darker) L2<br>Solar Sensor (Lighter) R2<br>Tilt X-Axis L<br>Tilt X-Yxis L<br>Gyro 圆形R</p>
 <h2 id="测评"><a href="#测评" class="headerlink" title="测评:"></a>测评:</h2><p>高性能组:<br>1.安卓<br>环境:Android10-armV8a，骁龙835，OpenGL，默认选项<br>结果:<br>低性能组:<br>环境:环境:Android6-armV8a，骁龙625，OpenGL，默认选项<br>结果:</p>
 <p>功能奇多无比，让你体验真实的GBA，内味太浓</p>
-]]></content>
-      <categories>
-        <category>计算机</category>
-        <category>模拟器</category>
-      </categories>
-      <tags>
-        <tag>仿真器</tag>
-        <tag>计算机史</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>RetroArch-MSX(BlueMSX)核心的配置和操作指南</title>
-    <url>/2020/10/24/retrocore-bluemsx/</url>
-    <content><![CDATA[<p><a href="https://imgchr.com/i/BG0F1K"><img src="https://s1.ax1x.com/2020/10/29/BG0F1K.gif" alt="BG0F1K.gif"></a><br><a href="https://imgchr.com/i/BGBgsS"><img src="https://s1.ax1x.com/2020/10/29/BGBgsS.jpg" alt="BGBgsS.jpg"></a><br><a href="https://imgchr.com/i/BGBIGq"><img src="https://s1.ax1x.com/2020/10/29/BGBIGq.jpg" alt="BGBIGq.jpg"></a></p>
-<h4 id="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"><a href="#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变" class="headerlink" title="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"></a><em>注意这是一个动态更新型文章，文章内容可能会随时更新或者改变</em></h4><a id="more"></a>
-
-
-
-<h1 id="Libretro-MSX-BlueMSX-系列核心"><a href="#Libretro-MSX-BlueMSX-系列核心" class="headerlink" title="Libretro-MSX(BlueMSX)系列核心"></a>Libretro-MSX(BlueMSX)系列核心</h1><h2 id="机型"><a href="#机型" class="headerlink" title="机型:"></a>机型:</h2><ul>
-<li>微软 MSX 微型计算机</li>
-<li>微软 MSX2 微型计算机</li>
-<li>Spectravideo SVI 微型计算机</li>
-<li>ColecoVision 家用游戏机</li>
-<li>Sega SG-1000 家用游戏机<h2 id="相关ROM"><a href="#相关ROM" class="headerlink" title="相关ROM:"></a>相关ROM:</h2></li>
-</ul>
-<h2 id="相关模拟器"><a href="#相关模拟器" class="headerlink" title="相关模拟器:"></a>相关模拟器:</h2><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>官方网站: <a href="http://bluemsx.msxblue.com/">http://bluemsx.msxblue.com/</a><br>BlueMSX在这短短的时间内，已经成为最先进和功能丰富的MSX模拟器， 它支持大多数常见的机器和各种各样的扩展硬件，模拟器中还包含一个功能丰富的调试器。<br>在过去两年中，MSX仿真得到了扩展，并增加了对其他系统的支持。 蓝色MSX现在也是一个SVI模拟器，并支持Coleco视觉和SegaSG-1000，SC-3000，SF-7000控制台</p>
-<p>简单说一些BlueMSX的功能</p>
-<ul>
-<li>支持sg-1000，sc-3000，sf-7000，colecovision，svi318/328，msx、msx2、msx2和Turboor，并进行机器定制</li>
-<li>插件功能增加了调试器和训练器</li>
-<li>协助msx开发人员的高级调试器</li>
-<li>多语言支持和指定键盘布局。 </li>
-<li>dsk/rom/cas和zip的文件支持</li>
-<li>MSX-Midi、MSX-Music、MSX-Audio、SCC和Moonsound，具有过采样控制和DAC</li>
-<li>键盘配置器和强大的主题结构</li>
-<li>最近的文件列表和快速保存，以便更快地访问</li>
-<li>储蓄者被重写以获得更高的向后兼容性</li>
-<li>各种大小的屏幕捕捉和音频捕捉</li>
-<li>可定制的热键</li>
-</ul>
-<h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><blockquote>
-<p>MSX/SVI/ColecoVision/SG-1000 (blueMSX)</p>
-<p>Background</p>
-<p>blueMSX is a cycle accurate emulator that emulates all generations of MSX computers as well as SVI, ColecoVision and Sega SG-1000.</p>
-<p>Author/License</p>
-<p>The blueMSX core has been authored by</p>
-<p>Daniel Vik</p>
-<p>The blueMSX core is licensed under</p>
-<p><a href="https://github.com/libretro/blueMSX-libretro/blob/master/license.txt">GPLv2</a></p>
-<p>A summary of the licenses behind RetroArch and its cores can be found <a href="../development/licenses.md">here</a>.</p>
-<p>Extensions</p>
-<p>Content that can be loaded by the blueMSX core have the following file extensions:</p>
-<p>.rom<br>.ri<br>.mx1<br>.mx2<br>.col<br>.dsk<br>.cas<br>.sg<br>.sc<br>.m3u</p>
-<p>Databases</p>
-<p>RetroArch database(s) that are associated with the blueMSX core:</p>
-<p><a href="https://github.com/libretro/libretro-database/blob/master/rdb/Microsoft%20-%20MSX.rdb">Microsoft - MSX</a><br><a href="https://github.com/libretro/libretro-database/blob/master/rdb/Microsoft%20-%20MSX2.rdb">Microsoft - MSX2</a><br><a href="https://github.com/libretro/libretro-database/blob/master/rdb/Coleco%20-%20ColecoVision.rdb">Coleco - ColecoVision</a><br><a href="https://github.com/libretro/libretro-database/blob/master/rdb/Sega%20-%20SG-1000.rdb">Sega - SG-1000</a></p>
-<p>BIOS</p>
-<p>The blueMSX core requires the ‘Databases’ and ‘Machines’ folders from a full installation of blueMSX.</p>
-<p>You can download the ‘Databases’ and ‘Machines’ folders from an <a href="http://bluemsx.msxblue.com/download.html">official full standalone blueMSX emulator installation</a>. Get blueMSXv282full.zip near the bottom of the page.</p>
-<p>Move/Copy the ‘Databases’ and ‘Machines’ Folders to RetroArch’s System directory.</p>
-<p><img src="../image/core/bluemsx/bios.png"></p>
-<p>Features</p>
-<p>Frontend-level settings or features that the blueMSX core respects.</p>
-<table>
-<thead>
-<tr>
-<th>Feature</th>
-<th align="center">Supported</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Restart</td>
-<td align="center">✔</td>
-</tr>
-<tr>
-<td>Screenshots</td>
-<td align="center">✔</td>
-</tr>
-<tr>
-<td>Saves</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>States</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Rewind</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Netplay</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Core Options</td>
-<td align="center">✔</td>
-</tr>
-<tr>
-<td>RetroAchievements</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>RetroArch Cheats</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Native Cheats</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Controls</td>
-<td align="center">✔</td>
-</tr>
-<tr>
-<td>Remapping</td>
-<td align="center">✔</td>
-</tr>
-<tr>
-<td>Multi-Mouse</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Rumble</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Sensors</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Camera</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Location</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Subsystem</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td><a href="../guides/softpatching.md">Softpatching</a></td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Disk Control</td>
-<td align="center">✔</td>
-</tr>
-<tr>
-<td>Username</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Language</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Crop Overscan</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>LEDs</td>
-<td align="center">✕</td>
-</tr>
-</tbody></table>
-<p>Directories</p>
-<p>The blueMSX core’s library name is ‘blueMSX’</p>
-<p>The blueMSX core saves/loads to/from these directories.</p>
-<p><strong>Frontend’s System directory</strong></p>
-<table>
-<thead>
-<tr>
-<th align="center">File</th>
-<th align="center">Description</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">bluemsx.ini</td>
-<td align="center">blueMSX Config</td>
-</tr>
-<tr>
-<td align="center">bluemsx_history.ini</td>
-<td align="center">blueMSX History</td>
-</tr>
-</tbody></table>
-<p>Geometry and timing</p>
-<p>The blueMSX core’s core provided FPS is 60<br>The blueMSX core’s core provided sample rate is 44100 Hz<br>The blueMSX core’s base width is (Base width)<br>The blueMSX core’s base height is (Base height)<br>The blueMSX core’s max width is (Max width)<br>The blueMSX core’s max height is (Max height)<br>The blueMSX core’s core provided aspect ratio is (Ratio)</p>
-<p>Usage</p>
-<p>ColecoVision Gamepad Mapping is as follow:</p>
-<p>Button 1 as Retropad A<br>Button 2 as Retropad B<br>Dial keys 1 to 8 as X, Y, R, L, R2, L2, R3, L3<br>Star (*) as Select, Hash (#) as Start<br>0 &amp; 9 are on keyboard 1 &amp; 2 for Player 1<br>0 &amp; 9 are on keyboard 3 &amp; 4 for Player 2.</p>
-<p>To play SpectraVideo cassettes type ‘cload’ then ‘run’</p>
-<p>or BLOAD ‘’CAS:’’,R depending on the game.</p>
-<p>Multiple-disk games</p>
-<p>If foo is a multiple-disk game, you should have .dsk files for each one, e.g. <code>foo (Disk 1).dsk</code>, <code>foo (Disk 2).dsk</code>, <code>foo (Disk 3).dsk</code>.</p>
-<p>To take advantage of BlueMSX Disk Control feature for disk swapping, an index file (a m3u file) should be made.</p>
-<p>Create a text file and save it as <code>foo.m3u</code>. Then enter your game’s .dsk files on it. The m3u file contents should look something like this:</p>
-<p><code>foo.m3u</code></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">foo (Disk 1).dsk</span><br><span class="line">foo (Disk 2).dsk</span><br><span class="line">foo (Disk 3).dsk</span><br></pre></td></tr></table></figure>
-
-<p>After that, you can load the <code>foo.m3u</code> file in RetroArch with the BlueMSX core.</p>
-<p>An alternative is to append disks to the current playlist via the “Disk Image Append” option RetroArch menu.</p>
-<p>Core options</p>
-<p>The blueMSX core has the following option(s) that can be tweaked from the core options menu. The default setting is bolded.</p>
-<p>Settings with (Restart) means that core has to be closed for the new setting to be applied on next launch.</p>
-<p><strong>Machine Type (Restart)</strong> [bluemsx_msxtype] (<strong>Auto</strong>|MSX|MSXturboR|MSX2|MSX2+|SEGA - SG-1000|SEGA - SC-3000|SEGA - SF-7000|SVI - Spectravideo SVI-318|SVI - Spectravideo SVI-328|SVI - Spectravideo SVI-328 MK2|ColecoVision|Coleco (Spectravideo SVI-603))</p>
-<pre><code>Manually select the machine type you would like the core to start in.</code></pre>
-<p><strong>Crop Overscan</strong> [bluemsx_overscan] (<strong>disabled</strong>|enabled|MSX2)</p>
-<pre><code>Forces cropping of overscanned frames</code></pre>
-<p>??? note “<em>Crop Overscan Off</em>“<br>    <img src="../image/core/bluemsx/crop_off.png"></p>
-<p>??? note “<em>Crop Overscan On</em>“<br>    <img src="../image/core/bluemsx/crop_on.png"></p>
-<p>??? note “<em>Crop Overscan MSX2</em>“<br>    <img src="../image/core/bluemsx/crop_msx2.png"></p>
-<p><strong>VDP Sync Type (Restart)</strong> [bluemsx_vdp_synctype] (<strong>Auto</strong>|50Hz|60Hz)</p>
-<pre><code>Match the game/machine region frequency to avoid emulated speed issues.</code></pre>
-<p><strong>No Sprite Limit</strong> [bluemsx_nospritelimits] (<strong>OFF</strong>|ON)</p>
-<pre><code>Remove the 4 sprite per line limit which can reduce or remove sprite flicker in some games.</code></pre>
-<p><strong>Sound YM2413 Enable (Restart)</strong> [bluemsx_ym2413_enable] (<strong>enabled</strong>|disabled)</p>
-<pre><code>Awaiting description.</code></pre>
-<p><strong>Cart Mapper Type (Restart)</strong> [bluemsx_cartmapper] (<strong>Auto</strong>|Normal|mirrored|basic|0x4000|0xC000|ascii8|ascii8sram|ascii16|ascii16sram|<br>ascii16nf|konami4|konami4nf|konami5|konamisynth|korean80|korean90|korean126|<br>MegaFlashRomScc|MegaFlashRomSccPlus|msxdos2|scc|sccexpanded|sccmirrored|sccplus|<br>snatcher|sdsnatcher|SegaBasic|SG1000|SG1000Castle|SG1000RamA|SG1000RamB|SC3000)</p>
-<pre><code>When a ROM game or application is in the database, the emulator uses the databases to apply the correct mapper. If the sha1 value of a dump is not yet in the databases, it uses an automatic mapper detection system, but it can fail in some cases. In this situation, you can manually select the correct mapper.</code></pre>
-<p>Controllers</p>
-<p>The blueMSX core supports the following device type(s) in the controls menu, bolded device types are the default for the specified user(s):</p>
-<p>User 1 device types</p>
-<p>None - Doesn’t disable input. There’s no reason to switch to this.<br><strong>RetroPad</strong> - Joypad<br>RetroKeyboard - Keyboard - Keyboard inputs are always active. Has keymapper support.<br>RetroPad Keyboard Map - Joypad - Awaiting description.</p>
-<p>User 2 device types</p>
-<p>None - Doesn’t disable input. There’s no reason to switch to this.<br><strong>RetroPad</strong> - Joypad<br>RetroKeyboard - Keyboard - Keyboard inputs are always active.</p>
-<p>Controller tables</p>
-<p>Joypad</p>
-<table>
-<thead>
-<tr>
-<th>User 1 and 2 Remap descriptors for ‘RetroPad’ device type</th>
-<th>RetroPad Inputs</th>
-<th>blueMSX core inputs</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Button 2</td>
-<td><img src="../image/retropad/retro_b.png"></td>
-<td>Button 2, Coleco Button 2</td>
-</tr>
-<tr>
-<td>Button 3</td>
-<td><img src="../image/retropad/retro_y.png"></td>
-<td>Button 3, Coleco #2</td>
-</tr>
-<tr>
-<td>Select</td>
-<td><img src="../image/retropad/retro_select.png"></td>
-<td>Select, Coleco Star (*)</td>
-</tr>
-<tr>
-<td>Start</td>
-<td><img src="../image/retropad/retro_start.png"></td>
-<td>Start, Coleco Hash (#)</td>
-</tr>
-<tr>
-<td>Joy Up</td>
-<td><img src="../image/retropad/retro_dpad_up.png"></td>
-<td>Joy Up</td>
-</tr>
-<tr>
-<td>Joy Down</td>
-<td><img src="../image/retropad/retro_dpad_down.png"></td>
-<td>Joy Down</td>
-</tr>
-<tr>
-<td>Joy Left</td>
-<td><img src="../image/retropad/retro_dpad_left.png"></td>
-<td>Joy Left</td>
-</tr>
-<tr>
-<td>Joy Right</td>
-<td><img src="../image/retropad/retro_dpad_right.png"></td>
-<td>Joy Right</td>
-</tr>
-<tr>
-<td>Button 1</td>
-<td><img src="../image/retropad/retro_a.png"></td>
-<td>Button 1,  Coleco Button 1</td>
-</tr>
-<tr>
-<td>Button 4</td>
-<td><img src="../image/retropad/retro_x.png"></td>
-<td>Button 4, Coleco #1</td>
-</tr>
-<tr>
-<td>Button 5</td>
-<td><img src="../image/retropad/retro_l1.png"></td>
-<td>Button 5, Coleco #4</td>
-</tr>
-<tr>
-<td>Button 6</td>
-<td><img src="../image/retropad/retro_r1.png"></td>
-<td>Button 6, Coleco #3</td>
-</tr>
-<tr>
-<td>Button 7</td>
-<td><img src="../image/retropad/retro_l2.png"></td>
-<td>Button 7, Coleco #6</td>
-</tr>
-<tr>
-<td>Button 8</td>
-<td><img src="../image/retropad/retro_r2.png"></td>
-<td>Button 8, Coleco #5</td>
-</tr>
-<tr>
-<td>Button 9</td>
-<td><img src="../image/retropad/retro_l3.png"></td>
-<td>Button 9. Coleco #8</td>
-</tr>
-<tr>
-<td>Button 10</td>
-<td><img src="../image/retropad/retro_r3.png"></td>
-<td>Button 10, Coleco #7</td>
-</tr>
-</tbody></table>
-<p>Keyboard</p>
-<table>
-<thead>
-<tr>
-<th>RetroKeyboard Inputs</th>
-<th>RetroKeyboard</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Keyboard Backspace</td>
-<td>BACKSPACE</td>
-</tr>
-<tr>
-<td>Keyboard Tab</td>
-<td>TAB</td>
-</tr>
-<tr>
-<td>Keyboard Return</td>
-<td>RETURN</td>
-</tr>
-<tr>
-<td>Keyboard Pause</td>
-<td>PAUSE</td>
-</tr>
-<tr>
-<td>Keyboard Escape</td>
-<td>ESCAPE</td>
-</tr>
-<tr>
-<td>Keyboard Space</td>
-<td>SPACE</td>
-</tr>
-<tr>
-<td>Keyboard Quote ‘</td>
-<td>COLON</td>
-</tr>
-<tr>
-<td>Keyboard Comma ,</td>
-<td>COMMA</td>
-</tr>
-<tr>
-<td>Keyboard Minus -</td>
-<td>NEGATIVE</td>
-</tr>
-<tr>
-<td>Keyboard Period .</td>
-<td>PERIOD</td>
-</tr>
-<tr>
-<td>Keyboard Slash /</td>
-<td>DIVIDE</td>
-</tr>
-<tr>
-<td>Keyboard 0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>Keyboard 1</td>
-<td>1, Player 1 Coleco #0</td>
-</tr>
-<tr>
-<td>Keyboard 2</td>
-<td>2, Player 1 Coleco #9</td>
-</tr>
-<tr>
-<td>Keyboard 3</td>
-<td>3, Player 2 Coleco #0</td>
-</tr>
-<tr>
-<td>Keyboard 4</td>
-<td>4, Player 2 Coleco #9</td>
-</tr>
-<tr>
-<td>Keyboard 5</td>
-<td>5</td>
-</tr>
-<tr>
-<td>Keyboard 6</td>
-<td>6</td>
-</tr>
-<tr>
-<td>Keyboard 7</td>
-<td>7</td>
-</tr>
-<tr>
-<td>Keyboard 8</td>
-<td>8</td>
-</tr>
-<tr>
-<td>Keyboard 9</td>
-<td>9</td>
-</tr>
-<tr>
-<td>Keyboard Semicolon ;</td>
-<td>SEMICOLON</td>
-</tr>
-<tr>
-<td>Keyboard Equals =</td>
-<td>CIRCUMFLEX</td>
-</tr>
-<tr>
-<td>Keyboard Left Bracket [</td>
-<td>LEFT BRACKET</td>
-</tr>
-<tr>
-<td>Keyboard Backslash \</td>
-<td>BACKSLASH (YEN)</td>
-</tr>
-<tr>
-<td>Keyboard Right Bracket ]</td>
-<td>RIGHT BRACKET</td>
-</tr>
-<tr>
-<td>Keyboard Backquote `</td>
-<td>AT</td>
-</tr>
-<tr>
-<td>Keyboard a</td>
-<td>A</td>
-</tr>
-<tr>
-<td>Keyboard b</td>
-<td>B</td>
-</tr>
-<tr>
-<td>Keyboard c</td>
-<td>C</td>
-</tr>
-<tr>
-<td>Keyboard d</td>
-<td>D</td>
-</tr>
-<tr>
-<td>Keyboard e</td>
-<td>E</td>
-</tr>
-<tr>
-<td>Keyboard f</td>
-<td>F</td>
-</tr>
-<tr>
-<td>Keyboard g</td>
-<td>G</td>
-</tr>
-<tr>
-<td>Keyboard h</td>
-<td>H</td>
-</tr>
-<tr>
-<td>Keyboard i</td>
-<td>I</td>
-</tr>
-<tr>
-<td>Keyboard j</td>
-<td>J</td>
-</tr>
-<tr>
-<td>Keyboard k</td>
-<td>K</td>
-</tr>
-<tr>
-<td>Keyboard l</td>
-<td>L</td>
-</tr>
-<tr>
-<td>Keyboard m</td>
-<td>M</td>
-</tr>
-<tr>
-<td>Keyboard n</td>
-<td>N</td>
-</tr>
-<tr>
-<td>Keyboard o</td>
-<td>O</td>
-</tr>
-<tr>
-<td>Keyboard p</td>
-<td>P</td>
-</tr>
-<tr>
-<td>Keyboard q</td>
-<td>Q</td>
-</tr>
-<tr>
-<td>Keyboard r</td>
-<td>R</td>
-</tr>
-<tr>
-<td>Keyboard s</td>
-<td>S</td>
-</tr>
-<tr>
-<td>Keyboard t</td>
-<td>T</td>
-</tr>
-<tr>
-<td>Keyboard u</td>
-<td>U</td>
-</tr>
-<tr>
-<td>Keyboard v</td>
-<td>V</td>
-</tr>
-<tr>
-<td>Keyboard w</td>
-<td>W</td>
-</tr>
-<tr>
-<td>Keyboard x</td>
-<td>X</td>
-</tr>
-<tr>
-<td>Keyboard y</td>
-<td>Y</td>
-</tr>
-<tr>
-<td>Keyboard z</td>
-<td>Z</td>
-</tr>
-<tr>
-<td>Keyboard Delete</td>
-<td>DELETE</td>
-</tr>
-<tr>
-<td>Keyboard Keypad 0</td>
-<td>NUMPAD 0</td>
-</tr>
-<tr>
-<td>Keyboard Keypad 1</td>
-<td>NUMPAD 1</td>
-</tr>
-<tr>
-<td>Keyboard Keypad 2</td>
-<td>NUMPAD 2</td>
-</tr>
-<tr>
-<td>Keyboard Keypad 3</td>
-<td>NUMPAD 3</td>
-</tr>
-<tr>
-<td>Keyboard Keypad 4</td>
-<td>NUMPAD 4</td>
-</tr>
-<tr>
-<td>Keyboard Keypad 5</td>
-<td>NUMPAD 5</td>
-</tr>
-<tr>
-<td>Keyboard Keypad 6</td>
-<td>NUMPAD 6</td>
-</tr>
-<tr>
-<td>Keyboard Keypad 7</td>
-<td>NUMPAD 7</td>
-</tr>
-<tr>
-<td>Keyboard Keypad 8</td>
-<td>NUMPAD 8</td>
-</tr>
-<tr>
-<td>Keyboard Keypad 9</td>
-<td>NUMPAD 9</td>
-</tr>
-<tr>
-<td>Keyboard Keypad Period .</td>
-<td>NUMPAD COMMA</td>
-</tr>
-<tr>
-<td>Keyboard Keypad Divide /</td>
-<td>NUMPAD DIVIDE</td>
-</tr>
-<tr>
-<td>Keyboard Keypad Multiply *</td>
-<td>NUMPAD MULTIPLY</td>
-</tr>
-<tr>
-<td>Keyboard Keypad Minus -</td>
-<td>NUMPAD SUBTRACTION</td>
-</tr>
-<tr>
-<td>Keyboard Keypad Plus +</td>
-<td>NUMPAD ADD</td>
-</tr>
-<tr>
-<td>Keyboard Keypad Enter</td>
-<td>NUMPAD PERIOD</td>
-</tr>
-<tr>
-<td>Keyboard Up</td>
-<td>UP</td>
-</tr>
-<tr>
-<td>Keyboard Down</td>
-<td>DOWN</td>
-</tr>
-<tr>
-<td>Keyboard Right</td>
-<td>RIGHT</td>
-</tr>
-<tr>
-<td>Keyboard Left</td>
-<td>LEFT</td>
-</tr>
-<tr>
-<td>Keyboard Insert</td>
-<td>INSERT</td>
-</tr>
-<tr>
-<td>Keyboard Home</td>
-<td>CLS</td>
-</tr>
-<tr>
-<td>Keyboard End</td>
-<td>STOP</td>
-</tr>
-<tr>
-<td>Keyboard Page Up</td>
-<td>SELECT</td>
-</tr>
-<tr>
-<td>Keyboard F1</td>
-<td>F1</td>
-</tr>
-<tr>
-<td>Keyboard F2</td>
-<td>F2</td>
-</tr>
-<tr>
-<td>Keyboard F3</td>
-<td>F3</td>
-</tr>
-<tr>
-<td>Keyboard F4</td>
-<td>F4</td>
-</tr>
-<tr>
-<td>Keyboard F5</td>
-<td>F5</td>
-</tr>
-<tr>
-<td>Keyboard Caps Lock</td>
-<td>CAPS</td>
-</tr>
-<tr>
-<td>Keyboard Right Shift</td>
-<td>RIGHT SHIFT</td>
-</tr>
-<tr>
-<td>Keyboard Left Shift</td>
-<td>LEFT SHIFT</td>
-</tr>
-<tr>
-<td>Keyboard Left Control</td>
-<td>CONTROL</td>
-</tr>
-<tr>
-<td>Keyboard Left Alt</td>
-<td>GRAPH</td>
-</tr>
-<tr>
-<td>Keyboard Print</td>
-<td>PRINT</td>
-</tr>
-</tbody></table>
-<p>Supported combinations</p>
-<p>Keyboard Left or Right Shift + Keyboard 0 = UNDERSCORE</p>
-<p>Compatibility</p>
-<p><a href="http://www.msxblue.com/manual/settingsports.htm">blueMSX Manual</a></p>
-<p>External Links</p>
-<p><a href="http://bluemsx.com/">Official blueMSX Website</a><br><a href="http://sourceforge.net/projects/bluemsx/">Official blueMSX SourceForge Repository</a><br><a href="https://github.com/libretro/libretro-super/blob/master/dist/info/bluemsx_libretro.info">Libretro blueMSX Core info file</a><br><a href="https://github.com/libretro/blueMSX-libretro">Libretro blueMSX Github Repository</a><br><a href="https://github.com/libretro/blueMSX-libretro/issues">Report Libretro blueMSX Core Issues Here</a></p>
-<p>See also</p>
-<p>Sega - SG-1000</p>
-<p><a href="genesis_plus_gx.md">Sega - MS/GG/MD/CD (Genesis Plus GX)</a><br><a href="gearsystem.md">Sega - MS/GG/SG-1000 (Gearsystem)</a></p>
-<p>Microsoft - MSX</p>
-<p><a href="fmsx.md">Microsoft - MSX (fMSX)</a></p>
-<p>Microsoft - MSX2</p>
-<p><a href="fmsx.md">Microsoft - MSX (fMSX)</a></p>
-</blockquote>
-<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><h3 id="支持的ROM格式"><a href="#支持的ROM格式" class="headerlink" title="支持的ROM格式:"></a>支持的ROM格式:</h3><h3 id="固件"><a href="#固件" class="headerlink" title="固件:"></a>固件:</h3><h3 id="功能"><a href="#功能" class="headerlink" title="功能:"></a>功能:</h3><p>支持</p>
-<p>不支持</p>
-<h3 id="核心选项"><a href="#核心选项" class="headerlink" title="核心选项:"></a>核心选项:</h3><h3 id="相关文件路径"><a href="#相关文件路径" class="headerlink" title="相关文件路径:"></a>相关文件路径:</h3><h3 id="控制"><a href="#控制" class="headerlink" title="控制:"></a>控制:</h3><h3 id="评测"><a href="#评测" class="headerlink" title="评测:"></a>评测:</h3><p>高性能组:<br>1.安卓<br>环境:Android10-armV8a，骁龙835，OpenGL，默认选项<br>结果:<br>低性能组:<br>环境:环境:Android6-armV8a，骁龙625，OpenGL，默认选项<br>结果:</p>
 ]]></content>
       <categories>
         <category>计算机</category>
