@@ -41,9 +41,9 @@
     
     <category term="计算机" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
     
-    <category term="Linux" scheme="https://opts-22.github.io/tags/Linux/"/>
-    
     <category term="运营维护" scheme="https://opts-22.github.io/tags/%E8%BF%90%E8%90%A5%E7%BB%B4%E6%8A%A4/"/>
+    
+    <category term="Linux" scheme="https://opts-22.github.io/tags/Linux/"/>
     
   </entry>
   
@@ -189,15 +189,14 @@
   </entry>
   
   <entry>
-    <title>RetroArch-DC(Flycast)核心的配置和操作指南</title>
-    <link href="https://opts-22.github.io/2020/10/24/retrocore-flycast/"/>
-    <id>https://opts-22.github.io/2020/10/24/retrocore-flycast/</id>
+    <title>RetroArch-cpc(caprice32)核心的配置和操作指南</title>
+    <link href="https://opts-22.github.io/2020/10/24/retrocore-cpc/"/>
+    <id>https://opts-22.github.io/2020/10/24/retrocore-cpc/</id>
     <published>2020-10-24T14:43:42.000Z</published>
-    <updated>2020-10-31T09:49:37.000Z</updated>
+    <updated>2020-10-31T09:27:01.000Z</updated>
     
     
-    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/BJe6OS&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BJe6OS.jpg&quot; alt=&quot;BJe6OS.jpg&quot;&gt;&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://imgchr.com/i/BJeTyT&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BJeTyT.png&quot; alt=&quot;BJeTyT.png&quot;&gt;&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://imgchr.com/i/BJmPmD&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BJmPmD.jpg&quot; alt=&quot;BJmPmD.jpg&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4 id=&quot;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot;&gt;&lt;a href=&quot;#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot; class=&quot;headerlink&quot; title=&quot;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot;&gt;&lt;/a&gt;&lt;em&gt;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&lt;/em&gt;&lt;/h4&gt;</summary>
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/BGsrGR&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BGsrGR.png&quot; alt=&quot;BGsrGR.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;</summary>
     
     
     
@@ -213,14 +212,15 @@
   </entry>
   
   <entry>
-    <title>RetroArch-cpc(caprice32)核心的配置和操作指南</title>
-    <link href="https://opts-22.github.io/2020/10/24/retrocore-cpc/"/>
-    <id>https://opts-22.github.io/2020/10/24/retrocore-cpc/</id>
+    <title>RetroArch-DC(Flycast)核心的配置和操作指南</title>
+    <link href="https://opts-22.github.io/2020/10/24/retrocore-flycast/"/>
+    <id>https://opts-22.github.io/2020/10/24/retrocore-flycast/</id>
     <published>2020-10-24T14:43:42.000Z</published>
-    <updated>2020-10-31T09:27:01.000Z</updated>
+    <updated>2020-10-31T09:49:37.000Z</updated>
     
     
-    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/BGsrGR&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BGsrGR.png&quot; alt=&quot;BGsrGR.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/BJe6OS&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BJe6OS.jpg&quot; alt=&quot;BJe6OS.jpg&quot;&gt;&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://imgchr.com/i/BJeTyT&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BJeTyT.png&quot; alt=&quot;BJeTyT.png&quot;&gt;&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://imgchr.com/i/BJmPmD&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/29/BJmPmD.jpg&quot; alt=&quot;BJmPmD.jpg&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot;&gt;&lt;a href=&quot;#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot; class=&quot;headerlink&quot; title=&quot;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&quot;&gt;&lt;/a&gt;&lt;em&gt;注意这是一个动态更新型文章，文章内容可能会随时更新或者改变&lt;/em&gt;&lt;/h4&gt;</summary>
     
     
     
@@ -308,9 +308,9 @@
     
     <category term="计算机" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
     
-    <category term="Linux" scheme="https://opts-22.github.io/tags/Linux/"/>
-    
     <category term="运营维护" scheme="https://opts-22.github.io/tags/%E8%BF%90%E8%90%A5%E7%BB%B4%E6%8A%A4/"/>
+    
+    <category term="Linux" scheme="https://opts-22.github.io/tags/Linux/"/>
     
   </entry>
   
@@ -381,9 +381,9 @@
     
     <category term="计算机" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
     
-    <category term="Linux" scheme="https://opts-22.github.io/tags/Linux/"/>
-    
     <category term="运营维护" scheme="https://opts-22.github.io/tags/%E8%BF%90%E8%90%A5%E7%BB%B4%E6%8A%A4/"/>
+    
+    <category term="Linux" scheme="https://opts-22.github.io/tags/Linux/"/>
     
     <category term="NAS" scheme="https://opts-22.github.io/tags/NAS/"/>
     
