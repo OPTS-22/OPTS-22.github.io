@@ -18,8 +18,8 @@
   
   <entry>
     <title>矿渣我家云刷OMV后的Hexo一键部署，Docker路径及容器管理，系统备份为镜像直接刷机功能脚本</title>
-    <link href="https://opts-22.github.io/2021/03/01/Chainedboxassit/"/>
-    <id>https://opts-22.github.io/2021/03/01/Chainedboxassit/</id>
+    <link href="https://opts-22.github.io/2021/03/01/chainedboxassit/"/>
+    <id>https://opts-22.github.io/2021/03/01/chainedboxassit/</id>
     <published>2021-03-01T09:34:29.000Z</published>
     <updated>2021-03-12T12:10:31.312Z</updated>
     
@@ -49,8 +49,8 @@
   
   <entry>
     <title>解决VirtualBox虚拟机软件E_FALL(0x80004005)Machinewrap错误</title>
-    <link href="https://opts-22.github.io/2020/12/21/Vvboxdrverror/"/>
-    <id>https://opts-22.github.io/2020/12/21/Vvboxdrverror/</id>
+    <link href="https://opts-22.github.io/2020/12/21/vboxdrverror/"/>
+    <id>https://opts-22.github.io/2020/12/21/vboxdrverror/</id>
     <published>2020-12-21T12:18:29.000Z</published>
     <updated>2021-03-12T09:22:47.896Z</updated>
     
@@ -67,6 +67,27 @@
     
     
     <category term="计算机" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>站点故障</title>
+    <link href="https://opts-22.github.io/2020/12/13/siteissue/"/>
+    <id>https://opts-22.github.io/2020/12/13/siteissue/</id>
+    <published>2020-12-13T08:22:55.000Z</published>
+    <updated>2021-03-13T08:26:27.390Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;2021-3-00&quot;&gt;&lt;a href=&quot;#2021-3-00&quot; class=&quot;headerlink&quot; title=&quot;2021-3-00&quot;&gt;&lt;/a&gt;2021-3-00&lt;/h1&gt;&lt;h3</summary>
+        
+      
+    
+    
+    
     
   </entry>
   
@@ -272,11 +293,11 @@
     <link href="https://opts-22.github.io/2020/10/24/whatifserver/"/>
     <id>https://opts-22.github.io/2020/10/24/whatifserver/</id>
     <published>2020-10-24T10:52:07.000Z</published>
-    <updated>2021-03-12T10:08:27.856Z</updated>
+    <updated>2021-03-13T08:15:32.091Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;服务器&quot;&gt;&lt;a href=&quot;#服务器&quot; class=&quot;headerlink&quot; title=&quot;服务器&quot;&gt;&lt;/a&gt;服务器&lt;/h1&gt;&lt;p&gt;服务器作为一种用途特殊的计算机，成为了现代网络技术发展中必不可少的东西，而服务器一般是互联网公司的核心载体，其项目的正常运行依靠的是服务器的计算支持；对于企业支撑业务来说其是必不可少的，但是对于家庭或者个人来说，一般只需求一样个人计算机来处理娱乐或者办公，一台难以操作，硬件架构并不是设计于娱乐办公的服务器，又可以用来做什么？&lt;br&gt;一般需要选择适合的服务器主机给我们使用，可以是物理机，也可以是虚拟机&lt;br&gt;一般虚拟机可以选择VPS，CVM，比如阿里云和腾讯云，如果你的服务器要部署在公网进行使用，我建议购买VPS，因为VPS提供公网ip而且有一定的网络安全保障，有管理客户端易于管理，但是硬件不能由你随意扩展，有一定的限制&lt;br&gt;&lt;img src=&quot;https://i.loli.net/2020/10/24/gifHNBR6G5781yo.jpg&quot; alt=&quot;timg&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://ftp.bmp.ovh/imgs/2021/03/3342888c8a05f8d2.png&quot;&gt;&lt;/p&gt;</summary>
+&lt;p&gt;&lt;img src=&quot;https://ftp.bmp.ovh/imgs/2021/03/09ccad01b61718f1.png&quot;&gt;&lt;/p&gt;</summary>
     
     
     
@@ -290,26 +311,6 @@
     <category term="运营维护" scheme="https://opts-22.github.io/tags/%E8%BF%90%E8%90%A5%E7%BB%B4%E6%8A%A4/"/>
     
     <category term="Linux" scheme="https://opts-22.github.io/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Game Record</title>
-    <link href="https://opts-22.github.io/2020/10/23/Game%20Record/"/>
-    <id>https://opts-22.github.io/2020/10/23/Game%20Record/</id>
-    <published>2020-10-23T10:52:07.000Z</published>
-    <updated>2020-10-31T02:04:01.000Z</updated>
-    
-    
-    <summary type="html">&lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;记录—游戏—日常&lt;/strong&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    
-    <category term="日常生活" scheme="https://opts-22.github.io/tags/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB/"/>
-    
-    <category term="游戏文化" scheme="https://opts-22.github.io/tags/%E6%B8%B8%E6%88%8F%E6%96%87%E5%8C%96/"/>
     
   </entry>
   
@@ -342,11 +343,11 @@
   </entry>
   
   <entry>
-    <title>文件服务器中的老猫，Weezo</title>
+    <title>来自远古时代强大的文件共享多功能服务器</title>
     <link href="https://opts-22.github.io/2020/10/20/weezo/"/>
     <id>https://opts-22.github.io/2020/10/20/weezo/</id>
     <published>2020-10-20T10:52:07.000Z</published>
-    <updated>2020-10-24T23:35:09.000Z</updated>
+    <updated>2021-03-13T08:22:24.073Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;文件共享服务器&quot;&gt;&lt;a href=&quot;#文件共享服务器&quot; class=&quot;headerlink&quot; title=&quot;文件共享服务器&quot;&gt;&lt;/a&gt;文件共享服务器&lt;/h1&gt;&lt;p&gt;如果你想搭建一个文件共享服务器来作私人云盘，你会选择什么，现在有很多服务软件可选，像可道云，易有云，NextCloud，Seafile，Cloudreve，Z-File，各有特色，功能强大，开源或者不开源，有些搭建简单有些搭建复杂。&lt;/p&gt;

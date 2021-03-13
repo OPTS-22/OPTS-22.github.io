@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Game Record |  OT的博客哦
+    解决VirtualBox虚拟机软件E_FALL(0x80004005)Machinewrap错误 |  OT的博客哦
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -47,7 +47,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-Game Record"
+  id="post-vboxdrverror"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -58,22 +58,26 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Game Record
+  解决VirtualBox虚拟机软件E_FALL(0x80004005)Machinewrap错误
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2020/10/23/Game%20Record/" class="article-date">
-  <time datetime="2020-10-23T10:52:07.000Z" itemprop="datePublished">2020-10-23</time>
-</a>   
+      <a href="/2020/12/21/vboxdrverror/" class="article-date">
+  <time datetime="2020-12-21T12:18:29.000Z" itemprop="datePublished">2020-12-21</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+  
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">966</span>
+            <span class="post-count">367</span>
         </span>
     </span>
 
@@ -82,7 +86,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">3 min</span>
+            <span class="post-count">1 min</span>
         </span>
     </span>
 </div>
@@ -97,51 +101,28 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <hr>
-<p><strong>记录—游戏—日常</strong></p>
+  <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>原因：一般的，当你的VirtualBox虚拟机进行升级/降级安装时，创建一个虚拟机再打开你会发现他会报错误代码为E_FALL(0x80004005)Machinewrap的错误，如下图所示：</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/362851c911dae680.png"></p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/7f4232cbc12dd03f.jpg"></p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/5869638da6c13e87.jpg"></p>
+<p>于是这种情况会去查百度搜狗，但是你会发现并没有什么好的解决方法，有的说删光VirtualBox的注册表再安装，或者以兼容模式打开，或者安装最新版本………….</p>
 <a id="more"></a>
 
-<h1 id="Game-Record"><a href="#Game-Record" class="headerlink" title="Game Record"></a>Game Record</h1><h3 id="20-10-30"><a href="#20-10-30" class="headerlink" title="20.10.30"></a>20.10.30</h3><p><strong>ROARING FLARE</strong></p>
-<p>
-    <iframe name="iFrame1" width="780" height="480" src="https://player.bilibili.com/player.html?aid=842521100" scrolling="yes" frameborder="1"></iframe>
-</p>
+<p>根据提示的信息，我们基本可以确定是<strong>vboxdrv</strong>组件的错误，因为你总是在各个版本跳来跳去，而vboxdrv是支持不同的版本的，有些人安装最新版本的软件后可以解决这个问题，因为他的vboxdrv是适合最新版本的组件</p>
+<p>此时我们可以根据这个原理，我们来手动安装不同版本的<strong>vboxdrv</strong>组件</p>
+<h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1><p>首先我们用windows搜索来查找位于C盘的vboxdrv组件文件</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/71c6ec884c1bebb7.png"></p>
+<p>我们可以看到有三个文件夹有vboxdrv的文件</p>
+<p>我们找到Virtualbox程序目录下的vboxdrv文件，这里的组件才是适合你这个版本的文件</p>
+<img src = 'https://ftp.bmp.ovh/imgs/2021/03/42ea4f27d0bff41d.png' />
 
-<p>你游竟然开了英杰池子，还新出了个古代机兵，成为新一代输出天花板，直接取代黑占星？？？？</p>
-<p>然后我就来一发嘛，双up吃，出个古代机兵还是有点困难</p>
-<p>那就随便抽抽吧</p>
-<p><img src="https://s1.ax1x.com/2020/10/31/BUSPxg.png" alt="BUSPxg.png"><br>然后…………….woc两个古代</p>
-<p><img src="https://s1.ax1x.com/2020/10/31/BUS9G8.png" alt="BUS9G8.png"></p>
-<p>12000的输出，帅！！！在放两个在自闭王子旁边，简直就是最强侍卫</p>
-<p><img src="https://s1.ax1x.com/2020/10/31/BUSCRS.png" alt="BUSCRS.png"></p>
-<h3 id="20-10-25"><a href="#20-10-25" class="headerlink" title="20.10.25"></a>20.10.25</h3><p>这么快就月末了，越来越忙了所以愈来愈少的空闲来耍耍游戏了，作为一个爱好也望花在其上的时间能更有意义<br>舟游开了复刻活动，可以换小马了，商店换了一个招聘劵，打算试试蒂蒂池，刚一发就惊了，竟然歪到了陈Sir，可谓最近好运连连，但接下来的卡西米尔我有点不详的预感…….因为白嫖了这么久的游戏还运气这么好…….</p>
-<p><img src="https://i.loli.net/2020/10/24/fhXa8buprKZ1UDR.jpg" alt="Screenshot_20201024_202034_e24760d1d02f1ef481aac80648200a09"></p>
-<p><img src="https://i.loli.net/2020/10/24/oPYh7fxVd9Aqiyp.jpg" alt="Screenshot_20201007_123701_e24760d1d02f1ef481aac80648200a09"></p>
-<p>卡西米尔池我比较喜欢的是奥斯塔狐狐，贾维三兄弟意大利黑帮血统竟然看到了东方的侠客和忍者元素<br>然后…..我的预感没错，第一发，歪了白金，第一发10连，歪了赫默，第二发十连，歪了煌，华法林，白金……….<br>抽是抽了这么多六星五星但全歪了，一个奥斯塔都没有？？50%概率4次全歪………<br>对于这个池子，为了避免我一年多了还没搞到奥斯卡（这次格劳克斯都是上年池子今天用劵换的）所以再抽10连，这个月慢慢攒吧</p>
-<p><img src="https://i.loli.net/2020/10/24/DCQW4eBcu6oIzdS.jpg" alt="Screenshot_20201024_202113_e24760d1d02f1ef481aac80648200a09"></p>
-<p><img src="https://i.loli.net/2020/10/24/Mey8rIlNu3PDbgT.jpg" alt="Screenshot_20201024_202119_e24760d1d02f1ef481aac80648200a09"></p>
-<p><img src="https://i.loli.net/2020/10/23/zUod5NMVA8ZDGKj.jpg" alt="Screenshot_20201017_002412_e24760d1d02f1ef481aac80648200a09"></p>
-<h3 id="20-9-25-10-10"><a href="#20-9-25-10-10" class="headerlink" title="20.9.25/10.10"></a>20.9.25/10.10</h3><p>42姐还不错哦，20发搞到，舒服了，2年多到现在也只氪了30………幻神基本搞到和队伍基本很完善了，这游戏基本上不怎么卡手了，期待美术设计不偏向于媚宅画风，剧情也更深度些（但是这游戏为了赚钱……叔叔我只喜欢能赚钱的东西），皮肤买了铃兰皮肤，这个看起来揉揉弱弱的小萝莉终于看起来坚挺些了，虽然没有铃兰也不太喜欢铃兰，原因是我不太喜欢游戏里边剧情上的把这么小的孩子送上战场干些杀人玩意（这么想是因为游戏剧情都比较严肃），所以这到底是体现制作组的媚宅还是泰拉社会环境的残酷，黑心制药企业雇佣童兵………</p>
-<p><img src="https://i.loli.net/2020/10/24/tOpFaQXJifUmA87.jpg" alt="Screenshot_20201024_202047_e24760d1d02f1ef481aac80648200a09"></p>
-<p>你游竟然开联动活动，还发40连，爷爱了，60发搞到黑铁匠，黑魔盾，之后换了个黑给，不行，这游戏太不给了<br>把黑魔盾，黑铁匠给觉醒技觉之后钱空了，黑魔盾走了防御分支，无论是物防还是法防面板都很高</p>
-<p>太爽了，邮箱随便来一发搞到光灵，岂不是英杰塔会很简单了，可以，发到你群去当海豹让一群人把我狗头砸了</p>
-<p>你游英杰8层，把英杰弓换了，立绘我很喜欢，光灵全觉醒后是真的好用，很多层可以单人通………..</p>
-<p>没钱了，把等身女神换了……..接下来不知道练什么了，觉醒圣灵不够用………</p>
-<p><img src="https://i.loli.net/2020/10/24/gK2avWlE8VCRdnX.png" alt="Screenshot_2020-10-01-21-47-44"></p>
-<p><img src="https://i.loli.net/2020/10/24/g8utfzY1kxMrdIc.png" alt="Screenshot_2020-10-24-20-34-07"></p>
-<p><img src="https://i.loli.net/2020/10/24/kEPChluaFAX1Wyw.png" alt="Screenshot_2020-10-24-20-34-38"></p>
-<p><img src="https://i.loli.net/2020/10/24/kvdFzju653QNiMA.png" alt="Screenshot_2020-10-24-20-35-19"></p>
-<p><img src="https://i.loli.net/2020/10/24/Bg6o2R5VDLOKMFJ.png" alt="Screenshot_2020-09-12-14-38-06"></p>
-<p><img src="https://i.loli.net/2020/10/24/ZqrN1sOLz4bHhom.png" alt="Screenshot_2020-10-24-20-34-54"></p>
-<p><img src="https://i.loli.net/2020/10/24/6FzpQ9lOJCbLiat.png" alt="Screenshot_2020-10-09-12-41-55"></p>
-<h3 id="20-8-0"><a href="#20-8-0" class="headerlink" title="20.8.0"></a>20.8.0</h3><p>舟公招三连，我这么秀怕是一群人会打死我，不过就是之前莱塔尼娅的薄雾屁都没抽到，这次伊芙，因陀罗get√</p>
-<p><img src="https://i.loli.net/2020/10/24/4WZ1k5SGlJXEPyh.jpg" alt="Screenshot_20200821_123020_e24760d1d02f1ef481aac80648200a09"></p>
-<p><img src="https://i.loli.net/2020/10/24/Eh57VxBkbQoRi2L.jpg" alt="Screenshot_20200821_122844_e24760d1d02f1ef481aac80648200a09"></p>
-<p><img src="https://i.loli.net/2020/10/24/nECadLeKkj39pw4.jpg" alt="Screenshot_20200820_121816_e24760d1d02f1ef481aac80648200a09"></p>
-<p><img src="https://i.loli.net/2020/10/24/DwcTtkjSCV3A48P.jpg" alt="Screenshot_20200820_121927_e24760d1d02f1ef481aac80648200a09"></p>
-<h3 id="20-8-25-9-10"><a href="#20-8-25-9-10" class="headerlink" title="20.8.25/9.10"></a>20.8.25/9.10</h3><p>舟夏活开了，六星小哥还不错，很给我喜欢，可惜后面返场20发都没搞到，不过森蚺池倒是11发全抽到，不行，她太色了<br>剧情是欢乐向的，但我更喜欢上年夏活，沙滩，海岸，派队的氛围很好，这次以荒野为主题体现了泰拉大陆的风土人情</p>
-<p><img src="https://i.loli.net/2020/10/24/7qK5YCbycgoDThQ.jpg" alt="Screenshot_20200826_212502_e24760d1d02f1ef481aac80648200a09"></p>
-<p><img src="https://i.loli.net/2020/10/24/dsm3YvlFAUh76x1.jpg" alt="Screenshot_20200826_222142_e24760d1d02f1ef481aac80648200a09"></p>
-<p><img src="https://i.loli.net/2020/10/24/LAGyvreQTWaSuOM.jpg" alt="Screenshot_20200827_082231_e24760d1d02f1ef481aac80648200a09"></p>
+<p>之后我们需要分别复制替换这些文件到你在C盘搜索出来所有拥有vboxdrv文件的，比如上面三个</p>
+<p>之后分别安装这三个文件的Vboxdrv.inf</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/ef5f470dee53577c.png"></p>
+<p>重启电脑</p>
+<p>之后输入sc.exe query vboxdrv</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/004cde1170e61eb3.png"></p>
+<p>看到RUNNING就完事了</p>
  
       <!-- reward -->
       
@@ -212,12 +193,12 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://opts-22.github.io/2020/10/23/Game%20Record/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://opts-22.github.io/2020/12/21/vboxdrverror/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB/" rel="tag">日常生活</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B8%B8%E6%88%8F%E6%96%87%E5%8C%96/" rel="tag">游戏文化</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/" rel="tag">计算机</a></li></ul>
 
     </footer>
   </div>
@@ -225,19 +206,19 @@
    
   <nav class="article-nav">
     
-      <a href="/2020/10/24/whatifserver/" class="article-nav-link">
+      <a href="/2021/03/01/chainedboxassit/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            拥有一台服务器可以用来做什么？
+            矿渣我家云刷OMV后的Hexo一键部署，Docker路径及容器管理，系统备份为镜像直接刷机功能脚本
           
         </div>
       </a>
     
     
-      <a href="/2020/10/22/obsolete/" class="article-nav-link">
+      <a href="/2020/12/13/siteissue/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">自制渣翻字幕-虚渊玄主笔军事动漫OBSOLTE</div>
+        <div class="article-nav-title">站点故障</div>
       </a>
     
   </nav>
@@ -359,7 +340,7 @@
 <nav class="navbar">
   
   <div class="logo">
-    <a href="/"><img src="/images/ayer-side.svg" alt="欢迎来到OT-22的主页~"></a>
+    <a href="/"><img src="/images/ayer-side.png" alt="欢迎来到OT-22的主页~"></a>
   </div>
   
   <ul class="nav nav-main">
@@ -678,7 +659,7 @@
     
     
     <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
-        src="//music.163.com/outchain/player?type=2&id=1436614177&auto=1&height=32"></iframe>
+        src="//music.163.com/outchain/player?type=2&id=1809117428&auto=1&height=32"></iframe>
 </div>
 
 <style>
