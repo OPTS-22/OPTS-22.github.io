@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    B站爆火的换脸唱歌视频,不用GoogleColab在自家电脑制作！ |  OT的博客哦
+    简单运用人工智能进行钢琴音频转换为音符数据(Midi) |  OT的博客哦
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -47,7 +47,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-deepfakeunreval"
+  id="post-miditopiano"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -58,15 +58,15 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  B站爆火的换脸唱歌视频,不用GoogleColab在自家电脑制作！
+  简单运用人工智能进行钢琴音频转换为音符数据(Midi)
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2020/10/15/deepfakeunreval/" class="article-date">
-  <time datetime="2020-10-15T14:52:03.000Z" itemprop="datePublished">2020-10-15</time>
+      <a href="/2021/02/28/miditopiano/" class="article-date">
+  <time datetime="2021-02-28T14:52:03.000Z" itemprop="datePublished">2021-02-28</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
@@ -77,7 +77,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">1.4k</span>
+            <span class="post-count">2k</span>
         </span>
     </span>
 
@@ -86,7 +86,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">5 min</span>
+            <span class="post-count">7 min</span>
         </span>
     </span>
 </div>
@@ -101,84 +101,92 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在8月份的时候，B站就多了很多换脸视频，大多都是换了两个外国小哥小姐姐唱歌时候的动态脸照，分别在唱Unravel，Damedayo这两首很魔性的歌，由于视频动作夸张搞笑，而视频被“P”的很真实，收到了很多网友的喜爱<img src="https://i.loli.net/2020/10/15/IFKWxGhU1VM5ZwR.gif" alt="0"></p>
+  <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>近期，字节跳动发布全球最大的古典钢琴数据集 GiantMIDI-Piano，包括来自 2,784 位作曲家 10,854 首作品的 MIDI 文件，总时长为 1,237 小时。研究者为完成该数据集的构建，开发并开源了一套高精度钢琴转谱系统</p>
+</blockquote>
+<p>这个项目在Github上叫做**<a target="_blank" rel="noopener" href="https://github.com/bytedance">bytedance</a>/<a target="_blank" rel="noopener" href="https://github.com/bytedance/GiantMIDI-Piano">GiantMIDI-Piano</a>**</p>
+<p>是的，你没看错，<strong>字节跳动</strong>，旗下产品有我们最常用的抖音和今日头条，并通过短视频业务在国际开拓了广大的市场</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/966356746ad8b945.png"></p>
+<p>而这项技术可牛逼了，我们知道，如果身边有弹奏钢琴的朋友，如果发现了一首不是很热门的钢琴曲，想把这首宝藏歌曲用钢琴弹奏下来，但是网上找了半天都没有找到相关的钢琴谱，这可怎么办，如果没有深入的钢琴与扒谱知识，那么是无法自己扒出钢琴谱的，也许还可以去<strong>淘宝委托别人扒谱，可这价格不是闹着玩的</strong>，即使你会扒谱，那么<strong>一首较为复杂的钢琴谱，你也需要一两天的时间与精力才能弄出来</strong>，或者你训练了音感<strong>，听歌即弹，这种大佬还是很少的</strong></p>
 <a id="more"></a>
 
-<p>  连杜甫都被狠下毒手，还有唐僧等众多历史人物</p>
-<p><img src="https://i.loli.net/2020/10/15/BaNAWlbZJKExIHL.gif" alt="0"></p>
-<p>这一下看上去很真实，我当初也差不多信以为真，要说现在技术真的挺发达，可以弄出这么搞笑的东西</p>
-<p><img src="https://i.loli.net/2020/10/15/7esZvmrMgPR9FEK.png" alt="download"></p>
-<p><strong>好活当赏</strong></p>
-<p>就在大火大热之时，B站也有人发了制作这种视频的教程，本来也就很多研究git项目的大学生会耍耍嘛，视频中用到了<strong>Google colab</strong>，通过搭建好的脚本环境输入图片和预设就能导出一个Unravel的换脸视频了，一张照片就“痛“起来了，这项操作要求你：</p>
-<p><strong>·拥有一个谷歌账号</strong></p>
-<p><strong>·拥有科学上网工具</strong></p>
-<p><strong>·拥有谷歌硬盘账号</strong></p>
-<p><strong>·一点计算机知识</strong></p>
-<p>然而这年头谷歌账号很难搞，很多人都是需要用购买，还有一大堆繁琐的步骤，而科学上网工具也需要一点互联网经验才能搞到</p>
-<p>然而，在之后，好景不长，因为这个鬼畜带有几乎以假乱真，而且对原人物也是带有很强的侮辱性，所以，教程在各大网站都被封了………………….</p>
-<h1 id="搭建Python在本地制作换脸视频"><a href="#搭建Python在本地制作换脸视频" class="headerlink" title="搭建Python在本地制作换脸视频"></a>搭建Python在本地制作换脸视频</h1><h5 id="今天的主角是著名的的项目，DeepFake一阶运动模型"><a href="#今天的主角是著名的的项目，DeepFake一阶运动模型" class="headerlink" title="今天的主角是著名的的项目，DeepFake一阶运动模型"></a>今天的主角是著名的的项目，DeepFake<strong>一阶运动模型</strong></h5><p>First Order Motion，也就是<a href="https://link.zhihu.com/?target=https://cuijiahua.com/blog/tag/%E4%B8%80%E9%98%B6%E8%BF%90%E5%8A%A8%E6%A8%A1%E5%9E%8B/">一阶运动模型</a>，来自 NeurIPS 2019 论文。</p>
-<p>相关的项目地址：</p>
-<p>·<a target="_blank" rel="noopener" href="https://github.com/AliaksandrSiarohin/first-order-model">https://github.com/AliaksandrSiarohin/first-order-model</a>   （实现）</p>
-<p>·<a target="_blank" rel="noopener" href="https://papers.nips.cc/paper/8935-first-order-motion-model-for-image-animation">https://papers.nips.cc/paper/8935-first-order-motion-model-for-image-animation</a>    (论文)</p>
-<p>而这次的项目是一位大佬为我们整理好的<a target="_blank" rel="noopener" href="https://github.com/anandpawara/Real_Time_Image_Animation">Real_Time_Image_Animation</a></p>
-<p>又叫实时图片动画，用Python和<a target="_blank" rel="noopener" href="https://github.com/anandpawara/Real_Time_Image_Animation/search">Jupyter Notebook</a>搭建，套用了一阶运动模型训练好的 VoxCeleb 数据集，通过几个脚本代码便能运行，在项目页面里面作者也写明了你要干什么才能让它运行起来了</p>
-<blockquote>
-<h1 id="Real-time-Image-Animation"><a href="#Real-time-Image-Animation" class="headerlink" title="Real time Image Animation"></a>Real time Image Animation</h1><p>The Project is real time application in opencv using first order model</p>
-<h1 id="Steps-to-setup"><a href="#Steps-to-setup" class="headerlink" title="Steps to setup"></a>Steps to setup</h1><h2 id="Step-1-Create-virtual-environment"><a href="#Step-1-Create-virtual-environment" class="headerlink" title="Step 1: Create virtual environment"></a>Step 1: Create virtual environment</h2><p><strong>Python version</strong> : python v3.7.3 or higher</p>
-<p><strong>create virual environment</strong> : <code>pip install virtualenv</code></p>
-<p><strong>activate virtual environment</strong> : <code>virtualenv env</code></p>
-<h2 id="Step-2-Activate-virtual-environment"><a href="#Step-2-Activate-virtual-environment" class="headerlink" title="Step 2: Activate virtual environment"></a>Step 2: Activate virtual environment</h2><p><strong>For windows</strong> : <code>env/Script/activate</code></p>
-<p><strong>For Linux</strong> : <code>source env/bin/activate</code></p>
-<h2 id="Step-3-Install-required-modules"><a href="#Step-3-Install-required-modules" class="headerlink" title="Step 3 : Install required modules"></a>Step 3 : Install required modules</h2><p><strong>Install modules</strong> : <code>pip install -r requirements.txt</code></p>
-<p><strong>Install pytorch and torchvision</strong> : <code>pip install torch===1.0.0 torchvision===0.2.1 -f https://download.pytorch.org/whl/cu100/torch_stable.html</code></p>
-<h2 id="Step-4-Download-cascade-file-weights-and-model-and-save-in-folder-named-extract"><a href="#Step-4-Download-cascade-file-weights-and-model-and-save-in-folder-named-extract" class="headerlink" title="Step 4 : Download cascade file ,weights and model and save in folder named extract"></a>Step 4 : Download cascade file ,weights and model and save in folder named extract</h2><p><code>gdown --id 1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK</code> The file is also availible via direct link on Google’s Drive: <a target="_blank" rel="noopener" href="https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK">https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK</a></p>
-<p><strong>On Linux machine</strong> : <code>unzip checkpoints.zip</code></p>
-<p>If on windows platfrom unzip checkpoints.zip using unzipping software like 7zip.</p>
-<p><strong>Delete zip file</strong> : <code>rm checkpoints.zip</code></p>
-<h2 id="Step-5-Run-the-project"><a href="#Step-5-Run-the-project" class="headerlink" title="Step 5 : Run the project"></a>Step 5 : Run the project</h2><p><strong>Run application from live camera</strong> : <code>python image_animation.py -i path_to_input_file -c path_to_checkpoint</code></p>
-<p><strong>Example</strong> : <code>python .\image_animation.py -i .\Inputs\Monalisa.png -c .\checkpoints\vox-cpk.pth.tar</code></p>
-<p><strong>Run application from video file</strong> : <code>python image_animation.py -i path_to_input_file -c path_to_checkpoint -v path_to_video_file</code></p>
-<p><strong>Example</strong> : <code>python .\image_animation.py -i .\Inputs\Monalisa.png -c .\checkpoints\vox-cpk.pth.tar -v .\video_input\test1.mp4</code></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/anandpawara/Real_Time_Image_Animation/blob/master/animate.gif"><img src="https://github.com/anandpawara/Real_Time_Image_Animation/raw/master/animate.gif" alt="test demo"></a></p>
-<h3 id="TODO"><a href="#TODO" class="headerlink" title="TODO:"></a>TODO:</h3><p>Tkinter version</p>
-<p>Need work on face alignments</p>
-<p>Future plans adding deepfake voice and merging with video</p>
-</blockquote>
-<p>可能有些人看不懂，所以我带你们来一遍</p>
-<h1 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h1><h3 id="1-安装Python-3-7"><a href="#1-安装Python-3-7" class="headerlink" title="1.安装Python 3.7"></a>1.安装Python 3.7</h3><p>为啥要安装3.7版本？因为后面的torch没有3.9版本的，去Python官网下载，并配置好环境变量</p>
-<p>具体怎么百度一大堆，有手就行</p>
-<h3 id="2-安装虚拟环境库"><a href="#2-安装虚拟环境库" class="headerlink" title="2.安装虚拟环境库"></a>2.安装虚拟环境库</h3><p>win+R键，输入CMD打开终端，输入此行分别安装和创建虚拟环境库</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#96;pip install virtualenv&#96;</span><br><span class="line">&#96;virtualenv env&#96;</span><br></pre></td></tr></table></figure>
+<p>学过音乐的朋友知道，扒谱是一件很复杂的脑力活，这种事情在以前认为几乎也只有人类可以胜任，机器人在文化艺术因为无法精确的模拟出人类的情感，在这些领域机器人还是望而止步的</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/de11e39c85ec7e7f.jpeg"></p>
+<p>​                                    <em>电脑音乐的发展使得大量的Black-Midi曲涌现出来，这在电脑音乐方面可谓是一种奇观</em></p>
+<p>人类的本质是<strong>懒</strong>，工业机器人的发展使得各种各样体力类劳动逐渐被机器取代，如今，即使是脑力的劳动在<strong>深度学习</strong>技术的发展下也即将被计算机取代。</p>
+<p>我们前面了解了很多的机器学习与深度学习的案例，比如<strong>Deepfake</strong>的换脸与变脸技术，给人制作虚假的动作，甚至凭空生成世界上本不存在的人物图像与自动绘制动漫人物。</p>
+<p>那么今天的这项算法其意义比如上所述的几项意义要大得多了。</p>
+<h1 id="技术文献"><a href="#技术文献" class="headerlink" title="技术文献"></a>技术文献</h1><p><strong>论文：GiantMIDI-Piano：用于古典钢琴音乐的大规模MIDI数据集</strong></p>
+<p>[1] Qiuqiang Kong, Bochen Li, Jitong Chen, and Yuxuan Wang. “GiantMIDI-Piano: A large-scale MIDI dataset for classical piano music.” arXiv preprint arXiv:2010.07061 (2020). <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2010.07061">https://arxiv.org/pdf/2010.07061</a></p>
+<p>[2] Qiuqiang Kong, Bochen Li, Xuchen Song, Yuan Wan, and Yuxuan Wang. “High-resolution Piano Transcription with Pedals by Regressing Onsets and Offsets Times.” arXiv preprint arXiv:2010.01815 (2020). <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2010.01815">https://arxiv.org/pdf/2010.01815</a></p>
+<h5 id="项目地址：-bytedance-GiantMIDI-Piano"><a href="#项目地址：-bytedance-GiantMIDI-Piano" class="headerlink" title="项目地址：**bytedance/GiantMIDI-Piano**"></a>项目地址：**<a target="_blank" rel="noopener" href="https://github.com/bytedance">bytedance</a>/<a target="_blank" rel="noopener" href="https://github.com/bytedance/GiantMIDI-Piano">GiantMIDI-Piano</a>**</h5><h5 id="详细介绍：https-zhuanlan-zhihu-com-p-269218623"><a href="#详细介绍：https-zhuanlan-zhihu-com-p-269218623" class="headerlink" title="详细介绍：https://zhuanlan.zhihu.com/p/269218623"></a>详细介绍：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/269218623">https://zhuanlan.zhihu.com/p/269218623</a></h5><p><strong>协议</strong>：<strong>CC BY 4.0</strong></p>
+<h1 id="功能展示"><a href="#功能展示" class="headerlink" title="功能展示"></a>功能展示</h1><p>今天OT呢就先给各位展示一下这个技术的威力，要扒谱是吧，我们找来几个特别复杂的歌曲，即使是扒谱大师听了也头疼不已的那种</p>
+<p>我们找来几个歌曲中带有钢琴音色的各种类型的音乐，一起来测试一下，<strong>midi文件包含了这个歌曲的所以音符信息，所以可以直接转化为钢琴谱</strong></p>
+<p><em>由于目前我还无法实现嵌入式Midi播放，所以只给出结果或可在连接中自行下载</em></p>
+<h3 id="1-古典与管弦类音乐"><a href="#1-古典与管弦类音乐" class="headerlink" title="1.古典与管弦类音乐"></a>1.古典与管弦类音乐</h3><p><strong>·李斯特 - Etude No.3 in G♯ minor “La Campanella” (S.141/3)</strong></p>
+<p><em>怕与训练模型重复，所以挑选了一首与标准原曲有少许区别的版本</em></p>
+<p>结果：几乎与原曲没有区别</p>
+<p><strong>·肖邦 - 12 Etudes Op.25:No. 11 in A minor “Winter Wind”</strong></p>
+<p><em>怕与训练的模型重复，所以挑选了一首与标准原曲有少许区别的版本</em></p>
+<p>结果：几乎与原曲没有区别</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/5f60ad159cfd54ab.png"></p>
+<p><strong>·削除 - I. Allegro Agitato （97鍵盤のための協奏曲 [Concerto for 97Keys]）</strong></p>
+<p> 这首音乐是十分复杂的交响乐，总共1600个音符，谱面几乎逼近Black-Midi</p>
+<p>结果：两段有明显错误，但其他部分基本正确但也有少许错误，个人感觉与原曲有85%的相似</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/1e7c6b243c120405.png"></p>
+<p><em>直接转换过来的琴谱文件，但如果真的要能弹，琴谱也还需要少许处理</em></p>
+<h2 id="2-流行音乐"><a href="#2-流行音乐" class="headerlink" title="2.流行音乐"></a>2.<strong>流行音乐</strong></h2><h5 id="·周杰伦-夜曲"><a href="#·周杰伦-夜曲" class="headerlink" title="·周杰伦 - 夜曲"></a><strong>·周杰伦 -</strong> 夜曲</h5><p>结果：个人感觉与原曲有76%的相似，但还是有一些杂音，但包含基本曲调</p>
+<p><strong>·Beyond - 海阔天空</strong></p>
+<p>结果：个人感觉与原曲有69%相似，杂音太多，但基本包含正确曲调</p>
+<h2 id="结果："><a href="#结果：" class="headerlink" title="结果："></a>结果：</h2><p><strong>纯钢琴曲的精准度和介绍里谈到的无论是多么复杂的曲子精准度可达95%以上，流行音乐下由于音轨太多，其他乐器交错在一起输出结果会包含过多杂音，但包含正确的曲调</strong></p>
+<p><strong>纯钢琴曲由于制作出来的midi的音符过长，不适合直接作谱，但可用FL Studio等软件用矫音器调整再来作钢琴谱</strong></p>
+<p><strong>其他音轨很多的音乐建议使用另一个乐器分离的AI模型进行轨道分离再进行识别转换</strong></p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/3a31ae6268d8c2cf.png"></p>
+<h1 id="使用教程"><a href="#使用教程" class="headerlink" title="使用教程"></a>使用教程</h1><p>这个教程直接使用由Python构建的版本，简单易用，复杂的地方为Python环境的配置</p>
+<h2 id="下载链接："><a href="#下载链接：" class="headerlink" title="下载链接："></a>下载链接：</h2><p>包括主文件夹</p>
+<p><a target="_blank" rel="noopener" href="https://cloud.189.cn/t/F3qeaq3Mjy2u">https://cloud.189.cn/t/F3qeaq3Mjy2u</a> (访问码:hub3)</p>
+<h3 id="程序结构："><a href="#程序结构：" class="headerlink" title="程序结构："></a><strong>程序结构：</strong></h3><p><strong>检查点文件（CheckPoint）</strong> <strong>note_F1=0.9677_pedal_F1=0.9186.pth</strong></p>
+<p><strong>Python主程序（Master）</strong></p>
+<p><strong>Python环境</strong>（建议3.7.8版本的Python）</p>
+<h3 id="Step1-配置Python环境"><a href="#Step1-配置Python环境" class="headerlink" title="Step1: 配置Python环境"></a>Step1: 配置Python环境</h3><p><em>引用他人文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/leege666/article/details/84557984">https://blog.csdn.net/leege666/article/details/84557984</a></em></p>
+<p>上面有图而且很详细哦</p>
+<p>1.下载Python程序包，在安装界面勾选自动配置环境变量</p>
+<p>2.win+s键搜索cmd打开命令行，输入Python，看到如下界面即为安装成功</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/180c37b2b241933f.png"></p>
+<p>3.配置软件需求环境</p>
+<p>·切换pip源</p>
+<p>进入 C:\Users\电脑用户\AppData\Roaming 文件夹（<strong>桌面的用户文件夹</strong>）中 ，新建 pip 文件夹并在文件夹中新建 pip.ini 配置文件 ，新增 pip.ini 配置文件</p>
+<p>键入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[global]</span><br><span class="line">index-url &#x3D;https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;pypi&#x2F;simple</span><br><span class="line">[install]</span><br><span class="line">use-mirrors &#x3D;true</span><br><span class="line">mirrors &#x3D;https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;pypi&#x2F;simple</span><br><span class="line">trusted-host &#x3D;mirrors.aliyun.com</span><br></pre></td></tr></table></figure>
 
-<h3 id="3-激活虚拟环境库"><a href="#3-激活虚拟环境库" class="headerlink" title="3.激活虚拟环境库"></a>3.激活虚拟环境库</h3><p>打开 C:\Users\Administrator\env\Scripts 打开activate.bat即可</p>
-<h3 id="4-安装第三方环境库"><a href="#4-安装第三方环境库" class="headerlink" title="4.安装第三方环境库"></a>4.安装第三方环境库</h3><p>终端 e:(把e换为你从项目下载的文件路径的盘符)</p>
-<p>cd /xxxx/xxxx/ (你项目文件的根目录)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#96;pip install -r requirements.txt&#96;</span><br></pre></td></tr></table></figure>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/75c9c92405d6c211.png"></p>
+<p>·下载Pytorch</p>
+<p>命令行键入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install torch&#x3D;&#x3D;&#x3D;1.0.0 torchvision&#x3D;&#x3D;&#x3D;0.2.1 -f https:&#x2F;&#x2F;download.pytorch.org&#x2F;whl&#x2F;cu100&#x2F;torch_stable.html</span><br></pre></td></tr></table></figure>
 
-<p>输入运行即可，要一段时间，运行库很多</p>
-<h3 id="5-安装Torch"><a href="#5-安装Torch" class="headerlink" title="5.安装Torch"></a>5.安装Torch</h3><p>接着上面的操作终端输入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#96;pip install torch&#x3D;&#x3D;&#x3D;1.0.0 torchvision&#x3D;&#x3D;&#x3D;0.2.1 -f https:&#x2F;&#x2F;download.pytorch.org&#x2F;whl&#x2F;cu100&#x2F;torch_stable.html&#96;</span><br></pre></td></tr></table></figure>
+<p>·下载需求环境</p>
+<p>命令行中分别键入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x: #打开master文件所在的盘符</span><br><span class="line">cd x:\xxx\xxxx\xxxx #打开master主程序的文件夹</span><br></pre></td></tr></table></figure>
 
-<h3 id="6-下载数据集"><a href="#6-下载数据集" class="headerlink" title="6.下载数据集"></a>6.下载数据集</h3><p>下载 <a target="_blank" rel="noopener" href="https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK">https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK</a></p>
-<p>解压得两个vox文件放到 <strong>\Real_Time_Image_Animation-master\checkpoints</strong></p>
-<h3 id="7-安装FFmpeg解码器并配置变量"><a href="#7-安装FFmpeg解码器并配置变量" class="headerlink" title="7.安装FFmpeg解码器并配置变量"></a>7.安装FFmpeg解码器并配置变量</h3><p><a target="_blank" rel="noopener" href="http://www.ffmpeg.org/">www.ffmpeg.org</a> 点windows图标下第一个build，安装好后配置环境变量</p>
-<p>怎么配置还是查百度，这个作用是可以把视频音频和视频合并，省功夫</p>
-<h3 id="8-运行脚本"><a href="#8-运行脚本" class="headerlink" title="8.运行脚本"></a>8.运行脚本</h3><p>终端 e:(把e换为你从项目下载的文件路径的盘符)</p>
-<p>cd /xxxx/xxxx/ (你项目文件的根目录)</p>
-<p>终端运行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python image_animation.py -i path_to_input_file -c path_to_checkpoint -v path_to_video_file</span><br></pre></td></tr></table></figure>
+<p>键入安装命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
 
-<p>path_to_input_file 是输入的模板图片</p>
-<p>path_to_checkpoint 是权重文件路径</p>
-<p>path_to_video_file 是输入的视频文件</p>
-<p>比如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python image_animation.py -i Inputs&#x2F;x.jpg -c checkpoints&#x2F;vox-adv-cpk.pth.tar -v 1.mp4</span><br></pre></td></tr></table></figure>
 
-<p>比如这个，输入图片默认放在input文件夹，导出的视频默认在output文件夹，模板视频在根目录</p>
-<h3 id="9-大功告成"><a href="#9-大功告成" class="headerlink" title="9.大功告成"></a>9.大功告成</h3><p>在导出的文件夹就可以找到相关的视频文件</p>
-<h3 id="10-替换其他的视频模板"><a href="#10-替换其他的视频模板" class="headerlink" title="10.替换其他的视频模板"></a>10.替换其他的视频模板</h3><p>原项目文档已经说明，你需要把视频模板裁剪为256x256大小，这个我推荐使用<strong>Premiere</strong>或者<strong>Vegas</strong>视频编辑软件，相关教程去百度查</p>
-<p>还有，输出的视频尺寸最好是正方形的，否则输出视频会把你的长方形比例照片弄成正方形的，会使人看起来很扁（笑），模板最好是正面的，表情不要太夸张</p>
-<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>这种技术是很侮辱人，请勿滥用</p>
+
+<h2 id="Step2：配置检查点文件"><a href="#Step2：配置检查点文件" class="headerlink" title="Step2：配置检查点文件"></a>Step2：配置检查点文件</h2><p>在 ** C:\Users\用户名\ **  中新建  <strong>piano_transcription_inference_data</strong> 文件夹 </p>
+<p>把<strong>note_F1=0.9677_pedal_F1=0.9186.pth</strong>放进上面的这个文件夹中</p>
+<h2 id="Step3-解压主程序并运行"><a href="#Step3-解压主程序并运行" class="headerlink" title="Step3: 解压主程序并运行"></a>Step3: 解压主程序并运行</h2><p>主程序解压后，我们可以看到如下几个文件</p>
+<p><strong>input</strong>文件夹 存放.mp3或.wav的歌曲原音频文件</p>
+<p><strong>output</strong>文件夹 存放.midi的转换后的歌曲音频文件</p>
+<p><strong>start -wav.py</strong>文件 转换input中.wav音频的python程序</p>
+<p><strong>start.py</strong>文件 转换input中.mp3音频的python程序</p>
+<p>只能放三首音频在input中，文件命名最后纯英文或数字，根据音频格式点击strat.py即可</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/9d8e1840eb7ccba8.png"></p>
+<p><em>正常工作的画面</em></p>
+<p>注意：<strong>机器学习的处理需要您的电脑有一张像样的显卡，建议英伟达GTX或RTX系列的显卡，因为支持CUDA，AMD绝大部分显卡不支持CUDA，所以处理时间需要15分钟以上，而支持CUDA的显卡只需1分钟，英伟达老式显卡不支持CUDA，AMD显卡能不能加速得看看程序对opencl的支持咯</strong></p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>如今，也有许多网站或者平台把这个项目部署到其中作为商业化作用，所以有一些网站可以在线进行音符分析与文件转换</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/d706068d17677eb8.png"></p>
+<p>其次，你还可以用<strong>Anaconda</strong>来一键搭建环境与配置，直接上手，或者在官方页用谷歌GPU平台搭建的在线进行使用</p>
  
       <!-- reward -->
       
@@ -249,7 +257,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://opts-22.github.io/2020/10/15/deepfakeunreval/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://opts-22.github.io/2021/02/28/miditopiano/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -262,19 +270,19 @@
    
   <nav class="article-nav">
     
-      <a href="/2020/10/17/omvbackup/" class="article-nav-link">
+      <a href="/2021/03/01/chainedboxassit/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            NAS系统备份与恢复以OMV为案例的几种方法,附我家云NAS备份方法
+            矿渣我家云刷OMV后的Hexo一键部署，Docker路径及容器管理，系统备份为镜像直接刷机功能脚本
           
         </div>
       </a>
     
     
-      <a href="/2020/10/15/%E5%93%88%EF%BC%9F/" class="article-nav-link">
+      <a href="/2020/12/21/vboxdrverror/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">哈？</div>
+        <div class="article-nav-title">解决VirtualBox虚拟机软件E_FALL(0x80004005)Machinewrap错误</div>
       </a>
     
   </nav>

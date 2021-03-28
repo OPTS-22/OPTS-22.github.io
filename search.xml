@@ -11,6 +11,29 @@
 <p><img src="https://ftp.bmp.ovh/imgs/2021/03/3342888c8a05f8d2.png"></p>
 <p><img src="https://ftp.bmp.ovh/imgs/2021/03/49ba7c7e53ebd546.png"></p>
 <p>脚本的说明是用英语写的，如果用起来不太懂，我以后会详细说一下用法……………….</p>
+<h1 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h1><p>输入数字可以启动相应功能</p>
+<p><strong>HEXO</strong></p>
+<p>在如下修改你的hexo路径</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">########################</span><br><span class="line">hexo&#x3D;&#39;&#x2F;sharedfolders&#x2F;ud&#x2F;hexo&#x2F;blog&#39;</span><br><span class="line">########################</span><br></pre></td></tr></table></figure>
+
+<p>1.启动本地服务器预览网页</p>
+<p>2.新建文章，输入名字可，再在hexo目录进行编辑文章</p>
+<p>3.自动生成网站文件（hexo g）</p>
+<p>4.自动生成网站文件并把网站上传到服务器 （hexo g + hexo d）</p>
+<p><strong>备份工具</strong></p>
+<p>5.把整个分区先备份为ext文件，再对ext文件进行文件系统缩容为指定大小生成第二个缩容后的img（镜像）文件，之后对ext文件打包为压缩包.tgz，进一步压缩其大小，目录下会生成3个文件（.ext .img .tgz）</p>
+<p>6.把整个分区先备份为ext文件，再生成为img文件，目录下会生成2个文件  ( .ext .img)。</p>
+<p><strong>系统工具</strong></p>
+<p>7.分区恢复备份后进行扩容</p>
+<p><strong>Docker工具</strong></p>
+<p>8.对Docker进行移动数据文件，修改数据文件路径，备份及恢复数据文件，可以把所有容器和镜像还有设置备份起来</p>
+<p><em>注意：有些容器恢复后需要重新安装</em></p>
+<p>9.安装指定的容器</p>
+<p>在下面代码段写入安装指令即可</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function dockerinstall()</span><br><span class="line">&#123;</span><br><span class="line">echo &quot; Install.............. &quot;</span><br><span class="line">docker run -d --name portainer -p 9000:9000 -v &#x2F;var&#x2F;run&#x2F;docker.sock:&#x2F;var&#x2F;run&#x2F;docker.sock -v portainer_data:&#x2F;data -v &#x2F;public:&#x2F;public --restart&#x3D;unless-stopped portainer&#x2F;portainer:linux-arm64</span><br><span class="line">docker run -d --name&#x3D;calibre-web -e PUID&#x3D;1000 -e PGID&#x3D;1000 -e TZ&#x3D;Asia&#x2F;Shanghai -p 8083:8083 -v &#x2F;home&#x2F;docker&#x2F;calibreweb:&#x2F;config -v &#x2F;sharedfolders&#x2F;hd&#x2F;ebook:&#x2F;books --restart unless-stopped gsp8181&#x2F;calibre-web</span><br><span class="line">IMAGE_NAME&#x3D;80x86&#x2F;filebrowser</span><br><span class="line">WEB_PORT&#x3D;8866</span><br><span class="line">FB_AUTH_SERVER_ADDR&#x3D;&quot;127.0.0.1&quot;</span><br><span class="line">docker run -d --name fb --restart&#x3D;unless-stopped -e PUID&#x3D;$UID -e PGID&#x3D;$GID -e WEB_PORT&#x3D;$WEB_PORT -e FB_AUTH_SERVER_ADDR&#x3D;$FB_AUTH_SERVER_ADDR -p $WEB_PORT:$WEB_PORT -v &#x2F;home&#x2F;docker&#x2F;fb:&#x2F;config -v &#x2F;:&#x2F;myfiles --mount type&#x3D;tmpfs,destination&#x3D;&#x2F;tmp $&#123;IMAGE_NAME&#125;:arm64</span><br><span class="line">docker run -d --name&#x3D;baidupcs --restart always -v &#x2F;sharedfolders&#x2F;ud&#x2F;DownLoad:&#x2F;app&#x2F;Downloads -v &#x2F;home&#x2F;docker&#x2F;BaiduPCS:&#x2F;app&#x2F;.config&#x2F;BaiduPCS-Go -p 5299:5299 80x86&#x2F;baidupcs:latest</span><br><span class="line">echo &quot; Install Complete &quot;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">function initUI() </span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">while [ true ]</span><br><span class="line">do</span><br><span class="line">more -16 /opt/TAU.txt</span><br><span class="line">echo &quot;&quot;</span><br><span class="line">echo &quot;-------------------------&quot;</span><br><span class="line">echo &quot;---NAS-MANAGEMENT-TOOLS--&quot;</span><br><span class="line">echo &quot;--------Ver:0.2----------&quot;</span><br><span class="line">echo &quot;--------by OT-22---------&quot;</span><br><span class="line"></span><br><span class="line">echo &quot;                             = HEXO-TOOL =&quot;</span><br><span class="line">echo &quot; 1. start server &quot;</span><br><span class="line">echo &quot; 2. upload post&quot;</span><br><span class="line">echo &quot; 3. auto update &quot;</span><br><span class="line">echo &quot; 4. auto deploy &quot;</span><br><span class="line">echo &quot;                             = BACKUP-TOOL = &quot;</span><br><span class="line">echo &quot; 5. !!! BACKUP SYSTEM IMG And Resize to custom size Then compress to TGZ  !!! &quot;</span><br><span class="line">echo &quot; 6. !!! BACKUP SYSTEM IMG Without Compress !!! &quot;</span><br><span class="line">echo &quot;                             = SYSTEM-TOOL = &quot;</span><br><span class="line">echo &quot; 7. Resize File System When you Recovery Backup &quot;</span><br><span class="line">echo &quot;                             = DOCKER-TOOL = &quot;</span><br><span class="line">echo &quot; 8. Moving Docker Data to p2; Recovery and Backup Docker Data &quot;</span><br><span class="line">echo &quot; 9. Install Docker cotainer &quot;</span><br><span class="line">echo &quot;  &quot;</span><br><span class="line">echo &quot;  Please set HEXO PATH by &#x27; vi /opt/d.sh &#x27; edit &#x27; hexo = &#x27;  &quot;</span><br><span class="line">echo &quot;                             != Backup instructions =!&quot;</span><br><span class="line">echo &quot;!= Backup 1 step will generate a file system copy in ext format =!&quot;</span><br><span class="line">echo &quot;!= Backup 2 step will Check the correctness of the ext file system,Make sure your backup and resize operate is available =!&quot;</span><br><span class="line">echo &quot;!= Backup 3 step will resize the copy and generate a backup image =!&quot;</span><br><span class="line">echo &quot;!= FOR MORE, PLEASE CHECK https://ot22.gitee.io/2020/10/17/omvbackup/ &quot;</span><br><span class="line">echo &quot; When you type path in this scrip,Dot not type / at the end of the path character,Such as &#x27;/root/data/&#x27; is invalid,You should &#x27;&#x27;/root/data&#x27; &quot;</span><br><span class="line">echo &quot;  &quot;</span><br><span class="line">echo -n &quot; Please enter : &quot;</span><br><span class="line">echo &quot;  &quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#######################</span></span></span><br><span class="line">hexo=&#x27;/sharedfolders/ud/hexo/blog&#x27;</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#######################</span></span></span><br><span class="line"></span><br><span class="line">read num</span><br><span class="line"></span><br><span class="line">if [ -z $num ];then</span><br><span class="line">exit 0</span><br><span class="line">elif [ $num = 1 ];then</span><br><span class="line">startServer</span><br><span class="line">elif [ $num = 2 ];then</span><br><span class="line">uploadpost</span><br><span class="line">elif [ $num = 3 ];then</span><br><span class="line">autoUpdate</span><br><span class="line">startServer</span><br><span class="line">elif [ $num = 4 ];then</span><br><span class="line">autoDeploy</span><br><span class="line">elif [ $num = 5 ];then</span><br><span class="line">backup1</span><br><span class="line">elif [ $num = 6 ];then</span><br><span class="line">backup2</span><br><span class="line">elif [ $num = 7 ];then</span><br><span class="line">resizesystem</span><br><span class="line">elif [ $num = 8 ];then</span><br><span class="line">dockermove</span><br><span class="line">elif [ $num = 9 ];then</span><br><span class="line">dockerinstall</span><br><span class="line">elif [ $num = 11 ];then</span><br><span class="line">liltest</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># elif [ $num = # ];then</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">else</span><br><span class="line">echo &quot;Input error !!!!!!&quot;</span><br><span class="line">fi</span><br><span class="line">done </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function read_yes_no () </span><br><span class="line">&#123;</span><br><span class="line">    printf &quot;[yes|no] &quot;</span><br><span class="line">    read yesno;</span><br><span class="line">    while [[ &quot;$&#123;yesno&#125;&quot; != &quot;yes&quot; &amp;&amp; &quot;$&#123;yesno&#125;&quot; != &quot;no&quot; ]]</span><br><span class="line">    do</span><br><span class="line">        printf &quot;please answer [yes|no] &quot;</span><br><span class="line">        read yesno;</span><br><span class="line">    done</span><br><span class="line"></span><br><span class="line">    if [[ &quot;$&#123;yesno&#125;&quot; == &quot;no&quot; ]]; then</span><br><span class="line">        return 1;</span><br><span class="line">    else</span><br><span class="line">        return 0;</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function startServer() </span><br><span class="line">&#123;</span><br><span class="line">cd $hexo</span><br><span class="line">hexo s</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function uploadpost()</span><br><span class="line">&#123;</span><br><span class="line">cd $hexo</span><br><span class="line">read -t 20 -p &quot;input your title &quot; a</span><br><span class="line">hexo new $a</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function autoUpdate()</span><br><span class="line">&#123;</span><br><span class="line">cd $hexo</span><br><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function backup1() </span><br><span class="line">&#123;</span><br><span class="line">read -t 20 -p &quot;Your backup path is &quot; backup0</span><br><span class="line">read -t 20 -p &quot;Your IMG size(Mbyte) is &quot; size</span><br><span class="line">echo &quot; Your Path is $backup0  &quot;</span><br><span class="line">echo &quot; Your Size is $size  &quot;</span><br><span class="line"></span><br><span class="line">cd $backup0/</span><br><span class="line">sync</span><br><span class="line">dd if=/dev/mmcblk1p1 of=$backup0/p0.ext bs=1M</span><br><span class="line">e2fsck -fy $backup0/p0.ext</span><br><span class="line">resize2fs -M $backup0/p0.ext</span><br><span class="line">resize2fs $backup0/p0.ext $size</span><br><span class="line">dd if=/dev/mmcblk1 of=$backup0/p.img bs=1M count=16</span><br><span class="line">dd if=$backup0/p0.ext of=$backup0/p.img bs=1M seek=16</span><br><span class="line">mv p.img omv-p2.img</span><br><span class="line">tar zcvf omv-p2.tar.gz omv-p2.img</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function backup2() </span><br><span class="line">&#123;</span><br><span class="line">read -t 20 -p &quot;Your backup path is &quot; backup0</span><br><span class="line">echo &quot; Your Path is $backup0  &quot;</span><br><span class="line"></span><br><span class="line">cd $backup0/</span><br><span class="line">sync</span><br><span class="line">dd if=/dev/mmcblk1p1 of=$backup0/p0.ext bs=1M</span><br><span class="line">e2fsck -fy $backup0/p0.ext</span><br><span class="line">resize2fs -M $backup0/p0.ext</span><br><span class="line">dd if=/dev/mmcblk1 of=$backup0/p.img bs=1M count=16</span><br><span class="line">dd if=$backup0/p0.ext of=$backup0/p.img bs=1M seek=16</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function autoDeploy()</span><br><span class="line">&#123;</span><br><span class="line">cd $hexo</span><br><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function resizesystem()</span><br><span class="line">&#123;</span><br><span class="line">resize2fs /dev/mmcblk1p1</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">function dockermove()</span><br><span class="line">&#123;</span><br><span class="line">echo &quot; Your Docker Path DON&#x27;NOT contain ./docker，It should be previous file of docker data.  &quot;</span><br><span class="line">echo &quot; Such as your docker file is &#x27;/home/docker&#x27;，Then you should type &#x27;/home&#x27;   &quot;</span><br><span class="line">echo &quot; The step is : BACKUP------&gt;RECOVERY------&gt;COPY------&gt;MOVE   &quot;</span><br><span class="line">read -t 20 -p &quot;input your docker path &quot; p2</span><br><span class="line">echo &quot; Your Path is $p2/docker  &quot;</span><br><span class="line">service docker stop</span><br><span class="line"></span><br><span class="line">echo &quot; BACKUP &quot;</span><br><span class="line">echo &quot; backup Docker Data? &quot;</span><br><span class="line"></span><br><span class="line">if  read_yes_no; then</span><br><span class="line">        cd $p2/docker</span><br><span class="line">        tar -cvpzf $p2/docker.tgz *</span><br><span class="line">    else</span><br><span class="line">        echo &quot; Let&#x27;s do next &quot;</span><br><span class="line">        echo &quot;  &quot;</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line">echo &quot; RECOVERY &quot;</span><br><span class="line">echo &quot; If you use docker data backup as a new docker data or not? &quot;</span><br><span class="line">echo &quot; Make sure you put docker.tgz in PATH &quot;</span><br><span class="line">echo &quot; Then you may be need to delete present docker data，YOU NEED DELETE? &quot;</span><br><span class="line"></span><br><span class="line">if  read_yes_no; then</span><br><span class="line">    echo &quot; TELL ME YOU ARE LUCID GUY &quot;</span><br><span class="line">    echo &quot; Now I will delete your docker data，continue????????????? &quot;</span><br><span class="line">        if  read_yes_no; then</span><br><span class="line">           rm -rf $p2/docker</span><br><span class="line">        else</span><br><span class="line">           echo &quot; Confirming you dont have docker data in target path &quot;</span><br><span class="line">           echo &quot;  &quot;</span><br><span class="line">        fi</span><br><span class="line">    else</span><br><span class="line">        echo &quot; Confirming you dont have docker data in target path &quot;</span><br><span class="line">        echo &quot;  &quot;</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line">echo &quot; I will RECOVERY your Docker data from docker.tgz &quot;</span><br><span class="line"></span><br><span class="line">if  read_yes_no; then</span><br><span class="line">        mkdir -p $p2/docker</span><br><span class="line">        chmod -R 771 $p2/docker</span><br><span class="line">        tar -xvpzf $p2/docker.tgz -C $p2/docker</span><br><span class="line">    else</span><br><span class="line">        echo &quot; May be you already exsited a docker data &quot;</span><br><span class="line">        echo &quot;  &quot;</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line">echo &quot; COPY &quot;</span><br><span class="line">echo &quot;If you copy local docker data as a new docker data or not?&quot;</span><br><span class="line"></span><br><span class="line">if  read_yes_no; then</span><br><span class="line">        cp -avx /var/lib/docker $p2</span><br><span class="line">    else</span><br><span class="line">        echo &quot; Let&#x27;s do next &quot;</span><br><span class="line">        echo &quot;  &quot;</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">echo &quot; REDIRECT &quot;</span><br><span class="line">echo &quot; Final Step，The default Docker data will set to Your docker data that you want to. &quot;</span><br><span class="line">echo &quot; Confirm execution? &quot;</span><br><span class="line">if  read_yes_no; then</span><br><span class="line">        echo &quot; Activating all containers ?  &quot;</span><br><span class="line">        echo &quot; it need to restart your server, Your server will POWER OFF SOON.  &quot;</span><br><span class="line">        if  read_yes_no; then</span><br><span class="line">           echo &quot;Nextly,Docker data will be moved. &quot;</span><br><span class="line">           echo &quot;REDIRECT----&gt;START CONTAINER----&gt;REBOOT SERVER &quot;</span><br><span class="line">           rm -rf /var/lib/docker</span><br><span class="line">           ln -s $p2/docker /var/lib/docker</span><br><span class="line">           dockerinstall</span><br><span class="line">           reboot</span><br><span class="line">        else</span><br><span class="line">           echo &quot;Nextly,Docker data will be moved. &quot;</span><br><span class="line">           rm -rf /var/lib/docker2</span><br><span class="line">           ln -s $p2/docker /var/lib/docker</span><br><span class="line">           exit 0</span><br><span class="line">        fi</span><br><span class="line">    else</span><br><span class="line">        service docker start</span><br><span class="line">        exit 0</span><br><span class="line">        fi</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function dockerinstall()</span><br><span class="line">&#123;</span><br><span class="line">echo &quot; Install.............. &quot;</span><br><span class="line">docker run -d --name portainer -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data -v /public:/public --restart=unless-stopped portainer/portainer:linux-arm64</span><br><span class="line">docker run -d --name=calibre-web -e PUID=1000 -e PGID=1000 -e TZ=Asia/Shanghai -p 8083:8083 -v /home/docker/calibreweb:/config -v /sharedfolders/hd/ebook:/books --restart unless-stopped gsp8181/calibre-web</span><br><span class="line">IMAGE_NAME=80x86/filebrowser</span><br><span class="line">WEB_PORT=8866</span><br><span class="line">FB_AUTH_SERVER_ADDR=&quot;127.0.0.1&quot;</span><br><span class="line">docker run -d --name fb --restart=unless-stopped -e PUID=$UID -e PGID=$GID -e WEB_PORT=$WEB_PORT -e FB_AUTH_SERVER_ADDR=$FB_AUTH_SERVER_ADDR -p $WEB_PORT:$WEB_PORT -v /home/docker/fb:/config -v /:/myfiles --mount type=tmpfs,destination=/tmp $&#123;IMAGE_NAME&#125;:arm64</span><br><span class="line">docker run -d --name=baidupcs --restart always -v /sharedfolders/ud/DownLoad:/app/Downloads -v /home/docker/BaiduPCS:/app/.config/BaiduPCS-Go -p 5299:5299 80x86/baidupcs:latest</span><br><span class="line">echo &quot; Install Complete &quot;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">clear</span><br><span class="line">initUI</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 ]]></content>
@@ -19,9 +42,108 @@
         <category>服务器&amp;网络</category>
       </categories>
       <tags>
-        <tag>计算机</tag>
-        <tag>运营维护</tag>
         <tag>Linux</tag>
+        <tag>运营维护</tag>
+        <tag>计算机</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>简单运用人工智能进行钢琴音频转换为音符数据(Midi)</title>
+    <url>/2021/02/28/miditopiano/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>近期，字节跳动发布全球最大的古典钢琴数据集 GiantMIDI-Piano，包括来自 2,784 位作曲家 10,854 首作品的 MIDI 文件，总时长为 1,237 小时。研究者为完成该数据集的构建，开发并开源了一套高精度钢琴转谱系统</p>
+</blockquote>
+<p>这个项目在Github上叫做**<a href="https://github.com/bytedance">bytedance</a>/<a href="https://github.com/bytedance/GiantMIDI-Piano">GiantMIDI-Piano</a>**</p>
+<p>是的，你没看错，<strong>字节跳动</strong>，旗下产品有我们最常用的抖音和今日头条，并通过短视频业务在国际开拓了广大的市场</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/966356746ad8b945.png"></p>
+<p>而这项技术可牛逼了，我们知道，如果身边有弹奏钢琴的朋友，如果发现了一首不是很热门的钢琴曲，想把这首宝藏歌曲用钢琴弹奏下来，但是网上找了半天都没有找到相关的钢琴谱，这可怎么办，如果没有深入的钢琴与扒谱知识，那么是无法自己扒出钢琴谱的，也许还可以去<strong>淘宝委托别人扒谱，可这价格不是闹着玩的</strong>，即使你会扒谱，那么<strong>一首较为复杂的钢琴谱，你也需要一两天的时间与精力才能弄出来</strong>，或者你训练了音感<strong>，听歌即弹，这种大佬还是很少的</strong></p>
+<a id="more"></a>
+
+<p>学过音乐的朋友知道，扒谱是一件很复杂的脑力活，这种事情在以前认为几乎也只有人类可以胜任，机器人在文化艺术因为无法精确的模拟出人类的情感，在这些领域机器人还是望而止步的</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/de11e39c85ec7e7f.jpeg"></p>
+<p>​                                    <em>电脑音乐的发展使得大量的Black-Midi曲涌现出来，这在电脑音乐方面可谓是一种奇观</em></p>
+<p>人类的本质是<strong>懒</strong>，工业机器人的发展使得各种各样体力类劳动逐渐被机器取代，如今，即使是脑力的劳动在<strong>深度学习</strong>技术的发展下也即将被计算机取代。</p>
+<p>我们前面了解了很多的机器学习与深度学习的案例，比如<strong>Deepfake</strong>的换脸与变脸技术，给人制作虚假的动作，甚至凭空生成世界上本不存在的人物图像与自动绘制动漫人物。</p>
+<p>那么今天的这项算法其意义比如上所述的几项意义要大得多了。</p>
+<h1 id="技术文献"><a href="#技术文献" class="headerlink" title="技术文献"></a>技术文献</h1><p><strong>论文：GiantMIDI-Piano：用于古典钢琴音乐的大规模MIDI数据集</strong></p>
+<p>[1] Qiuqiang Kong, Bochen Li, Jitong Chen, and Yuxuan Wang. “GiantMIDI-Piano: A large-scale MIDI dataset for classical piano music.” arXiv preprint arXiv:2010.07061 (2020). <a href="https://arxiv.org/pdf/2010.07061">https://arxiv.org/pdf/2010.07061</a></p>
+<p>[2] Qiuqiang Kong, Bochen Li, Xuchen Song, Yuan Wan, and Yuxuan Wang. “High-resolution Piano Transcription with Pedals by Regressing Onsets and Offsets Times.” arXiv preprint arXiv:2010.01815 (2020). <a href="https://arxiv.org/pdf/2010.01815">https://arxiv.org/pdf/2010.01815</a></p>
+<h5 id="项目地址：-bytedance-GiantMIDI-Piano"><a href="#项目地址：-bytedance-GiantMIDI-Piano" class="headerlink" title="项目地址：**bytedance/GiantMIDI-Piano**"></a>项目地址：**<a href="https://github.com/bytedance">bytedance</a>/<a href="https://github.com/bytedance/GiantMIDI-Piano">GiantMIDI-Piano</a>**</h5><h5 id="详细介绍：https-zhuanlan-zhihu-com-p-269218623"><a href="#详细介绍：https-zhuanlan-zhihu-com-p-269218623" class="headerlink" title="详细介绍：https://zhuanlan.zhihu.com/p/269218623"></a>详细介绍：<a href="https://zhuanlan.zhihu.com/p/269218623">https://zhuanlan.zhihu.com/p/269218623</a></h5><p><strong>协议</strong>：<strong>CC BY 4.0</strong></p>
+<h1 id="功能展示"><a href="#功能展示" class="headerlink" title="功能展示"></a>功能展示</h1><p>今天OT呢就先给各位展示一下这个技术的威力，要扒谱是吧，我们找来几个特别复杂的歌曲，即使是扒谱大师听了也头疼不已的那种</p>
+<p>我们找来几个歌曲中带有钢琴音色的各种类型的音乐，一起来测试一下，<strong>midi文件包含了这个歌曲的所以音符信息，所以可以直接转化为钢琴谱</strong></p>
+<p><em>由于目前我还无法实现嵌入式Midi播放，所以只给出结果或可在连接中自行下载</em></p>
+<h3 id="1-古典与管弦类音乐"><a href="#1-古典与管弦类音乐" class="headerlink" title="1.古典与管弦类音乐"></a>1.古典与管弦类音乐</h3><p><strong>·李斯特 - Etude No.3 in G♯ minor “La Campanella” (S.141/3)</strong></p>
+<p><em>怕与训练模型重复，所以挑选了一首与标准原曲有少许区别的版本</em></p>
+<p>结果：几乎与原曲没有区别</p>
+<p><strong>·肖邦 - 12 Etudes Op.25:No. 11 in A minor “Winter Wind”</strong></p>
+<p><em>怕与训练的模型重复，所以挑选了一首与标准原曲有少许区别的版本</em></p>
+<p>结果：几乎与原曲没有区别</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/5f60ad159cfd54ab.png"></p>
+<p><strong>·削除 - I. Allegro Agitato （97鍵盤のための協奏曲 [Concerto for 97Keys]）</strong></p>
+<p> 这首音乐是十分复杂的交响乐，总共1600个音符，谱面几乎逼近Black-Midi</p>
+<p>结果：两段有明显错误，但其他部分基本正确但也有少许错误，个人感觉与原曲有85%的相似</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/1e7c6b243c120405.png"></p>
+<p><em>直接转换过来的琴谱文件，但如果真的要能弹，琴谱也还需要少许处理</em></p>
+<h2 id="2-流行音乐"><a href="#2-流行音乐" class="headerlink" title="2.流行音乐"></a>2.<strong>流行音乐</strong></h2><h5 id="·周杰伦-夜曲"><a href="#·周杰伦-夜曲" class="headerlink" title="·周杰伦 - 夜曲"></a><strong>·周杰伦 -</strong> 夜曲</h5><p>结果：个人感觉与原曲有76%的相似，但还是有一些杂音，但包含基本曲调</p>
+<p><strong>·Beyond - 海阔天空</strong></p>
+<p>结果：个人感觉与原曲有69%相似，杂音太多，但基本包含正确曲调</p>
+<h2 id="结果："><a href="#结果：" class="headerlink" title="结果："></a>结果：</h2><p><strong>纯钢琴曲的精准度和介绍里谈到的无论是多么复杂的曲子精准度可达95%以上，流行音乐下由于音轨太多，其他乐器交错在一起输出结果会包含过多杂音，但包含正确的曲调</strong></p>
+<p><strong>纯钢琴曲由于制作出来的midi的音符过长，不适合直接作谱，但可用FL Studio等软件用矫音器调整再来作钢琴谱</strong></p>
+<p><strong>其他音轨很多的音乐建议使用另一个乐器分离的AI模型进行轨道分离再进行识别转换</strong></p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/3a31ae6268d8c2cf.png"></p>
+<h1 id="使用教程"><a href="#使用教程" class="headerlink" title="使用教程"></a>使用教程</h1><p>这个教程直接使用由Python构建的版本，简单易用，复杂的地方为Python环境的配置</p>
+<h2 id="下载链接："><a href="#下载链接：" class="headerlink" title="下载链接："></a>下载链接：</h2><p>包括主文件夹</p>
+<p><a href="https://cloud.189.cn/t/F3qeaq3Mjy2u">https://cloud.189.cn/t/F3qeaq3Mjy2u</a> (访问码:hub3)</p>
+<h3 id="程序结构："><a href="#程序结构：" class="headerlink" title="程序结构："></a><strong>程序结构：</strong></h3><p><strong>检查点文件（CheckPoint）</strong> <strong>note_F1=0.9677_pedal_F1=0.9186.pth</strong></p>
+<p><strong>Python主程序（Master）</strong></p>
+<p><strong>Python环境</strong>（建议3.7.8版本的Python）</p>
+<h3 id="Step1-配置Python环境"><a href="#Step1-配置Python环境" class="headerlink" title="Step1: 配置Python环境"></a>Step1: 配置Python环境</h3><p><em>引用他人文章：<a href="https://blog.csdn.net/leege666/article/details/84557984">https://blog.csdn.net/leege666/article/details/84557984</a></em></p>
+<p>上面有图而且很详细哦</p>
+<p>1.下载Python程序包，在安装界面勾选自动配置环境变量</p>
+<p>2.win+s键搜索cmd打开命令行，输入Python，看到如下界面即为安装成功</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/180c37b2b241933f.png"></p>
+<p>3.配置软件需求环境</p>
+<p>·切换pip源</p>
+<p>进入 C:\Users\电脑用户\AppData\Roaming 文件夹（<strong>桌面的用户文件夹</strong>）中 ，新建 pip 文件夹并在文件夹中新建 pip.ini 配置文件 ，新增 pip.ini 配置文件</p>
+<p>键入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[global]</span><br><span class="line">index-url &#x3D;https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;pypi&#x2F;simple</span><br><span class="line">[install]</span><br><span class="line">use-mirrors &#x3D;true</span><br><span class="line">mirrors &#x3D;https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;pypi&#x2F;simple</span><br><span class="line">trusted-host &#x3D;mirrors.aliyun.com</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/75c9c92405d6c211.png"></p>
+<p>·下载Pytorch</p>
+<p>命令行键入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install torch&#x3D;&#x3D;&#x3D;1.0.0 torchvision&#x3D;&#x3D;&#x3D;0.2.1 -f https:&#x2F;&#x2F;download.pytorch.org&#x2F;whl&#x2F;cu100&#x2F;torch_stable.html</span><br></pre></td></tr></table></figure>
+
+<p>·下载需求环境</p>
+<p>命令行中分别键入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">x: #打开master文件所在的盘符</span><br><span class="line">cd x:\xxx\xxxx\xxxx #打开master主程序的文件夹</span><br></pre></td></tr></table></figure>
+
+<p>键入安装命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Step2：配置检查点文件"><a href="#Step2：配置检查点文件" class="headerlink" title="Step2：配置检查点文件"></a>Step2：配置检查点文件</h2><p>在 ** C:\Users\用户名\ **  中新建  <strong>piano_transcription_inference_data</strong> 文件夹 </p>
+<p>把<strong>note_F1=0.9677_pedal_F1=0.9186.pth</strong>放进上面的这个文件夹中</p>
+<h2 id="Step3-解压主程序并运行"><a href="#Step3-解压主程序并运行" class="headerlink" title="Step3: 解压主程序并运行"></a>Step3: 解压主程序并运行</h2><p>主程序解压后，我们可以看到如下几个文件</p>
+<p><strong>input</strong>文件夹 存放.mp3或.wav的歌曲原音频文件</p>
+<p><strong>output</strong>文件夹 存放.midi的转换后的歌曲音频文件</p>
+<p><strong>start -wav.py</strong>文件 转换input中.wav音频的python程序</p>
+<p><strong>start.py</strong>文件 转换input中.mp3音频的python程序</p>
+<p>只能放三首音频在input中，文件命名最后纯英文或数字，根据音频格式点击strat.py即可</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/9d8e1840eb7ccba8.png"></p>
+<p><em>正常工作的画面</em></p>
+<p>注意：<strong>机器学习的处理需要您的电脑有一张像样的显卡，建议英伟达GTX或RTX系列的显卡，因为支持CUDA，AMD绝大部分显卡不支持CUDA，所以处理时间需要15分钟以上，而支持CUDA的显卡只需1分钟，英伟达老式显卡不支持CUDA，AMD显卡能不能加速得看看程序对opencl的支持咯</strong></p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>如今，也有许多网站或者平台把这个项目部署到其中作为商业化作用，所以有一些网站可以在线进行音符分析与文件转换</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/d706068d17677eb8.png"></p>
+<p>其次，你还可以用<strong>Anaconda</strong>来一键搭建环境与配置，直接上手，或者在官方页用谷歌GPU平台搭建的在线进行使用</p>
+]]></content>
+      <categories>
+        <category>计算机</category>
+      </categories>
+      <tags>
+        <tag>计算机</tag>
+        <tag>机器学习</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -58,6 +180,101 @@
       </tags>
   </entry>
   <entry>
+    <title>通过Python部署并运用一阶运动模型对脸部图片进行简单的动作模拟</title>
+    <url>/2020/12/15/deepfakeunreval/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在8月份的时候，B站就多了很多换脸视频，大多都是换了两个外国小哥小姐姐唱歌时候的动态脸照，分别在唱Unravel，Damedayo这两首很魔性的歌，由于视频动作夸张搞笑，而视频被“P”的很真实，收到了很多网友的喜爱<img src="https://i.loli.net/2020/10/15/IFKWxGhU1VM5ZwR.gif" alt="0">，而现在，很多视频网站已经把这个项目部署到了Web上，从而吸引用户进行视频创作，本文将讲述如何在个人计算机中搭建Python环境并运行此项目</p>
+<p>而这项技术背后是机器学习项目中热门的<strong>一阶运动模型</strong>（First Order Motion），是通过AI的训练库来对动作进行准确的捕捉再用得出来的检查点对动作嵌入到图片来进行图片变换来生成几乎于逼真图形的技术</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/fa090772108749e0.jpg"></p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/b1886fcffd961967.png"></p>
+<p>原理如上（啊啊啊啊好高深看不懂我的妈啊）</p>
+<a id="more"></a>
+
+<p>  连杜甫都被狠下毒手，还有唐僧等众多历史人物</p>
+<p><img src="https://i.loli.net/2020/10/15/BaNAWlbZJKExIHL.gif" alt="0"></p>
+<p>这一下看上去很真实，差不多到信以为真的程度，看起来有一种违和的搞笑感</p>
+<p><img src="https://i.loli.net/2020/10/15/7esZvmrMgPR9FEK.png" alt="download"></p>
+<p><strong>好活当赏</strong></p>
+<p>就在大火大热之时，B站也有人发了制作这种视频的教程，本来也就很多研究git项目的大学生会耍耍嘛，视频中用到了<strong>Google colab</strong>，通过搭建好的脚本环境输入图片和预设就能导出一个Unravel的换脸视频了，一张照片就“痛“起来了，这项操作要求你：</p>
+<p><strong>·拥有一个谷歌账号</strong></p>
+<p><strong>·拥有科学上网工具</strong></p>
+<p><strong>·拥有谷歌硬盘账号</strong></p>
+<p><strong>·一点计算机知识</strong></p>
+<p>然而这年头谷歌账号很难搞，很多人都是需要用购买，还有一大堆繁琐的步骤，而科学上网工具也需要一点互联网经验才能搞到</p>
+<p>然而，在之后，好景不长，因为这个鬼畜带有几乎以假乱真，而且对原人物也是带有很强的侮辱性，所以，教程在各大网站都被封了………………….</p>
+<h1 id="搭建Python在本地制作换脸视频"><a href="#搭建Python在本地制作换脸视频" class="headerlink" title="搭建Python在本地制作换脸视频"></a>搭建Python在本地制作换脸视频</h1><h5 id="今天的主角是著名的的项目，DeepFake一阶运动模型"><a href="#今天的主角是著名的的项目，DeepFake一阶运动模型" class="headerlink" title="今天的主角是著名的的项目，DeepFake一阶运动模型"></a>今天的主角是著名的的项目，DeepFake<strong>一阶运动模型</strong></h5><p>First Order Motion，也就是<a href="https://link.zhihu.com/?target=https://cuijiahua.com/blog/tag/%E4%B8%80%E9%98%B6%E8%BF%90%E5%8A%A8%E6%A8%A1%E5%9E%8B/">一阶运动模型</a>，来自 NeurIPS 2019 论文。</p>
+<p>相关的项目地址：</p>
+<p>·<a href="https://github.com/AliaksandrSiarohin/first-order-model">https://github.com/AliaksandrSiarohin/first-order-model</a>   （实现）</p>
+<p>·<a href="https://papers.nips.cc/paper/8935-first-order-motion-model-for-image-animation">https://papers.nips.cc/paper/8935-first-order-motion-model-for-image-animation</a>    (论文)</p>
+<p>而这次的项目是一位大佬为我们整理好的<a href="https://github.com/anandpawara/Real_Time_Image_Animation">Real_Time_Image_Animation</a></p>
+<p>又叫实时图片动画，用Python和<a href="https://github.com/anandpawara/Real_Time_Image_Animation/search">Jupyter Notebook</a>搭建，套用了一阶运动模型训练好的 VoxCeleb 数据集，通过几个脚本代码便能运行，在项目页面里面作者也写明了你要干什么才能让它运行起来了</p>
+<blockquote>
+<h1 id="Real-time-Image-Animation"><a href="#Real-time-Image-Animation" class="headerlink" title="Real time Image Animation"></a>Real time Image Animation</h1><p>The Project is real time application in opencv using first order model</p>
+<h1 id="Steps-to-setup"><a href="#Steps-to-setup" class="headerlink" title="Steps to setup"></a>Steps to setup</h1><h2 id="Step-1-Create-virtual-environment"><a href="#Step-1-Create-virtual-environment" class="headerlink" title="Step 1: Create virtual environment"></a>Step 1: Create virtual environment</h2><p><strong>Python version</strong> : python v3.7.3 or higher</p>
+<p><strong>create virual environment</strong> : <code>pip install virtualenv</code></p>
+<p><strong>activate virtual environment</strong> : <code>virtualenv env</code></p>
+<h2 id="Step-2-Activate-virtual-environment"><a href="#Step-2-Activate-virtual-environment" class="headerlink" title="Step 2: Activate virtual environment"></a>Step 2: Activate virtual environment</h2><p><strong>For windows</strong> : <code>env/Script/activate</code></p>
+<p><strong>For Linux</strong> : <code>source env/bin/activate</code></p>
+<h2 id="Step-3-Install-required-modules"><a href="#Step-3-Install-required-modules" class="headerlink" title="Step 3 : Install required modules"></a>Step 3 : Install required modules</h2><p><strong>Install modules</strong> : <code>pip install -r requirements.txt</code></p>
+<p><strong>Install pytorch and torchvision</strong> : <code>pip install torch===1.0.0 torchvision===0.2.1 -f https://download.pytorch.org/whl/cu100/torch_stable.html</code></p>
+<h2 id="Step-4-Download-cascade-file-weights-and-model-and-save-in-folder-named-extract"><a href="#Step-4-Download-cascade-file-weights-and-model-and-save-in-folder-named-extract" class="headerlink" title="Step 4 : Download cascade file ,weights and model and save in folder named extract"></a>Step 4 : Download cascade file ,weights and model and save in folder named extract</h2><p><code>gdown --id 1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK</code> The file is also availible via direct link on Google’s Drive: <a href="https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK">https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK</a></p>
+<p><strong>On Linux machine</strong> : <code>unzip checkpoints.zip</code></p>
+<p>If on windows platfrom unzip checkpoints.zip using unzipping software like 7zip.</p>
+<p><strong>Delete zip file</strong> : <code>rm checkpoints.zip</code></p>
+<h2 id="Step-5-Run-the-project"><a href="#Step-5-Run-the-project" class="headerlink" title="Step 5 : Run the project"></a>Step 5 : Run the project</h2><p><strong>Run application from live camera</strong> : <code>python image_animation.py -i path_to_input_file -c path_to_checkpoint</code></p>
+<p><strong>Example</strong> : <code>python .\image_animation.py -i .\Inputs\Monalisa.png -c .\checkpoints\vox-cpk.pth.tar</code></p>
+<p><strong>Run application from video file</strong> : <code>python image_animation.py -i path_to_input_file -c path_to_checkpoint -v path_to_video_file</code></p>
+<p><strong>Example</strong> : <code>python .\image_animation.py -i .\Inputs\Monalisa.png -c .\checkpoints\vox-cpk.pth.tar -v .\video_input\test1.mp4</code></p>
+<p><a href="https://github.com/anandpawara/Real_Time_Image_Animation/blob/master/animate.gif"><img src="https://github.com/anandpawara/Real_Time_Image_Animation/raw/master/animate.gif" alt="test demo"></a></p>
+<h3 id="TODO"><a href="#TODO" class="headerlink" title="TODO:"></a>TODO:</h3><p>Tkinter version</p>
+<p>Need work on face alignments</p>
+<p>Future plans adding deepfake voice and merging with video</p>
+</blockquote>
+<p>可能有些人看不懂，所以我带你们来一遍</p>
+<h1 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h1><h3 id="1-安装Python-3-7"><a href="#1-安装Python-3-7" class="headerlink" title="1.安装Python 3.7"></a>1.安装Python 3.7</h3><p>为啥要安装3.7版本？因为后面的torch没有3.9版本的，去Python官网下载，并配置好环境变量</p>
+<p>具体怎么百度一大堆，有手就行</p>
+<h3 id="2-安装虚拟环境库"><a href="#2-安装虚拟环境库" class="headerlink" title="2.安装虚拟环境库"></a>2.安装虚拟环境库</h3><p>win+R键，输入CMD打开终端，输入此行分别安装和创建虚拟环境库</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;pip install virtualenv&#96;</span><br><span class="line">&#96;virtualenv env&#96;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-激活虚拟环境库"><a href="#3-激活虚拟环境库" class="headerlink" title="3.激活虚拟环境库"></a>3.激活虚拟环境库</h3><p>打开 C:\Users\Administrator\env\Scripts 打开activate.bat即可</p>
+<h3 id="4-安装第三方环境库"><a href="#4-安装第三方环境库" class="headerlink" title="4.安装第三方环境库"></a>4.安装第三方环境库</h3><p>终端 e:(把e换为你从项目下载的文件路径的盘符)</p>
+<p>cd /xxxx/xxxx/ (你项目文件的根目录)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;pip install -r requirements.txt&#96;</span><br></pre></td></tr></table></figure>
+
+<p>输入运行即可，要一段时间，运行库很多</p>
+<h3 id="5-安装Torch"><a href="#5-安装Torch" class="headerlink" title="5.安装Torch"></a>5.安装Torch</h3><p>接着上面的操作终端输入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;pip install torch&#x3D;&#x3D;&#x3D;1.0.0 torchvision&#x3D;&#x3D;&#x3D;0.2.1 -f https:&#x2F;&#x2F;download.pytorch.org&#x2F;whl&#x2F;cu100&#x2F;torch_stable.html&#96;</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-下载数据集"><a href="#6-下载数据集" class="headerlink" title="6.下载数据集"></a>6.下载数据集</h3><p>下载 <a href="https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK">https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK</a></p>
+<p>解压得两个vox文件放到 <strong>\Real_Time_Image_Animation-master\checkpoints</strong></p>
+<h3 id="7-安装FFmpeg解码器并配置变量"><a href="#7-安装FFmpeg解码器并配置变量" class="headerlink" title="7.安装FFmpeg解码器并配置变量"></a>7.安装FFmpeg解码器并配置变量</h3><p><a href="http://www.ffmpeg.org/">www.ffmpeg.org</a> 点windows图标下第一个build，安装好后配置环境变量</p>
+<p>怎么配置还是查百度，这个作用是可以把视频音频和视频合并，省功夫</p>
+<h3 id="8-运行脚本"><a href="#8-运行脚本" class="headerlink" title="8.运行脚本"></a>8.运行脚本</h3><p>终端 e:(把e换为你从项目下载的文件路径的盘符)</p>
+<p>cd /xxxx/xxxx/ (你项目文件的根目录)</p>
+<p>终端运行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python image_animation.py -i path_to_input_file -c path_to_checkpoint -v path_to_video_file</span><br></pre></td></tr></table></figure>
+
+<p>path_to_input_file 是输入的模板图片</p>
+<p>path_to_checkpoint 是权重文件路径</p>
+<p>path_to_video_file 是输入的视频文件</p>
+<p>比如</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python image_animation.py -i Inputs&#x2F;x.jpg -c checkpoints&#x2F;vox-adv-cpk.pth.tar -v 1.mp4</span><br></pre></td></tr></table></figure>
+
+<p>比如这个，输入图片默认放在input文件夹，导出的视频默认在output文件夹，模板视频在根目录</p>
+<h3 id="9-大功告成"><a href="#9-大功告成" class="headerlink" title="9.大功告成"></a>9.大功告成</h3><p>在导出的文件夹(<strong>Output</strong>)就可以找到相关的视频文件</p>
+<h3 id="10-替换其他的视频模板"><a href="#10-替换其他的视频模板" class="headerlink" title="10.替换其他的视频模板"></a>10.替换其他的视频模板</h3><p>原项目文档已经说明，你需要把视频模板裁剪为256x256大小，这个我推荐使用<strong>Premiere</strong>或者<strong>Vegas</strong>视频编辑软件，相关教程去百度查</p>
+<p>输出的视频尺寸最好是正方形的，否则输出视频会把你的长方形比例照片弄成正方形的，会使人看起来很扁（笑），模板最好是正面的，表情不要太夸张</p>
+<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>这种技术在某些情况下很侮辱人，请勿滥用</p>
+]]></content>
+      <categories>
+        <category>计算机</category>
+      </categories>
+      <tags>
+        <tag>计算机</tag>
+        <tag>机器学习</tag>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>站点故障</title>
     <url>/2020/12/13/siteissue/</url>
     <content><![CDATA[<h1 id="2021-3-00"><a href="#2021-3-00" class="headerlink" title="2021-3-00"></a>2021-3-00</h1><h3 id="站点内的一些图片已经失效了，原因是之前图片寄存的图床炸了，导致了这种情况发生，有时间会对图片进行重新上传，并寻找更加可靠的图床供应商"><a href="#站点内的一些图片已经失效了，原因是之前图片寄存的图床炸了，导致了这种情况发生，有时间会对图片进行重新上传，并寻找更加可靠的图床供应商" class="headerlink" title="站点内的一些图片已经失效了，原因是之前图片寄存的图床炸了，导致了这种情况发生，有时间会对图片进行重新上传，并寻找更加可靠的图床供应商"></a>站点内的一些图片已经失效了，原因是之前图片寄存的图床炸了，导致了这种情况发生，有时间会对图片进行重新上传，并寻找更加可靠的图床供应商</h3><h3 id="—管理员"><a href="#—管理员" class="headerlink" title="—管理员"></a>—管理员</h3>]]></content>
@@ -88,8 +305,8 @@
         <category>服务器&amp;网络</category>
       </categories>
       <tags>
-        <tag>计算机</tag>
         <tag>运营维护</tag>
+        <tag>计算机</tag>
       </tags>
   </entry>
   <entry>
@@ -447,6 +664,706 @@
 <h3 id="核心选项"><a href="#核心选项" class="headerlink" title="核心选项:"></a>核心选项:</h3><p><strong>Mouse API instead of Pointer</strong><br>是否开启鼠标指针<br>[tic80_mouse]<br> (<strong>disabled</strong>|enabled)</p>
 <p> <strong>Mouse Cursor</strong><br>鼠标指针样式<br>[tic80_mouse_cursor]<br>(<strong>disabled</strong>|dot|cross|arrow)</p>
 <h3 id="相关文件路径"><a href="#相关文件路径" class="headerlink" title="相关文件路径:"></a>相关文件路径:</h3><h3 id="控制"><a href="#控制" class="headerlink" title="控制:"></a>控制:</h3><h3 id="评测"><a href="#评测" class="headerlink" title="评测:"></a>评测:</h3><p>高性能组:<br>1.安卓<br>环境:Android10-armV8a，骁龙835，OpenGL，默认选项<br>结果: 60fps<br>低性能组:<br>环境:环境:Android6-armV8a，骁龙625，OpenGL，默认选项<br>结果: 60fps</p>
+]]></content>
+      <categories>
+        <category>计算机</category>
+        <category>模拟器</category>
+      </categories>
+      <tags>
+        <tag>仿真器</tag>
+        <tag>计算机史</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>RetroArch-MSX(BlueMSX)核心的配置和操作指南</title>
+    <url>/2020/10/24/retrocore-bluemsx/</url>
+    <content><![CDATA[<p><a href="https://imgchr.com/i/BG0F1K"><img src="https://s1.ax1x.com/2020/10/29/BG0F1K.gif" alt="BG0F1K.gif"></a><br><a href="https://imgchr.com/i/BGBgsS"><img src="https://s1.ax1x.com/2020/10/29/BGBgsS.jpg" alt="BGBgsS.jpg"></a><br><a href="https://imgchr.com/i/BGBIGq"><img src="https://s1.ax1x.com/2020/10/29/BGBIGq.jpg" alt="BGBIGq.jpg"></a></p>
+<h4 id="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"><a href="#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变" class="headerlink" title="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"></a><em>注意这是一个动态更新型文章，文章内容可能会随时更新或者改变</em></h4><a id="more"></a>
+
+
+
+<h1 id="Libretro-MSX-BlueMSX-系列核心"><a href="#Libretro-MSX-BlueMSX-系列核心" class="headerlink" title="Libretro-MSX(BlueMSX)系列核心"></a>Libretro-MSX(BlueMSX)系列核心</h1><h2 id="机型"><a href="#机型" class="headerlink" title="机型:"></a>机型:</h2><ul>
+<li>微软 MSX 微型计算机</li>
+<li>微软 MSX2 微型计算机</li>
+<li>Spectravideo SVI 微型计算机</li>
+<li>ColecoVision 家用游戏机</li>
+<li>Sega SG-1000 家用游戏机<h2 id="相关ROM"><a href="#相关ROM" class="headerlink" title="相关ROM:"></a>相关ROM:</h2></li>
+</ul>
+<h2 id="相关模拟器"><a href="#相关模拟器" class="headerlink" title="相关模拟器:"></a>相关模拟器:</h2><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>官方网站: <a href="http://bluemsx.msxblue.com/">http://bluemsx.msxblue.com/</a><br>BlueMSX在这短短的时间内，已经成为最先进和功能丰富的MSX模拟器， 它支持大多数常见的机器和各种各样的扩展硬件，模拟器中还包含一个功能丰富的调试器。<br>在过去两年中，MSX仿真得到了扩展，并增加了对其他系统的支持。 蓝色MSX现在也是一个SVI模拟器，并支持Coleco视觉和SegaSG-1000，SC-3000，SF-7000控制台</p>
+<p>简单说一些BlueMSX的功能</p>
+<ul>
+<li>支持sg-1000，sc-3000，sf-7000，colecovision，svi318/328，msx、msx2、msx2和Turboor，并进行机器定制</li>
+<li>插件功能增加了调试器和训练器</li>
+<li>协助msx开发人员的高级调试器</li>
+<li>多语言支持和指定键盘布局。 </li>
+<li>dsk/rom/cas和zip的文件支持</li>
+<li>MSX-Midi、MSX-Music、MSX-Audio、SCC和Moonsound，具有过采样控制和DAC</li>
+<li>键盘配置器和强大的主题结构</li>
+<li>最近的文件列表和快速保存，以便更快地访问</li>
+<li>储蓄者被重写以获得更高的向后兼容性</li>
+<li>各种大小的屏幕捕捉和音频捕捉</li>
+<li>可定制的热键</li>
+</ul>
+<h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><blockquote>
+<p>MSX/SVI/ColecoVision/SG-1000 (blueMSX)</p>
+<p>Background</p>
+<p>blueMSX is a cycle accurate emulator that emulates all generations of MSX computers as well as SVI, ColecoVision and Sega SG-1000.</p>
+<p>Author/License</p>
+<p>The blueMSX core has been authored by</p>
+<p>Daniel Vik</p>
+<p>The blueMSX core is licensed under</p>
+<p><a href="https://github.com/libretro/blueMSX-libretro/blob/master/license.txt">GPLv2</a></p>
+<p>A summary of the licenses behind RetroArch and its cores can be found <a href="../development/licenses.md">here</a>.</p>
+<p>Extensions</p>
+<p>Content that can be loaded by the blueMSX core have the following file extensions:</p>
+<p>.rom<br>.ri<br>.mx1<br>.mx2<br>.col<br>.dsk<br>.cas<br>.sg<br>.sc<br>.m3u</p>
+<p>Databases</p>
+<p>RetroArch database(s) that are associated with the blueMSX core:</p>
+<p><a href="https://github.com/libretro/libretro-database/blob/master/rdb/Microsoft%20-%20MSX.rdb">Microsoft - MSX</a><br><a href="https://github.com/libretro/libretro-database/blob/master/rdb/Microsoft%20-%20MSX2.rdb">Microsoft - MSX2</a><br><a href="https://github.com/libretro/libretro-database/blob/master/rdb/Coleco%20-%20ColecoVision.rdb">Coleco - ColecoVision</a><br><a href="https://github.com/libretro/libretro-database/blob/master/rdb/Sega%20-%20SG-1000.rdb">Sega - SG-1000</a></p>
+<p>BIOS</p>
+<p>The blueMSX core requires the ‘Databases’ and ‘Machines’ folders from a full installation of blueMSX.</p>
+<p>You can download the ‘Databases’ and ‘Machines’ folders from an <a href="http://bluemsx.msxblue.com/download.html">official full standalone blueMSX emulator installation</a>. Get blueMSXv282full.zip near the bottom of the page.</p>
+<p>Move/Copy the ‘Databases’ and ‘Machines’ Folders to RetroArch’s System directory.</p>
+<p><img src="../image/core/bluemsx/bios.png"></p>
+<p>Features</p>
+<p>Frontend-level settings or features that the blueMSX core respects.</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th align="center">Supported</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Restart</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Screenshots</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Saves</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>States</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Rewind</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Netplay</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Core Options</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>RetroAchievements</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>RetroArch Cheats</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Native Cheats</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Controls</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Remapping</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Multi-Mouse</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Rumble</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Sensors</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Camera</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Location</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Subsystem</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td><a href="../guides/softpatching.md">Softpatching</a></td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Disk Control</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td>Username</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Language</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>Crop Overscan</td>
+<td align="center">✕</td>
+</tr>
+<tr>
+<td>LEDs</td>
+<td align="center">✕</td>
+</tr>
+</tbody></table>
+<p>Directories</p>
+<p>The blueMSX core’s library name is ‘blueMSX’</p>
+<p>The blueMSX core saves/loads to/from these directories.</p>
+<p><strong>Frontend’s System directory</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">File</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">bluemsx.ini</td>
+<td align="center">blueMSX Config</td>
+</tr>
+<tr>
+<td align="center">bluemsx_history.ini</td>
+<td align="center">blueMSX History</td>
+</tr>
+</tbody></table>
+<p>Geometry and timing</p>
+<p>The blueMSX core’s core provided FPS is 60<br>The blueMSX core’s core provided sample rate is 44100 Hz<br>The blueMSX core’s base width is (Base width)<br>The blueMSX core’s base height is (Base height)<br>The blueMSX core’s max width is (Max width)<br>The blueMSX core’s max height is (Max height)<br>The blueMSX core’s core provided aspect ratio is (Ratio)</p>
+<p>Usage</p>
+<p>ColecoVision Gamepad Mapping is as follow:</p>
+<p>Button 1 as Retropad A<br>Button 2 as Retropad B<br>Dial keys 1 to 8 as X, Y, R, L, R2, L2, R3, L3<br>Star (*) as Select, Hash (#) as Start<br>0 &amp; 9 are on keyboard 1 &amp; 2 for Player 1<br>0 &amp; 9 are on keyboard 3 &amp; 4 for Player 2.</p>
+<p>To play SpectraVideo cassettes type ‘cload’ then ‘run’</p>
+<p>or BLOAD ‘’CAS:’’,R depending on the game.</p>
+<p>Multiple-disk games</p>
+<p>If foo is a multiple-disk game, you should have .dsk files for each one, e.g. <code>foo (Disk 1).dsk</code>, <code>foo (Disk 2).dsk</code>, <code>foo (Disk 3).dsk</code>.</p>
+<p>To take advantage of BlueMSX Disk Control feature for disk swapping, an index file (a m3u file) should be made.</p>
+<p>Create a text file and save it as <code>foo.m3u</code>. Then enter your game’s .dsk files on it. The m3u file contents should look something like this:</p>
+<p><code>foo.m3u</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">foo (Disk 1).dsk</span><br><span class="line">foo (Disk 2).dsk</span><br><span class="line">foo (Disk 3).dsk</span><br></pre></td></tr></table></figure>
+
+<p>After that, you can load the <code>foo.m3u</code> file in RetroArch with the BlueMSX core.</p>
+<p>An alternative is to append disks to the current playlist via the “Disk Image Append” option RetroArch menu.</p>
+<p>Core options</p>
+<p>The blueMSX core has the following option(s) that can be tweaked from the core options menu. The default setting is bolded.</p>
+<p>Settings with (Restart) means that core has to be closed for the new setting to be applied on next launch.</p>
+<p><strong>Machine Type (Restart)</strong> [bluemsx_msxtype] (<strong>Auto</strong>|MSX|MSXturboR|MSX2|MSX2+|SEGA - SG-1000|SEGA - SC-3000|SEGA - SF-7000|SVI - Spectravideo SVI-318|SVI - Spectravideo SVI-328|SVI - Spectravideo SVI-328 MK2|ColecoVision|Coleco (Spectravideo SVI-603))</p>
+<pre><code>Manually select the machine type you would like the core to start in.</code></pre>
+<p><strong>Crop Overscan</strong> [bluemsx_overscan] (<strong>disabled</strong>|enabled|MSX2)</p>
+<pre><code>Forces cropping of overscanned frames</code></pre>
+<p>??? note “<em>Crop Overscan Off</em>“<br>    <img src="../image/core/bluemsx/crop_off.png"></p>
+<p>??? note “<em>Crop Overscan On</em>“<br>    <img src="../image/core/bluemsx/crop_on.png"></p>
+<p>??? note “<em>Crop Overscan MSX2</em>“<br>    <img src="../image/core/bluemsx/crop_msx2.png"></p>
+<p><strong>VDP Sync Type (Restart)</strong> [bluemsx_vdp_synctype] (<strong>Auto</strong>|50Hz|60Hz)</p>
+<pre><code>Match the game/machine region frequency to avoid emulated speed issues.</code></pre>
+<p><strong>No Sprite Limit</strong> [bluemsx_nospritelimits] (<strong>OFF</strong>|ON)</p>
+<pre><code>Remove the 4 sprite per line limit which can reduce or remove sprite flicker in some games.</code></pre>
+<p><strong>Sound YM2413 Enable (Restart)</strong> [bluemsx_ym2413_enable] (<strong>enabled</strong>|disabled)</p>
+<pre><code>Awaiting description.</code></pre>
+<p><strong>Cart Mapper Type (Restart)</strong> [bluemsx_cartmapper] (<strong>Auto</strong>|Normal|mirrored|basic|0x4000|0xC000|ascii8|ascii8sram|ascii16|ascii16sram|<br>ascii16nf|konami4|konami4nf|konami5|konamisynth|korean80|korean90|korean126|<br>MegaFlashRomScc|MegaFlashRomSccPlus|msxdos2|scc|sccexpanded|sccmirrored|sccplus|<br>snatcher|sdsnatcher|SegaBasic|SG1000|SG1000Castle|SG1000RamA|SG1000RamB|SC3000)</p>
+<pre><code>When a ROM game or application is in the database, the emulator uses the databases to apply the correct mapper. If the sha1 value of a dump is not yet in the databases, it uses an automatic mapper detection system, but it can fail in some cases. In this situation, you can manually select the correct mapper.</code></pre>
+<p>Controllers</p>
+<p>The blueMSX core supports the following device type(s) in the controls menu, bolded device types are the default for the specified user(s):</p>
+<p>User 1 device types</p>
+<p>None - Doesn’t disable input. There’s no reason to switch to this.<br><strong>RetroPad</strong> - Joypad<br>RetroKeyboard - Keyboard - Keyboard inputs are always active. Has keymapper support.<br>RetroPad Keyboard Map - Joypad - Awaiting description.</p>
+<p>User 2 device types</p>
+<p>None - Doesn’t disable input. There’s no reason to switch to this.<br><strong>RetroPad</strong> - Joypad<br>RetroKeyboard - Keyboard - Keyboard inputs are always active.</p>
+<p>Controller tables</p>
+<p>Joypad</p>
+<table>
+<thead>
+<tr>
+<th>User 1 and 2 Remap descriptors for ‘RetroPad’ device type</th>
+<th>RetroPad Inputs</th>
+<th>blueMSX core inputs</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Button 2</td>
+<td><img src="../image/retropad/retro_b.png"></td>
+<td>Button 2, Coleco Button 2</td>
+</tr>
+<tr>
+<td>Button 3</td>
+<td><img src="../image/retropad/retro_y.png"></td>
+<td>Button 3, Coleco #2</td>
+</tr>
+<tr>
+<td>Select</td>
+<td><img src="../image/retropad/retro_select.png"></td>
+<td>Select, Coleco Star (*)</td>
+</tr>
+<tr>
+<td>Start</td>
+<td><img src="../image/retropad/retro_start.png"></td>
+<td>Start, Coleco Hash (#)</td>
+</tr>
+<tr>
+<td>Joy Up</td>
+<td><img src="../image/retropad/retro_dpad_up.png"></td>
+<td>Joy Up</td>
+</tr>
+<tr>
+<td>Joy Down</td>
+<td><img src="../image/retropad/retro_dpad_down.png"></td>
+<td>Joy Down</td>
+</tr>
+<tr>
+<td>Joy Left</td>
+<td><img src="../image/retropad/retro_dpad_left.png"></td>
+<td>Joy Left</td>
+</tr>
+<tr>
+<td>Joy Right</td>
+<td><img src="../image/retropad/retro_dpad_right.png"></td>
+<td>Joy Right</td>
+</tr>
+<tr>
+<td>Button 1</td>
+<td><img src="../image/retropad/retro_a.png"></td>
+<td>Button 1,  Coleco Button 1</td>
+</tr>
+<tr>
+<td>Button 4</td>
+<td><img src="../image/retropad/retro_x.png"></td>
+<td>Button 4, Coleco #1</td>
+</tr>
+<tr>
+<td>Button 5</td>
+<td><img src="../image/retropad/retro_l1.png"></td>
+<td>Button 5, Coleco #4</td>
+</tr>
+<tr>
+<td>Button 6</td>
+<td><img src="../image/retropad/retro_r1.png"></td>
+<td>Button 6, Coleco #3</td>
+</tr>
+<tr>
+<td>Button 7</td>
+<td><img src="../image/retropad/retro_l2.png"></td>
+<td>Button 7, Coleco #6</td>
+</tr>
+<tr>
+<td>Button 8</td>
+<td><img src="../image/retropad/retro_r2.png"></td>
+<td>Button 8, Coleco #5</td>
+</tr>
+<tr>
+<td>Button 9</td>
+<td><img src="../image/retropad/retro_l3.png"></td>
+<td>Button 9. Coleco #8</td>
+</tr>
+<tr>
+<td>Button 10</td>
+<td><img src="../image/retropad/retro_r3.png"></td>
+<td>Button 10, Coleco #7</td>
+</tr>
+</tbody></table>
+<p>Keyboard</p>
+<table>
+<thead>
+<tr>
+<th>RetroKeyboard Inputs</th>
+<th>RetroKeyboard</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Keyboard Backspace</td>
+<td>BACKSPACE</td>
+</tr>
+<tr>
+<td>Keyboard Tab</td>
+<td>TAB</td>
+</tr>
+<tr>
+<td>Keyboard Return</td>
+<td>RETURN</td>
+</tr>
+<tr>
+<td>Keyboard Pause</td>
+<td>PAUSE</td>
+</tr>
+<tr>
+<td>Keyboard Escape</td>
+<td>ESCAPE</td>
+</tr>
+<tr>
+<td>Keyboard Space</td>
+<td>SPACE</td>
+</tr>
+<tr>
+<td>Keyboard Quote ‘</td>
+<td>COLON</td>
+</tr>
+<tr>
+<td>Keyboard Comma ,</td>
+<td>COMMA</td>
+</tr>
+<tr>
+<td>Keyboard Minus -</td>
+<td>NEGATIVE</td>
+</tr>
+<tr>
+<td>Keyboard Period .</td>
+<td>PERIOD</td>
+</tr>
+<tr>
+<td>Keyboard Slash /</td>
+<td>DIVIDE</td>
+</tr>
+<tr>
+<td>Keyboard 0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Keyboard 1</td>
+<td>1, Player 1 Coleco #0</td>
+</tr>
+<tr>
+<td>Keyboard 2</td>
+<td>2, Player 1 Coleco #9</td>
+</tr>
+<tr>
+<td>Keyboard 3</td>
+<td>3, Player 2 Coleco #0</td>
+</tr>
+<tr>
+<td>Keyboard 4</td>
+<td>4, Player 2 Coleco #9</td>
+</tr>
+<tr>
+<td>Keyboard 5</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Keyboard 6</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Keyboard 7</td>
+<td>7</td>
+</tr>
+<tr>
+<td>Keyboard 8</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Keyboard 9</td>
+<td>9</td>
+</tr>
+<tr>
+<td>Keyboard Semicolon ;</td>
+<td>SEMICOLON</td>
+</tr>
+<tr>
+<td>Keyboard Equals =</td>
+<td>CIRCUMFLEX</td>
+</tr>
+<tr>
+<td>Keyboard Left Bracket [</td>
+<td>LEFT BRACKET</td>
+</tr>
+<tr>
+<td>Keyboard Backslash \</td>
+<td>BACKSLASH (YEN)</td>
+</tr>
+<tr>
+<td>Keyboard Right Bracket ]</td>
+<td>RIGHT BRACKET</td>
+</tr>
+<tr>
+<td>Keyboard Backquote `</td>
+<td>AT</td>
+</tr>
+<tr>
+<td>Keyboard a</td>
+<td>A</td>
+</tr>
+<tr>
+<td>Keyboard b</td>
+<td>B</td>
+</tr>
+<tr>
+<td>Keyboard c</td>
+<td>C</td>
+</tr>
+<tr>
+<td>Keyboard d</td>
+<td>D</td>
+</tr>
+<tr>
+<td>Keyboard e</td>
+<td>E</td>
+</tr>
+<tr>
+<td>Keyboard f</td>
+<td>F</td>
+</tr>
+<tr>
+<td>Keyboard g</td>
+<td>G</td>
+</tr>
+<tr>
+<td>Keyboard h</td>
+<td>H</td>
+</tr>
+<tr>
+<td>Keyboard i</td>
+<td>I</td>
+</tr>
+<tr>
+<td>Keyboard j</td>
+<td>J</td>
+</tr>
+<tr>
+<td>Keyboard k</td>
+<td>K</td>
+</tr>
+<tr>
+<td>Keyboard l</td>
+<td>L</td>
+</tr>
+<tr>
+<td>Keyboard m</td>
+<td>M</td>
+</tr>
+<tr>
+<td>Keyboard n</td>
+<td>N</td>
+</tr>
+<tr>
+<td>Keyboard o</td>
+<td>O</td>
+</tr>
+<tr>
+<td>Keyboard p</td>
+<td>P</td>
+</tr>
+<tr>
+<td>Keyboard q</td>
+<td>Q</td>
+</tr>
+<tr>
+<td>Keyboard r</td>
+<td>R</td>
+</tr>
+<tr>
+<td>Keyboard s</td>
+<td>S</td>
+</tr>
+<tr>
+<td>Keyboard t</td>
+<td>T</td>
+</tr>
+<tr>
+<td>Keyboard u</td>
+<td>U</td>
+</tr>
+<tr>
+<td>Keyboard v</td>
+<td>V</td>
+</tr>
+<tr>
+<td>Keyboard w</td>
+<td>W</td>
+</tr>
+<tr>
+<td>Keyboard x</td>
+<td>X</td>
+</tr>
+<tr>
+<td>Keyboard y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>Keyboard z</td>
+<td>Z</td>
+</tr>
+<tr>
+<td>Keyboard Delete</td>
+<td>DELETE</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 0</td>
+<td>NUMPAD 0</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 1</td>
+<td>NUMPAD 1</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 2</td>
+<td>NUMPAD 2</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 3</td>
+<td>NUMPAD 3</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 4</td>
+<td>NUMPAD 4</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 5</td>
+<td>NUMPAD 5</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 6</td>
+<td>NUMPAD 6</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 7</td>
+<td>NUMPAD 7</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 8</td>
+<td>NUMPAD 8</td>
+</tr>
+<tr>
+<td>Keyboard Keypad 9</td>
+<td>NUMPAD 9</td>
+</tr>
+<tr>
+<td>Keyboard Keypad Period .</td>
+<td>NUMPAD COMMA</td>
+</tr>
+<tr>
+<td>Keyboard Keypad Divide /</td>
+<td>NUMPAD DIVIDE</td>
+</tr>
+<tr>
+<td>Keyboard Keypad Multiply *</td>
+<td>NUMPAD MULTIPLY</td>
+</tr>
+<tr>
+<td>Keyboard Keypad Minus -</td>
+<td>NUMPAD SUBTRACTION</td>
+</tr>
+<tr>
+<td>Keyboard Keypad Plus +</td>
+<td>NUMPAD ADD</td>
+</tr>
+<tr>
+<td>Keyboard Keypad Enter</td>
+<td>NUMPAD PERIOD</td>
+</tr>
+<tr>
+<td>Keyboard Up</td>
+<td>UP</td>
+</tr>
+<tr>
+<td>Keyboard Down</td>
+<td>DOWN</td>
+</tr>
+<tr>
+<td>Keyboard Right</td>
+<td>RIGHT</td>
+</tr>
+<tr>
+<td>Keyboard Left</td>
+<td>LEFT</td>
+</tr>
+<tr>
+<td>Keyboard Insert</td>
+<td>INSERT</td>
+</tr>
+<tr>
+<td>Keyboard Home</td>
+<td>CLS</td>
+</tr>
+<tr>
+<td>Keyboard End</td>
+<td>STOP</td>
+</tr>
+<tr>
+<td>Keyboard Page Up</td>
+<td>SELECT</td>
+</tr>
+<tr>
+<td>Keyboard F1</td>
+<td>F1</td>
+</tr>
+<tr>
+<td>Keyboard F2</td>
+<td>F2</td>
+</tr>
+<tr>
+<td>Keyboard F3</td>
+<td>F3</td>
+</tr>
+<tr>
+<td>Keyboard F4</td>
+<td>F4</td>
+</tr>
+<tr>
+<td>Keyboard F5</td>
+<td>F5</td>
+</tr>
+<tr>
+<td>Keyboard Caps Lock</td>
+<td>CAPS</td>
+</tr>
+<tr>
+<td>Keyboard Right Shift</td>
+<td>RIGHT SHIFT</td>
+</tr>
+<tr>
+<td>Keyboard Left Shift</td>
+<td>LEFT SHIFT</td>
+</tr>
+<tr>
+<td>Keyboard Left Control</td>
+<td>CONTROL</td>
+</tr>
+<tr>
+<td>Keyboard Left Alt</td>
+<td>GRAPH</td>
+</tr>
+<tr>
+<td>Keyboard Print</td>
+<td>PRINT</td>
+</tr>
+</tbody></table>
+<p>Supported combinations</p>
+<p>Keyboard Left or Right Shift + Keyboard 0 = UNDERSCORE</p>
+<p>Compatibility</p>
+<p><a href="http://www.msxblue.com/manual/settingsports.htm">blueMSX Manual</a></p>
+<p>External Links</p>
+<p><a href="http://bluemsx.com/">Official blueMSX Website</a><br><a href="http://sourceforge.net/projects/bluemsx/">Official blueMSX SourceForge Repository</a><br><a href="https://github.com/libretro/libretro-super/blob/master/dist/info/bluemsx_libretro.info">Libretro blueMSX Core info file</a><br><a href="https://github.com/libretro/blueMSX-libretro">Libretro blueMSX Github Repository</a><br><a href="https://github.com/libretro/blueMSX-libretro/issues">Report Libretro blueMSX Core Issues Here</a></p>
+<p>See also</p>
+<p>Sega - SG-1000</p>
+<p><a href="genesis_plus_gx.md">Sega - MS/GG/MD/CD (Genesis Plus GX)</a><br><a href="gearsystem.md">Sega - MS/GG/SG-1000 (Gearsystem)</a></p>
+<p>Microsoft - MSX</p>
+<p><a href="fmsx.md">Microsoft - MSX (fMSX)</a></p>
+<p>Microsoft - MSX2</p>
+<p><a href="fmsx.md">Microsoft - MSX (fMSX)</a></p>
+</blockquote>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><h3 id="支持的ROM格式"><a href="#支持的ROM格式" class="headerlink" title="支持的ROM格式:"></a>支持的ROM格式:</h3><h3 id="固件"><a href="#固件" class="headerlink" title="固件:"></a>固件:</h3><h3 id="功能"><a href="#功能" class="headerlink" title="功能:"></a>功能:</h3><p>支持</p>
+<p>不支持</p>
+<h3 id="核心选项"><a href="#核心选项" class="headerlink" title="核心选项:"></a>核心选项:</h3><h3 id="相关文件路径"><a href="#相关文件路径" class="headerlink" title="相关文件路径:"></a>相关文件路径:</h3><h3 id="控制"><a href="#控制" class="headerlink" title="控制:"></a>控制:</h3><h3 id="评测"><a href="#评测" class="headerlink" title="评测:"></a>评测:</h3><p>高性能组:<br>1.安卓<br>环境:Android10-armV8a，骁龙835，OpenGL，默认选项<br>结果:<br>低性能组:<br>环境:环境:Android6-armV8a，骁龙625，OpenGL，默认选项<br>结果:</p>
 ]]></content>
       <categories>
         <category>计算机</category>
@@ -1703,706 +2620,6 @@ Alive (F) - Disk 1B.dsk</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>RetroArch-MSX(BlueMSX)核心的配置和操作指南</title>
-    <url>/2020/10/24/retrocore-bluemsx/</url>
-    <content><![CDATA[<p><a href="https://imgchr.com/i/BG0F1K"><img src="https://s1.ax1x.com/2020/10/29/BG0F1K.gif" alt="BG0F1K.gif"></a><br><a href="https://imgchr.com/i/BGBgsS"><img src="https://s1.ax1x.com/2020/10/29/BGBgsS.jpg" alt="BGBgsS.jpg"></a><br><a href="https://imgchr.com/i/BGBIGq"><img src="https://s1.ax1x.com/2020/10/29/BGBIGq.jpg" alt="BGBIGq.jpg"></a></p>
-<h4 id="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"><a href="#注意这是一个动态更新型文章，文章内容可能会随时更新或者改变" class="headerlink" title="注意这是一个动态更新型文章，文章内容可能会随时更新或者改变"></a><em>注意这是一个动态更新型文章，文章内容可能会随时更新或者改变</em></h4><a id="more"></a>
-
-
-
-<h1 id="Libretro-MSX-BlueMSX-系列核心"><a href="#Libretro-MSX-BlueMSX-系列核心" class="headerlink" title="Libretro-MSX(BlueMSX)系列核心"></a>Libretro-MSX(BlueMSX)系列核心</h1><h2 id="机型"><a href="#机型" class="headerlink" title="机型:"></a>机型:</h2><ul>
-<li>微软 MSX 微型计算机</li>
-<li>微软 MSX2 微型计算机</li>
-<li>Spectravideo SVI 微型计算机</li>
-<li>ColecoVision 家用游戏机</li>
-<li>Sega SG-1000 家用游戏机<h2 id="相关ROM"><a href="#相关ROM" class="headerlink" title="相关ROM:"></a>相关ROM:</h2></li>
-</ul>
-<h2 id="相关模拟器"><a href="#相关模拟器" class="headerlink" title="相关模拟器:"></a>相关模拟器:</h2><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>官方网站: <a href="http://bluemsx.msxblue.com/">http://bluemsx.msxblue.com/</a><br>BlueMSX在这短短的时间内，已经成为最先进和功能丰富的MSX模拟器， 它支持大多数常见的机器和各种各样的扩展硬件，模拟器中还包含一个功能丰富的调试器。<br>在过去两年中，MSX仿真得到了扩展，并增加了对其他系统的支持。 蓝色MSX现在也是一个SVI模拟器，并支持Coleco视觉和SegaSG-1000，SC-3000，SF-7000控制台</p>
-<p>简单说一些BlueMSX的功能</p>
-<ul>
-<li>支持sg-1000，sc-3000，sf-7000，colecovision，svi318/328，msx、msx2、msx2和Turboor，并进行机器定制</li>
-<li>插件功能增加了调试器和训练器</li>
-<li>协助msx开发人员的高级调试器</li>
-<li>多语言支持和指定键盘布局。 </li>
-<li>dsk/rom/cas和zip的文件支持</li>
-<li>MSX-Midi、MSX-Music、MSX-Audio、SCC和Moonsound，具有过采样控制和DAC</li>
-<li>键盘配置器和强大的主题结构</li>
-<li>最近的文件列表和快速保存，以便更快地访问</li>
-<li>储蓄者被重写以获得更高的向后兼容性</li>
-<li>各种大小的屏幕捕捉和音频捕捉</li>
-<li>可定制的热键</li>
-</ul>
-<h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><blockquote>
-<p>MSX/SVI/ColecoVision/SG-1000 (blueMSX)</p>
-<p>Background</p>
-<p>blueMSX is a cycle accurate emulator that emulates all generations of MSX computers as well as SVI, ColecoVision and Sega SG-1000.</p>
-<p>Author/License</p>
-<p>The blueMSX core has been authored by</p>
-<p>Daniel Vik</p>
-<p>The blueMSX core is licensed under</p>
-<p><a href="https://github.com/libretro/blueMSX-libretro/blob/master/license.txt">GPLv2</a></p>
-<p>A summary of the licenses behind RetroArch and its cores can be found <a href="../development/licenses.md">here</a>.</p>
-<p>Extensions</p>
-<p>Content that can be loaded by the blueMSX core have the following file extensions:</p>
-<p>.rom<br>.ri<br>.mx1<br>.mx2<br>.col<br>.dsk<br>.cas<br>.sg<br>.sc<br>.m3u</p>
-<p>Databases</p>
-<p>RetroArch database(s) that are associated with the blueMSX core:</p>
-<p><a href="https://github.com/libretro/libretro-database/blob/master/rdb/Microsoft%20-%20MSX.rdb">Microsoft - MSX</a><br><a href="https://github.com/libretro/libretro-database/blob/master/rdb/Microsoft%20-%20MSX2.rdb">Microsoft - MSX2</a><br><a href="https://github.com/libretro/libretro-database/blob/master/rdb/Coleco%20-%20ColecoVision.rdb">Coleco - ColecoVision</a><br><a href="https://github.com/libretro/libretro-database/blob/master/rdb/Sega%20-%20SG-1000.rdb">Sega - SG-1000</a></p>
-<p>BIOS</p>
-<p>The blueMSX core requires the ‘Databases’ and ‘Machines’ folders from a full installation of blueMSX.</p>
-<p>You can download the ‘Databases’ and ‘Machines’ folders from an <a href="http://bluemsx.msxblue.com/download.html">official full standalone blueMSX emulator installation</a>. Get blueMSXv282full.zip near the bottom of the page.</p>
-<p>Move/Copy the ‘Databases’ and ‘Machines’ Folders to RetroArch’s System directory.</p>
-<p><img src="../image/core/bluemsx/bios.png"></p>
-<p>Features</p>
-<p>Frontend-level settings or features that the blueMSX core respects.</p>
-<table>
-<thead>
-<tr>
-<th>Feature</th>
-<th align="center">Supported</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Restart</td>
-<td align="center">✔</td>
-</tr>
-<tr>
-<td>Screenshots</td>
-<td align="center">✔</td>
-</tr>
-<tr>
-<td>Saves</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>States</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Rewind</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Netplay</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Core Options</td>
-<td align="center">✔</td>
-</tr>
-<tr>
-<td>RetroAchievements</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>RetroArch Cheats</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Native Cheats</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Controls</td>
-<td align="center">✔</td>
-</tr>
-<tr>
-<td>Remapping</td>
-<td align="center">✔</td>
-</tr>
-<tr>
-<td>Multi-Mouse</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Rumble</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Sensors</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Camera</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Location</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Subsystem</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td><a href="../guides/softpatching.md">Softpatching</a></td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Disk Control</td>
-<td align="center">✔</td>
-</tr>
-<tr>
-<td>Username</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Language</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>Crop Overscan</td>
-<td align="center">✕</td>
-</tr>
-<tr>
-<td>LEDs</td>
-<td align="center">✕</td>
-</tr>
-</tbody></table>
-<p>Directories</p>
-<p>The blueMSX core’s library name is ‘blueMSX’</p>
-<p>The blueMSX core saves/loads to/from these directories.</p>
-<p><strong>Frontend’s System directory</strong></p>
-<table>
-<thead>
-<tr>
-<th align="center">File</th>
-<th align="center">Description</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">bluemsx.ini</td>
-<td align="center">blueMSX Config</td>
-</tr>
-<tr>
-<td align="center">bluemsx_history.ini</td>
-<td align="center">blueMSX History</td>
-</tr>
-</tbody></table>
-<p>Geometry and timing</p>
-<p>The blueMSX core’s core provided FPS is 60<br>The blueMSX core’s core provided sample rate is 44100 Hz<br>The blueMSX core’s base width is (Base width)<br>The blueMSX core’s base height is (Base height)<br>The blueMSX core’s max width is (Max width)<br>The blueMSX core’s max height is (Max height)<br>The blueMSX core’s core provided aspect ratio is (Ratio)</p>
-<p>Usage</p>
-<p>ColecoVision Gamepad Mapping is as follow:</p>
-<p>Button 1 as Retropad A<br>Button 2 as Retropad B<br>Dial keys 1 to 8 as X, Y, R, L, R2, L2, R3, L3<br>Star (*) as Select, Hash (#) as Start<br>0 &amp; 9 are on keyboard 1 &amp; 2 for Player 1<br>0 &amp; 9 are on keyboard 3 &amp; 4 for Player 2.</p>
-<p>To play SpectraVideo cassettes type ‘cload’ then ‘run’</p>
-<p>or BLOAD ‘’CAS:’’,R depending on the game.</p>
-<p>Multiple-disk games</p>
-<p>If foo is a multiple-disk game, you should have .dsk files for each one, e.g. <code>foo (Disk 1).dsk</code>, <code>foo (Disk 2).dsk</code>, <code>foo (Disk 3).dsk</code>.</p>
-<p>To take advantage of BlueMSX Disk Control feature for disk swapping, an index file (a m3u file) should be made.</p>
-<p>Create a text file and save it as <code>foo.m3u</code>. Then enter your game’s .dsk files on it. The m3u file contents should look something like this:</p>
-<p><code>foo.m3u</code></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">foo (Disk 1).dsk</span><br><span class="line">foo (Disk 2).dsk</span><br><span class="line">foo (Disk 3).dsk</span><br></pre></td></tr></table></figure>
-
-<p>After that, you can load the <code>foo.m3u</code> file in RetroArch with the BlueMSX core.</p>
-<p>An alternative is to append disks to the current playlist via the “Disk Image Append” option RetroArch menu.</p>
-<p>Core options</p>
-<p>The blueMSX core has the following option(s) that can be tweaked from the core options menu. The default setting is bolded.</p>
-<p>Settings with (Restart) means that core has to be closed for the new setting to be applied on next launch.</p>
-<p><strong>Machine Type (Restart)</strong> [bluemsx_msxtype] (<strong>Auto</strong>|MSX|MSXturboR|MSX2|MSX2+|SEGA - SG-1000|SEGA - SC-3000|SEGA - SF-7000|SVI - Spectravideo SVI-318|SVI - Spectravideo SVI-328|SVI - Spectravideo SVI-328 MK2|ColecoVision|Coleco (Spectravideo SVI-603))</p>
-<pre><code>Manually select the machine type you would like the core to start in.</code></pre>
-<p><strong>Crop Overscan</strong> [bluemsx_overscan] (<strong>disabled</strong>|enabled|MSX2)</p>
-<pre><code>Forces cropping of overscanned frames</code></pre>
-<p>??? note “<em>Crop Overscan Off</em>“<br>    <img src="../image/core/bluemsx/crop_off.png"></p>
-<p>??? note “<em>Crop Overscan On</em>“<br>    <img src="../image/core/bluemsx/crop_on.png"></p>
-<p>??? note “<em>Crop Overscan MSX2</em>“<br>    <img src="../image/core/bluemsx/crop_msx2.png"></p>
-<p><strong>VDP Sync Type (Restart)</strong> [bluemsx_vdp_synctype] (<strong>Auto</strong>|50Hz|60Hz)</p>
-<pre><code>Match the game/machine region frequency to avoid emulated speed issues.</code></pre>
-<p><strong>No Sprite Limit</strong> [bluemsx_nospritelimits] (<strong>OFF</strong>|ON)</p>
-<pre><code>Remove the 4 sprite per line limit which can reduce or remove sprite flicker in some games.</code></pre>
-<p><strong>Sound YM2413 Enable (Restart)</strong> [bluemsx_ym2413_enable] (<strong>enabled</strong>|disabled)</p>
-<pre><code>Awaiting description.</code></pre>
-<p><strong>Cart Mapper Type (Restart)</strong> [bluemsx_cartmapper] (<strong>Auto</strong>|Normal|mirrored|basic|0x4000|0xC000|ascii8|ascii8sram|ascii16|ascii16sram|<br>ascii16nf|konami4|konami4nf|konami5|konamisynth|korean80|korean90|korean126|<br>MegaFlashRomScc|MegaFlashRomSccPlus|msxdos2|scc|sccexpanded|sccmirrored|sccplus|<br>snatcher|sdsnatcher|SegaBasic|SG1000|SG1000Castle|SG1000RamA|SG1000RamB|SC3000)</p>
-<pre><code>When a ROM game or application is in the database, the emulator uses the databases to apply the correct mapper. If the sha1 value of a dump is not yet in the databases, it uses an automatic mapper detection system, but it can fail in some cases. In this situation, you can manually select the correct mapper.</code></pre>
-<p>Controllers</p>
-<p>The blueMSX core supports the following device type(s) in the controls menu, bolded device types are the default for the specified user(s):</p>
-<p>User 1 device types</p>
-<p>None - Doesn’t disable input. There’s no reason to switch to this.<br><strong>RetroPad</strong> - Joypad<br>RetroKeyboard - Keyboard - Keyboard inputs are always active. Has keymapper support.<br>RetroPad Keyboard Map - Joypad - Awaiting description.</p>
-<p>User 2 device types</p>
-<p>None - Doesn’t disable input. There’s no reason to switch to this.<br><strong>RetroPad</strong> - Joypad<br>RetroKeyboard - Keyboard - Keyboard inputs are always active.</p>
-<p>Controller tables</p>
-<p>Joypad</p>
-<table>
-<thead>
-<tr>
-<th>User 1 and 2 Remap descriptors for ‘RetroPad’ device type</th>
-<th>RetroPad Inputs</th>
-<th>blueMSX core inputs</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Button 2</td>
-<td><img src="../image/retropad/retro_b.png"></td>
-<td>Button 2, Coleco Button 2</td>
-</tr>
-<tr>
-<td>Button 3</td>
-<td><img src="../image/retropad/retro_y.png"></td>
-<td>Button 3, Coleco #2</td>
-</tr>
-<tr>
-<td>Select</td>
-<td><img src="../image/retropad/retro_select.png"></td>
-<td>Select, Coleco Star (*)</td>
-</tr>
-<tr>
-<td>Start</td>
-<td><img src="../image/retropad/retro_start.png"></td>
-<td>Start, Coleco Hash (#)</td>
-</tr>
-<tr>
-<td>Joy Up</td>
-<td><img src="../image/retropad/retro_dpad_up.png"></td>
-<td>Joy Up</td>
-</tr>
-<tr>
-<td>Joy Down</td>
-<td><img src="../image/retropad/retro_dpad_down.png"></td>
-<td>Joy Down</td>
-</tr>
-<tr>
-<td>Joy Left</td>
-<td><img src="../image/retropad/retro_dpad_left.png"></td>
-<td>Joy Left</td>
-</tr>
-<tr>
-<td>Joy Right</td>
-<td><img src="../image/retropad/retro_dpad_right.png"></td>
-<td>Joy Right</td>
-</tr>
-<tr>
-<td>Button 1</td>
-<td><img src="../image/retropad/retro_a.png"></td>
-<td>Button 1,  Coleco Button 1</td>
-</tr>
-<tr>
-<td>Button 4</td>
-<td><img src="../image/retropad/retro_x.png"></td>
-<td>Button 4, Coleco #1</td>
-</tr>
-<tr>
-<td>Button 5</td>
-<td><img src="../image/retropad/retro_l1.png"></td>
-<td>Button 5, Coleco #4</td>
-</tr>
-<tr>
-<td>Button 6</td>
-<td><img src="../image/retropad/retro_r1.png"></td>
-<td>Button 6, Coleco #3</td>
-</tr>
-<tr>
-<td>Button 7</td>
-<td><img src="../image/retropad/retro_l2.png"></td>
-<td>Button 7, Coleco #6</td>
-</tr>
-<tr>
-<td>Button 8</td>
-<td><img src="../image/retropad/retro_r2.png"></td>
-<td>Button 8, Coleco #5</td>
-</tr>
-<tr>
-<td>Button 9</td>
-<td><img src="../image/retropad/retro_l3.png"></td>
-<td>Button 9. Coleco #8</td>
-</tr>
-<tr>
-<td>Button 10</td>
-<td><img src="../image/retropad/retro_r3.png"></td>
-<td>Button 10, Coleco #7</td>
-</tr>
-</tbody></table>
-<p>Keyboard</p>
-<table>
-<thead>
-<tr>
-<th>RetroKeyboard Inputs</th>
-<th>RetroKeyboard</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Keyboard Backspace</td>
-<td>BACKSPACE</td>
-</tr>
-<tr>
-<td>Keyboard Tab</td>
-<td>TAB</td>
-</tr>
-<tr>
-<td>Keyboard Return</td>
-<td>RETURN</td>
-</tr>
-<tr>
-<td>Keyboard Pause</td>
-<td>PAUSE</td>
-</tr>
-<tr>
-<td>Keyboard Escape</td>
-<td>ESCAPE</td>
-</tr>
-<tr>
-<td>Keyboard Space</td>
-<td>SPACE</td>
-</tr>
-<tr>
-<td>Keyboard Quote ‘</td>
-<td>COLON</td>
-</tr>
-<tr>
-<td>Keyboard Comma ,</td>
-<td>COMMA</td>
-</tr>
-<tr>
-<td>Keyboard Minus -</td>
-<td>NEGATIVE</td>
-</tr>
-<tr>
-<td>Keyboard Period .</td>
-<td>PERIOD</td>
-</tr>
-<tr>
-<td>Keyboard Slash /</td>
-<td>DIVIDE</td>
-</tr>
-<tr>
-<td>Keyboard 0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>Keyboard 1</td>
-<td>1, Player 1 Coleco #0</td>
-</tr>
-<tr>
-<td>Keyboard 2</td>
-<td>2, Player 1 Coleco #9</td>
-</tr>
-<tr>
-<td>Keyboard 3</td>
-<td>3, Player 2 Coleco #0</td>
-</tr>
-<tr>
-<td>Keyboard 4</td>
-<td>4, Player 2 Coleco #9</td>
-</tr>
-<tr>
-<td>Keyboard 5</td>
-<td>5</td>
-</tr>
-<tr>
-<td>Keyboard 6</td>
-<td>6</td>
-</tr>
-<tr>
-<td>Keyboard 7</td>
-<td>7</td>
-</tr>
-<tr>
-<td>Keyboard 8</td>
-<td>8</td>
-</tr>
-<tr>
-<td>Keyboard 9</td>
-<td>9</td>
-</tr>
-<tr>
-<td>Keyboard Semicolon ;</td>
-<td>SEMICOLON</td>
-</tr>
-<tr>
-<td>Keyboard Equals =</td>
-<td>CIRCUMFLEX</td>
-</tr>
-<tr>
-<td>Keyboard Left Bracket [</td>
-<td>LEFT BRACKET</td>
-</tr>
-<tr>
-<td>Keyboard Backslash \</td>
-<td>BACKSLASH (YEN)</td>
-</tr>
-<tr>
-<td>Keyboard Right Bracket ]</td>
-<td>RIGHT BRACKET</td>
-</tr>
-<tr>
-<td>Keyboard Backquote `</td>
-<td>AT</td>
-</tr>
-<tr>
-<td>Keyboard a</td>
-<td>A</td>
-</tr>
-<tr>
-<td>Keyboard b</td>
-<td>B</td>
-</tr>
-<tr>
-<td>Keyboard c</td>
-<td>C</td>
-</tr>
-<tr>
-<td>Keyboard d</td>
-<td>D</td>
-</tr>
-<tr>
-<td>Keyboard e</td>
-<td>E</td>
-</tr>
-<tr>
-<td>Keyboard f</td>
-<td>F</td>
-</tr>
-<tr>
-<td>Keyboard g</td>
-<td>G</td>
-</tr>
-<tr>
-<td>Keyboard h</td>
-<td>H</td>
-</tr>
-<tr>
-<td>Keyboard i</td>
-<td>I</td>
-</tr>
-<tr>
-<td>Keyboard j</td>
-<td>J</td>
-</tr>
-<tr>
-<td>Keyboard k</td>
-<td>K</td>
-</tr>
-<tr>
-<td>Keyboard l</td>
-<td>L</td>
-</tr>
-<tr>
-<td>Keyboard m</td>
-<td>M</td>
-</tr>
-<tr>
-<td>Keyboard n</td>
-<td>N</td>
-</tr>
-<tr>
-<td>Keyboard o</td>
-<td>O</td>
-</tr>
-<tr>
-<td>Keyboard p</td>
-<td>P</td>
-</tr>
-<tr>
-<td>Keyboard q</td>
-<td>Q</td>
-</tr>
-<tr>
-<td>Keyboard r</td>
-<td>R</td>
-</tr>
-<tr>
-<td>Keyboard s</td>
-<td>S</td>
-</tr>
-<tr>
-<td>Keyboard t</td>
-<td>T</td>
-</tr>
-<tr>
-<td>Keyboard u</td>
-<td>U</td>
-</tr>
-<tr>
-<td>Keyboard v</td>
-<td>V</td>
-</tr>
-<tr>
-<td>Keyboard w</td>
-<td>W</td>
-</tr>
-<tr>
-<td>Keyboard x</td>
-<td>X</td>
-</tr>
-<tr>
-<td>Keyboard y</td>
-<td>Y</td>
-</tr>
-<tr>
-<td>Keyboard z</td>
-<td>Z</td>
-</tr>
-<tr>
-<td>Keyboard Delete</td>
-<td>DELETE</td>
-</tr>
-<tr>
-<td>Keyboard Keypad 0</td>
-<td>NUMPAD 0</td>
-</tr>
-<tr>
-<td>Keyboard Keypad 1</td>
-<td>NUMPAD 1</td>
-</tr>
-<tr>
-<td>Keyboard Keypad 2</td>
-<td>NUMPAD 2</td>
-</tr>
-<tr>
-<td>Keyboard Keypad 3</td>
-<td>NUMPAD 3</td>
-</tr>
-<tr>
-<td>Keyboard Keypad 4</td>
-<td>NUMPAD 4</td>
-</tr>
-<tr>
-<td>Keyboard Keypad 5</td>
-<td>NUMPAD 5</td>
-</tr>
-<tr>
-<td>Keyboard Keypad 6</td>
-<td>NUMPAD 6</td>
-</tr>
-<tr>
-<td>Keyboard Keypad 7</td>
-<td>NUMPAD 7</td>
-</tr>
-<tr>
-<td>Keyboard Keypad 8</td>
-<td>NUMPAD 8</td>
-</tr>
-<tr>
-<td>Keyboard Keypad 9</td>
-<td>NUMPAD 9</td>
-</tr>
-<tr>
-<td>Keyboard Keypad Period .</td>
-<td>NUMPAD COMMA</td>
-</tr>
-<tr>
-<td>Keyboard Keypad Divide /</td>
-<td>NUMPAD DIVIDE</td>
-</tr>
-<tr>
-<td>Keyboard Keypad Multiply *</td>
-<td>NUMPAD MULTIPLY</td>
-</tr>
-<tr>
-<td>Keyboard Keypad Minus -</td>
-<td>NUMPAD SUBTRACTION</td>
-</tr>
-<tr>
-<td>Keyboard Keypad Plus +</td>
-<td>NUMPAD ADD</td>
-</tr>
-<tr>
-<td>Keyboard Keypad Enter</td>
-<td>NUMPAD PERIOD</td>
-</tr>
-<tr>
-<td>Keyboard Up</td>
-<td>UP</td>
-</tr>
-<tr>
-<td>Keyboard Down</td>
-<td>DOWN</td>
-</tr>
-<tr>
-<td>Keyboard Right</td>
-<td>RIGHT</td>
-</tr>
-<tr>
-<td>Keyboard Left</td>
-<td>LEFT</td>
-</tr>
-<tr>
-<td>Keyboard Insert</td>
-<td>INSERT</td>
-</tr>
-<tr>
-<td>Keyboard Home</td>
-<td>CLS</td>
-</tr>
-<tr>
-<td>Keyboard End</td>
-<td>STOP</td>
-</tr>
-<tr>
-<td>Keyboard Page Up</td>
-<td>SELECT</td>
-</tr>
-<tr>
-<td>Keyboard F1</td>
-<td>F1</td>
-</tr>
-<tr>
-<td>Keyboard F2</td>
-<td>F2</td>
-</tr>
-<tr>
-<td>Keyboard F3</td>
-<td>F3</td>
-</tr>
-<tr>
-<td>Keyboard F4</td>
-<td>F4</td>
-</tr>
-<tr>
-<td>Keyboard F5</td>
-<td>F5</td>
-</tr>
-<tr>
-<td>Keyboard Caps Lock</td>
-<td>CAPS</td>
-</tr>
-<tr>
-<td>Keyboard Right Shift</td>
-<td>RIGHT SHIFT</td>
-</tr>
-<tr>
-<td>Keyboard Left Shift</td>
-<td>LEFT SHIFT</td>
-</tr>
-<tr>
-<td>Keyboard Left Control</td>
-<td>CONTROL</td>
-</tr>
-<tr>
-<td>Keyboard Left Alt</td>
-<td>GRAPH</td>
-</tr>
-<tr>
-<td>Keyboard Print</td>
-<td>PRINT</td>
-</tr>
-</tbody></table>
-<p>Supported combinations</p>
-<p>Keyboard Left or Right Shift + Keyboard 0 = UNDERSCORE</p>
-<p>Compatibility</p>
-<p><a href="http://www.msxblue.com/manual/settingsports.htm">blueMSX Manual</a></p>
-<p>External Links</p>
-<p><a href="http://bluemsx.com/">Official blueMSX Website</a><br><a href="http://sourceforge.net/projects/bluemsx/">Official blueMSX SourceForge Repository</a><br><a href="https://github.com/libretro/libretro-super/blob/master/dist/info/bluemsx_libretro.info">Libretro blueMSX Core info file</a><br><a href="https://github.com/libretro/blueMSX-libretro">Libretro blueMSX Github Repository</a><br><a href="https://github.com/libretro/blueMSX-libretro/issues">Report Libretro blueMSX Core Issues Here</a></p>
-<p>See also</p>
-<p>Sega - SG-1000</p>
-<p><a href="genesis_plus_gx.md">Sega - MS/GG/MD/CD (Genesis Plus GX)</a><br><a href="gearsystem.md">Sega - MS/GG/SG-1000 (Gearsystem)</a></p>
-<p>Microsoft - MSX</p>
-<p><a href="fmsx.md">Microsoft - MSX (fMSX)</a></p>
-<p>Microsoft - MSX2</p>
-<p><a href="fmsx.md">Microsoft - MSX (fMSX)</a></p>
-</blockquote>
-<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><h3 id="支持的ROM格式"><a href="#支持的ROM格式" class="headerlink" title="支持的ROM格式:"></a>支持的ROM格式:</h3><h3 id="固件"><a href="#固件" class="headerlink" title="固件:"></a>固件:</h3><h3 id="功能"><a href="#功能" class="headerlink" title="功能:"></a>功能:</h3><p>支持</p>
-<p>不支持</p>
-<h3 id="核心选项"><a href="#核心选项" class="headerlink" title="核心选项:"></a>核心选项:</h3><h3 id="相关文件路径"><a href="#相关文件路径" class="headerlink" title="相关文件路径:"></a>相关文件路径:</h3><h3 id="控制"><a href="#控制" class="headerlink" title="控制:"></a>控制:</h3><h3 id="评测"><a href="#评测" class="headerlink" title="评测:"></a>评测:</h3><p>高性能组:<br>1.安卓<br>环境:Android10-armV8a，骁龙835，OpenGL，默认选项<br>结果:<br>低性能组:<br>环境:环境:Android6-armV8a，骁龙625，OpenGL，默认选项<br>结果:</p>
-]]></content>
-      <categories>
-        <category>计算机</category>
-        <category>模拟器</category>
-      </categories>
-      <tags>
-        <tag>仿真器</tag>
-        <tag>计算机史</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>RetroArch-GBA系列核心的配置和操作指南</title>
     <url>/2020/10/24/retrocore-gba/</url>
     <content><![CDATA[<p><a href="https://imgchr.com/i/Beu1vq"><img src="https://s1.ax1x.com/2020/10/25/Beu1vq.png" alt="Beu1vq.png"></a></p>
@@ -3325,9 +3542,9 @@ See: https://github.com/libretro/vbam-libretro/issues/58</code></pre>
         <category>服务器&amp;网络</category>
       </categories>
       <tags>
-        <tag>计算机</tag>
-        <tag>运营维护</tag>
         <tag>Linux</tag>
+        <tag>运营维护</tag>
+        <tag>计算机</tag>
       </tags>
   </entry>
   <entry>
@@ -3454,7 +3671,7 @@ See: https://github.com/libretro/vbam-libretro/issues/58</code></pre>
   </entry>
   <entry>
     <title>NAS系统备份与恢复以OMV为案例的几种方法,附我家云NAS备份方法</title>
-    <url>/2020/10/17/omvbackup/</url>
+    <url>/2020/10/17/cbomvbackup/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>如果想把自己的NAS玩出各种花样的话要进行很多复杂的操作，NAS使用基于Linux内核的系统，对于还没有了解Linux使用及其发行版的的用户来说操作未免复杂，也经常手贱因为操作命令行，装软件包等操作错误导致系统一塌糊涂，崩溃，此时来恢复也需要查找教程未免复杂，此时我们需要建立一个备份来防止这些事情的发生。</p>
 <p><strong>这个教程以OMV为例，适用于其他Linux的NAS系统，本教程也提供了几个基于流行的不同硬件架构的NAS系统备份教程</strong></p>
 <a id="more"></a>
@@ -3542,102 +3759,11 @@ See: https://github.com/libretro/vbam-libretro/issues/58</code></pre>
         <category>服务器&amp;网络</category>
       </categories>
       <tags>
-        <tag>计算机</tag>
-        <tag>运营维护</tag>
         <tag>Linux</tag>
+        <tag>运营维护</tag>
         <tag>NAS</tag>
         <tag>家庭网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>B站爆火的换脸唱歌视频,不用GoogleColab在自家电脑制作！</title>
-    <url>/2020/10/15/deepfakeunreval/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在8月份的时候，B站就多了很多换脸视频，大多都是换了两个外国小哥小姐姐唱歌时候的动态脸照，分别在唱Unravel，Damedayo这两首很魔性的歌，由于视频动作夸张搞笑，而视频被“P”的很真实，收到了很多网友的喜爱<img src="https://i.loli.net/2020/10/15/IFKWxGhU1VM5ZwR.gif" alt="0"></p>
-<a id="more"></a>
-
-<p>  连杜甫都被狠下毒手，还有唐僧等众多历史人物</p>
-<p><img src="https://i.loli.net/2020/10/15/BaNAWlbZJKExIHL.gif" alt="0"></p>
-<p>这一下看上去很真实，我当初也差不多信以为真，要说现在技术真的挺发达，可以弄出这么搞笑的东西</p>
-<p><img src="https://i.loli.net/2020/10/15/7esZvmrMgPR9FEK.png" alt="download"></p>
-<p><strong>好活当赏</strong></p>
-<p>就在大火大热之时，B站也有人发了制作这种视频的教程，本来也就很多研究git项目的大学生会耍耍嘛，视频中用到了<strong>Google colab</strong>，通过搭建好的脚本环境输入图片和预设就能导出一个Unravel的换脸视频了，一张照片就“痛“起来了，这项操作要求你：</p>
-<p><strong>·拥有一个谷歌账号</strong></p>
-<p><strong>·拥有科学上网工具</strong></p>
-<p><strong>·拥有谷歌硬盘账号</strong></p>
-<p><strong>·一点计算机知识</strong></p>
-<p>然而这年头谷歌账号很难搞，很多人都是需要用购买，还有一大堆繁琐的步骤，而科学上网工具也需要一点互联网经验才能搞到</p>
-<p>然而，在之后，好景不长，因为这个鬼畜带有几乎以假乱真，而且对原人物也是带有很强的侮辱性，所以，教程在各大网站都被封了………………….</p>
-<h1 id="搭建Python在本地制作换脸视频"><a href="#搭建Python在本地制作换脸视频" class="headerlink" title="搭建Python在本地制作换脸视频"></a>搭建Python在本地制作换脸视频</h1><h5 id="今天的主角是著名的的项目，DeepFake一阶运动模型"><a href="#今天的主角是著名的的项目，DeepFake一阶运动模型" class="headerlink" title="今天的主角是著名的的项目，DeepFake一阶运动模型"></a>今天的主角是著名的的项目，DeepFake<strong>一阶运动模型</strong></h5><p>First Order Motion，也就是<a href="https://link.zhihu.com/?target=https://cuijiahua.com/blog/tag/%E4%B8%80%E9%98%B6%E8%BF%90%E5%8A%A8%E6%A8%A1%E5%9E%8B/">一阶运动模型</a>，来自 NeurIPS 2019 论文。</p>
-<p>相关的项目地址：</p>
-<p>·<a href="https://github.com/AliaksandrSiarohin/first-order-model">https://github.com/AliaksandrSiarohin/first-order-model</a>   （实现）</p>
-<p>·<a href="https://papers.nips.cc/paper/8935-first-order-motion-model-for-image-animation">https://papers.nips.cc/paper/8935-first-order-motion-model-for-image-animation</a>    (论文)</p>
-<p>而这次的项目是一位大佬为我们整理好的<a href="https://github.com/anandpawara/Real_Time_Image_Animation">Real_Time_Image_Animation</a></p>
-<p>又叫实时图片动画，用Python和<a href="https://github.com/anandpawara/Real_Time_Image_Animation/search">Jupyter Notebook</a>搭建，套用了一阶运动模型训练好的 VoxCeleb 数据集，通过几个脚本代码便能运行，在项目页面里面作者也写明了你要干什么才能让它运行起来了</p>
-<blockquote>
-<h1 id="Real-time-Image-Animation"><a href="#Real-time-Image-Animation" class="headerlink" title="Real time Image Animation"></a>Real time Image Animation</h1><p>The Project is real time application in opencv using first order model</p>
-<h1 id="Steps-to-setup"><a href="#Steps-to-setup" class="headerlink" title="Steps to setup"></a>Steps to setup</h1><h2 id="Step-1-Create-virtual-environment"><a href="#Step-1-Create-virtual-environment" class="headerlink" title="Step 1: Create virtual environment"></a>Step 1: Create virtual environment</h2><p><strong>Python version</strong> : python v3.7.3 or higher</p>
-<p><strong>create virual environment</strong> : <code>pip install virtualenv</code></p>
-<p><strong>activate virtual environment</strong> : <code>virtualenv env</code></p>
-<h2 id="Step-2-Activate-virtual-environment"><a href="#Step-2-Activate-virtual-environment" class="headerlink" title="Step 2: Activate virtual environment"></a>Step 2: Activate virtual environment</h2><p><strong>For windows</strong> : <code>env/Script/activate</code></p>
-<p><strong>For Linux</strong> : <code>source env/bin/activate</code></p>
-<h2 id="Step-3-Install-required-modules"><a href="#Step-3-Install-required-modules" class="headerlink" title="Step 3 : Install required modules"></a>Step 3 : Install required modules</h2><p><strong>Install modules</strong> : <code>pip install -r requirements.txt</code></p>
-<p><strong>Install pytorch and torchvision</strong> : <code>pip install torch===1.0.0 torchvision===0.2.1 -f https://download.pytorch.org/whl/cu100/torch_stable.html</code></p>
-<h2 id="Step-4-Download-cascade-file-weights-and-model-and-save-in-folder-named-extract"><a href="#Step-4-Download-cascade-file-weights-and-model-and-save-in-folder-named-extract" class="headerlink" title="Step 4 : Download cascade file ,weights and model and save in folder named extract"></a>Step 4 : Download cascade file ,weights and model and save in folder named extract</h2><p><code>gdown --id 1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK</code> The file is also availible via direct link on Google’s Drive: <a href="https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK">https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK</a></p>
-<p><strong>On Linux machine</strong> : <code>unzip checkpoints.zip</code></p>
-<p>If on windows platfrom unzip checkpoints.zip using unzipping software like 7zip.</p>
-<p><strong>Delete zip file</strong> : <code>rm checkpoints.zip</code></p>
-<h2 id="Step-5-Run-the-project"><a href="#Step-5-Run-the-project" class="headerlink" title="Step 5 : Run the project"></a>Step 5 : Run the project</h2><p><strong>Run application from live camera</strong> : <code>python image_animation.py -i path_to_input_file -c path_to_checkpoint</code></p>
-<p><strong>Example</strong> : <code>python .\image_animation.py -i .\Inputs\Monalisa.png -c .\checkpoints\vox-cpk.pth.tar</code></p>
-<p><strong>Run application from video file</strong> : <code>python image_animation.py -i path_to_input_file -c path_to_checkpoint -v path_to_video_file</code></p>
-<p><strong>Example</strong> : <code>python .\image_animation.py -i .\Inputs\Monalisa.png -c .\checkpoints\vox-cpk.pth.tar -v .\video_input\test1.mp4</code></p>
-<p><a href="https://github.com/anandpawara/Real_Time_Image_Animation/blob/master/animate.gif"><img src="https://github.com/anandpawara/Real_Time_Image_Animation/raw/master/animate.gif" alt="test demo"></a></p>
-<h3 id="TODO"><a href="#TODO" class="headerlink" title="TODO:"></a>TODO:</h3><p>Tkinter version</p>
-<p>Need work on face alignments</p>
-<p>Future plans adding deepfake voice and merging with video</p>
-</blockquote>
-<p>可能有些人看不懂，所以我带你们来一遍</p>
-<h1 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h1><h3 id="1-安装Python-3-7"><a href="#1-安装Python-3-7" class="headerlink" title="1.安装Python 3.7"></a>1.安装Python 3.7</h3><p>为啥要安装3.7版本？因为后面的torch没有3.9版本的，去Python官网下载，并配置好环境变量</p>
-<p>具体怎么百度一大堆，有手就行</p>
-<h3 id="2-安装虚拟环境库"><a href="#2-安装虚拟环境库" class="headerlink" title="2.安装虚拟环境库"></a>2.安装虚拟环境库</h3><p>win+R键，输入CMD打开终端，输入此行分别安装和创建虚拟环境库</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;pip install virtualenv&#96;</span><br><span class="line">&#96;virtualenv env&#96;</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-激活虚拟环境库"><a href="#3-激活虚拟环境库" class="headerlink" title="3.激活虚拟环境库"></a>3.激活虚拟环境库</h3><p>打开 C:\Users\Administrator\env\Scripts 打开activate.bat即可</p>
-<h3 id="4-安装第三方环境库"><a href="#4-安装第三方环境库" class="headerlink" title="4.安装第三方环境库"></a>4.安装第三方环境库</h3><p>终端 e:(把e换为你从项目下载的文件路径的盘符)</p>
-<p>cd /xxxx/xxxx/ (你项目文件的根目录)</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;pip install -r requirements.txt&#96;</span><br></pre></td></tr></table></figure>
-
-<p>输入运行即可，要一段时间，运行库很多</p>
-<h3 id="5-安装Torch"><a href="#5-安装Torch" class="headerlink" title="5.安装Torch"></a>5.安装Torch</h3><p>接着上面的操作终端输入</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;pip install torch&#x3D;&#x3D;&#x3D;1.0.0 torchvision&#x3D;&#x3D;&#x3D;0.2.1 -f https:&#x2F;&#x2F;download.pytorch.org&#x2F;whl&#x2F;cu100&#x2F;torch_stable.html&#96;</span><br></pre></td></tr></table></figure>
-
-<h3 id="6-下载数据集"><a href="#6-下载数据集" class="headerlink" title="6.下载数据集"></a>6.下载数据集</h3><p>下载 <a href="https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK">https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK</a></p>
-<p>解压得两个vox文件放到 <strong>\Real_Time_Image_Animation-master\checkpoints</strong></p>
-<h3 id="7-安装FFmpeg解码器并配置变量"><a href="#7-安装FFmpeg解码器并配置变量" class="headerlink" title="7.安装FFmpeg解码器并配置变量"></a>7.安装FFmpeg解码器并配置变量</h3><p><a href="http://www.ffmpeg.org/">www.ffmpeg.org</a> 点windows图标下第一个build，安装好后配置环境变量</p>
-<p>怎么配置还是查百度，这个作用是可以把视频音频和视频合并，省功夫</p>
-<h3 id="8-运行脚本"><a href="#8-运行脚本" class="headerlink" title="8.运行脚本"></a>8.运行脚本</h3><p>终端 e:(把e换为你从项目下载的文件路径的盘符)</p>
-<p>cd /xxxx/xxxx/ (你项目文件的根目录)</p>
-<p>终端运行</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python image_animation.py -i path_to_input_file -c path_to_checkpoint -v path_to_video_file</span><br></pre></td></tr></table></figure>
-
-<p>path_to_input_file 是输入的模板图片</p>
-<p>path_to_checkpoint 是权重文件路径</p>
-<p>path_to_video_file 是输入的视频文件</p>
-<p>比如</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python image_animation.py -i Inputs&#x2F;x.jpg -c checkpoints&#x2F;vox-adv-cpk.pth.tar -v 1.mp4</span><br></pre></td></tr></table></figure>
-
-<p>比如这个，输入图片默认放在input文件夹，导出的视频默认在output文件夹，模板视频在根目录</p>
-<h3 id="9-大功告成"><a href="#9-大功告成" class="headerlink" title="9.大功告成"></a>9.大功告成</h3><p>在导出的文件夹就可以找到相关的视频文件</p>
-<h3 id="10-替换其他的视频模板"><a href="#10-替换其他的视频模板" class="headerlink" title="10.替换其他的视频模板"></a>10.替换其他的视频模板</h3><p>原项目文档已经说明，你需要把视频模板裁剪为256x256大小，这个我推荐使用<strong>Premiere</strong>或者<strong>Vegas</strong>视频编辑软件，相关教程去百度查</p>
-<p>还有，输出的视频尺寸最好是正方形的，否则输出视频会把你的长方形比例照片弄成正方形的，会使人看起来很扁（笑），模板最好是正面的，表情不要太夸张</p>
-<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>这种技术是很侮辱人，请勿滥用</p>
-]]></content>
-      <categories>
-        <category>计算机</category>
-      </categories>
-      <tags>
         <tag>计算机</tag>
-        <tag>机器学习</tag>
-        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
