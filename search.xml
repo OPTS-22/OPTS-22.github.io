@@ -27,7 +27,7 @@
 <blockquote>
 <p><a href="https://post.smzdm.com/p/az50epz5/">阿文菌：我家云保姆教程：完美OMV固件推荐+硬改不掉盘实操 超值低功耗NAS 家庭服务器 下载机</a></p>
 </blockquote>
-<h2 id="功能一览"><a href="#功能一览" class="headerlink" title="功能一览"></a>功能一览</h2><h4 id="终端："><a href="#终端：" class="headerlink" title="终端："></a><strong>终端：</strong></h4><p>SSH使用了WebSSH，直接可以在网页进行操作，当然，SSH客户端管理也更方便</p>
+<h2 id="功能一览"><a href="#功能一览" class="headerlink" title="功能一览"></a>功能一览</h2><h4 id="终端："><a href="#终端：" class="headerlink" title="终端："></a>终端：</h4><p>SSH使用了WebSSH，直接可以在网页进行操作，当然，SSH客户端管理也更方便</p>
 <p><img src="https://ftp.bmp.ovh/imgs/2021/04/b80477fa4cd7bee6.png"></p>
 <h4 id="Filebrowsers"><a href="#Filebrowsers" class="headerlink" title="Filebrowsers"></a>Filebrowsers</h4><p>作为管理系统必不可少的文件浏览器，还是需要一个WebUI界面使管理服务器简便不少，可以修改系统文件，界面简介支持打包上下载，预览视频图片，文本编辑</p>
 <p><img src="https://ftp.bmp.ovh/imgs/2021/04/919189620575d459.png"></p>
