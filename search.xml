@@ -415,6 +415,7 @@
       </categories>
       <tags>
         <tag>计算机</tag>
+        <tag>教程经验</tag>
         <tag>运营维护</tag>
         <tag>Linux</tag>
       </tags>
@@ -515,6 +516,22 @@
       <tags>
         <tag>计算机</tag>
         <tag>Python</tag>
+        <tag>教程经验</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[To Do] 各平台模拟器&amp;RetroArch模拟器及核心-配置与使用小教程</title>
+    <url>/2021/01/24/retroemu/</url>
+    <content><![CDATA[<p><a href="https://imgchr.com/i/BanMmq"><img src="https://s1.ax1x.com/2020/10/31/BanMmq.jpg" alt="BanMmq.jpg"></a></p>
+<h1 id="待补充"><a href="#待补充" class="headerlink" title="待补充"></a>待补充</h1>]]></content>
+      <categories>
+        <category>计算机</category>
+        <category>仿真器</category>
+      </categories>
+      <tags>
+        <tag>教程经验</tag>
+        <tag>仿真器</tag>
+        <tag>开源软件</tag>
       </tags>
   </entry>
   <entry>
@@ -609,6 +626,7 @@
       <tags>
         <tag>计算机</tag>
         <tag>Python</tag>
+        <tag>教程经验</tag>
       </tags>
   </entry>
   <entry>
@@ -643,6 +661,7 @@
       </categories>
       <tags>
         <tag>计算机</tag>
+        <tag>教程经验</tag>
         <tag>运营维护</tag>
       </tags>
   </entry>

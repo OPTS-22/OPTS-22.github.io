@@ -6,7 +6,7 @@
   <link href="https://opts-22.github.io/atom.xml" rel="self"/>
   
   <link href="https://opts-22.github.io/"/>
-  <updated>2021-04-23T05:47:03.089Z</updated>
+  <updated>2021-04-23T06:11:43.250Z</updated>
   <id>https://opts-22.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://opts-22.github.io/2021/03/01/chainedbox/"/>
     <id>https://opts-22.github.io/2021/03/01/chainedbox/</id>
     <published>2021-03-01T09:34:29.000Z</published>
-    <updated>2021-04-23T05:47:03.089Z</updated>
+    <updated>2021-04-23T06:11:43.250Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;1-个人服务器搭建经历&quot;&gt;&lt;a href=&quot;#1-个人服务器搭建经历&quot; class=&quot;headerlink&quot; title=&quot;1.个人服务器搭建经历&quot;&gt;&lt;/a&gt;1.个人服务器搭建经历&lt;/h1&gt;&lt;p&gt;矿渣论坛有大佬把自己在OMV系统上把自己集成了各项功能的系统做成镜像分享了出来，这样就省去了很多麻烦&lt;/p&gt;
@@ -40,6 +40,8 @@
     
     <category term="计算机" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
     
+    <category term="教程经验" scheme="https://opts-22.github.io/tags/%E6%95%99%E7%A8%8B%E7%BB%8F%E9%AA%8C/"/>
+    
     <category term="运营维护" scheme="https://opts-22.github.io/tags/%E8%BF%90%E8%90%A5%E7%BB%B4%E6%8A%A4/"/>
     
     <category term="Linux" scheme="https://opts-22.github.io/tags/Linux/"/>
@@ -51,7 +53,7 @@
     <link href="https://opts-22.github.io/2021/02/28/miditopiano/"/>
     <id>https://opts-22.github.io/2021/02/28/miditopiano/</id>
     <published>2021-02-28T14:52:03.000Z</published>
-    <updated>2021-04-22T09:44:26.083Z</updated>
+    <updated>2021-04-23T06:12:04.487Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;blockquote&gt;
@@ -71,6 +73,40 @@
     
     <category term="Python" scheme="https://opts-22.github.io/tags/Python/"/>
     
+    <category term="教程经验" scheme="https://opts-22.github.io/tags/%E6%95%99%E7%A8%8B%E7%BB%8F%E9%AA%8C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>[To Do] 各平台模拟器&amp;RetroArch模拟器及核心-配置与使用小教程</title>
+    <link href="https://opts-22.github.io/2021/01/24/retroemu/"/>
+    <id>https://opts-22.github.io/2021/01/24/retroemu/</id>
+    <published>2021-01-24T14:42:13.000Z</published>
+    <updated>2021-04-23T06:11:15.789Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://imgchr.com/i/BanMmq&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/31/BanMmq.jpg&quot; alt=&quot;BanMmq.jpg&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;待补充&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="计算机" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+    <category term="仿真器" scheme="https://opts-22.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E4%BB%BF%E7%9C%9F%E5%99%A8/"/>
+    
+    
+    <category term="教程经验" scheme="https://opts-22.github.io/tags/%E6%95%99%E7%A8%8B%E7%BB%8F%E9%AA%8C/"/>
+    
+    <category term="仿真器" scheme="https://opts-22.github.io/tags/%E4%BB%BF%E7%9C%9F%E5%99%A8/"/>
+    
+    <category term="开源软件" scheme="https://opts-22.github.io/tags/%E5%BC%80%E6%BA%90%E8%BD%AF%E4%BB%B6/"/>
+    
   </entry>
   
   <entry>
@@ -78,7 +114,7 @@
     <link href="https://opts-22.github.io/2020/12/15/deepfakeunreval/"/>
     <id>https://opts-22.github.io/2020/12/15/deepfakeunreval/</id>
     <published>2020-12-15T14:52:03.000Z</published>
-    <updated>2021-04-23T05:22:53.352Z</updated>
+    <updated>2021-04-23T06:11:30.312Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;在8月份的时候，B站就多了很多换脸视频，大多都是换了两个外国小哥小姐姐唱歌时候的动态脸照，分别在唱Unravel，Damedayo这两首很魔性的歌，由于视频动作夸张搞笑，而视频被“P”的很真实，收到了很多网友的喜爱&lt;img src=&quot;https://i.loli.net/2020/10/15/IFKWxGhU1VM5ZwR.gif&quot; alt=&quot;0&quot;&gt;，而现在，很多视频网站已经把这个项目部署到了Web上，从而吸引用户进行视频创作，本文将讲述如何在个人计算机中搭建Python环境并运行此项目&lt;/p&gt;
@@ -95,6 +131,8 @@
     <category term="计算机" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
     
     <category term="Python" scheme="https://opts-22.github.io/tags/Python/"/>
+    
+    <category term="教程经验" scheme="https://opts-22.github.io/tags/%E6%95%99%E7%A8%8B%E7%BB%8F%E9%AA%8C/"/>
     
   </entry>
   
@@ -124,7 +162,7 @@
     <link href="https://opts-22.github.io/2020/11/20/windockecompressr/"/>
     <id>https://opts-22.github.io/2020/11/20/windockecompressr/</id>
     <published>2020-11-20T14:42:13.000Z</published>
-    <updated>2021-03-02T02:48:02.000Z</updated>
+    <updated>2021-04-23T06:13:19.365Z</updated>
     
     
     <summary type="html">&lt;p&gt;&lt;img src=&quot;https://ftp.bmp.ovh/imgs/2021/01/58446f843eb879e4.jpg&quot;&gt;&lt;/p&gt;
@@ -139,6 +177,8 @@
     
     
     <category term="计算机" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+    <category term="教程经验" scheme="https://opts-22.github.io/tags/%E6%95%99%E7%A8%8B%E7%BB%8F%E9%AA%8C/"/>
     
     <category term="运营维护" scheme="https://opts-22.github.io/tags/%E8%BF%90%E8%90%A5%E7%BB%B4%E6%8A%A4/"/>
     
