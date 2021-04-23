@@ -213,14 +213,15 @@
   </entry>
   
   <entry>
-    <title>来自远古时代强大的文件共享多功能服务器</title>
+    <title>来自八年前过时但强大的文件多功能服务器</title>
     <link href="https://opts-22.github.io/2020/10/20/weezo/"/>
     <id>https://opts-22.github.io/2020/10/20/weezo/</id>
     <published>2020-10-20T10:52:07.000Z</published>
-    <updated>2021-03-13T08:21:08.000Z</updated>
+    <updated>2021-04-23T11:10:00.605Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;文件共享服务器&quot;&gt;&lt;a href=&quot;#文件共享服务器&quot; class=&quot;headerlink&quot; title=&quot;文件共享服务器&quot;&gt;&lt;/a&gt;文件共享服务器&lt;/h1&gt;&lt;p&gt;如果你想搭建一个文件共享服务器来作私人云盘，你会选择什么，现在有很多服务软件可选，像可道云，易有云，NextCloud，Seafile，Cloudreve，Z-File，各有特色，功能强大，开源或者不开源，有些搭建简单有些搭建复杂。&lt;/p&gt;
+&lt;p&gt;比如我喜欢用的可道云，界面华丽，内置微型桌面，有各种插件和支持，功能多样&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;但今天要介绍一下Weezo&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;https://i.loli.net/2020/10/24/uw1HLA75X3sFPWN.jpg&quot; alt=&quot;u=2074893334,862763281&amp;amp;fm=15&amp;amp;gp=0&quot;&gt;&lt;/p&gt;</summary>
     
@@ -228,6 +229,22 @@
     
     
     <category term="计算机" scheme="https://opts-22.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>测试</title>
+    <link href="https://opts-22.github.io/2020/10/15/test/"/>
+    <id>https://opts-22.github.io/2020/10/15/test/</id>
+    <published>2020-10-15T10:52:07.000Z</published>
+    <updated>2021-03-02T05:50:59.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;HelloWorld，This Page is a lil Test.&lt;/p&gt;
+&lt;hr&gt;</summary>
+    
+    
+    
     
   </entry>
   

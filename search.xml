@@ -696,96 +696,164 @@
       </tags>
   </entry>
   <entry>
-    <title>来自远古时代强大的文件共享多功能服务器</title>
+    <title>来自八年前过时但强大的文件多功能服务器</title>
     <url>/2020/10/20/weezo/</url>
     <content><![CDATA[<h1 id="文件共享服务器"><a href="#文件共享服务器" class="headerlink" title="文件共享服务器"></a>文件共享服务器</h1><p>如果你想搭建一个文件共享服务器来作私人云盘，你会选择什么，现在有很多服务软件可选，像可道云，易有云，NextCloud，Seafile，Cloudreve，Z-File，各有特色，功能强大，开源或者不开源，有些搭建简单有些搭建复杂。</p>
+<p>比如我喜欢用的可道云，界面华丽，内置微型桌面，有各种插件和支持，功能多样</p>
 <p><strong>但今天要介绍一下Weezo</strong></p>
 <p><img src="https://i.loli.net/2020/10/24/uw1HLA75X3sFPWN.jpg" alt="u=2074893334,862763281&amp;fm=15&amp;gp=0"></p>
 <a id="more"></a>
 
-<p>比如我最喜欢用的可道云，界面华丽，内置微型桌面，有各种插件和支持，功能多样，再找一个好的VPS放到公网就可以作一个由自己支配的云盘了，再也不用怕百度云各种流氓操作了~</p>
-<p><strong>一个小巧华丽的文件浏览器，非常流畅</strong></p>
-<p><strong>在浏览器就能使用的桌面</strong></p>
-<p><strong>内置office，远程办公，甚至是NES模拟器</strong></p>
-<p><strong>还有可客户端支持，方便管理</strong></p>
-<p><strong>在线编辑代码</strong></p>
-<h1 id="Weezo"><a href="#Weezo" class="headerlink" title="Weezo"></a>Weezo</h1><p>但我今天并不是吹可道云怎么怎么好的，前段时间在找各种文件服务器的时候，找到一个已于2014年停止更新的文件共享解决方案，看截图似乎很像模像样，原来10年就有这么完备的私人云盘服务了吗？</p>
-<p>来自于21世纪10年代初期的网页设计，当时还是偏向于立体化的，在色彩方面也不是很讲究</p>
-<p>感觉回到了那时流行半夜贴吧故事会，B站也还是专门一群大学生在此创作二次元与鬼畜，手上还拿着塞班S60系统的诺基亚的时候………..</p>
-<p>所以，在深入了解Weezo后，我发现它不止是像模像样的程度了，他有:<br><strong>文件服务功能</strong><br><strong>博客空间功能</strong><br><strong>管理面板功能</strong><br><strong>影音中心功能</strong><br><strong>照片管理功能</strong><br>甚至有:<br><strong>远程桌面功能</strong><br><strong>RSS功能</strong><br><strong>公网映射，邮箱，社交账号功能</strong>(不可用)<br><strong>网络摄像头功能</strong><br>配置难度呢？一键安装，自动配置Apache，PHP，Mysql，仅支持Windows，图形化配置<br>是不是很惊艳，有些功能现在的文件共享解决方案也没有，而且可以集成这么多功能的也屈指可数，最重要的是，它还是10年左右的软件。</p>
-<p>接下咱们深入一下这个软件</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>很简单，安装包也就50M，现在还是可以在搜索引擎搜到资源，安装除了路径全部默认设置，Weezo也会给我们配置好所需的Web环境</p>
-<p>打开服务器，一个启动窗口下就在刷啦啦的打开各种服务，于是我们就可以看到软件面板了，在Win10下界面显示会有点问题，但并不影响使用</p>
-<p>我们设定好了管理员密码后，在浏览器输入你的设备的ip，然后就是可以让人怀念的登陆界面，就像那时典型的社交软件的界面一样</p>
+
+
+<h1 id="初探"><a href="#初探" class="headerlink" title="初探"></a>初探</h1><p>但我今天并不是吹可道云怎么怎么好的，前段时间在找各种文件服务器的时候，找到一个已于2014年停止更新的文件服务器解决方案，初上手后觉得似乎很像模像样</p>
+<p>来自于21世纪10年代初期的软件图形化设计，当时还是偏向于立体拟物化的，在色彩方面也不是很讲究</p>
+<p>所以，在深入了解Weezo后，我发现它不止是像模像样的程度了，他有:<br>· <strong>文件服务功能</strong><br><strong>· 博客空间功能</strong><br><strong>· 管理面板功能</strong><br><strong>· 影音中心功能</strong><br><strong>· 照片管理功能</strong></p>
+<p>甚至有:</p>
+<p><strong>· 远程桌面功能</strong><br><strong>· RSS功能</strong><br><strong>· 公网映射，邮箱，社交账号功能</strong><br><strong>· 网络摄像头功能</strong></p>
+<p><strong>部署难度呢？</strong></p>
+<p><strong>一键安装，自动配置Apache，PHP，SQLlite，仅支持Windows，全过程图形化，而且你无法想象它是一个差不多10年前的软件</strong></p>
+<p>所以再看现在类似的私有云解决方案，虽然功能全面，界面优美，但比起Weezo的功能高度集成化和友好度，在很多方面还是略逊一筹</p>
+<h1 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h1><p><strong>很简单，使用安装包进行部署，安装包也就50M，安装除了路径全部默认设置，Weezo也会给我们配置好所需的Web环境</strong></p>
 <p><img src="https://i.loli.net/2020/10/24/93ROkcErxD8JTiu.png" alt="image-20201024205408858"></p>
-<h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><p>登陆后界面还是较为空白，但我们可以看到这个界面很像是Windows Vista的窗口设计，然而这仅仅只是一个网页而已，在那时就可以实现类似视窗的界面了，我们可以对打开的窗口最大化，最小化，简直就像在网页中使用windows</p>
-<p>进入软件面板，我们先对账户和各种权限设置一下，之后我们便可以添加各种服务</p>
+<p><strong>打开服务器，一个启动窗口下就在刷啦啦的打开各种服务，于是我们就部署完成，可以看到软件面板了，在Win10下界面显示会有点问题，但并不影响使用</strong></p>
+<p><strong>所以，就像平时安装软件一样，点几下Step咱们的文件服务器就部署完成了</strong></p>
+<p><strong>我们设定好了管理员密码后，在浏览器输入你的设备的ip，然后就是让人怀念的登陆界面</strong></p>
+<p><strong>登陆进入后，就可以看见个心情墙之类的，放在以前，可以像QQ空间一样发个说说之类的吧~</strong></p>
+<h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><p><strong>登陆后界面还是较为空白，但我们可以看到这个界面很像是Windows Vista的窗口设计，然而这仅仅只是一个网页而已，在那时就可以实现类似视窗的界面了，我们可以对打开的窗口最大化，最小化，简直就像在网页中使用windows</strong></p>
+<p><strong>进入软件面板，我们先对账户和各种权限设置一下，之后我们便可以添加各种服务</strong></p>
 <p><img src="https://i.loli.net/2020/10/23/MksiUKx34IaL7lz.png" alt="image-20201023140717644"></p>
 <p><img src="https://i.loli.net/2020/10/23/ImVhgcU3z49DtAJ.png" alt="image-20201023140659549"></p>
-<p>当然作为文件共享服务，我们先试试文件共享服务。文件共享支持你对电脑多个目录进行共享，对此分别设置各用户的权限等，我们现在添加两个文件目录</p>
+<p><strong>当然作为文件共享服务，我们先试试文件共享服务。文件共享支持你对电脑多个目录进行共享，对此分别设置各用户的权限等，我们现在添加两个文件目录</strong></p>
 <p><img src="https://i.loli.net/2020/10/25/tLvlWay6sBAphNi.png" alt="image-20201023140815747"></p>
-<p>在页面端他的文件目录已经很贴近windows的资源管理器了，我们可以进行删除，拷贝，剪切，下载等功能，支持图标缩放</p>
+<h4 id="文件浏览器"><a href="#文件浏览器" class="headerlink" title="文件浏览器"></a>文件浏览器</h4><p><strong>文件浏览器方面：在页面端他的文件目录已经很贴近windows的资源管理器了，我们可以进行删除，拷贝，剪切，下载等功能，支持图标缩放，这使我想起了现在的可道云</strong></p>
 <p><img src="https://i.loli.net/2020/10/23/GdEN1BeqHiscI2R.png" alt="image-20201023140937080"></p>
-<p>支持读取文本，音乐，视频，照片，音乐会根据图标缩放的大小显示专辑图片</p>
+<p><strong>支持读取文本，音乐，视频，照片，音乐</strong></p>
 <p><img src="https://i.loli.net/2020/10/24/bAxmM3Pk6YiHCyf.png" alt="image-20201024210449043"></p>
+<p><strong>管理照片，音乐，视频中，点击相应媒体文件会显示该媒体文件的元数据</strong></p>
+<p><strong>包括音乐的标题/专辑/年份/艺术家 照片或视频的分辨率/作者等</strong></p>
 <p><img src="https://i.loli.net/2020/10/24/gPV6qc27m8LaYfC.png" alt="image-20201024210556089"></p>
-<p>下载功能还支持种子下载，批量下载与上传，当然，现在不可用了</p>
+<p><strong>下载功能还支持URL下载与种子下载，以及本地的批量下载与上传；当然，种子下载现在不可用了</strong></p>
 <p><img src="https://i.loli.net/2020/10/24/1EJ5WikdDYbgRU8.png" alt="image-20201024211723034"></p>
-<p>之后的功能中，还有很多我很感兴趣，比如这个还算漂亮的博客<br>我可以写写文章，也会在日历中标记日期</p>
-<p>管理面板功能，依旧很惊艳，把访问人数和资源都画成图表便于查看</p>
+<h4 id="管理面板"><a href="#管理面板" class="headerlink" title="管理面板"></a>管理面板</h4><p><strong>管理面板功能，依旧很惊艳，把访问人数和资源都画成图表便于查看</strong></p>
 <p><img src="https://i.loli.net/2020/10/24/BXA67pRkPDEKy8C.png" alt="image-20201024210034004"></p>
-<p>还可以查看日志</p>
+<p><strong>还可以查看日志</strong></p>
 <p><img src="https://i.loli.net/2020/10/24/8vGNWuagnzIeklB.png" alt="image-20201024210108852"></p>
-<p>我们可以在RSS功能中订阅源，但好像有点问题，Weezo一直都不能连接外网</p>
-<p><strong>然后是远程桌面，这也太牛了</strong>，没想到一个文件服务器居然还集成了这种功能，如图，我们可以在网页中操控我的设备，但对于现在来说操控有些卡顿了</p>
+<p><strong>然后是远程桌面，这也太牛了，没想到一个文件服务器居然还集成了这种功能，如图，我们可以在网页中操控我的设备，但对于现在来说操控有些卡顿了</strong></p>
 <p><img src="https://i.loli.net/2020/10/24/vBVxncOA2EFQg7u.png" alt="image-20201024212119155"></p>
-<p>相册功能，我们可以添加相片进去，成为便于储存与展示照片的相册</p>
+<h4 id="相册功能"><a href="#相册功能" class="headerlink" title="相册功能"></a>相册功能</h4><p><strong>相册功能，我们可以添加相片进去，成为便于储存与展示照片的相册</strong></p>
 <p><img src="https://i.loli.net/2020/10/24/ik1jPN7FIG4TKQ9.png" alt="QQ截图20201024212846"></p>
-<p>视频功能，我们可以添加视频进行，之后可以在网页上播放，Weezo可以使用Flash，QuickTime，M2U播放但Weezo的播放相对现在来说有点复杂和低效了，现在直接用html了</p>
-<p>预览这里还可以像电脑端B站网页把鼠标放在视频框该视频框机会动起来，小窗预览，厉害！</p>
+<h4 id="视频功能"><a href="#视频功能" class="headerlink" title="视频功能"></a>视频功能</h4><p><strong>视频功能，我们可以添加视频进行，之后可以在网页上播放，Weezo可以使用Flash，QuickTime，M2U播放</strong></p>
+<p><strong>但Weezo的播放方式相对现在来说早已过时</strong></p>
+<p><strong>鼠标放在文件上还可以像电脑端B站网页把鼠标放在视频框该视频框机会动起来，小窗预览，厉害</strong></p>
 <p><img src="https://i.loli.net/2020/10/24/CqvWpmIS9Bkrsdj.png" alt="image-20201024214002275"></p>
-<p>音乐库，感觉很厉害的样子，新东西放在老容器里面的感觉</p>
+<h4 id="音乐库功能"><a href="#音乐库功能" class="headerlink" title="音乐库功能"></a>音乐库功能</h4><p><strong>音乐库，感觉很厉害的样子，旧瓶装新酒</strong></p>
+<p><strong>有播放列表功能，可以根据专辑或艺术家进行排序</strong></p>
 <p><img src="https://i.loli.net/2020/10/24/hDxCPlogz8ULSIQ.png" alt="image-20201024215107330"></p>
-<p>聊天功能，梦 回 10 年 网 络 聊 天 室</p>
+<h4 id="其他一些有意思的功能"><a href="#其他一些有意思的功能" class="headerlink" title="其他一些有意思的功能"></a>其他一些有意思的功能</h4><p>· <strong>聊天功能</strong></p>
+<p><strong>梦 回 网 络 聊 天 室</strong></p>
 <p><img src="https://i.loli.net/2020/10/24/krbh45xmeMtP3Aq.png" alt="image-20201024215723630"></p>
-<p>网络摄像头功能，好吧，我也不知道具体有什么用</p>
+<p>· <strong>网络摄像头功能</strong></p>
+<p><strong>好吧，我也不知道具体有什么用</strong></p>
 <p><img src="https://i.loli.net/2020/10/24/o5LzGJa9lND6fpx.png" alt="image-20201024215842851"></p>
-<p>博客功能</p>
+<p>· <strong>博客功能</strong></p>
+<p><strong>写点文章然后分享到你的用户组吧~</strong></p>
 <p><img src="https://i.loli.net/2020/10/24/3ESKialBzYoPUWc.png" alt="image-20201024220108137"></p>
-<p>RSS源功能，这东西这么老了，我还记得我6年前在诺基亚手机桌面添加了好多源，啥科学松鼠会，微软学术之类的，现在的源都停止更新了，还保留着上世代互联网的味道</p>
-<p>如图下的时间你也能想到以前的什么东西………….</p>
+<p>· **RSS源功能 **</p>
+<p><strong>这东西这么老了，我还记得我8年前在诺基亚手机桌面添加了好多源，啥科学松鼠会，微软学术之类的，现在的许多源都停止更新了，还保留着上世代互联网的味道</strong></p>
 <p><img src="https://i.loli.net/2020/10/24/ywOPg53BnoNhqL8.png" alt="image-20201024220859056"></p>
-<p>网络电视，我8年前都不知道有这东西，这里连中国的电视源都有，牛，可惜全部失效了，世代遗产…….</p>
+<p>· <strong>网络电视</strong></p>
+<p><strong>8年前的文件服务器集成直播点播功能，还有视频库功能，好家伙，放在现在，莫非是</strong></p>
+<p><strong>简易Jellyfin/EMBY</strong></p>
+<p><strong>可惜现在都已经没用了，惊人的是还自动集成了各个国家的播放源，简直友好到不行</strong></p>
 <p><img src="https://i.loli.net/2020/10/24/Y8DXEg2OyTRWjw5.png" alt="image-20201024221140997"></p>
-<p>这些功能如果你感兴趣的话可以下载Weezo来体验一下，功能还是很丰富的，也不止我现在介绍的这些</p>
-<h2 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h2><p>Weezo使用的是老版本的apache和php，php的版本也只有5.2，对于现在的web环境来说容易会有一些问题，比如在中文名称下会导致名称显示不全，无法设置中文路径等，这时候可以尝试升级php来解决。</p>
-<p>用户设置里面我们可以添加用户，设置用户密码，设置用户功能面板，设置其权限等</p>
+<p><strong>这些功能如果你感兴趣的话可以下载Weezo来体验一下，功能还是很丰富的，也不止我现在介绍的这些</strong></p>
+<h1 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h1><p><strong>Weezo使用的是老版本的apache和php，php的版本也只有5.2，对于现在的web环境和软件环境来说容易会有一些问题，比如在中文名称下会导致名称显示不全，无法设置中文路径等</strong></p>
+<p><strong>GROUPS-用户设置</strong></p>
+<p><strong>用户设置里面我们可以添加用户，设置用户密码，设置其权限等</strong></p>
+<p><strong>添加用户后，你想要用户使用哪几项功能，就可以在Assigned Resource里面进行设置，你还可以设置单独用户的主题</strong></p>
 <p><img src="https://i.loli.net/2020/10/23/X8NRjKtH7dTF3ef.png" alt="image-20201023140511116"></p>
-<p>在添加文件功能的时候要特别注意中文文件的问题，如果不能显示和添加中文路径可以多试几次或者直接使用添加文件而不是路径的方式，Weezo在启动一段时间后莫名其妙可以显示中文路径了，在此你也可以设置用户对文件的操作权限</p>
-<p>一开始这些文件是乱码的，不能进入，但若你静心等候的话，奇迹还是会出现的</p>
+<p><strong>RESOURCES-功能设置</strong></p>
+<p><strong>点击加号添加你想要的功能吧</strong></p>
+<hr>
+<p><strong>在添加文件功能的时候要特别注意中文文件及文件夹的问题，为了功能的正常，建议添加英文文件夹或者文件，但添加中文文件并不是不可行</strong></p>
+<p><strong>如果你要添加中文文件夹，你必须在File那一栏把模式切换为 File and Floder 而不是 Contents a directory，如果你该开启Weezo服务，你需要等待一会就像下面一样可以显示中文文件夹，之后再添加就好</strong></p>
+<p><strong>中文文件及文件夹在刚启动Weezo服务时同样不能被读取</strong></p>
 <p><img src="https://i.loli.net/2020/10/24/1Bh8FCxGR2Hgb6K.png" alt="image-20201024221344194"></p>
-<p>Weezo有上传文件大小限制，可以在设置里设置限制大小，但设置里面最多也只能设置1G，这时候可以去配置文件里面设置超过1G的大小 C:\Users\Administrator\AppData\Roaming\Weezo\data</p>
+<p><strong>Weezo有上传文件大小限制，可以在设置里设置限制大小，但设置里面最多也只能设置1G，这时候可以去配置文件里面设置超过1G的大小 C:\Users\Administrator\AppData\Roaming\Weezo\data</strong></p>
 <p><img src="https://i.loli.net/2020/10/24/9akIdlWibofP5Gm.png" alt="image-20201024222144483"></p>
+<p><strong>在Configration里面的Server就可以看到最大传输文件大小已经是10240了</strong></p>
 <p><img src="https://i.loli.net/2020/10/25/LcJKqFfnCumGs4l.png" alt="image-20201024221531530"></p>
-<p>基本设置下可以设置服务模式，文件路径等，在下面显示了程序的主路径，环境路径，www文件路径，防火墙等，设置开机自启模式记得调Service因为运行这个程序要管理员权限</p>
+<hr>
+<p><strong>Activity-查看服务器状态</strong></p>
+<p><strong>包括文件传输和日志</strong></p>
+<p><strong>Configuration-配置</strong></p>
+<p><strong>General Preferences 基本设置下可以设置服务模式</strong></p>
+<p><strong>启动模式如果你想开机自启把Run With System打开，并且由于自启要管理员权限你需要在启动模式下设置Service，，由于软件兼容性问题不要动其他的基本设置，其他各项设置如图下就好</strong></p>
+<p><strong>在下面显示了程序的主路径，环境路径，www文件路径</strong></p>
 <p><img src="https://i.loli.net/2020/10/23/idKrWaPmeMYVfkx.png" alt="image-20201023140404379"></p>
-<p>服务器设置可以设置服务器地址，端口号，SSL，upnp，还有网络环境，签名证书，日志等</p>
+<p><strong>Server-服务器设置</strong></p>
+<p><strong>可以设置服务器地址，端口号，SSL，upnp，还有网络环境，签名证书，日志等</strong></p>
+<p><strong>但网络环境配置啥的也基本不要动，默认设置或者如图下就好</strong></p>
 <p><img src="https://i.loli.net/2020/10/24/RIsaPD6e5K2MHxc.png" alt="image-20201024221800355"></p>
-<p>外观设置，壁纸，主题等，这点很像可道云</p>
+<p><strong>Appearance-外观设置</strong></p>
+<p><strong>设置壁纸，主题等，这点很像可道云</strong></p>
+<p><strong>还可以设置提示音</strong></p>
 <p><img src="https://i.loli.net/2020/10/24/9LF38cnDTJzlGpU.png" alt="image-20201024221846699"></p>
-<p>有很多主题，都是当时流行的一些操作系统的UI，当然，也可以登陆到web里面设置主题和网页标题</p>
+<p><strong>有很多主题，都是当时流行的一些操作系统的UI，当然，也可以登陆到web里面设置主题和网页标题</strong></p>
 <p><img src="https://i.loli.net/2020/10/24/Iwxu2YCLbXDRsPU.png" alt="image-20201024205758602"></p>
-<p><img src="https://i.loli.net/2020/10/24/BfM1up3QlORj9ZE.png" alt="image-20201024205843284"></p>
-<p>管理功能可以在网页中设置Weezo桌面服务端的设置</p>
-<p><img src="https://i.loli.net/2020/10/24/VpYRyOsEv9dwzPb.png" alt="image-20201024210010997"></p>
-<p>竟然还包含终端界面来对计算机进行管理</p>
-<p><img src="https://i.loli.net/2020/10/24/BwtVrGm6nWu87SY.png" alt="image-20201024210233443"></p>
-<p>杂项，设置文件加密，密钥，文件权限，还有文件评分功能？？？</p>
+<p><strong>Miscellaneous-杂类</strong></p>
 <p><img src="https://i.loli.net/2020/10/24/PsxS3MJftzvZu5a.png" alt="image-20201024221957299"></p>
-<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1>]]></content>
+<p><strong>用户连接设置/文件传输设置/消息通知/封面设置</strong></p>
+<p><strong>用户连接设置主要是连接设置密码加密啥的，默认勾选，保持默认设置就好。</strong></p>
+<p><strong>文件传输可开启：文件评分功能/隐藏受保护文件/隐藏文件扩展名/阻止进入系统文件夹/组织远程执行文件/阻止下载文件/阻止编辑文件等</strong></p>
+<p><strong>还可以设置文件上传限制</strong></p>
+<hr>
+<p><strong>远程管理Weezo设置，需要添加远程管理员功能</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/BfM1up3QlORj9ZE.png" alt="image-20201024205843284"></p>
+<p><strong>可以在网页中设置Weezo桌面服务端的设置</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/VpYRyOsEv9dwzPb.png" alt="image-20201024210010997"></p>
+<p><strong>还包含终端界面来对计算机进行管理</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/BwtVrGm6nWu87SY.png" alt="image-20201024210233443"></p>
+<hr>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>在我之前的文章中，我使用我家云刷入了各程序的集成类固件来作个人服务器用，里面通过集成了armbian+omv+导航+web环境+FB+私有云+jellyfin+lychee+WordPress等才构成了一个功能完整的NAS服务器，即使是集成了也还需要一些配置，而且也要求使用者有一定的计算机知识才能完整的来使用各项功能</p>
+<p>如果你也要集成十年前的如上所说的私有云+影音+博客+直播点播+服务器管理服务，那还是相当困难的，但是Weezo可以轻松实现如上的一些功能，即使是有些功能来说相对简单，可玩性弱</p>
+<p>但换作十年前的目光，再加上一些可以简单满足你以上要求的功能全面集成在了一个程序当中，再加上部署简单，界面与操作友好，轻量化，有社区支持和社区化设计，并且有些功能的设计，和高度的集成化Wezzo也算划时代设计了</p>
+<p>即使放在今天，依旧可以拿来使用，比如在我的Windows系统的个人计算机中，它就作为了我用个人计算机搭建的小型个人服务器，我依旧可以把影音文件放在磁盘中，通过Weezo挂载到服务器中进行管理，在局域网使用各种设备来远程使用这些文件，很多在线功能已经不能使用，但如果放在那个时候，你的服务器体验会更佳</p>
+<p>至于为何这个程序在国内甚至是国外都人皆不闻之，只可能是因为时代的问题了，那时候互联网普及还不高，网络带宽小，人们对这类功能的需求量也非常少，在那个你拿个诺基亚，不能连接wifi，还只是通过3G网络下载几百Kb的文件，基本对于个人用户来说根本不需要这一功能，这个软件在那个时代应该在国外的新兴互联网公司内会很受欢迎，而且需求量大，所以在那个时代只是被几个少数程序员感兴趣的软件，自然由于网络框架及软件工具的变化而被开发团队的放弃支持，从而被淡出历史舞台了</p>
+]]></content>
       <tags>
         <tag>计算机</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>测试</title>
+    <url>/2020/10/15/test/</url>
+    <content><![CDATA[<p>HelloWorld，This Page is a lil Test.</p>
+<hr>
+<a id="more"></a>
+
+
+
+<p>
+    <iframe name="iFrame1" width="780" height="480" src="/pages/font1/index.html" scrolling="yes" frameborder="1"></iframe>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]]></content>
   </entry>
   <entry>
     <title>哈？</title>
