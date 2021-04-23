@@ -120,9 +120,9 @@
 <p>[1] Qiuqiang Kong, Bochen Li, Jitong Chen, and Yuxuan Wang. “GiantMIDI-Piano: A large-scale MIDI dataset for classical piano music.” arXiv preprint arXiv:2010.07061 (2020). <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2010.07061">https://arxiv.org/pdf/2010.07061</a></p>
 <p>[2] Qiuqiang Kong, Bochen Li, Xuchen Song, Yuan Wan, and Yuxuan Wang. “High-resolution Piano Transcription with Pedals by Regressing Onsets and Offsets Times.” arXiv preprint arXiv:2010.01815 (2020). <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2010.01815">https://arxiv.org/pdf/2010.01815</a></p>
 <h5 id="项目地址：-bytedance-GiantMIDI-Piano"><a href="#项目地址：-bytedance-GiantMIDI-Piano" class="headerlink" title="项目地址：**bytedance/GiantMIDI-Piano**"></a>项目地址：**<a target="_blank" rel="noopener" href="https://github.com/bytedance">bytedance</a>/<a target="_blank" rel="noopener" href="https://github.com/bytedance/GiantMIDI-Piano">GiantMIDI-Piano</a>**</h5><h5 id="详细介绍：https-zhuanlan-zhihu-com-p-269218623"><a href="#详细介绍：https-zhuanlan-zhihu-com-p-269218623" class="headerlink" title="详细介绍：https://zhuanlan.zhihu.com/p/269218623"></a>详细介绍：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/269218623">https://zhuanlan.zhihu.com/p/269218623</a></h5><p><strong>协议</strong>：<strong>CC BY 4.0</strong></p>
-<h1 id="功能展示"><a href="#功能展示" class="headerlink" title="功能展示"></a>功能展示</h1><p>今天OT呢就先给各位展示一下这个技术的威力，要扒谱是吧，我们找来几个特别复杂的歌曲，即使是扒谱大师听了也头疼不已的那种</p>
-<p>我们找来几个歌曲中带有钢琴音色的各种类型的音乐，一起来测试一下，<strong>midi文件包含了这个歌曲的所以音符信息，所以可以直接转化为钢琴谱</strong></p>
-<p><em>由于目前我还无法实现嵌入式Midi播放，所以只给出结果或可在连接中自行下载</em></p>
+<h1 id="功能展示"><a href="#功能展示" class="headerlink" title="功能展示"></a>功能展示</h1><p>就先给各位展示一下这个技术，我们找来几个特别复杂的歌曲</p>
+<p>找来几个歌曲中带有钢琴音色的各种类型的音乐，一起来测试一下，<strong>midi文件包含了这个歌曲的所以音符信息，所以可以直接转化为钢琴谱</strong></p>
+<p><em>由于目前还无法实现嵌入式Midi播放，所以只给出结果或可在连接中自行下载</em></p>
 <h3 id="1-古典与管弦类音乐"><a href="#1-古典与管弦类音乐" class="headerlink" title="1.古典与管弦类音乐"></a>1.古典与管弦类音乐</h3><p><strong>·李斯特 - Etude No.3 in G♯ minor “La Campanella” (S.141/3)</strong></p>
 <p><em>怕与训练模型重复，所以挑选了一首与标准原曲有少许区别的版本</em></p>
 <p>结果：几乎与原曲没有区别</p>
@@ -131,15 +131,15 @@
 <p>结果：几乎与原曲没有区别</p>
 <p><img src="https://ftp.bmp.ovh/imgs/2021/03/5f60ad159cfd54ab.png"></p>
 <p><strong>·削除 - I. Allegro Agitato （97鍵盤のための協奏曲 [Concerto for 97Keys]）</strong></p>
-<p> 这首音乐是十分复杂的交响乐，总共1600个音符，谱面几乎逼近Black-Midi</p>
-<p>结果：两段有明显错误，但其他部分基本正确但也有少许错误，个人感觉与原曲有85%的相似</p>
+<p> 这首音乐是十分复杂的交响乐</p>
+<p>结果：某些部分有明显错误，但其他部分基本正确但也有少许错误，个人感觉与原曲有85%的相似</p>
 <p><img src="https://ftp.bmp.ovh/imgs/2021/03/1e7c6b243c120405.png"></p>
 <p><em>直接转换过来的琴谱文件，但如果真的要能弹，琴谱也还需要少许处理</em></p>
 <h2 id="2-流行音乐"><a href="#2-流行音乐" class="headerlink" title="2.流行音乐"></a>2.<strong>流行音乐</strong></h2><h5 id="·周杰伦-夜曲"><a href="#·周杰伦-夜曲" class="headerlink" title="·周杰伦 - 夜曲"></a><strong>·周杰伦 -</strong> 夜曲</h5><p>结果：个人感觉与原曲有76%的相似，但还是有一些杂音，但包含基本曲调</p>
 <p><strong>·Beyond - 海阔天空</strong></p>
 <p>结果：个人感觉与原曲有69%相似，杂音太多，但基本包含正确曲调</p>
-<h2 id="结果："><a href="#结果：" class="headerlink" title="结果："></a>结果：</h2><p><strong>纯钢琴曲的精准度和介绍里谈到的无论是多么复杂的曲子精准度可达95%以上，流行音乐下由于音轨太多，其他乐器交错在一起输出结果会包含过多杂音，但包含正确的曲调</strong></p>
-<p><strong>纯钢琴曲由于制作出来的midi的音符过长，不适合直接作谱，但可用FL Studio等软件用矫音器调整再来作钢琴谱</strong></p>
+<h2 id="结果："><a href="#结果：" class="headerlink" title="结果："></a>结果：</h2><p><strong>纯钢琴曲的精准度和介绍里谈到的无论是多么复杂的曲子精准度可达95%以上，流行音乐由于音轨太多，其他乐器交错在一起输出结果会包含过多杂音，但包含正确的曲调</strong></p>
+<p><strong>纯钢琴曲由于制作出来的midi文件，不适合直接作谱，如果要使人看的懂且人弹的出来，还需要少许修改</strong></p>
 <p><strong>其他音轨很多的音乐建议使用另一个乐器分离的AI模型进行轨道分离再进行识别转换</strong></p>
 <p><img src="https://ftp.bmp.ovh/imgs/2021/03/3a31ae6268d8c2cf.png"></p>
 <h1 id="使用教程"><a href="#使用教程" class="headerlink" title="使用教程"></a>使用教程</h1><p>这个教程直接使用由Python构建的版本，简单易用，复杂的地方为Python环境的配置</p>
@@ -186,7 +186,7 @@
 <p>注意：<strong>机器学习的处理需要您的电脑有一张像样的显卡，建议英伟达GTX或RTX系列的显卡，因为支持CUDA，AMD绝大部分显卡不支持CUDA，所以处理时间需要15分钟以上，而支持CUDA的显卡只需1分钟，英伟达老式显卡不支持CUDA，AMD显卡能不能加速得看看程序对opencl的支持咯</strong></p>
 <h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>如今，也有许多网站或者平台把这个项目部署到其中作为商业化作用，所以有一些网站可以在线进行音符分析与文件转换</p>
 <p><img src="https://ftp.bmp.ovh/imgs/2021/03/d706068d17677eb8.png"></p>
-<p>其次，你还可以用<strong>Anaconda</strong>来一键搭建环境与配置，直接上手，或者在官方页用谷歌GPU平台搭建的在线进行使用</p>
+<p>其次，你还可以用<strong>Anaconda</strong>来搭建环境与配置，直接上手，或者在官方页用谷歌GPU平台搭建的在线进行使用</p>
  
       <!-- reward -->
       
@@ -262,7 +262,7 @@
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/" rel="tag">计算机</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/" rel="tag">计算机</a></li></ul>
 
     </footer>
   </div>
@@ -274,15 +274,15 @@
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            矿渣我家云刷OMV后的Hexo一键部署，Docker路径及容器管理，系统备份为镜像直接刷机功能脚本
+            使用矿渣我家云搭建个人服务器的一些心得（多图预警）
           
         </div>
       </a>
     
     
-      <a href="/2020/12/21/vboxdrverror/" class="article-nav-link">
+      <a href="/2020/12/15/deepfakeunreval/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">解决VirtualBox虚拟机软件E_FALL(0x80004005)Machinewrap错误</div>
+        <div class="article-nav-title">通过Python部署并运用一阶运动模型对脸部图片进行简单的动作模拟</div>
       </a>
     
   </nav>
