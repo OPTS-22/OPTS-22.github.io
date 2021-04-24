@@ -1,6 +1,460 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>通过Python部署并运用一阶运动模型对脸部图片进行简单的动作模拟</title>
+    <url>/2020/12/15/deepfakeunreval/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在8月份的时候，B站就多了很多换脸视频，大多都是换了两个外国小哥小姐姐唱歌时候的动态脸照，分别在唱Unravel，Damedayo这两首很魔性的歌，由于视频动作夸张搞笑，而视频被“P”的很真实，收到了很多网友的喜爱<img src="https://i.loli.net/2020/10/15/IFKWxGhU1VM5ZwR.gif" alt="0">，而现在，很多视频网站已经把这个项目部署到了Web上，从而吸引用户进行视频创作，本文将讲述如何在个人计算机中搭建Python环境并运行此项目</p>
+<p>而这项技术背后是机器学习项目中热门的<strong>一阶运动模型</strong>（First Order Motion），是通过AI的训练库来对动作进行准确的捕捉再用得出来的检查点对动作嵌入到图片来进行图片变换来生成几乎于逼真图形的技术</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/fa090772108749e0.jpg"></p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/b1886fcffd961967.png"></p>
+<p>原理如上（反正我是一点都看不懂）</p>
+<a id="more"></a>
+
+<p>  连杜甫都被狠下毒手，还有唐僧等众多历史人物</p>
+<p><img src="https://i.loli.net/2020/10/15/BaNAWlbZJKExIHL.gif" alt="0"></p>
+<p>这一下看上去很真实，差不多到信以为真的程度，看起来有一种违和的搞笑感</p>
+<p><img src="https://i.loli.net/2020/10/15/7esZvmrMgPR9FEK.png" alt="download"></p>
+<p><strong>好活当赏</strong></p>
+<p>就在大火大热之时，B站也有人发了制作这种视频的教程，本来也就很多研究git项目的大学生会耍耍嘛，视频中用到了<strong>Google colab</strong>，通过搭建好的脚本环境输入图片和预设就能导出一个Unravel的换脸视频了，一张照片就“痛“起来了，这项操作要求你：</p>
+<p><strong>·拥有一个谷歌账号</strong></p>
+<p><strong>·拥有科学上网工具</strong></p>
+<p><strong>·拥有谷歌硬盘账号</strong></p>
+<p><strong>·一点计算机知识</strong></p>
+<p>然而这年头谷歌账号很难搞，很多人都是需要用购买，还有一大堆繁琐的步骤，而科学上网工具也需要一点互联网经验才能搞到</p>
+<p>然而，在之后，好景不长，因为这个鬼畜带有几乎以假乱真，而且对原人物也是带有很强的侮辱性，所以，教程在各大网站都被封了………………….</p>
+<h1 id="搭建Python在本地制作换脸视频"><a href="#搭建Python在本地制作换脸视频" class="headerlink" title="搭建Python在本地制作换脸视频"></a>搭建Python在本地制作换脸视频</h1><h5 id="今天的主角是著名的的项目，DeepFake一阶运动模型"><a href="#今天的主角是著名的的项目，DeepFake一阶运动模型" class="headerlink" title="今天的主角是著名的的项目，DeepFake一阶运动模型"></a>今天的主角是著名的的项目，DeepFake<strong>一阶运动模型</strong></h5><p>First Order Motion，也就是<a href="https://link.zhihu.com/?target=https://cuijiahua.com/blog/tag/%E4%B8%80%E9%98%B6%E8%BF%90%E5%8A%A8%E6%A8%A1%E5%9E%8B/">一阶运动模型</a>，来自 NeurIPS 2019 论文。</p>
+<p>相关的项目地址：</p>
+<p>·<a href="https://github.com/AliaksandrSiarohin/first-order-model">https://github.com/AliaksandrSiarohin/first-order-model</a>   （实现）</p>
+<p>·<a href="https://papers.nips.cc/paper/8935-first-order-motion-model-for-image-animation">https://papers.nips.cc/paper/8935-first-order-motion-model-for-image-animation</a>    (论文)</p>
+<p>而这次的项目是一位大佬为我们整理好的<a href="https://github.com/anandpawara/Real_Time_Image_Animation">Real_Time_Image_Animation</a></p>
+<p>又叫实时图片动画，用Python和<a href="https://github.com/anandpawara/Real_Time_Image_Animation/search">Jupyter Notebook</a>搭建，套用了一阶运动模型训练好的 VoxCeleb 数据集，通过几个脚本代码便能运行，在项目页面里面作者也写明了你要干什么才能让它运行起来了</p>
+<blockquote>
+<h1 id="Real-time-Image-Animation"><a href="#Real-time-Image-Animation" class="headerlink" title="Real time Image Animation"></a>Real time Image Animation</h1><p>The Project is real time application in opencv using first order model</p>
+<h1 id="Steps-to-setup"><a href="#Steps-to-setup" class="headerlink" title="Steps to setup"></a>Steps to setup</h1><h2 id="Step-1-Create-virtual-environment"><a href="#Step-1-Create-virtual-environment" class="headerlink" title="Step 1: Create virtual environment"></a>Step 1: Create virtual environment</h2><p><strong>Python version</strong> : python v3.7.3 or higher</p>
+<p><strong>create virual environment</strong> : <code>pip install virtualenv</code></p>
+<p><strong>activate virtual environment</strong> : <code>virtualenv env</code></p>
+<h2 id="Step-2-Activate-virtual-environment"><a href="#Step-2-Activate-virtual-environment" class="headerlink" title="Step 2: Activate virtual environment"></a>Step 2: Activate virtual environment</h2><p><strong>For windows</strong> : <code>env/Script/activate</code></p>
+<p><strong>For Linux</strong> : <code>source env/bin/activate</code></p>
+<h2 id="Step-3-Install-required-modules"><a href="#Step-3-Install-required-modules" class="headerlink" title="Step 3 : Install required modules"></a>Step 3 : Install required modules</h2><p><strong>Install modules</strong> : <code>pip install -r requirements.txt</code></p>
+<p><strong>Install pytorch and torchvision</strong> : <code>pip install torch===1.0.0 torchvision===0.2.1 -f https://download.pytorch.org/whl/cu100/torch_stable.html</code></p>
+<h2 id="Step-4-Download-cascade-file-weights-and-model-and-save-in-folder-named-extract"><a href="#Step-4-Download-cascade-file-weights-and-model-and-save-in-folder-named-extract" class="headerlink" title="Step 4 : Download cascade file ,weights and model and save in folder named extract"></a>Step 4 : Download cascade file ,weights and model and save in folder named extract</h2><p><code>gdown --id 1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK</code> The file is also availible via direct link on Google’s Drive: <a href="https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK">https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK</a></p>
+<p><strong>On Linux machine</strong> : <code>unzip checkpoints.zip</code></p>
+<p>If on windows platfrom unzip checkpoints.zip using unzipping software like 7zip.</p>
+<p><strong>Delete zip file</strong> : <code>rm checkpoints.zip</code></p>
+<h2 id="Step-5-Run-the-project"><a href="#Step-5-Run-the-project" class="headerlink" title="Step 5 : Run the project"></a>Step 5 : Run the project</h2><p><strong>Run application from live camera</strong> : <code>python image_animation.py -i path_to_input_file -c path_to_checkpoint</code></p>
+<p><strong>Example</strong> : <code>python .\image_animation.py -i .\Inputs\Monalisa.png -c .\checkpoints\vox-cpk.pth.tar</code></p>
+<p><strong>Run application from video file</strong> : <code>python image_animation.py -i path_to_input_file -c path_to_checkpoint -v path_to_video_file</code></p>
+<p><strong>Example</strong> : <code>python .\image_animation.py -i .\Inputs\Monalisa.png -c .\checkpoints\vox-cpk.pth.tar -v .\video_input\test1.mp4</code></p>
+<p><a href="https://github.com/anandpawara/Real_Time_Image_Animation/blob/master/animate.gif"><img src="https://github.com/anandpawara/Real_Time_Image_Animation/raw/master/animate.gif" alt="test demo"></a></p>
+<h3 id="TODO"><a href="#TODO" class="headerlink" title="TODO:"></a>TODO:</h3><p>Tkinter version</p>
+<p>Need work on face alignments</p>
+<p>Future plans adding deepfake voice and merging with video</p>
+</blockquote>
+<p>可能有些人看不懂，所以我带你们来一遍</p>
+<h1 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h1><h3 id="1-安装Python-3-7"><a href="#1-安装Python-3-7" class="headerlink" title="1.安装Python 3.7"></a>1.安装Python 3.7</h3><p>为啥要安装3.7版本？因为后面的torch没有3.9版本的，去Python官网下载，并配置好环境变量</p>
+<p>具体怎么百度一大堆，有手就行</p>
+<h3 id="2-安装虚拟环境库"><a href="#2-安装虚拟环境库" class="headerlink" title="2.安装虚拟环境库"></a>2.安装虚拟环境库</h3><p>win+R键，输入CMD打开终端，输入此行分别安装和创建虚拟环境库</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;pip install virtualenv&#96;</span><br><span class="line">&#96;virtualenv env&#96;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-激活虚拟环境库"><a href="#3-激活虚拟环境库" class="headerlink" title="3.激活虚拟环境库"></a>3.激活虚拟环境库</h3><p>打开 C:\Users\Administrator\env\Scripts 打开activate.bat即可</p>
+<h3 id="4-安装第三方环境库"><a href="#4-安装第三方环境库" class="headerlink" title="4.安装第三方环境库"></a>4.安装第三方环境库</h3><p>终端 e:(把e换为你从项目下载的文件路径的盘符)</p>
+<p>cd /xxxx/xxxx/ (你项目文件的根目录)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;pip install -r requirements.txt&#96;</span><br></pre></td></tr></table></figure>
+
+<p>输入运行即可，要一段时间，运行库很多</p>
+<h3 id="5-安装Torch"><a href="#5-安装Torch" class="headerlink" title="5.安装Torch"></a>5.安装Torch</h3><p>接着上面的操作终端输入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;pip install torch&#x3D;&#x3D;&#x3D;1.0.0 torchvision&#x3D;&#x3D;&#x3D;0.2.1 -f https:&#x2F;&#x2F;download.pytorch.org&#x2F;whl&#x2F;cu100&#x2F;torch_stable.html&#96;</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-下载数据集"><a href="#6-下载数据集" class="headerlink" title="6.下载数据集"></a>6.下载数据集</h3><p>下载 <a href="https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK">https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK</a></p>
+<p>解压得两个vox文件放到 <strong>\Real_Time_Image_Animation-master\checkpoints</strong></p>
+<h3 id="7-安装FFmpeg解码器并配置变量"><a href="#7-安装FFmpeg解码器并配置变量" class="headerlink" title="7.安装FFmpeg解码器并配置变量"></a>7.安装FFmpeg解码器并配置变量</h3><p><a href="http://www.ffmpeg.org/">www.ffmpeg.org</a> 点windows图标下第一个build，安装好后配置环境变量</p>
+<p>怎么配置还是查百度，这个作用是可以把视频音频和视频合并，省功夫</p>
+<h3 id="8-运行脚本"><a href="#8-运行脚本" class="headerlink" title="8.运行脚本"></a>8.运行脚本</h3><p>终端 e:(把e换为你从项目下载的文件路径的盘符)</p>
+<p>cd /xxxx/xxxx/ (你项目文件的根目录)</p>
+<p>终端运行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python image_animation.py -i path_to_input_file -c path_to_checkpoint -v path_to_video_file</span><br></pre></td></tr></table></figure>
+
+<p>path_to_input_file 是输入的模板图片</p>
+<p>path_to_checkpoint 是权重文件路径</p>
+<p>path_to_video_file 是输入的视频文件</p>
+<p>比如</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python image_animation.py -i Inputs&#x2F;x.jpg -c checkpoints&#x2F;vox-adv-cpk.pth.tar -v 1.mp4</span><br></pre></td></tr></table></figure>
+
+<p>比如这个，输入图片默认放在input文件夹，导出的视频默认在output文件夹，模板视频在根目录</p>
+<h3 id="9-大功告成"><a href="#9-大功告成" class="headerlink" title="9.大功告成"></a>9.大功告成</h3><p>在导出的文件夹(<strong>Output</strong>)就可以找到相关的视频文件</p>
+<h3 id="10-替换其他的视频模板"><a href="#10-替换其他的视频模板" class="headerlink" title="10.替换其他的视频模板"></a>10.替换其他的视频模板</h3><p>原项目文档已经说明，你需要把视频模板裁剪为256x256大小，这个我推荐使用<strong>Premiere</strong>或者<strong>Vegas</strong>视频编辑软件，相关教程去百度查</p>
+<p>输出的视频尺寸最好是正方形的，否则输出视频会把你的长方形比例照片弄成正方形的，会使人看起来很扁（笑），模板最好是正面的，表情不要太夸张</p>
+<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>这种技术在某些情况下很侮辱人，请勿滥用</p>
+]]></content>
+      <categories>
+        <category>计算机</category>
+      </categories>
+      <tags>
+        <tag>计算机</tag>
+        <tag>Python</tag>
+        <tag>教程经验</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>学习笔记系列</title>
+    <url>/2020/10/01/learnote/</url>
+    <content><![CDATA[<div id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容">
+  <div class="hbe-input-container">
+  <input type="password" id="hbePass" placeholder="" />
+    <label for="hbePass">您好, 这里需要密码.</label>
+    <div class="bottom-line"></div>
+  </div>
+  <script id="hbeData" type="hbeData" data-hmacdigest="ed65a38ecc53ff6b705ffc8b5225b57bd665a543fa9dcce79a9dd43cec973276">d23a6ea4237b63f881a6a63a0bbfe921b8b69a6fe1cea5a83acbe7f4f4f99435cb08060d0ad3717f0f261e18abcada9ea394baffa5fc3a472c78cef89c3b964c52635668547fcefedb212f0a611ae96d573a16c8ddcadad5ad7274702801424bcdc8b136e5b5c19f393cec6e32de6034e3d846081998dc7fb67b2a40325f1214d9b781b87adc5ff65e0d4664303729e1f8cb684690e2aead4b008acc44ec8132f9c2899bb4b879f00f17ba6c747fa649862e87ba8945ef8e5404fd0b91d45e78859954a2fde763508cb1ed2ca0fdaecab20c00c8c5ed49004c7a948ce67b209ec26edce03da5971c28c0fc6d5b23b688e3d063c4729212517ff89d309af302f51bf6c07157c4efe40d2765ea14a23eb66b7aa5d3d2bcde3e5085128c59bfd57f7a151dde2536f05a897f735255bbe1345f6bbfd389ebdbcc356fc43b96e15563ca475ddbf76a71d9543d7b92164290b51216b80f6250709b008b7876814e4758f56230bc94280bf7404e367c14859b234053b8eccb414a3d6c61c308109eb750fd55aa58711358ca980c808c2396ae6b5a6b556711133ce3eae71f7ef04f857127267117d0e5c4cbb8b87a37e2d2eda8818764bb15e17301056e80e7da55e39c05ef0520bde997bde2df1062fb73eb2171ec026719588042092571e81a344b21d3f7ebd62a8efc10390c0afab0b23bfbc78dc83ca4da766ab315b8eed493569695eba225a8498d6b5253715c54a60369e7e4d263e8a52074bd46fd8ba4c6f82229f0a3ecc75fa7ca08572b1a2ce1af35213dc49daa049fe9ed1eebea3091fc6d931769aee009c232d06c00508d7918883b66cafe5400de468b2124d957b35d37d4191d2d3b9376f3e37e185c349e900a62a56349ad2ffff7e46b4c6571977e69f60c3721a96632fa917c3455c8cc12a03c539407e5b90dfb23ce44d7ff0aad1e2307ab29d41dbe890005d3d19a526263a3e6611c135324d2aea1632686d6fa5e4bdf6b0d03f48d87a5870cf06e5b2d564665744c398a9ab35f515d9d1a4e67af66f55aaeaff1ee1524676d5b415fdf28be2afdc3e822ec8f908bc9c1bfe38b732f281e0a8f6d5e5feefa89a13077017d8b39f2df7d016ccb4d34af3dfcb36e1e8aa123c1924951690616d2738716414a97c2726af4bc8af836b5f2e0585756f8cdc9f5eb1bb81e82d1f45700df68e2170996a68bc8af7cf5d26776e3b3585229ace8dddbdebd693c0db7b7904cd250fe309ef6dec72112f91476bf5acc3f0a7f60857375254ed70622cf07ebac01c8eff16c7b2448a19becf74dde59ee56e975bee886084f0bad361566d9f49e11f8e21310b7a3648d86611b41f78dea68caeff53cb8250e99eaf6ed94dde48b3fa999bd8bb862430ee8337e5d3a7927ddf92a3828fd3df81472e445b79800fffd87d2b75fb2fc4f6289da5176f76ff729be1451b805486bc3427a41a0b82ed9dbc0cb0acadacc9b40c1e3e8106fa471c455ccb1ef5a04de909e605b3b30cd73764192</script>
+</div>
+<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+  </entry>
+  <entry>
+    <title>简单运用人工智能进行钢琴音频转换为音符数据(Midi)</title>
+    <url>/2021/02/28/miditopiano/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>近期，字节跳动发布全球最大的古典钢琴数据集 GiantMIDI-Piano，包括来自 2,784 位作曲家 10,854 首作品的 MIDI 文件，总时长为 1,237 小时。研究者为完成该数据集的构建，开发并开源了一套高精度钢琴转谱系统</p>
+</blockquote>
+<p>这个项目在Github上叫做**<a href="https://github.com/bytedance">bytedance</a>/<a href="https://github.com/bytedance/GiantMIDI-Piano">GiantMIDI-Piano</a>**</p>
+<p>是的，你没看错，<strong>字节跳动</strong>，旗下产品有我们最常用的抖音和今日头条，并通过短视频业务在国际开拓了广大的市场</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/966356746ad8b945.png"></p>
+<p>而这项技术可牛逼了，我们知道，如果身边有弹奏钢琴的朋友，如果发现了一首不是很热门的钢琴曲，想把这首宝藏歌曲用钢琴弹奏下来，但是网上找了半天都没有找到相关的钢琴谱，这可怎么办，如果没有深入的钢琴与扒谱知识，那么是无法自己扒出钢琴谱的，也许还可以去<strong>淘宝委托别人扒谱，可这价格不是闹着玩的</strong>，即使你会扒谱，那么<strong>一首较为复杂的钢琴谱，你也需要一两天的时间与精力才能弄出来</strong>，或者你训练了音感<strong>，听歌即弹，这种大佬还是很少的</strong></p>
+<a id="more"></a>
+
+<p>学过音乐的朋友知道，扒谱是一件很复杂的脑力活，这种事情在以前认为几乎也只有人类可以胜任，机器人在文化艺术因为无法精确的模拟出人类的情感，在这些领域机器人还是望而止步的</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/de11e39c85ec7e7f.jpeg"></p>
+<p>​                                    <em>电脑音乐的发展使得大量的Black-Midi曲涌现出来，这在电脑音乐方面可谓是一种奇观</em></p>
+<p>人类的本质是<strong>懒</strong>，工业机器人的发展使得各种各样体力类劳动逐渐被机器取代，如今，即使是脑力的劳动在<strong>深度学习</strong>技术的发展下也即将被计算机取代。</p>
+<p>我们前面了解了很多的机器学习与深度学习的案例，比如<strong>Deepfake</strong>的换脸与变脸技术，给人制作虚假的动作，甚至凭空生成世界上本不存在的人物图像与自动绘制动漫人物。</p>
+<p>那么今天的这项算法其意义比如上所述的几项意义要大得多了。</p>
+<h1 id="技术文献"><a href="#技术文献" class="headerlink" title="技术文献"></a>技术文献</h1><p><strong>论文：GiantMIDI-Piano：用于古典钢琴音乐的大规模MIDI数据集</strong></p>
+<p>[1] Qiuqiang Kong, Bochen Li, Jitong Chen, and Yuxuan Wang. “GiantMIDI-Piano: A large-scale MIDI dataset for classical piano music.” arXiv preprint arXiv:2010.07061 (2020). <a href="https://arxiv.org/pdf/2010.07061">https://arxiv.org/pdf/2010.07061</a></p>
+<p>[2] Qiuqiang Kong, Bochen Li, Xuchen Song, Yuan Wan, and Yuxuan Wang. “High-resolution Piano Transcription with Pedals by Regressing Onsets and Offsets Times.” arXiv preprint arXiv:2010.01815 (2020). <a href="https://arxiv.org/pdf/2010.01815">https://arxiv.org/pdf/2010.01815</a></p>
+<h5 id="项目地址：-bytedance-GiantMIDI-Piano"><a href="#项目地址：-bytedance-GiantMIDI-Piano" class="headerlink" title="项目地址：**bytedance/GiantMIDI-Piano**"></a>项目地址：**<a href="https://github.com/bytedance">bytedance</a>/<a href="https://github.com/bytedance/GiantMIDI-Piano">GiantMIDI-Piano</a>**</h5><h5 id="详细介绍：https-zhuanlan-zhihu-com-p-269218623"><a href="#详细介绍：https-zhuanlan-zhihu-com-p-269218623" class="headerlink" title="详细介绍：https://zhuanlan.zhihu.com/p/269218623"></a>详细介绍：<a href="https://zhuanlan.zhihu.com/p/269218623">https://zhuanlan.zhihu.com/p/269218623</a></h5><p><strong>协议</strong>：<strong>CC BY 4.0</strong></p>
+<h1 id="功能展示"><a href="#功能展示" class="headerlink" title="功能展示"></a>功能展示</h1><p>就先给各位展示一下这个技术，我们找来几个特别复杂的歌曲</p>
+<p>找来几个歌曲中带有钢琴音色的各种类型的音乐，一起来测试一下，<strong>midi文件包含了这个歌曲的所以音符信息，所以可以直接转化为钢琴谱</strong></p>
+<p><em>由于目前还无法实现嵌入式Midi播放，所以只给出结果或可在连接中自行下载</em></p>
+<h3 id="1-古典与管弦类音乐"><a href="#1-古典与管弦类音乐" class="headerlink" title="1.古典与管弦类音乐"></a>1.古典与管弦类音乐</h3><p><strong>·李斯特 - Etude No.3 in G♯ minor “La Campanella” (S.141/3)</strong></p>
+<p><em>怕与训练模型重复，所以挑选了一首与标准原曲有少许区别的版本</em></p>
+<p>结果：几乎与原曲没有区别</p>
+<p><strong>·肖邦 - 12 Etudes Op.25:No. 11 in A minor “Winter Wind”</strong></p>
+<p><em>怕与训练的模型重复，所以挑选了一首与标准原曲有少许区别的版本</em></p>
+<p>结果：几乎与原曲没有区别</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/5f60ad159cfd54ab.png"></p>
+<p><strong>·削除 - I. Allegro Agitato （97鍵盤のための協奏曲 [Concerto for 97Keys]）</strong></p>
+<p> 这首音乐是十分复杂的交响乐</p>
+<p>结果：某些部分有明显错误，但其他部分基本正确但也有少许错误，个人感觉与原曲有85%的相似</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/1e7c6b243c120405.png"></p>
+<p><em>直接转换过来的琴谱文件，但如果真的要能弹，琴谱也还需要少许处理</em></p>
+<h2 id="2-流行音乐"><a href="#2-流行音乐" class="headerlink" title="2.流行音乐"></a>2.<strong>流行音乐</strong></h2><h5 id="·周杰伦-夜曲"><a href="#·周杰伦-夜曲" class="headerlink" title="·周杰伦 - 夜曲"></a><strong>·周杰伦 -</strong> 夜曲</h5><p>结果：个人感觉与原曲有76%的相似，但还是有一些杂音，但包含基本曲调</p>
+<p><strong>·Beyond - 海阔天空</strong></p>
+<p>结果：个人感觉与原曲有69%相似，杂音太多，但基本包含正确曲调</p>
+<h2 id="结果："><a href="#结果：" class="headerlink" title="结果："></a>结果：</h2><p><strong>纯钢琴曲的精准度和介绍里谈到的无论是多么复杂的曲子精准度可达95%以上，流行音乐由于音轨太多，其他乐器交错在一起输出结果会包含过多杂音，但包含正确的曲调</strong></p>
+<p><strong>纯钢琴曲由于制作出来的midi文件，不适合直接作谱，如果要使人看的懂且人弹的出来，还需要少许修改</strong></p>
+<p><strong>其他音轨很多的音乐建议使用另一个乐器分离的AI模型进行轨道分离再进行识别转换</strong></p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/3a31ae6268d8c2cf.png"></p>
+<h1 id="使用教程"><a href="#使用教程" class="headerlink" title="使用教程"></a>使用教程</h1><p>这个教程直接使用由Python构建的版本，简单易用，复杂的地方为Python环境的配置</p>
+<h2 id="下载链接："><a href="#下载链接：" class="headerlink" title="下载链接："></a>下载链接：</h2><p>包括主文件夹</p>
+<p><a href="https://cloud.189.cn/t/F3qeaq3Mjy2u">https://cloud.189.cn/t/F3qeaq3Mjy2u</a> (访问码:hub3)</p>
+<h3 id="程序结构："><a href="#程序结构：" class="headerlink" title="程序结构："></a><strong>程序结构：</strong></h3><p><strong>检查点文件（CheckPoint）</strong> <strong>note_F1=0.9677_pedal_F1=0.9186.pth</strong></p>
+<p><strong>Python主程序（Master）</strong></p>
+<p><strong>Python环境</strong>（建议3.7.8版本的Python）</p>
+<h3 id="Step1-配置Python环境"><a href="#Step1-配置Python环境" class="headerlink" title="Step1: 配置Python环境"></a>Step1: 配置Python环境</h3><p><em>引用他人文章：<a href="https://blog.csdn.net/leege666/article/details/84557984">https://blog.csdn.net/leege666/article/details/84557984</a></em></p>
+<p>上面有图而且很详细哦</p>
+<p>1.下载Python程序包，在安装界面勾选自动配置环境变量</p>
+<p>2.win+s键搜索cmd打开命令行，输入Python，看到如下界面即为安装成功</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/180c37b2b241933f.png"></p>
+<p>3.配置软件需求环境</p>
+<p>·切换pip源</p>
+<p>进入 C:\Users\电脑用户\AppData\Roaming 文件夹（<strong>桌面的用户文件夹</strong>）中 ，新建 pip 文件夹并在文件夹中新建 pip.ini 配置文件 ，新增 pip.ini 配置文件</p>
+<p>键入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[global]</span><br><span class="line">index-url &#x3D;https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;pypi&#x2F;simple</span><br><span class="line">[install]</span><br><span class="line">use-mirrors &#x3D;true</span><br><span class="line">mirrors &#x3D;https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;pypi&#x2F;simple</span><br><span class="line">trusted-host &#x3D;mirrors.aliyun.com</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/75c9c92405d6c211.png"></p>
+<p>·下载Pytorch</p>
+<p>命令行键入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install torch&#x3D;&#x3D;&#x3D;1.0.0 torchvision&#x3D;&#x3D;&#x3D;0.2.1 -f https:&#x2F;&#x2F;download.pytorch.org&#x2F;whl&#x2F;cu100&#x2F;torch_stable.html</span><br></pre></td></tr></table></figure>
+
+<p>·下载需求环境</p>
+<p>命令行中分别键入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">x: #打开master文件所在的盘符</span><br><span class="line">cd x:\xxx\xxxx\xxxx #打开master主程序的文件夹</span><br></pre></td></tr></table></figure>
+
+<p>键入安装命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Step2：配置检查点文件"><a href="#Step2：配置检查点文件" class="headerlink" title="Step2：配置检查点文件"></a>Step2：配置检查点文件</h2><p>在 ** C:\Users\用户名\ **  中新建  <strong>piano_transcription_inference_data</strong> 文件夹 </p>
+<p>把<strong>note_F1=0.9677_pedal_F1=0.9186.pth</strong>放进上面的这个文件夹中</p>
+<h2 id="Step3-解压主程序并运行"><a href="#Step3-解压主程序并运行" class="headerlink" title="Step3: 解压主程序并运行"></a>Step3: 解压主程序并运行</h2><p>主程序解压后，我们可以看到如下几个文件</p>
+<p><strong>input</strong>文件夹 存放.mp3或.wav的歌曲原音频文件</p>
+<p><strong>output</strong>文件夹 存放.midi的转换后的歌曲音频文件</p>
+<p><strong>start -wav.py</strong>文件 转换input中.wav音频的python程序</p>
+<p><strong>start.py</strong>文件 转换input中.mp3音频的python程序</p>
+<p>只能放三首音频在input中，文件命名最后纯英文或数字，根据音频格式点击strat.py即可</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/9d8e1840eb7ccba8.png"></p>
+<p><em>正常工作的画面</em></p>
+<p>注意：<strong>机器学习的处理需要您的电脑有一张像样的显卡，建议英伟达GTX或RTX系列的显卡，因为支持CUDA，AMD绝大部分显卡不支持CUDA，所以处理时间需要15分钟以上，而支持CUDA的显卡只需1分钟，英伟达老式显卡不支持CUDA，AMD显卡能不能加速得看看程序对opencl的支持咯</strong></p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>如今，也有许多网站或者平台把这个项目部署到其中作为商业化作用，所以有一些网站可以在线进行音符分析与文件转换</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/d706068d17677eb8.png"></p>
+<p>其次，你还可以用<strong>Anaconda</strong>来搭建环境与配置，直接上手，或者在官方页用谷歌GPU平台搭建的在线进行使用</p>
+]]></content>
+      <categories>
+        <category>计算机</category>
+      </categories>
+      <tags>
+        <tag>计算机</tag>
+        <tag>Python</tag>
+        <tag>教程经验</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>自制渣翻字幕-虚渊玄主笔军事动漫OBSOLTE</title>
+    <url>/2020/10/22/obsolete/</url>
+    <content><![CDATA[<h1 id="OBSOLETE"><a href="#OBSOLETE" class="headerlink" title="OBSOLETE"></a>OBSOLETE</h1><p>想必很多看动漫的小年轻都知道虚渊玄，咱们的<strong>爱的战士</strong>，作为日本动漫作品创作鬼才，其在日漫这种浪漫主义作品中喜欢给你插入猝不及防的现实主义元素，善于运用把浪漫世界中美好之物一个个毁灭给你看的希腊式悲剧笔法:</p>
+<p><strong><em>它一定有令人悲痛的结局，往往是生离死别；他一定讲的是一个无辜的人，一个道德完善的英雄，遭受了不幸。</em></strong></p>
+<p><img src="https://i.loli.net/2020/10/24/U3ud2VCiQ5sabz1.jpg" alt="u=188288523,2253095310&amp;fm=26&amp;gp=0"></p>
+<p>老虚笔下的一个个作品都让你感受到了一次次心灵的洗礼。</p>
+<p>爱的战士老虚先后作有 《沙耶之歌》 《Fate》 《魔法少女小圆》，《心理测量者》 等作品，在其锋韧如刀的笔下突显了各个深刻的主题</p>
+<p>而日本动漫常常以魔幻世界或现实生活为背景，且又偏向讲述一个个高中生突然觉醒拯救世界之类的故事，但这次却是一个部军事动漫。日本的军事类动漫较多的只是其中包含军事的元素，但军事元素细节和对军事的讲述却很显不足，硬军事元素在日漫中常常缺少，但此类动漫也受国内军迷的爱戴，但很多主要是馋作品中一些人物的身子，却不是军事元素。<br>这次老虚以军事，机甲等主题的融合又会诞生出什么样的作品，很受期待。</p>
+<p>在2019年12月的时候OBSOLETE在Youtube由南梦宫代理播出，第一时间<br>便找资源并查找相关的翻译字幕，但发现缺少资源，于是自己开始对动漫的字幕工作。<br>在2019年12月中旬，完成了对OBSOLETE发布的6集的字幕工作，由于水平有限，难免有许多细节上的错误，但大致的意思应该是不会错，哈哈…………</p>
+<p><a href="https://imgchr.com/i/BVdZMF"><img src="https://s1.ax1x.com/2020/10/24/BVdZMF.png" alt="BVdZMF.png"></a></p>
+<a id="more"></a>
+
+<p><img src="https://i.loli.net/2020/10/23/yRVugpJwo49scqx.png" alt="image-20201023125846569"></p>
+<p><a href="https://imgchr.com/i/BAAB6J"><img src="https://s1.ax1x.com/2020/10/23/BAAB6J.jpg" alt="BAAB6J.jpg"></a><br><em>声明:动漫版权为南梦宫株式会社所有，该字幕仅仅提供交流学习之用，相关资源请24小时内删除</em></p>
+<p>链接:<a href="https://pan.baidu.com/s/1Ezdi3EiSQOgtJ3mc0GZbPw#/">https://pan.baidu.com/s/1Ezdi3EiSQOgtJ3mc0GZbPw#/</a><br>PassW0rd:j3n4</p>
+<p>不过现在快过去1年了，其他字幕也层出不穷，但是，OBSOLETE依旧是6集，而官方推特也天天在更新，<strong>莫非老虚这伙也摸了一年鱼？</strong></p>
+<p>OBSOLETE采用2.5D画面，美术设计方面十分不错，其在画面方面的优秀也是不容置疑的。<br>人物设定还是不错的，风并不是传统日漫的画风而比较写实，所以画面细节上也对比其他日漫来说非常优秀<br><a href="https://imgchr.com/i/BAAeTP"><img src="https://s1.ax1x.com/2020/10/23/BAAeTP.gif" alt="BAAeTP.gif"></a></p>
+<p>2014年，突然现身的外星人「佩多拉」向地球人提出「交易」，以石灰岩作为交换，地球人获得了比战机、战车、枪更便宜好用，任谁都能轻易驾驶的意识控制型泛用机器人「EXOFRAME」，并迅速扩散于全球，既能作为交通工具、工业机械，亦可成为战争机器…。2015年，首场以EXOFRAME作为武器的战事爆发，看似充满好处且和平的交易背后，隐藏的真相究竟为何…？</p>
+<p>在前六集里，故事讲述了人型机甲对地球政治，军事，商业的影响</p>
+<p>作画上该动漫的军事细节很到位，比如西方军队的宙斯盾系统，Scar改的<br>EXOFRAME枪，M1坦克，南美军队的苏式装备，还有各国的各种军队<br><a href="https://imgchr.com/i/BAAllQ"><img src="https://s1.ax1x.com/2020/10/23/BAAllQ.gif" alt="BAAllQ.gif"></a><br>描述的战争局面中各国与组织甚至是人是非常贴近现实，其中也反映了一些反战的主题<br><a href="https://imgchr.com/i/BAANkV"><img src="https://s1.ax1x.com/2020/10/23/BAANkV.gif" alt="BAANkV.gif"></a><br>虽然这些对军事的描述和处理对于军迷来说远远达不到他们的要求，但在对比日漫中来说是相当丰富的</p>
+]]></content>
+      <categories>
+        <category>文化</category>
+      </categories>
+      <tags>
+        <tag>人文</tag>
+        <tag>分享</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>站点故障</title>
+    <url>/2020/12/13/siteissue/</url>
+    <content><![CDATA[<h1 id="2021-3-00"><a href="#2021-3-00" class="headerlink" title="2021-3-00"></a>2021-3-00</h1><h3 id="站点内的一些图片已经失效了，原因是之前图片寄存的图床炸了，导致了这种情况发生，有时间会对图片进行重新上传，并寻找更加可靠的图床供应商"><a href="#站点内的一些图片已经失效了，原因是之前图片寄存的图床炸了，导致了这种情况发生，有时间会对图片进行重新上传，并寻找更加可靠的图床供应商" class="headerlink" title="站点内的一些图片已经失效了，原因是之前图片寄存的图床炸了，导致了这种情况发生，有时间会对图片进行重新上传，并寻找更加可靠的图床供应商"></a>站点内的一些图片已经失效了，原因是之前图片寄存的图床炸了，导致了这种情况发生，有时间会对图片进行重新上传，并寻找更加可靠的图床供应商</h3><h3 id="—管理员"><a href="#—管理员" class="headerlink" title="—管理员"></a>—管理员</h3>]]></content>
+  </entry>
+  <entry>
+    <title>[To Do] 各平台模拟器&amp;RetroArch模拟器及核心-配置与使用小教程</title>
+    <url>/2021/01/24/retroemu/</url>
+    <content><![CDATA[<p><a href="https://imgchr.com/i/BanMmq"><img src="https://s1.ax1x.com/2020/10/31/BanMmq.jpg" alt="BanMmq.jpg"></a></p>
+<h1 id="待补充"><a href="#待补充" class="headerlink" title="待补充"></a>待补充</h1>]]></content>
+      <categories>
+        <category>计算机</category>
+        <category>仿真器</category>
+      </categories>
+      <tags>
+        <tag>教程经验</tag>
+        <tag>仿真器</tag>
+        <tag>开源软件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>来自八年前过时但强大的文件多功能服务器</title>
+    <url>/2020/10/20/weezo/</url>
+    <content><![CDATA[<h1 id="文件共享服务器"><a href="#文件共享服务器" class="headerlink" title="文件共享服务器"></a>文件共享服务器</h1><p>如果你想搭建一个文件共享服务器来作私人云盘，你会选择什么，现在有很多服务软件可选，像可道云，易有云，NextCloud，Seafile，Cloudreve，Z-File，各有特色，功能强大，开源或者不开源，有些搭建简单有些搭建复杂。</p>
+<p>比如我喜欢用的可道云，界面华丽，内置微型桌面，有各种插件和支持，功能多样</p>
+<p><strong>但今天要介绍一下Weezo</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/uw1HLA75X3sFPWN.jpg" alt="u=2074893334,862763281&amp;fm=15&amp;gp=0"></p>
+<a id="more"></a>
+
+
+
+<h1 id="初探"><a href="#初探" class="headerlink" title="初探"></a>初探</h1><p>但我今天并不是吹可道云怎么怎么好的，前段时间在找各种文件服务器的时候，找到一个已于2014年停止更新的文件服务器解决方案，初上手后觉得似乎很像模像样</p>
+<p>来自于21世纪10年代初期的软件图形化设计，当时还是偏向于立体拟物化的，在色彩方面也不是很讲究</p>
+<p>所以，在深入了解Weezo后，我发现它不止是像模像样的程度了，他有:<br>· <strong>文件服务功能</strong><br><strong>· 博客空间功能</strong><br><strong>· 管理面板功能</strong><br><strong>· 影音中心功能</strong><br><strong>· 照片管理功能</strong></p>
+<p>甚至有:</p>
+<p><strong>· 远程桌面功能</strong><br><strong>· RSS功能</strong><br><strong>· 公网映射，邮箱，社交账号功能</strong><br><strong>· 网络摄像头功能</strong></p>
+<p><strong>部署难度呢？</strong></p>
+<p><strong>一键安装，自动配置Apache，PHP，SQLlite，仅支持Windows，全过程图形化，而且你无法想象它是一个差不多10年前的软件</strong></p>
+<p>所以再看现在类似的私有云解决方案，虽然功能全面，界面优美，但比起Weezo的功能高度集成化和友好度，在很多方面还是略逊一筹</p>
+<h1 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h1><p><strong>很简单，使用安装包进行部署，安装包也就50M，安装除了路径全部默认设置，Weezo也会给我们配置好所需的Web环境</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/93ROkcErxD8JTiu.png" alt="image-20201024205408858"></p>
+<p><strong>打开服务器，一个启动窗口下就在刷啦啦的打开各种服务，于是我们就部署完成，可以看到软件面板了，在Win10下界面显示会有点问题，但并不影响使用</strong></p>
+<p><strong>所以，就像平时安装软件一样，点几下Step咱们的文件服务器就部署完成了</strong></p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/04/3c0551a35c236aa2.png"></p>
+<p><strong>我们设定好了管理员密码后，在浏览器输入你的设备的ip，然后就是让人怀念的登陆界面</strong></p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/04/a79380254c87b3f0.png"></p>
+<p><strong>登陆进入后，就可以看见个心情墙之类的，放在以前，可以像QQ空间一样发个说说之类的吧~</strong></p>
+<p><img src="https://ftp.bmp.ovh/imgs/2021/04/5576c9b788ab0cea.png"></p>
+<h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><p><strong>登陆后界面还是较为空白，但我们可以看到这个界面很像是Windows Vista的窗口设计，然而这仅仅只是一个网页而已，在那时就可以实现类似视窗的界面了，我们可以对打开的窗口最大化，最小化，简直就像在网页中使用windows</strong></p>
+<p><strong>进入软件面板，我们先对账户和各种权限设置一下，之后我们便可以添加各种服务</strong></p>
+<p><img src="https://i.loli.net/2020/10/23/MksiUKx34IaL7lz.png" alt="image-20201023140717644"></p>
+<p><img src="https://i.loli.net/2020/10/23/ImVhgcU3z49DtAJ.png" alt="image-20201023140659549"></p>
+<p><strong>当然作为文件共享服务，我们先试试文件共享服务。文件共享支持你对电脑多个目录进行共享，对此分别设置各用户的权限等，我们现在添加两个文件目录</strong></p>
+<p><img src="https://i.loli.net/2020/10/25/tLvlWay6sBAphNi.png" alt="image-20201023140815747"></p>
+<h4 id="文件浏览器"><a href="#文件浏览器" class="headerlink" title="文件浏览器"></a>文件浏览器</h4><p><strong>文件浏览器方面：在页面端他的文件目录已经很贴近windows的资源管理器了，我们可以进行删除，拷贝，剪切，下载等功能，支持图标缩放，这使我想起了现在的可道云</strong></p>
+<p><img src="https://i.loli.net/2020/10/23/GdEN1BeqHiscI2R.png" alt="image-20201023140937080"></p>
+<p><strong>支持读取文本，音乐，视频，照片，音乐</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/bAxmM3Pk6YiHCyf.png" alt="image-20201024210449043"></p>
+<p><strong>管理照片，音乐，视频中，点击相应媒体文件会显示该媒体文件的元数据</strong></p>
+<p><strong>包括音乐的标题/专辑/年份/艺术家 照片或视频的分辨率/作者等</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/gPV6qc27m8LaYfC.png" alt="image-20201024210556089"></p>
+<p><strong>下载功能还支持URL下载与种子下载，以及本地的批量下载与上传；当然，种子下载现在不可用了</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/1EJ5WikdDYbgRU8.png" alt="image-20201024211723034"></p>
+<h4 id="管理面板"><a href="#管理面板" class="headerlink" title="管理面板"></a>管理面板</h4><p><strong>管理面板功能，依旧很惊艳，把访问人数和资源都画成图表便于查看</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/BXA67pRkPDEKy8C.png" alt="image-20201024210034004"></p>
+<p><strong>还可以查看日志</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/8vGNWuagnzIeklB.png" alt="image-20201024210108852"></p>
+<p><strong>然后是远程桌面，这也太牛了，没想到一个文件服务器居然还集成了这种功能，如图，我们可以在网页中操控我的设备，但对于现在来说操控有些卡顿了</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/vBVxncOA2EFQg7u.png" alt="image-20201024212119155"></p>
+<h4 id="相册功能"><a href="#相册功能" class="headerlink" title="相册功能"></a>相册功能</h4><p><strong>相册功能，我们可以添加相片进去，成为便于储存与展示照片的相册</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/ik1jPN7FIG4TKQ9.png" alt="QQ截图20201024212846"></p>
+<h4 id="视频功能"><a href="#视频功能" class="headerlink" title="视频功能"></a>视频功能</h4><p><strong>视频功能，我们可以添加视频进行，之后可以在网页上播放，Weezo可以使用Flash，QuickTime，M2U播放</strong></p>
+<p><strong>但Weezo的播放方式相对现在来说早已过时</strong></p>
+<p><strong>鼠标放在文件上还可以像电脑端B站网页把鼠标放在视频框该视频框机会动起来，小窗预览，厉害</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/CqvWpmIS9Bkrsdj.png" alt="image-20201024214002275"></p>
+<h4 id="音乐库功能"><a href="#音乐库功能" class="headerlink" title="音乐库功能"></a>音乐库功能</h4><p><strong>音乐库，感觉很厉害的样子，旧瓶装新酒</strong></p>
+<p><strong>有播放列表功能，可以根据专辑或艺术家进行排序</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/hDxCPlogz8ULSIQ.png" alt="image-20201024215107330"></p>
+<h4 id="其他一些有意思的功能"><a href="#其他一些有意思的功能" class="headerlink" title="其他一些有意思的功能"></a>其他一些有意思的功能</h4><p>· <strong>聊天功能</strong></p>
+<p><strong>梦 回 网 络 聊 天 室</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/krbh45xmeMtP3Aq.png" alt="image-20201024215723630"></p>
+<p>· <strong>网络摄像头功能</strong></p>
+<p><strong>好吧，我也不知道具体有什么用</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/o5LzGJa9lND6fpx.png" alt="image-20201024215842851"></p>
+<p>· <strong>博客功能</strong></p>
+<p><strong>写点文章然后分享到你的用户组吧~</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/3ESKialBzYoPUWc.png" alt="image-20201024220108137"></p>
+<p>· **RSS源功能 **</p>
+<p><strong>这东西这么老了，我还记得我8年前在诺基亚手机桌面添加了好多源，啥科学松鼠会，微软学术之类的，现在的许多源都停止更新了，还保留着上世代互联网的味道</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/ywOPg53BnoNhqL8.png" alt="image-20201024220859056"></p>
+<p>· <strong>网络电视</strong></p>
+<p><strong>8年前的文件服务器集成直播点播功能，还有视频库功能，好家伙，放在现在，莫非是</strong></p>
+<p><strong>简易Jellyfin/EMBY</strong></p>
+<p><strong>可惜现在都已经没用了，惊人的是还自动集成了各个国家的播放源，简直友好到不行</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/Y8DXEg2OyTRWjw5.png" alt="image-20201024221140997"></p>
+<p><strong>这些功能如果你感兴趣的话可以下载Weezo来体验一下，功能还是很丰富的，也不止我现在介绍的这些</strong></p>
+<h1 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h1><p><strong>Weezo使用的是老版本的apache和php，php的版本也只有5.2，对于现在的web环境和软件环境来说容易会有一些问题，比如在中文名称下会导致名称显示不全，无法设置中文路径等</strong></p>
+<p><strong>GROUPS-用户设置</strong></p>
+<p><strong>用户设置里面我们可以添加用户，设置用户密码，设置其权限等</strong></p>
+<p><strong>添加用户后，你想要用户使用哪几项功能，就可以在Assigned Resource里面进行设置，你还可以设置单独用户的主题</strong></p>
+<p><img src="https://i.loli.net/2020/10/23/X8NRjKtH7dTF3ef.png" alt="image-20201023140511116"></p>
+<p><strong>RESOURCES-功能设置</strong></p>
+<p><strong>点击加号添加你想要的功能吧</strong></p>
+<hr>
+<p><strong>在添加文件功能的时候要特别注意中文文件及文件夹的问题，为了功能的正常，建议添加英文文件夹或者文件，但添加中文文件并不是不可行</strong></p>
+<p><strong>如果你要添加中文文件夹，你必须在File那一栏把模式切换为 File and Floder 而不是 Contents a directory，如果你该开启Weezo服务，你需要等待一会就像下面一样可以显示中文文件夹，之后再添加就好</strong></p>
+<p><strong>中文文件及文件夹在刚启动Weezo服务时同样不能被读取</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/1Bh8FCxGR2Hgb6K.png" alt="image-20201024221344194"></p>
+<p><strong>Weezo有上传文件大小限制，可以在设置里设置限制大小，但设置里面最多也只能设置1G，这时候可以去配置文件里面设置超过1G的大小 C:\Users\Administrator\AppData\Roaming\Weezo\data</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/9akIdlWibofP5Gm.png" alt="image-20201024222144483"></p>
+<p><strong>在Configration里面的Server就可以看到最大传输文件大小已经是10240了</strong></p>
+<p><img src="https://i.loli.net/2020/10/25/LcJKqFfnCumGs4l.png" alt="image-20201024221531530"></p>
+<hr>
+<p><strong>Activity-查看服务器状态</strong></p>
+<p><strong>包括文件传输和日志</strong></p>
+<p><strong>Configuration-配置</strong></p>
+<p><strong>General Preferences 基本设置下可以设置服务模式</strong></p>
+<p><strong>启动模式如果你想开机自启把Run With System打开，并且由于自启要管理员权限你需要在启动模式下设置Service，，由于软件兼容性问题不要动其他的基本设置，其他各项设置如图下就好</strong></p>
+<p><strong>在下面显示了程序的主路径，环境路径，www文件路径</strong></p>
+<p><img src="https://i.loli.net/2020/10/23/idKrWaPmeMYVfkx.png" alt="image-20201023140404379"></p>
+<p><strong>Server-服务器设置</strong></p>
+<p><strong>可以设置服务器地址，端口号，SSL，upnp，还有网络环境，签名证书，日志等</strong></p>
+<p><strong>但网络环境配置啥的也基本不要动，默认设置或者如图下就好</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/RIsaPD6e5K2MHxc.png" alt="image-20201024221800355"></p>
+<p><strong>Appearance-外观设置</strong></p>
+<p><strong>设置壁纸，主题等，这点很像可道云</strong></p>
+<p><strong>还可以设置提示音</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/9LF38cnDTJzlGpU.png" alt="image-20201024221846699"></p>
+<p><strong>有很多主题，都是当时流行的一些操作系统的UI，当然，也可以登陆到web里面设置主题和网页标题</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/Iwxu2YCLbXDRsPU.png" alt="image-20201024205758602"></p>
+<p><strong>Miscellaneous-杂类</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/PsxS3MJftzvZu5a.png" alt="image-20201024221957299"></p>
+<p><strong>用户连接设置/文件传输设置/消息通知/封面设置</strong></p>
+<p><strong>用户连接设置主要是连接设置密码加密啥的，默认勾选，保持默认设置就好。</strong></p>
+<p><strong>文件传输可开启：文件评分功能/隐藏受保护文件/隐藏文件扩展名/阻止进入系统文件夹/组织远程执行文件/阻止下载文件/阻止编辑文件等</strong></p>
+<p><strong>还可以设置文件上传限制</strong></p>
+<hr>
+<p><strong>远程管理Weezo设置，需要添加远程管理员功能</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/BfM1up3QlORj9ZE.png" alt="image-20201024205843284"></p>
+<p><strong>可以在网页中设置Weezo桌面服务端的设置</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/VpYRyOsEv9dwzPb.png" alt="image-20201024210010997"></p>
+<p><strong>还包含终端界面来对计算机进行管理</strong></p>
+<p><img src="https://i.loli.net/2020/10/24/BwtVrGm6nWu87SY.png" alt="image-20201024210233443"></p>
+<hr>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>在我之前的文章中，我使用我家云刷入了各程序的集成类固件来作个人服务器用，里面通过集成了armbian+omv+导航+web环境+FB+私有云+jellyfin+lychee+WordPress等才构成了一个功能完整的NAS服务器，即使是集成了也还需要一些配置，而且也要求使用者有一定的计算机知识才能完整的来使用各项功能</p>
+<p>如果你也要集成十年前的如上所说的私有云+影音+博客+直播点播+服务器管理服务，那还是相当困难的，但是Weezo可以轻松实现如上的一些功能，即使是有些功能来说相对简单，可玩性弱</p>
+<p>但换作十年前的目光，再加上一些可以简单满足你以上要求的功能全面集成在了一个程序当中，再加上部署简单，界面与操作友好，轻量化，有社区支持和社区化设计，并且有些功能的设计，和高度的集成化Wezzo也算划时代设计了</p>
+<p>即使放在今天，依旧可以拿来使用，比如在我的Windows系统的个人计算机中，它就作为了我用个人计算机搭建的小型个人服务器，我依旧可以把影音文件放在磁盘中，通过Weezo挂载到服务器中进行管理，在局域网使用各种设备来远程使用这些文件，很多在线功能已经不能使用，但如果放在那个时候，你的服务器体验会更佳</p>
+<p>至于为何这个程序在国内甚至是国外都人皆不闻之，只可能是因为时代的问题了，那时候互联网普及还不高，网络带宽小，人们对这类功能的需求量也非常少，在那个你拿个诺基亚，不能连接wifi，还只是通过3G网络下载几百Kb的文件，基本对于个人用户来说根本不需要这一功能，这个软件在那个时代应该在国外的新兴互联网公司内会很受欢迎，而且需求量大，所以在那个时代只是被几个少数程序员感兴趣的软件，自然由于网络框架及软件工具的变化而被开发团队的放弃支持，从而被淡出历史舞台了</p>
+]]></content>
+      <tags>
+        <tag>计算机</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker-Desktop中压缩虚拟磁盘(VHDX)的大小</title>
+    <url>/2020/11/20/windockecompressr/</url>
+    <content><![CDATA[<p><img src="https://ftp.bmp.ovh/imgs/2021/01/58446f843eb879e4.jpg"></p>
+<h1 id="相关问题"><a href="#相关问题" class="headerlink" title="相关问题"></a>相关问题</h1><p>在Win10上使用Docker-Desktop时，当我删除了差不多5G的镜像文件中，发现Docker对于磁盘的占用依旧没有什么变化，仍然有8G的空间占用</p>
+<p>在Win10上运行Docker，除了早期的VirtualBox方式之外，往往有两种方式，一种是Hyper-V，一种是WSL，无论是两种中的哪一种，都使用VHDX虚拟磁盘文件来存放Docker的镜像和容器数据，然而虚拟磁盘是弹性的方式扩展空间的，你使用多少虚拟磁盘的空间自动扩展到多少，但是当你删除文件缩小虚拟磁盘空间的使用时，虚拟磁盘并未缩小</p>
+<a id="more"></a>
+
+
+
+<p><a href="https://imgchr.com/i/D3p4AA"><img src="https://s3.ax1x.com/2020/11/21/D3p4AA.png" alt="D3p4AA.png"></a></p>
+<p><a href="https://imgchr.com/i/D3pIht"><img src="https://s3.ax1x.com/2020/11/21/D3pIht.png" alt="D3pIht.png"></a></p>
+<p>这也要归功于微软没有加入自动压缩虚拟磁盘的功能，然而在Docker里面是否会添加这种机制呢，然而并没有，虽然社区上有人向微软和Docker反应添加这种功能，然而我并没有看到两个软件添加了这种机制，可能是有什么原因？</p>
+<p><a href="https://imgchr.com/i/D3pLng"><img src="https://s3.ax1x.com/2020/11/21/D3pLng.png" alt="D3pLng.png"></a></p>
+<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h3 id="Hyper-V"><a href="#Hyper-V" class="headerlink" title="Hyper-V:"></a>Hyper-V:</h3><p>尝试用Powershell以管理员运行以下代码，或者你可以把此保存为ps1文件执行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#region 管理员身份运行</span><br><span class="line">$currentWi &#x3D; [Security.Principal.WindowsIdentity]::GetCurrent()</span><br><span class="line">$currentWp &#x3D; [Security.Principal.WindowsPrincipal]$currentWi</span><br><span class="line"> </span><br><span class="line">if( -not $currentWp.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))</span><br><span class="line">&#123;</span><br><span class="line">  $boundPara &#x3D; ($MyInvocation.BoundParameters.Keys | foreach&#123;</span><br><span class="line">     &#39;-&#123;0&#125; &#123;1&#125;&#39; -f  $_ ,$MyInvocation.BoundParameters[$_]&#125; ) -join &#39; &#39;</span><br><span class="line">  $currentFile &#x3D; (Resolve-Path  $MyInvocation.InvocationName).Path</span><br><span class="line"> </span><br><span class="line"> $fullPara &#x3D; $boundPara + &#39; &#39; + $args -join &#39; &#39;</span><br><span class="line"> Start-Process &quot;$psHome\powershell.exe&quot;   -ArgumentList &quot;$currentFile $fullPara&quot;   -verb runas</span><br><span class="line"> return</span><br><span class="line">&#125;</span><br><span class="line">#endregion</span><br><span class="line"></span><br><span class="line">#region 运行以下代码</span><br><span class="line">docker system prune -a -f</span><br><span class="line">net stop com.docker.service</span><br><span class="line">taskkill &#x2F;F &#x2F;IM &quot;Docker Desktop.exe&quot;</span><br><span class="line">stop-vm DockerDesktopVM</span><br><span class="line">Optimize-VHD -Path &quot;虚拟磁盘路径&quot; -Mode Full</span><br><span class="line">start-vm DockerDesktopVM</span><br><span class="line">start &quot;Docker程序路径&quot;</span><br><span class="line">net start com.docker.service</span><br><span class="line">#endregion</span><br></pre></td></tr></table></figure>
+
+<h3 id="WSL2"><a href="#WSL2" class="headerlink" title="WSL2:"></a>WSL2:</h3><p>尝试用Powershell以管理员运行以下代码，或者你可以把此保存为ps1文件执行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#region 管理员身份运行</span><br><span class="line">$currentWi &#x3D; [Security.Principal.WindowsIdentity]::GetCurrent()</span><br><span class="line">$currentWp &#x3D; [Security.Principal.WindowsPrincipal]$currentWi</span><br><span class="line"> </span><br><span class="line">if( -not $currentWp.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))</span><br><span class="line">&#123;</span><br><span class="line">  $boundPara &#x3D; ($MyInvocation.BoundParameters.Keys | foreach&#123;</span><br><span class="line">     &#39;-&#123;0&#125; &#123;1&#125;&#39; -f  $_ ,$MyInvocation.BoundParameters[$_]&#125; ) -join &#39; &#39;</span><br><span class="line">  $currentFile &#x3D; (Resolve-Path  $MyInvocation.InvocationName).Path</span><br><span class="line"> </span><br><span class="line"> $fullPara &#x3D; $boundPara + &#39; &#39; + $args -join &#39; &#39;</span><br><span class="line"> Start-Process &quot;$psHome\powershell.exe&quot;   -ArgumentList &quot;$currentFile $fullPara&quot;   -verb runas</span><br><span class="line"> return</span><br><span class="line">&#125;</span><br><span class="line">#endregion</span><br><span class="line"></span><br><span class="line">#region 运行以下代码</span><br><span class="line">docker system prune -a -f</span><br><span class="line">net stop com.docker.service</span><br><span class="line">taskkill &#x2F;F &#x2F;IM &quot;Docker Desktop.exe&quot;</span><br><span class="line">wsl --shutdown</span><br><span class="line">Optimize-VHD -Path &quot;虚拟磁盘路径&quot; -Mode Full</span><br><span class="line">wsl</span><br><span class="line">start Docker程序路径&quot;</span><br><span class="line">net start com.docker.service</span><br><span class="line">pause</span><br><span class="line">#endregion</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>计算机</category>
+        <category>服务器&amp;网络</category>
+      </categories>
+      <tags>
+        <tag>计算机</tag>
+        <tag>教程经验</tag>
+        <tag>运营维护</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>哈？</title>
+    <url>/2020/10/15/%E5%93%88%EF%BC%9F/</url>
+    <content><![CDATA[<hr>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: </span><br><span class="line">date: 2020-10-15 18:52:07</span><br><span class="line">tags:</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+
+
+<a id="more"></a>
+
+
+
+<p>
+    <iframe name="iFrame1" width="780" height="480" src="/pages/font1/index.html" scrolling="yes" frameborder="1"></iframe>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]]></content>
+  </entry>
+  <entry>
     <title>使用矿渣我家云搭建个人服务器的一些心得（多图预警）</title>
     <url>/2021/03/01/chainedbox/</url>
     <content><![CDATA[<h1 id="1-个人服务器搭建经历"><a href="#1-个人服务器搭建经历" class="headerlink" title="1.个人服务器搭建经历"></a>1.个人服务器搭建经历</h1><p>矿渣论坛有大佬把自己在OMV系统上把自己集成了各项功能的系统做成镜像分享了出来，这样就省去了很多麻烦</p>
@@ -419,459 +873,5 @@
         <tag>运营维护</tag>
         <tag>Linux</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>简单运用人工智能进行钢琴音频转换为音符数据(Midi)</title>
-    <url>/2021/02/28/miditopiano/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
-<p>近期，字节跳动发布全球最大的古典钢琴数据集 GiantMIDI-Piano，包括来自 2,784 位作曲家 10,854 首作品的 MIDI 文件，总时长为 1,237 小时。研究者为完成该数据集的构建，开发并开源了一套高精度钢琴转谱系统</p>
-</blockquote>
-<p>这个项目在Github上叫做**<a href="https://github.com/bytedance">bytedance</a>/<a href="https://github.com/bytedance/GiantMIDI-Piano">GiantMIDI-Piano</a>**</p>
-<p>是的，你没看错，<strong>字节跳动</strong>，旗下产品有我们最常用的抖音和今日头条，并通过短视频业务在国际开拓了广大的市场</p>
-<p><img src="https://ftp.bmp.ovh/imgs/2021/03/966356746ad8b945.png"></p>
-<p>而这项技术可牛逼了，我们知道，如果身边有弹奏钢琴的朋友，如果发现了一首不是很热门的钢琴曲，想把这首宝藏歌曲用钢琴弹奏下来，但是网上找了半天都没有找到相关的钢琴谱，这可怎么办，如果没有深入的钢琴与扒谱知识，那么是无法自己扒出钢琴谱的，也许还可以去<strong>淘宝委托别人扒谱，可这价格不是闹着玩的</strong>，即使你会扒谱，那么<strong>一首较为复杂的钢琴谱，你也需要一两天的时间与精力才能弄出来</strong>，或者你训练了音感<strong>，听歌即弹，这种大佬还是很少的</strong></p>
-<a id="more"></a>
-
-<p>学过音乐的朋友知道，扒谱是一件很复杂的脑力活，这种事情在以前认为几乎也只有人类可以胜任，机器人在文化艺术因为无法精确的模拟出人类的情感，在这些领域机器人还是望而止步的</p>
-<p><img src="https://ftp.bmp.ovh/imgs/2021/03/de11e39c85ec7e7f.jpeg"></p>
-<p>​                                    <em>电脑音乐的发展使得大量的Black-Midi曲涌现出来，这在电脑音乐方面可谓是一种奇观</em></p>
-<p>人类的本质是<strong>懒</strong>，工业机器人的发展使得各种各样体力类劳动逐渐被机器取代，如今，即使是脑力的劳动在<strong>深度学习</strong>技术的发展下也即将被计算机取代。</p>
-<p>我们前面了解了很多的机器学习与深度学习的案例，比如<strong>Deepfake</strong>的换脸与变脸技术，给人制作虚假的动作，甚至凭空生成世界上本不存在的人物图像与自动绘制动漫人物。</p>
-<p>那么今天的这项算法其意义比如上所述的几项意义要大得多了。</p>
-<h1 id="技术文献"><a href="#技术文献" class="headerlink" title="技术文献"></a>技术文献</h1><p><strong>论文：GiantMIDI-Piano：用于古典钢琴音乐的大规模MIDI数据集</strong></p>
-<p>[1] Qiuqiang Kong, Bochen Li, Jitong Chen, and Yuxuan Wang. “GiantMIDI-Piano: A large-scale MIDI dataset for classical piano music.” arXiv preprint arXiv:2010.07061 (2020). <a href="https://arxiv.org/pdf/2010.07061">https://arxiv.org/pdf/2010.07061</a></p>
-<p>[2] Qiuqiang Kong, Bochen Li, Xuchen Song, Yuan Wan, and Yuxuan Wang. “High-resolution Piano Transcription with Pedals by Regressing Onsets and Offsets Times.” arXiv preprint arXiv:2010.01815 (2020). <a href="https://arxiv.org/pdf/2010.01815">https://arxiv.org/pdf/2010.01815</a></p>
-<h5 id="项目地址：-bytedance-GiantMIDI-Piano"><a href="#项目地址：-bytedance-GiantMIDI-Piano" class="headerlink" title="项目地址：**bytedance/GiantMIDI-Piano**"></a>项目地址：**<a href="https://github.com/bytedance">bytedance</a>/<a href="https://github.com/bytedance/GiantMIDI-Piano">GiantMIDI-Piano</a>**</h5><h5 id="详细介绍：https-zhuanlan-zhihu-com-p-269218623"><a href="#详细介绍：https-zhuanlan-zhihu-com-p-269218623" class="headerlink" title="详细介绍：https://zhuanlan.zhihu.com/p/269218623"></a>详细介绍：<a href="https://zhuanlan.zhihu.com/p/269218623">https://zhuanlan.zhihu.com/p/269218623</a></h5><p><strong>协议</strong>：<strong>CC BY 4.0</strong></p>
-<h1 id="功能展示"><a href="#功能展示" class="headerlink" title="功能展示"></a>功能展示</h1><p>就先给各位展示一下这个技术，我们找来几个特别复杂的歌曲</p>
-<p>找来几个歌曲中带有钢琴音色的各种类型的音乐，一起来测试一下，<strong>midi文件包含了这个歌曲的所以音符信息，所以可以直接转化为钢琴谱</strong></p>
-<p><em>由于目前还无法实现嵌入式Midi播放，所以只给出结果或可在连接中自行下载</em></p>
-<h3 id="1-古典与管弦类音乐"><a href="#1-古典与管弦类音乐" class="headerlink" title="1.古典与管弦类音乐"></a>1.古典与管弦类音乐</h3><p><strong>·李斯特 - Etude No.3 in G♯ minor “La Campanella” (S.141/3)</strong></p>
-<p><em>怕与训练模型重复，所以挑选了一首与标准原曲有少许区别的版本</em></p>
-<p>结果：几乎与原曲没有区别</p>
-<p><strong>·肖邦 - 12 Etudes Op.25:No. 11 in A minor “Winter Wind”</strong></p>
-<p><em>怕与训练的模型重复，所以挑选了一首与标准原曲有少许区别的版本</em></p>
-<p>结果：几乎与原曲没有区别</p>
-<p><img src="https://ftp.bmp.ovh/imgs/2021/03/5f60ad159cfd54ab.png"></p>
-<p><strong>·削除 - I. Allegro Agitato （97鍵盤のための協奏曲 [Concerto for 97Keys]）</strong></p>
-<p> 这首音乐是十分复杂的交响乐</p>
-<p>结果：某些部分有明显错误，但其他部分基本正确但也有少许错误，个人感觉与原曲有85%的相似</p>
-<p><img src="https://ftp.bmp.ovh/imgs/2021/03/1e7c6b243c120405.png"></p>
-<p><em>直接转换过来的琴谱文件，但如果真的要能弹，琴谱也还需要少许处理</em></p>
-<h2 id="2-流行音乐"><a href="#2-流行音乐" class="headerlink" title="2.流行音乐"></a>2.<strong>流行音乐</strong></h2><h5 id="·周杰伦-夜曲"><a href="#·周杰伦-夜曲" class="headerlink" title="·周杰伦 - 夜曲"></a><strong>·周杰伦 -</strong> 夜曲</h5><p>结果：个人感觉与原曲有76%的相似，但还是有一些杂音，但包含基本曲调</p>
-<p><strong>·Beyond - 海阔天空</strong></p>
-<p>结果：个人感觉与原曲有69%相似，杂音太多，但基本包含正确曲调</p>
-<h2 id="结果："><a href="#结果：" class="headerlink" title="结果："></a>结果：</h2><p><strong>纯钢琴曲的精准度和介绍里谈到的无论是多么复杂的曲子精准度可达95%以上，流行音乐由于音轨太多，其他乐器交错在一起输出结果会包含过多杂音，但包含正确的曲调</strong></p>
-<p><strong>纯钢琴曲由于制作出来的midi文件，不适合直接作谱，如果要使人看的懂且人弹的出来，还需要少许修改</strong></p>
-<p><strong>其他音轨很多的音乐建议使用另一个乐器分离的AI模型进行轨道分离再进行识别转换</strong></p>
-<p><img src="https://ftp.bmp.ovh/imgs/2021/03/3a31ae6268d8c2cf.png"></p>
-<h1 id="使用教程"><a href="#使用教程" class="headerlink" title="使用教程"></a>使用教程</h1><p>这个教程直接使用由Python构建的版本，简单易用，复杂的地方为Python环境的配置</p>
-<h2 id="下载链接："><a href="#下载链接：" class="headerlink" title="下载链接："></a>下载链接：</h2><p>包括主文件夹</p>
-<p><a href="https://cloud.189.cn/t/F3qeaq3Mjy2u">https://cloud.189.cn/t/F3qeaq3Mjy2u</a> (访问码:hub3)</p>
-<h3 id="程序结构："><a href="#程序结构：" class="headerlink" title="程序结构："></a><strong>程序结构：</strong></h3><p><strong>检查点文件（CheckPoint）</strong> <strong>note_F1=0.9677_pedal_F1=0.9186.pth</strong></p>
-<p><strong>Python主程序（Master）</strong></p>
-<p><strong>Python环境</strong>（建议3.7.8版本的Python）</p>
-<h3 id="Step1-配置Python环境"><a href="#Step1-配置Python环境" class="headerlink" title="Step1: 配置Python环境"></a>Step1: 配置Python环境</h3><p><em>引用他人文章：<a href="https://blog.csdn.net/leege666/article/details/84557984">https://blog.csdn.net/leege666/article/details/84557984</a></em></p>
-<p>上面有图而且很详细哦</p>
-<p>1.下载Python程序包，在安装界面勾选自动配置环境变量</p>
-<p>2.win+s键搜索cmd打开命令行，输入Python，看到如下界面即为安装成功</p>
-<p><img src="https://ftp.bmp.ovh/imgs/2021/03/180c37b2b241933f.png"></p>
-<p>3.配置软件需求环境</p>
-<p>·切换pip源</p>
-<p>进入 C:\Users\电脑用户\AppData\Roaming 文件夹（<strong>桌面的用户文件夹</strong>）中 ，新建 pip 文件夹并在文件夹中新建 pip.ini 配置文件 ，新增 pip.ini 配置文件</p>
-<p>键入</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[global]</span><br><span class="line">index-url &#x3D;https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;pypi&#x2F;simple</span><br><span class="line">[install]</span><br><span class="line">use-mirrors &#x3D;true</span><br><span class="line">mirrors &#x3D;https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;pypi&#x2F;simple</span><br><span class="line">trusted-host &#x3D;mirrors.aliyun.com</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://ftp.bmp.ovh/imgs/2021/03/75c9c92405d6c211.png"></p>
-<p>·下载Pytorch</p>
-<p>命令行键入</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install torch&#x3D;&#x3D;&#x3D;1.0.0 torchvision&#x3D;&#x3D;&#x3D;0.2.1 -f https:&#x2F;&#x2F;download.pytorch.org&#x2F;whl&#x2F;cu100&#x2F;torch_stable.html</span><br></pre></td></tr></table></figure>
-
-<p>·下载需求环境</p>
-<p>命令行中分别键入</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">x: #打开master文件所在的盘符</span><br><span class="line">cd x:\xxx\xxxx\xxxx #打开master主程序的文件夹</span><br></pre></td></tr></table></figure>
-
-<p>键入安装命令</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="Step2：配置检查点文件"><a href="#Step2：配置检查点文件" class="headerlink" title="Step2：配置检查点文件"></a>Step2：配置检查点文件</h2><p>在 ** C:\Users\用户名\ **  中新建  <strong>piano_transcription_inference_data</strong> 文件夹 </p>
-<p>把<strong>note_F1=0.9677_pedal_F1=0.9186.pth</strong>放进上面的这个文件夹中</p>
-<h2 id="Step3-解压主程序并运行"><a href="#Step3-解压主程序并运行" class="headerlink" title="Step3: 解压主程序并运行"></a>Step3: 解压主程序并运行</h2><p>主程序解压后，我们可以看到如下几个文件</p>
-<p><strong>input</strong>文件夹 存放.mp3或.wav的歌曲原音频文件</p>
-<p><strong>output</strong>文件夹 存放.midi的转换后的歌曲音频文件</p>
-<p><strong>start -wav.py</strong>文件 转换input中.wav音频的python程序</p>
-<p><strong>start.py</strong>文件 转换input中.mp3音频的python程序</p>
-<p>只能放三首音频在input中，文件命名最后纯英文或数字，根据音频格式点击strat.py即可</p>
-<p><img src="https://ftp.bmp.ovh/imgs/2021/03/9d8e1840eb7ccba8.png"></p>
-<p><em>正常工作的画面</em></p>
-<p>注意：<strong>机器学习的处理需要您的电脑有一张像样的显卡，建议英伟达GTX或RTX系列的显卡，因为支持CUDA，AMD绝大部分显卡不支持CUDA，所以处理时间需要15分钟以上，而支持CUDA的显卡只需1分钟，英伟达老式显卡不支持CUDA，AMD显卡能不能加速得看看程序对opencl的支持咯</strong></p>
-<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>如今，也有许多网站或者平台把这个项目部署到其中作为商业化作用，所以有一些网站可以在线进行音符分析与文件转换</p>
-<p><img src="https://ftp.bmp.ovh/imgs/2021/03/d706068d17677eb8.png"></p>
-<p>其次，你还可以用<strong>Anaconda</strong>来搭建环境与配置，直接上手，或者在官方页用谷歌GPU平台搭建的在线进行使用</p>
-]]></content>
-      <categories>
-        <category>计算机</category>
-      </categories>
-      <tags>
-        <tag>计算机</tag>
-        <tag>Python</tag>
-        <tag>教程经验</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[To Do] 各平台模拟器&amp;RetroArch模拟器及核心-配置与使用小教程</title>
-    <url>/2021/01/24/retroemu/</url>
-    <content><![CDATA[<p><a href="https://imgchr.com/i/BanMmq"><img src="https://s1.ax1x.com/2020/10/31/BanMmq.jpg" alt="BanMmq.jpg"></a></p>
-<h1 id="待补充"><a href="#待补充" class="headerlink" title="待补充"></a>待补充</h1>]]></content>
-      <categories>
-        <category>计算机</category>
-        <category>仿真器</category>
-      </categories>
-      <tags>
-        <tag>教程经验</tag>
-        <tag>仿真器</tag>
-        <tag>开源软件</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>通过Python部署并运用一阶运动模型对脸部图片进行简单的动作模拟</title>
-    <url>/2020/12/15/deepfakeunreval/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在8月份的时候，B站就多了很多换脸视频，大多都是换了两个外国小哥小姐姐唱歌时候的动态脸照，分别在唱Unravel，Damedayo这两首很魔性的歌，由于视频动作夸张搞笑，而视频被“P”的很真实，收到了很多网友的喜爱<img src="https://i.loli.net/2020/10/15/IFKWxGhU1VM5ZwR.gif" alt="0">，而现在，很多视频网站已经把这个项目部署到了Web上，从而吸引用户进行视频创作，本文将讲述如何在个人计算机中搭建Python环境并运行此项目</p>
-<p>而这项技术背后是机器学习项目中热门的<strong>一阶运动模型</strong>（First Order Motion），是通过AI的训练库来对动作进行准确的捕捉再用得出来的检查点对动作嵌入到图片来进行图片变换来生成几乎于逼真图形的技术</p>
-<p><img src="https://ftp.bmp.ovh/imgs/2021/03/fa090772108749e0.jpg"></p>
-<p><img src="https://ftp.bmp.ovh/imgs/2021/03/b1886fcffd961967.png"></p>
-<p>原理如上（反正我是一点都看不懂）</p>
-<a id="more"></a>
-
-<p>  连杜甫都被狠下毒手，还有唐僧等众多历史人物</p>
-<p><img src="https://i.loli.net/2020/10/15/BaNAWlbZJKExIHL.gif" alt="0"></p>
-<p>这一下看上去很真实，差不多到信以为真的程度，看起来有一种违和的搞笑感</p>
-<p><img src="https://i.loli.net/2020/10/15/7esZvmrMgPR9FEK.png" alt="download"></p>
-<p><strong>好活当赏</strong></p>
-<p>就在大火大热之时，B站也有人发了制作这种视频的教程，本来也就很多研究git项目的大学生会耍耍嘛，视频中用到了<strong>Google colab</strong>，通过搭建好的脚本环境输入图片和预设就能导出一个Unravel的换脸视频了，一张照片就“痛“起来了，这项操作要求你：</p>
-<p><strong>·拥有一个谷歌账号</strong></p>
-<p><strong>·拥有科学上网工具</strong></p>
-<p><strong>·拥有谷歌硬盘账号</strong></p>
-<p><strong>·一点计算机知识</strong></p>
-<p>然而这年头谷歌账号很难搞，很多人都是需要用购买，还有一大堆繁琐的步骤，而科学上网工具也需要一点互联网经验才能搞到</p>
-<p>然而，在之后，好景不长，因为这个鬼畜带有几乎以假乱真，而且对原人物也是带有很强的侮辱性，所以，教程在各大网站都被封了………………….</p>
-<h1 id="搭建Python在本地制作换脸视频"><a href="#搭建Python在本地制作换脸视频" class="headerlink" title="搭建Python在本地制作换脸视频"></a>搭建Python在本地制作换脸视频</h1><h5 id="今天的主角是著名的的项目，DeepFake一阶运动模型"><a href="#今天的主角是著名的的项目，DeepFake一阶运动模型" class="headerlink" title="今天的主角是著名的的项目，DeepFake一阶运动模型"></a>今天的主角是著名的的项目，DeepFake<strong>一阶运动模型</strong></h5><p>First Order Motion，也就是<a href="https://link.zhihu.com/?target=https://cuijiahua.com/blog/tag/%E4%B8%80%E9%98%B6%E8%BF%90%E5%8A%A8%E6%A8%A1%E5%9E%8B/">一阶运动模型</a>，来自 NeurIPS 2019 论文。</p>
-<p>相关的项目地址：</p>
-<p>·<a href="https://github.com/AliaksandrSiarohin/first-order-model">https://github.com/AliaksandrSiarohin/first-order-model</a>   （实现）</p>
-<p>·<a href="https://papers.nips.cc/paper/8935-first-order-motion-model-for-image-animation">https://papers.nips.cc/paper/8935-first-order-motion-model-for-image-animation</a>    (论文)</p>
-<p>而这次的项目是一位大佬为我们整理好的<a href="https://github.com/anandpawara/Real_Time_Image_Animation">Real_Time_Image_Animation</a></p>
-<p>又叫实时图片动画，用Python和<a href="https://github.com/anandpawara/Real_Time_Image_Animation/search">Jupyter Notebook</a>搭建，套用了一阶运动模型训练好的 VoxCeleb 数据集，通过几个脚本代码便能运行，在项目页面里面作者也写明了你要干什么才能让它运行起来了</p>
-<blockquote>
-<h1 id="Real-time-Image-Animation"><a href="#Real-time-Image-Animation" class="headerlink" title="Real time Image Animation"></a>Real time Image Animation</h1><p>The Project is real time application in opencv using first order model</p>
-<h1 id="Steps-to-setup"><a href="#Steps-to-setup" class="headerlink" title="Steps to setup"></a>Steps to setup</h1><h2 id="Step-1-Create-virtual-environment"><a href="#Step-1-Create-virtual-environment" class="headerlink" title="Step 1: Create virtual environment"></a>Step 1: Create virtual environment</h2><p><strong>Python version</strong> : python v3.7.3 or higher</p>
-<p><strong>create virual environment</strong> : <code>pip install virtualenv</code></p>
-<p><strong>activate virtual environment</strong> : <code>virtualenv env</code></p>
-<h2 id="Step-2-Activate-virtual-environment"><a href="#Step-2-Activate-virtual-environment" class="headerlink" title="Step 2: Activate virtual environment"></a>Step 2: Activate virtual environment</h2><p><strong>For windows</strong> : <code>env/Script/activate</code></p>
-<p><strong>For Linux</strong> : <code>source env/bin/activate</code></p>
-<h2 id="Step-3-Install-required-modules"><a href="#Step-3-Install-required-modules" class="headerlink" title="Step 3 : Install required modules"></a>Step 3 : Install required modules</h2><p><strong>Install modules</strong> : <code>pip install -r requirements.txt</code></p>
-<p><strong>Install pytorch and torchvision</strong> : <code>pip install torch===1.0.0 torchvision===0.2.1 -f https://download.pytorch.org/whl/cu100/torch_stable.html</code></p>
-<h2 id="Step-4-Download-cascade-file-weights-and-model-and-save-in-folder-named-extract"><a href="#Step-4-Download-cascade-file-weights-and-model-and-save-in-folder-named-extract" class="headerlink" title="Step 4 : Download cascade file ,weights and model and save in folder named extract"></a>Step 4 : Download cascade file ,weights and model and save in folder named extract</h2><p><code>gdown --id 1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK</code> The file is also availible via direct link on Google’s Drive: <a href="https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK">https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK</a></p>
-<p><strong>On Linux machine</strong> : <code>unzip checkpoints.zip</code></p>
-<p>If on windows platfrom unzip checkpoints.zip using unzipping software like 7zip.</p>
-<p><strong>Delete zip file</strong> : <code>rm checkpoints.zip</code></p>
-<h2 id="Step-5-Run-the-project"><a href="#Step-5-Run-the-project" class="headerlink" title="Step 5 : Run the project"></a>Step 5 : Run the project</h2><p><strong>Run application from live camera</strong> : <code>python image_animation.py -i path_to_input_file -c path_to_checkpoint</code></p>
-<p><strong>Example</strong> : <code>python .\image_animation.py -i .\Inputs\Monalisa.png -c .\checkpoints\vox-cpk.pth.tar</code></p>
-<p><strong>Run application from video file</strong> : <code>python image_animation.py -i path_to_input_file -c path_to_checkpoint -v path_to_video_file</code></p>
-<p><strong>Example</strong> : <code>python .\image_animation.py -i .\Inputs\Monalisa.png -c .\checkpoints\vox-cpk.pth.tar -v .\video_input\test1.mp4</code></p>
-<p><a href="https://github.com/anandpawara/Real_Time_Image_Animation/blob/master/animate.gif"><img src="https://github.com/anandpawara/Real_Time_Image_Animation/raw/master/animate.gif" alt="test demo"></a></p>
-<h3 id="TODO"><a href="#TODO" class="headerlink" title="TODO:"></a>TODO:</h3><p>Tkinter version</p>
-<p>Need work on face alignments</p>
-<p>Future plans adding deepfake voice and merging with video</p>
-</blockquote>
-<p>可能有些人看不懂，所以我带你们来一遍</p>
-<h1 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h1><h3 id="1-安装Python-3-7"><a href="#1-安装Python-3-7" class="headerlink" title="1.安装Python 3.7"></a>1.安装Python 3.7</h3><p>为啥要安装3.7版本？因为后面的torch没有3.9版本的，去Python官网下载，并配置好环境变量</p>
-<p>具体怎么百度一大堆，有手就行</p>
-<h3 id="2-安装虚拟环境库"><a href="#2-安装虚拟环境库" class="headerlink" title="2.安装虚拟环境库"></a>2.安装虚拟环境库</h3><p>win+R键，输入CMD打开终端，输入此行分别安装和创建虚拟环境库</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;pip install virtualenv&#96;</span><br><span class="line">&#96;virtualenv env&#96;</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-激活虚拟环境库"><a href="#3-激活虚拟环境库" class="headerlink" title="3.激活虚拟环境库"></a>3.激活虚拟环境库</h3><p>打开 C:\Users\Administrator\env\Scripts 打开activate.bat即可</p>
-<h3 id="4-安装第三方环境库"><a href="#4-安装第三方环境库" class="headerlink" title="4.安装第三方环境库"></a>4.安装第三方环境库</h3><p>终端 e:(把e换为你从项目下载的文件路径的盘符)</p>
-<p>cd /xxxx/xxxx/ (你项目文件的根目录)</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;pip install -r requirements.txt&#96;</span><br></pre></td></tr></table></figure>
-
-<p>输入运行即可，要一段时间，运行库很多</p>
-<h3 id="5-安装Torch"><a href="#5-安装Torch" class="headerlink" title="5.安装Torch"></a>5.安装Torch</h3><p>接着上面的操作终端输入</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;pip install torch&#x3D;&#x3D;&#x3D;1.0.0 torchvision&#x3D;&#x3D;&#x3D;0.2.1 -f https:&#x2F;&#x2F;download.pytorch.org&#x2F;whl&#x2F;cu100&#x2F;torch_stable.html&#96;</span><br></pre></td></tr></table></figure>
-
-<h3 id="6-下载数据集"><a href="#6-下载数据集" class="headerlink" title="6.下载数据集"></a>6.下载数据集</h3><p>下载 <a href="https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK">https://drive.google.com/uc?id=1wCzJP1XJNB04vEORZvPjNz6drkXm5AUK</a></p>
-<p>解压得两个vox文件放到 <strong>\Real_Time_Image_Animation-master\checkpoints</strong></p>
-<h3 id="7-安装FFmpeg解码器并配置变量"><a href="#7-安装FFmpeg解码器并配置变量" class="headerlink" title="7.安装FFmpeg解码器并配置变量"></a>7.安装FFmpeg解码器并配置变量</h3><p><a href="http://www.ffmpeg.org/">www.ffmpeg.org</a> 点windows图标下第一个build，安装好后配置环境变量</p>
-<p>怎么配置还是查百度，这个作用是可以把视频音频和视频合并，省功夫</p>
-<h3 id="8-运行脚本"><a href="#8-运行脚本" class="headerlink" title="8.运行脚本"></a>8.运行脚本</h3><p>终端 e:(把e换为你从项目下载的文件路径的盘符)</p>
-<p>cd /xxxx/xxxx/ (你项目文件的根目录)</p>
-<p>终端运行</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python image_animation.py -i path_to_input_file -c path_to_checkpoint -v path_to_video_file</span><br></pre></td></tr></table></figure>
-
-<p>path_to_input_file 是输入的模板图片</p>
-<p>path_to_checkpoint 是权重文件路径</p>
-<p>path_to_video_file 是输入的视频文件</p>
-<p>比如</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python image_animation.py -i Inputs&#x2F;x.jpg -c checkpoints&#x2F;vox-adv-cpk.pth.tar -v 1.mp4</span><br></pre></td></tr></table></figure>
-
-<p>比如这个，输入图片默认放在input文件夹，导出的视频默认在output文件夹，模板视频在根目录</p>
-<h3 id="9-大功告成"><a href="#9-大功告成" class="headerlink" title="9.大功告成"></a>9.大功告成</h3><p>在导出的文件夹(<strong>Output</strong>)就可以找到相关的视频文件</p>
-<h3 id="10-替换其他的视频模板"><a href="#10-替换其他的视频模板" class="headerlink" title="10.替换其他的视频模板"></a>10.替换其他的视频模板</h3><p>原项目文档已经说明，你需要把视频模板裁剪为256x256大小，这个我推荐使用<strong>Premiere</strong>或者<strong>Vegas</strong>视频编辑软件，相关教程去百度查</p>
-<p>输出的视频尺寸最好是正方形的，否则输出视频会把你的长方形比例照片弄成正方形的，会使人看起来很扁（笑），模板最好是正面的，表情不要太夸张</p>
-<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>这种技术在某些情况下很侮辱人，请勿滥用</p>
-]]></content>
-      <categories>
-        <category>计算机</category>
-      </categories>
-      <tags>
-        <tag>计算机</tag>
-        <tag>Python</tag>
-        <tag>教程经验</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>站点故障</title>
-    <url>/2020/12/13/siteissue/</url>
-    <content><![CDATA[<h1 id="2021-3-00"><a href="#2021-3-00" class="headerlink" title="2021-3-00"></a>2021-3-00</h1><h3 id="站点内的一些图片已经失效了，原因是之前图片寄存的图床炸了，导致了这种情况发生，有时间会对图片进行重新上传，并寻找更加可靠的图床供应商"><a href="#站点内的一些图片已经失效了，原因是之前图片寄存的图床炸了，导致了这种情况发生，有时间会对图片进行重新上传，并寻找更加可靠的图床供应商" class="headerlink" title="站点内的一些图片已经失效了，原因是之前图片寄存的图床炸了，导致了这种情况发生，有时间会对图片进行重新上传，并寻找更加可靠的图床供应商"></a>站点内的一些图片已经失效了，原因是之前图片寄存的图床炸了，导致了这种情况发生，有时间会对图片进行重新上传，并寻找更加可靠的图床供应商</h3><h3 id="—管理员"><a href="#—管理员" class="headerlink" title="—管理员"></a>—管理员</h3>]]></content>
-  </entry>
-  <entry>
-    <title>Docker-Desktop中压缩虚拟磁盘(VHDX)的大小</title>
-    <url>/2020/11/20/windockecompressr/</url>
-    <content><![CDATA[<p><img src="https://ftp.bmp.ovh/imgs/2021/01/58446f843eb879e4.jpg"></p>
-<h1 id="相关问题"><a href="#相关问题" class="headerlink" title="相关问题"></a>相关问题</h1><p>在Win10上使用Docker-Desktop时，当我删除了差不多5G的镜像文件中，发现Docker对于磁盘的占用依旧没有什么变化，仍然有8G的空间占用</p>
-<p>在Win10上运行Docker，除了早期的VirtualBox方式之外，往往有两种方式，一种是Hyper-V，一种是WSL，无论是两种中的哪一种，都使用VHDX虚拟磁盘文件来存放Docker的镜像和容器数据，然而虚拟磁盘是弹性的方式扩展空间的，你使用多少虚拟磁盘的空间自动扩展到多少，但是当你删除文件缩小虚拟磁盘空间的使用时，虚拟磁盘并未缩小</p>
-<a id="more"></a>
-
-
-
-<p><a href="https://imgchr.com/i/D3p4AA"><img src="https://s3.ax1x.com/2020/11/21/D3p4AA.png" alt="D3p4AA.png"></a></p>
-<p><a href="https://imgchr.com/i/D3pIht"><img src="https://s3.ax1x.com/2020/11/21/D3pIht.png" alt="D3pIht.png"></a></p>
-<p>这也要归功于微软没有加入自动压缩虚拟磁盘的功能，然而在Docker里面是否会添加这种机制呢，然而并没有，虽然社区上有人向微软和Docker反应添加这种功能，然而我并没有看到两个软件添加了这种机制，可能是有什么原因？</p>
-<p><a href="https://imgchr.com/i/D3pLng"><img src="https://s3.ax1x.com/2020/11/21/D3pLng.png" alt="D3pLng.png"></a></p>
-<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h3 id="Hyper-V"><a href="#Hyper-V" class="headerlink" title="Hyper-V:"></a>Hyper-V:</h3><p>尝试用Powershell以管理员运行以下代码，或者你可以把此保存为ps1文件执行</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#region 管理员身份运行</span><br><span class="line">$currentWi &#x3D; [Security.Principal.WindowsIdentity]::GetCurrent()</span><br><span class="line">$currentWp &#x3D; [Security.Principal.WindowsPrincipal]$currentWi</span><br><span class="line"> </span><br><span class="line">if( -not $currentWp.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))</span><br><span class="line">&#123;</span><br><span class="line">  $boundPara &#x3D; ($MyInvocation.BoundParameters.Keys | foreach&#123;</span><br><span class="line">     &#39;-&#123;0&#125; &#123;1&#125;&#39; -f  $_ ,$MyInvocation.BoundParameters[$_]&#125; ) -join &#39; &#39;</span><br><span class="line">  $currentFile &#x3D; (Resolve-Path  $MyInvocation.InvocationName).Path</span><br><span class="line"> </span><br><span class="line"> $fullPara &#x3D; $boundPara + &#39; &#39; + $args -join &#39; &#39;</span><br><span class="line"> Start-Process &quot;$psHome\powershell.exe&quot;   -ArgumentList &quot;$currentFile $fullPara&quot;   -verb runas</span><br><span class="line"> return</span><br><span class="line">&#125;</span><br><span class="line">#endregion</span><br><span class="line"></span><br><span class="line">#region 运行以下代码</span><br><span class="line">docker system prune -a -f</span><br><span class="line">net stop com.docker.service</span><br><span class="line">taskkill &#x2F;F &#x2F;IM &quot;Docker Desktop.exe&quot;</span><br><span class="line">stop-vm DockerDesktopVM</span><br><span class="line">Optimize-VHD -Path &quot;虚拟磁盘路径&quot; -Mode Full</span><br><span class="line">start-vm DockerDesktopVM</span><br><span class="line">start &quot;Docker程序路径&quot;</span><br><span class="line">net start com.docker.service</span><br><span class="line">#endregion</span><br></pre></td></tr></table></figure>
-
-<h3 id="WSL2"><a href="#WSL2" class="headerlink" title="WSL2:"></a>WSL2:</h3><p>尝试用Powershell以管理员运行以下代码，或者你可以把此保存为ps1文件执行</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#region 管理员身份运行</span><br><span class="line">$currentWi &#x3D; [Security.Principal.WindowsIdentity]::GetCurrent()</span><br><span class="line">$currentWp &#x3D; [Security.Principal.WindowsPrincipal]$currentWi</span><br><span class="line"> </span><br><span class="line">if( -not $currentWp.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))</span><br><span class="line">&#123;</span><br><span class="line">  $boundPara &#x3D; ($MyInvocation.BoundParameters.Keys | foreach&#123;</span><br><span class="line">     &#39;-&#123;0&#125; &#123;1&#125;&#39; -f  $_ ,$MyInvocation.BoundParameters[$_]&#125; ) -join &#39; &#39;</span><br><span class="line">  $currentFile &#x3D; (Resolve-Path  $MyInvocation.InvocationName).Path</span><br><span class="line"> </span><br><span class="line"> $fullPara &#x3D; $boundPara + &#39; &#39; + $args -join &#39; &#39;</span><br><span class="line"> Start-Process &quot;$psHome\powershell.exe&quot;   -ArgumentList &quot;$currentFile $fullPara&quot;   -verb runas</span><br><span class="line"> return</span><br><span class="line">&#125;</span><br><span class="line">#endregion</span><br><span class="line"></span><br><span class="line">#region 运行以下代码</span><br><span class="line">docker system prune -a -f</span><br><span class="line">net stop com.docker.service</span><br><span class="line">taskkill &#x2F;F &#x2F;IM &quot;Docker Desktop.exe&quot;</span><br><span class="line">wsl --shutdown</span><br><span class="line">Optimize-VHD -Path &quot;虚拟磁盘路径&quot; -Mode Full</span><br><span class="line">wsl</span><br><span class="line">start Docker程序路径&quot;</span><br><span class="line">net start com.docker.service</span><br><span class="line">pause</span><br><span class="line">#endregion</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>计算机</category>
-        <category>服务器&amp;网络</category>
-      </categories>
-      <tags>
-        <tag>计算机</tag>
-        <tag>教程经验</tag>
-        <tag>运营维护</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>自制渣翻字幕-虚渊玄主笔军事动漫OBSOLTE</title>
-    <url>/2020/10/22/obsolete/</url>
-    <content><![CDATA[<h1 id="OBSOLETE"><a href="#OBSOLETE" class="headerlink" title="OBSOLETE"></a>OBSOLETE</h1><p>想必很多看动漫的小年轻都知道虚渊玄，咱们的<strong>爱的战士</strong>，作为日本动漫作品创作鬼才，其在日漫这种浪漫主义作品中喜欢给你插入猝不及防的现实主义元素，善于运用把浪漫世界中美好之物一个个毁灭给你看的希腊式悲剧笔法:</p>
-<p><strong><em>它一定有令人悲痛的结局，往往是生离死别；他一定讲的是一个无辜的人，一个道德完善的英雄，遭受了不幸。</em></strong></p>
-<p><img src="https://i.loli.net/2020/10/24/U3ud2VCiQ5sabz1.jpg" alt="u=188288523,2253095310&amp;fm=26&amp;gp=0"></p>
-<p>老虚笔下的一个个作品都让你感受到了一次次心灵的洗礼。</p>
-<p>爱的战士老虚先后作有 《沙耶之歌》 《Fate》 《魔法少女小圆》，《心理测量者》 等作品，在其锋韧如刀的笔下突显了各个深刻的主题</p>
-<p>而日本动漫常常以魔幻世界或现实生活为背景，且又偏向讲述一个个高中生突然觉醒拯救世界之类的故事，但这次却是一个部军事动漫。日本的军事类动漫较多的只是其中包含军事的元素，但军事元素细节和对军事的讲述却很显不足，硬军事元素在日漫中常常缺少，但此类动漫也受国内军迷的爱戴，但很多主要是馋作品中一些人物的身子，却不是军事元素。<br>这次老虚以军事，机甲等主题的融合又会诞生出什么样的作品，很受期待。</p>
-<p>在2019年12月的时候OBSOLETE在Youtube由南梦宫代理播出，第一时间<br>便找资源并查找相关的翻译字幕，但发现缺少资源，于是自己开始对动漫的字幕工作。<br>在2019年12月中旬，完成了对OBSOLETE发布的6集的字幕工作，由于水平有限，难免有许多细节上的错误，但大致的意思应该是不会错，哈哈…………</p>
-<p><a href="https://imgchr.com/i/BVdZMF"><img src="https://s1.ax1x.com/2020/10/24/BVdZMF.png" alt="BVdZMF.png"></a></p>
-<a id="more"></a>
-
-<p><img src="https://i.loli.net/2020/10/23/yRVugpJwo49scqx.png" alt="image-20201023125846569"></p>
-<p><a href="https://imgchr.com/i/BAAB6J"><img src="https://s1.ax1x.com/2020/10/23/BAAB6J.jpg" alt="BAAB6J.jpg"></a><br><em>声明:动漫版权为南梦宫株式会社所有，该字幕仅仅提供交流学习之用，相关资源请24小时内删除</em></p>
-<p>链接:<a href="https://pan.baidu.com/s/1Ezdi3EiSQOgtJ3mc0GZbPw#/">https://pan.baidu.com/s/1Ezdi3EiSQOgtJ3mc0GZbPw#/</a><br>PassW0rd:j3n4</p>
-<p>不过现在快过去1年了，其他字幕也层出不穷，但是，OBSOLETE依旧是6集，而官方推特也天天在更新，<strong>莫非老虚这伙也摸了一年鱼？</strong></p>
-<p>OBSOLETE采用2.5D画面，美术设计方面十分不错，其在画面方面的优秀也是不容置疑的。<br>人物设定还是不错的，风并不是传统日漫的画风而比较写实，所以画面细节上也对比其他日漫来说非常优秀<br><a href="https://imgchr.com/i/BAAeTP"><img src="https://s1.ax1x.com/2020/10/23/BAAeTP.gif" alt="BAAeTP.gif"></a></p>
-<p>2014年，突然现身的外星人「佩多拉」向地球人提出「交易」，以石灰岩作为交换，地球人获得了比战机、战车、枪更便宜好用，任谁都能轻易驾驶的意识控制型泛用机器人「EXOFRAME」，并迅速扩散于全球，既能作为交通工具、工业机械，亦可成为战争机器…。2015年，首场以EXOFRAME作为武器的战事爆发，看似充满好处且和平的交易背后，隐藏的真相究竟为何…？</p>
-<p>在前六集里，故事讲述了人型机甲对地球政治，军事，商业的影响</p>
-<p>作画上该动漫的军事细节很到位，比如西方军队的宙斯盾系统，Scar改的<br>EXOFRAME枪，M1坦克，南美军队的苏式装备，还有各国的各种军队<br><a href="https://imgchr.com/i/BAAllQ"><img src="https://s1.ax1x.com/2020/10/23/BAAllQ.gif" alt="BAAllQ.gif"></a><br>描述的战争局面中各国与组织甚至是人是非常贴近现实，其中也反映了一些反战的主题<br><a href="https://imgchr.com/i/BAANkV"><img src="https://s1.ax1x.com/2020/10/23/BAANkV.gif" alt="BAANkV.gif"></a><br>虽然这些对军事的描述和处理对于军迷来说远远达不到他们的要求，但在对比日漫中来说是相当丰富的</p>
-]]></content>
-      <categories>
-        <category>文化</category>
-      </categories>
-      <tags>
-        <tag>人文</tag>
-        <tag>分享</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>来自八年前过时但强大的文件多功能服务器</title>
-    <url>/2020/10/20/weezo/</url>
-    <content><![CDATA[<h1 id="文件共享服务器"><a href="#文件共享服务器" class="headerlink" title="文件共享服务器"></a>文件共享服务器</h1><p>如果你想搭建一个文件共享服务器来作私人云盘，你会选择什么，现在有很多服务软件可选，像可道云，易有云，NextCloud，Seafile，Cloudreve，Z-File，各有特色，功能强大，开源或者不开源，有些搭建简单有些搭建复杂。</p>
-<p>比如我喜欢用的可道云，界面华丽，内置微型桌面，有各种插件和支持，功能多样</p>
-<p><strong>但今天要介绍一下Weezo</strong></p>
-<p><img src="https://i.loli.net/2020/10/24/uw1HLA75X3sFPWN.jpg" alt="u=2074893334,862763281&amp;fm=15&amp;gp=0"></p>
-<a id="more"></a>
-
-
-
-<h1 id="初探"><a href="#初探" class="headerlink" title="初探"></a>初探</h1><p>但我今天并不是吹可道云怎么怎么好的，前段时间在找各种文件服务器的时候，找到一个已于2014年停止更新的文件服务器解决方案，初上手后觉得似乎很像模像样</p>
-<p>来自于21世纪10年代初期的软件图形化设计，当时还是偏向于立体拟物化的，在色彩方面也不是很讲究</p>
-<p>所以，在深入了解Weezo后，我发现它不止是像模像样的程度了，他有:<br>· <strong>文件服务功能</strong><br><strong>· 博客空间功能</strong><br><strong>· 管理面板功能</strong><br><strong>· 影音中心功能</strong><br><strong>· 照片管理功能</strong></p>
-<p>甚至有:</p>
-<p><strong>· 远程桌面功能</strong><br><strong>· RSS功能</strong><br><strong>· 公网映射，邮箱，社交账号功能</strong><br><strong>· 网络摄像头功能</strong></p>
-<p><strong>部署难度呢？</strong></p>
-<p><strong>一键安装，自动配置Apache，PHP，SQLlite，仅支持Windows，全过程图形化，而且你无法想象它是一个差不多10年前的软件</strong></p>
-<p>所以再看现在类似的私有云解决方案，虽然功能全面，界面优美，但比起Weezo的功能高度集成化和友好度，在很多方面还是略逊一筹</p>
-<h1 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h1><p><strong>很简单，使用安装包进行部署，安装包也就50M，安装除了路径全部默认设置，Weezo也会给我们配置好所需的Web环境</strong></p>
-<p><img src="https://i.loli.net/2020/10/24/93ROkcErxD8JTiu.png" alt="image-20201024205408858"></p>
-<p><strong>打开服务器，一个启动窗口下就在刷啦啦的打开各种服务，于是我们就部署完成，可以看到软件面板了，在Win10下界面显示会有点问题，但并不影响使用</strong></p>
-<p><strong>所以，就像平时安装软件一样，点几下Step咱们的文件服务器就部署完成了</strong></p>
-<p><img src="https://ftp.bmp.ovh/imgs/2021/04/3c0551a35c236aa2.png"></p>
-<p><strong>我们设定好了管理员密码后，在浏览器输入你的设备的ip，然后就是让人怀念的登陆界面</strong></p>
-<p><img src="https://ftp.bmp.ovh/imgs/2021/04/a79380254c87b3f0.png"></p>
-<p><strong>登陆进入后，就可以看见个心情墙之类的，放在以前，可以像QQ空间一样发个说说之类的吧~</strong></p>
-<p><img src="https://ftp.bmp.ovh/imgs/2021/04/5576c9b788ab0cea.png"></p>
-<h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><p><strong>登陆后界面还是较为空白，但我们可以看到这个界面很像是Windows Vista的窗口设计，然而这仅仅只是一个网页而已，在那时就可以实现类似视窗的界面了，我们可以对打开的窗口最大化，最小化，简直就像在网页中使用windows</strong></p>
-<p><strong>进入软件面板，我们先对账户和各种权限设置一下，之后我们便可以添加各种服务</strong></p>
-<p><img src="https://i.loli.net/2020/10/23/MksiUKx34IaL7lz.png" alt="image-20201023140717644"></p>
-<p><img src="https://i.loli.net/2020/10/23/ImVhgcU3z49DtAJ.png" alt="image-20201023140659549"></p>
-<p><strong>当然作为文件共享服务，我们先试试文件共享服务。文件共享支持你对电脑多个目录进行共享，对此分别设置各用户的权限等，我们现在添加两个文件目录</strong></p>
-<p><img src="https://i.loli.net/2020/10/25/tLvlWay6sBAphNi.png" alt="image-20201023140815747"></p>
-<h4 id="文件浏览器"><a href="#文件浏览器" class="headerlink" title="文件浏览器"></a>文件浏览器</h4><p><strong>文件浏览器方面：在页面端他的文件目录已经很贴近windows的资源管理器了，我们可以进行删除，拷贝，剪切，下载等功能，支持图标缩放，这使我想起了现在的可道云</strong></p>
-<p><img src="https://i.loli.net/2020/10/23/GdEN1BeqHiscI2R.png" alt="image-20201023140937080"></p>
-<p><strong>支持读取文本，音乐，视频，照片，音乐</strong></p>
-<p><img src="https://i.loli.net/2020/10/24/bAxmM3Pk6YiHCyf.png" alt="image-20201024210449043"></p>
-<p><strong>管理照片，音乐，视频中，点击相应媒体文件会显示该媒体文件的元数据</strong></p>
-<p><strong>包括音乐的标题/专辑/年份/艺术家 照片或视频的分辨率/作者等</strong></p>
-<p><img src="https://i.loli.net/2020/10/24/gPV6qc27m8LaYfC.png" alt="image-20201024210556089"></p>
-<p><strong>下载功能还支持URL下载与种子下载，以及本地的批量下载与上传；当然，种子下载现在不可用了</strong></p>
-<p><img src="https://i.loli.net/2020/10/24/1EJ5WikdDYbgRU8.png" alt="image-20201024211723034"></p>
-<h4 id="管理面板"><a href="#管理面板" class="headerlink" title="管理面板"></a>管理面板</h4><p><strong>管理面板功能，依旧很惊艳，把访问人数和资源都画成图表便于查看</strong></p>
-<p><img src="https://i.loli.net/2020/10/24/BXA67pRkPDEKy8C.png" alt="image-20201024210034004"></p>
-<p><strong>还可以查看日志</strong></p>
-<p><img src="https://i.loli.net/2020/10/24/8vGNWuagnzIeklB.png" alt="image-20201024210108852"></p>
-<p><strong>然后是远程桌面，这也太牛了，没想到一个文件服务器居然还集成了这种功能，如图，我们可以在网页中操控我的设备，但对于现在来说操控有些卡顿了</strong></p>
-<p><img src="https://i.loli.net/2020/10/24/vBVxncOA2EFQg7u.png" alt="image-20201024212119155"></p>
-<h4 id="相册功能"><a href="#相册功能" class="headerlink" title="相册功能"></a>相册功能</h4><p><strong>相册功能，我们可以添加相片进去，成为便于储存与展示照片的相册</strong></p>
-<p><img src="https://i.loli.net/2020/10/24/ik1jPN7FIG4TKQ9.png" alt="QQ截图20201024212846"></p>
-<h4 id="视频功能"><a href="#视频功能" class="headerlink" title="视频功能"></a>视频功能</h4><p><strong>视频功能，我们可以添加视频进行，之后可以在网页上播放，Weezo可以使用Flash，QuickTime，M2U播放</strong></p>
-<p><strong>但Weezo的播放方式相对现在来说早已过时</strong></p>
-<p><strong>鼠标放在文件上还可以像电脑端B站网页把鼠标放在视频框该视频框机会动起来，小窗预览，厉害</strong></p>
-<p><img src="https://i.loli.net/2020/10/24/CqvWpmIS9Bkrsdj.png" alt="image-20201024214002275"></p>
-<h4 id="音乐库功能"><a href="#音乐库功能" class="headerlink" title="音乐库功能"></a>音乐库功能</h4><p><strong>音乐库，感觉很厉害的样子，旧瓶装新酒</strong></p>
-<p><strong>有播放列表功能，可以根据专辑或艺术家进行排序</strong></p>
-<p><img src="https://i.loli.net/2020/10/24/hDxCPlogz8ULSIQ.png" alt="image-20201024215107330"></p>
-<h4 id="其他一些有意思的功能"><a href="#其他一些有意思的功能" class="headerlink" title="其他一些有意思的功能"></a>其他一些有意思的功能</h4><p>· <strong>聊天功能</strong></p>
-<p><strong>梦 回 网 络 聊 天 室</strong></p>
-<p><img src="https://i.loli.net/2020/10/24/krbh45xmeMtP3Aq.png" alt="image-20201024215723630"></p>
-<p>· <strong>网络摄像头功能</strong></p>
-<p><strong>好吧，我也不知道具体有什么用</strong></p>
-<p><img src="https://i.loli.net/2020/10/24/o5LzGJa9lND6fpx.png" alt="image-20201024215842851"></p>
-<p>· <strong>博客功能</strong></p>
-<p><strong>写点文章然后分享到你的用户组吧~</strong></p>
-<p><img src="https://i.loli.net/2020/10/24/3ESKialBzYoPUWc.png" alt="image-20201024220108137"></p>
-<p>· **RSS源功能 **</p>
-<p><strong>这东西这么老了，我还记得我8年前在诺基亚手机桌面添加了好多源，啥科学松鼠会，微软学术之类的，现在的许多源都停止更新了，还保留着上世代互联网的味道</strong></p>
-<p><img src="https://i.loli.net/2020/10/24/ywOPg53BnoNhqL8.png" alt="image-20201024220859056"></p>
-<p>· <strong>网络电视</strong></p>
-<p><strong>8年前的文件服务器集成直播点播功能，还有视频库功能，好家伙，放在现在，莫非是</strong></p>
-<p><strong>简易Jellyfin/EMBY</strong></p>
-<p><strong>可惜现在都已经没用了，惊人的是还自动集成了各个国家的播放源，简直友好到不行</strong></p>
-<p><img src="https://i.loli.net/2020/10/24/Y8DXEg2OyTRWjw5.png" alt="image-20201024221140997"></p>
-<p><strong>这些功能如果你感兴趣的话可以下载Weezo来体验一下，功能还是很丰富的，也不止我现在介绍的这些</strong></p>
-<h1 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h1><p><strong>Weezo使用的是老版本的apache和php，php的版本也只有5.2，对于现在的web环境和软件环境来说容易会有一些问题，比如在中文名称下会导致名称显示不全，无法设置中文路径等</strong></p>
-<p><strong>GROUPS-用户设置</strong></p>
-<p><strong>用户设置里面我们可以添加用户，设置用户密码，设置其权限等</strong></p>
-<p><strong>添加用户后，你想要用户使用哪几项功能，就可以在Assigned Resource里面进行设置，你还可以设置单独用户的主题</strong></p>
-<p><img src="https://i.loli.net/2020/10/23/X8NRjKtH7dTF3ef.png" alt="image-20201023140511116"></p>
-<p><strong>RESOURCES-功能设置</strong></p>
-<p><strong>点击加号添加你想要的功能吧</strong></p>
-<hr>
-<p><strong>在添加文件功能的时候要特别注意中文文件及文件夹的问题，为了功能的正常，建议添加英文文件夹或者文件，但添加中文文件并不是不可行</strong></p>
-<p><strong>如果你要添加中文文件夹，你必须在File那一栏把模式切换为 File and Floder 而不是 Contents a directory，如果你该开启Weezo服务，你需要等待一会就像下面一样可以显示中文文件夹，之后再添加就好</strong></p>
-<p><strong>中文文件及文件夹在刚启动Weezo服务时同样不能被读取</strong></p>
-<p><img src="https://i.loli.net/2020/10/24/1Bh8FCxGR2Hgb6K.png" alt="image-20201024221344194"></p>
-<p><strong>Weezo有上传文件大小限制，可以在设置里设置限制大小，但设置里面最多也只能设置1G，这时候可以去配置文件里面设置超过1G的大小 C:\Users\Administrator\AppData\Roaming\Weezo\data</strong></p>
-<p><img src="https://i.loli.net/2020/10/24/9akIdlWibofP5Gm.png" alt="image-20201024222144483"></p>
-<p><strong>在Configration里面的Server就可以看到最大传输文件大小已经是10240了</strong></p>
-<p><img src="https://i.loli.net/2020/10/25/LcJKqFfnCumGs4l.png" alt="image-20201024221531530"></p>
-<hr>
-<p><strong>Activity-查看服务器状态</strong></p>
-<p><strong>包括文件传输和日志</strong></p>
-<p><strong>Configuration-配置</strong></p>
-<p><strong>General Preferences 基本设置下可以设置服务模式</strong></p>
-<p><strong>启动模式如果你想开机自启把Run With System打开，并且由于自启要管理员权限你需要在启动模式下设置Service，，由于软件兼容性问题不要动其他的基本设置，其他各项设置如图下就好</strong></p>
-<p><strong>在下面显示了程序的主路径，环境路径，www文件路径</strong></p>
-<p><img src="https://i.loli.net/2020/10/23/idKrWaPmeMYVfkx.png" alt="image-20201023140404379"></p>
-<p><strong>Server-服务器设置</strong></p>
-<p><strong>可以设置服务器地址，端口号，SSL，upnp，还有网络环境，签名证书，日志等</strong></p>
-<p><strong>但网络环境配置啥的也基本不要动，默认设置或者如图下就好</strong></p>
-<p><img src="https://i.loli.net/2020/10/24/RIsaPD6e5K2MHxc.png" alt="image-20201024221800355"></p>
-<p><strong>Appearance-外观设置</strong></p>
-<p><strong>设置壁纸，主题等，这点很像可道云</strong></p>
-<p><strong>还可以设置提示音</strong></p>
-<p><img src="https://i.loli.net/2020/10/24/9LF38cnDTJzlGpU.png" alt="image-20201024221846699"></p>
-<p><strong>有很多主题，都是当时流行的一些操作系统的UI，当然，也可以登陆到web里面设置主题和网页标题</strong></p>
-<p><img src="https://i.loli.net/2020/10/24/Iwxu2YCLbXDRsPU.png" alt="image-20201024205758602"></p>
-<p><strong>Miscellaneous-杂类</strong></p>
-<p><img src="https://i.loli.net/2020/10/24/PsxS3MJftzvZu5a.png" alt="image-20201024221957299"></p>
-<p><strong>用户连接设置/文件传输设置/消息通知/封面设置</strong></p>
-<p><strong>用户连接设置主要是连接设置密码加密啥的，默认勾选，保持默认设置就好。</strong></p>
-<p><strong>文件传输可开启：文件评分功能/隐藏受保护文件/隐藏文件扩展名/阻止进入系统文件夹/组织远程执行文件/阻止下载文件/阻止编辑文件等</strong></p>
-<p><strong>还可以设置文件上传限制</strong></p>
-<hr>
-<p><strong>远程管理Weezo设置，需要添加远程管理员功能</strong></p>
-<p><img src="https://i.loli.net/2020/10/24/BfM1up3QlORj9ZE.png" alt="image-20201024205843284"></p>
-<p><strong>可以在网页中设置Weezo桌面服务端的设置</strong></p>
-<p><img src="https://i.loli.net/2020/10/24/VpYRyOsEv9dwzPb.png" alt="image-20201024210010997"></p>
-<p><strong>还包含终端界面来对计算机进行管理</strong></p>
-<p><img src="https://i.loli.net/2020/10/24/BwtVrGm6nWu87SY.png" alt="image-20201024210233443"></p>
-<hr>
-<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>在我之前的文章中，我使用我家云刷入了各程序的集成类固件来作个人服务器用，里面通过集成了armbian+omv+导航+web环境+FB+私有云+jellyfin+lychee+WordPress等才构成了一个功能完整的NAS服务器，即使是集成了也还需要一些配置，而且也要求使用者有一定的计算机知识才能完整的来使用各项功能</p>
-<p>如果你也要集成十年前的如上所说的私有云+影音+博客+直播点播+服务器管理服务，那还是相当困难的，但是Weezo可以轻松实现如上的一些功能，即使是有些功能来说相对简单，可玩性弱</p>
-<p>但换作十年前的目光，再加上一些可以简单满足你以上要求的功能全面集成在了一个程序当中，再加上部署简单，界面与操作友好，轻量化，有社区支持和社区化设计，并且有些功能的设计，和高度的集成化Wezzo也算划时代设计了</p>
-<p>即使放在今天，依旧可以拿来使用，比如在我的Windows系统的个人计算机中，它就作为了我用个人计算机搭建的小型个人服务器，我依旧可以把影音文件放在磁盘中，通过Weezo挂载到服务器中进行管理，在局域网使用各种设备来远程使用这些文件，很多在线功能已经不能使用，但如果放在那个时候，你的服务器体验会更佳</p>
-<p>至于为何这个程序在国内甚至是国外都人皆不闻之，只可能是因为时代的问题了，那时候互联网普及还不高，网络带宽小，人们对这类功能的需求量也非常少，在那个你拿个诺基亚，不能连接wifi，还只是通过3G网络下载几百Kb的文件，基本对于个人用户来说根本不需要这一功能，这个软件在那个时代应该在国外的新兴互联网公司内会很受欢迎，而且需求量大，所以在那个时代只是被几个少数程序员感兴趣的软件，自然由于网络框架及软件工具的变化而被开发团队的放弃支持，从而被淡出历史舞台了</p>
-]]></content>
-      <tags>
-        <tag>计算机</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>哈？</title>
-    <url>/2020/10/15/%E5%93%88%EF%BC%9F/</url>
-    <content><![CDATA[<hr>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: </span><br><span class="line">date: 2020-10-15 18:52:07</span><br><span class="line">tags:</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-
-
-
-<a id="more"></a>
-
-
-
-<p>
-    <iframe name="iFrame1" width="780" height="480" src="/pages/font1/index.html" scrolling="yes" frameborder="1"></iframe>
-</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-]]></content>
-  </entry>
-  <entry>
-    <title>学习笔记系列</title>
-    <url>/2020/10/01/learnote/</url>
-    <content><![CDATA[<div id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容">
-  <div class="hbe-input-container">
-  <input type="password" id="hbePass" placeholder="" />
-    <label for="hbePass">您好, 这里需要密码.</label>
-    <div class="bottom-line"></div>
-  </div>
-  <script id="hbeData" type="hbeData" data-hmacdigest="ed65a38ecc53ff6b705ffc8b5225b57bd665a543fa9dcce79a9dd43cec973276">d23a6ea4237b63f881a6a63a0bbfe921b8b69a6fe1cea5a83acbe7f4f4f99435cb08060d0ad3717f0f261e18abcada9ea394baffa5fc3a472c78cef89c3b964c52635668547fcefedb212f0a611ae96d573a16c8ddcadad5ad7274702801424bcdc8b136e5b5c19f393cec6e32de6034e3d846081998dc7fb67b2a40325f1214d9b781b87adc5ff65e0d4664303729e1f8cb684690e2aead4b008acc44ec8132f9c2899bb4b879f00f17ba6c747fa649862e87ba8945ef8e5404fd0b91d45e78859954a2fde763508cb1ed2ca0fdaecab20c00c8c5ed49004c7a948ce67b209ec26edce03da5971c28c0fc6d5b23b688e3d063c4729212517ff89d309af302f51bf6c07157c4efe40d2765ea14a23eb66b7aa5d3d2bcde3e5085128c59bfd57f7a151dde2536f05a897f735255bbe1345f6bbfd389ebdbcc356fc43b96e15563ca475ddbf76a71d9543d7b92164290b51216b80f6250709b008b7876814e4758f56230bc94280bf7404e367c14859b234053b8eccb414a3d6c61c308109eb750fd55aa58711358ca980c808c2396ae6b5a6b556711133ce3eae71f7ef04f857127267117d0e5c4cbb8b87a37e2d2eda8818764bb15e17301056e80e7da55e39c05ef0520bde997bde2df1062fb73eb2171ec026719588042092571e81a344b21d3f7ebd62a8efc10390c0afab0b23bfbc78dc83ca4da766ab315b8eed493569695eba225a8498d6b5253715c54a60369e7e4d263e8a52074bd46fd8ba4c6f82229f0a3ecc75fa7ca08572b1a2ce1af35213dc49daa049fe9ed1eebea3091fc6d931769aee009c232d06c00508d7918883b66cafe5400de468b2124d957b35d37d4191d2d3b9376f3e37e185c349e900a62a56349ad2ffff7e46b4c6571977e69f60c3721a96632fa917c3455c8cc12a03c539407e5b90dfb23ce44d7ff0aad1e2307ab29d41dbe890005d3d19a526263a3e6611c135324d2aea1632686d6fa5e4bdf6b0d03f48d87a5870cf06e5b2d564665744c398a9ab35f515d9d1a4e67af66f55aaeaff1ee1524676d5b415fdf28be2afdc3e822ec8f908bc9c1bfe38b732f281e0a8f6d5e5feefa89a13077017d8b39f2df7d016ccb4d34af3dfcb36e1e8aa123c1924951690616d2738716414a97c2726af4bc8af836b5f2e0585756f8cdc9f5eb1bb81e82d1f45700df68e2170996a68bc8af7cf5d26776e3b3585229ace8dddbdebd693c0db7b7904cd250fe309ef6dec72112f91476bf5acc3f0a7f60857375254ed70622cf07ebac01c8eff16c7b2448a19becf74dde59ee56e975bee886084f0bad361566d9f49e11f8e21310b7a3648d86611b41f78dea68caeff53cb8250e99eaf6ed94dde48b3fa999bd8bb862430ee8337e5d3a7927ddf92a3828fd3df81472e445b79800fffd87d2b75fb2fc4f6289da5176f76ff729be1451b805486bc3427a41a0b82ed9dbc0cb0acadacc9b40c1e3e8106fa471c455ccb1ef5a04de909e605b3b30cd73764192</script>
-</div>
-<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
   </entry>
 </search>
